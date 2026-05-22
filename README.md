@@ -69,7 +69,7 @@ Turn-based combat engine for a 2D RPG. ScriptableObject data layer with runtime 
 
 **Languages:** Python · JavaScript · C# · SQL · PHP
 
-**Backend:** FastAPI · Django · Node.js · Laravel · SQLAlchemy · Pydantic
+**Backend:** FastAPI · Django · Flask · Node.js · Laravel · SQLAlchemy · Pydantic
 
 **Infrastructure:** Redis · PostgreSQL · SQLite · Docker · APScheduler
 
