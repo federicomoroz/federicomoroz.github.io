@@ -8,9 +8,9 @@ Buenos Aires, Argentina &nbsp;·&nbsp; Open to remote
 
 ## Background
 
-In my last role I owned end-to-end a system processing **~2,100 transactions/month** — integrating multiple external APIs, automating validations and traceability, and cutting per-transaction processing time from **~10 minutes to ~5 seconds**.
-
-I focus on systems that are correct by design: layered architecture, explicit contracts between components, and tests that verify behavior rather than implementation.
+I build backend systems that are correct by design: layered architecture, explicit contracts between components, and tests that verify behavior rather than implementation.                                                                                                                          My recent work spans distributed task queues, API gateways with circuit breakers, multi-channel notification engines, and an AI-powered platform using the Claude API with real-time SSE streaming — all deployed and   tested.                                                  
+I also have hands-on experience integrating external APIs at scale: one system I built processes ~2,100 transactions/month and cut per-transaction time from ~10 minutes to ~5 seconds.
+If your system needs to keep running when something breaks, I'm the person you bring in.
 
 ---
 
