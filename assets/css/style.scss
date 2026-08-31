@@ -5,69 +5,64 @@
 /* =============================================================================
  * Federico Moroz — hoja de estilos del portfolio.
  *
- * PALETA: todo el color vive en el bloque `:root` de abajo (y su contraparte
- * dark). Para reestilar el sitio entero se tocan esas variables y nada mas —
- * ninguna regla de mas abajo hardcodea un color.
+ * Tema OSCURO, comprometido: no hay variante clara. La referencia visual
+ * (design/FedericoMoroz-Pages-referencia.pdf en el repo padre) es dark, con
+ * un mesh gradient magenta -> violeta -> indigo sobre negro, textura de puntos
+ * y arcos finos luminosos.
  *
- * Estado: neutro a proposito. Pendiente reemplazar por la paleta y tipografia
- * que salgan del PDF de referencia.
+ * PALETA: todo el color vive en el bloque `:root`. Ninguna regla mas abajo
+ * hardcodea un color. Los stops del gradiente estan muestreados del PDF.
+ *
+ * El fondo decorativo es CSS puro (radial-gradients + textura). A proposito:
+ * el sitio no depende de ninguna imagen, pesa lo mismo y escala a cualquier
+ * pantalla sin assets extra.
  * ========================================================================== */
 
 :root
 {
-    /* Surfaces */
-    --bg:            #ffffff;
-    --bg-soft:       #f6f7f9;
-    --bg-code:       #f2f4f7;
-    --border:        #e2e6ec;
-    --border-strong: #cdd4dd;
+    /* Gradient stops, sampled from the reference PDF */
+    --grad-magenta:  #ee00a2;
+    --grad-crimson:  #a00047;
+    --grad-purple:   #8b008d;
+    --grad-violet:   #540080;
+    --grad-indigo:   #250072;
+    --grad-blue:     #000154;
+
+    /* Surfaces — near-black with a trace of violet, never pure #000:
+       pure black against light text vibrates and tires the eye. */
+    --bg:            #07060b;
+    --bg-soft:       #0f0d16;
+    --bg-raised:     #14111e;
+    --bg-code:       #100e19;
+    --border:        #221d33;
+    --border-strong: #342c4d;
 
     /* Text */
-    --fg:            #1b2027;
-    --fg-muted:      #5b6674;
-    --fg-faint:      #8b95a3;
+    --fg:            #ece9f3;
+    --fg-muted:      #a49cba;
+    --fg-faint:      #8c84a6;
 
-    /* Accents */
-    --accent:        #2f6f9f;
-    --accent-hover:  #235e86;
-    --accent-soft:   #e8f1f8;
+    /* Accents — the link magenta is lifted off the raw #ee00a2 so body-size
+       text clears 4.5:1 against --bg. The raw stop stays for the gradients. */
+    --accent:        #ff42b4;
+    --accent-hover:  #ff86d0;
+    --accent-soft:   rgba(238, 0, 162, 0.10);
+    --accent-line:   rgba(238, 0, 162, 0.35);
 
     /* Status */
-    --status-active: #1f7a4d;
-    --status-paused: #9a6a12;
-    --status-done:   #5b6674;
+    --status-active: #35d69b;
+    --status-paused: #e0a33c;
+    --status-done:   #8f88a5;
 
     /* Type */
     --font-sans: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
     --font-mono: "JetBrains Mono", SFMono-Regular, Consolas, "Liberation Mono", monospace;
 
     /* Layout */
-    --radius: 8px;
-    --container: 900px;
-}
+    --radius: 10px;
+    --container: 920px;
 
-@media (prefers-color-scheme: dark)
-{
-    :root
-    {
-        --bg:            #12151a;
-        --bg-soft:       #191d24;
-        --bg-code:       #1d222a;
-        --border:        #262c35;
-        --border-strong: #363e4a;
-
-        --fg:            #e6eaf0;
-        --fg-muted:      #a3adbb;
-        --fg-faint:      #78828f;
-
-        --accent:        #6cb2e0;
-        --accent-hover:  #94c9ec;
-        --accent-soft:   #1b2833;
-
-        --status-active: #4fbf8b;
-        --status-paused: #d3a44b;
-        --status-done:   #a3adbb;
-    }
+    color-scheme: dark;
 }
 
 /* === Base ================================================================= */
@@ -92,6 +87,46 @@ body
     font-family: var(--font-sans);
     font-size: 16px;
     line-height: 1.65;
+    position: relative;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Mesh gradient: four soft radial glows behind the top of the page. This is the
+   signature of the reference.
+
+   Absolute, not fixed, on purpose: the glow belongs to the hero. Fixed, it
+   follows the scroll and ends up competing with the cards and the body text
+   further down. */
+body::before
+{
+    content: "";
+    position: absolute;
+    inset: 0 -6vw auto;
+    height: 108vh;
+    z-index: -2;
+    pointer-events: none;
+    background:
+        radial-gradient(44vw 46vh at  8% 10%, color-mix(in srgb, var(--grad-magenta) 62%, transparent), transparent 68%),
+        radial-gradient(50vw 52vh at 82% 14%, color-mix(in srgb, var(--grad-violet) 70%, transparent),  transparent 70%),
+        radial-gradient(46vw 44vh at 46% 30%, color-mix(in srgb, var(--grad-indigo) 66%, transparent),  transparent 68%),
+        radial-gradient(32vw 34vh at 94% 40%, color-mix(in srgb, var(--grad-crimson) 46%, transparent), transparent 70%);
+    filter: blur(34px);
+    opacity: 0.72;
+    -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 40%, transparent 88%);
+    mask-image: linear-gradient(to bottom, #000 0%, #000 40%, transparent 88%);
+}
+
+/* Dot texture, over the gradient and under the content. */
+body::after
+{
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+    background-size: 3px 3px;
 }
 
 a
@@ -111,6 +146,7 @@ h1, h2, h3, h4
     line-height: 1.25;
     font-weight: 600;
     color: var(--fg);
+    letter-spacing: -0.01em;
 }
 
 h1 { font-size: 2rem;    margin: 0 0 0.4em; }
@@ -162,9 +198,13 @@ pre code
     color: var(--fg-muted);
 }
 
+/* The one place the raw gradient touches type: the name in the hero. */
 .accent
 {
-    color: var(--accent);
+    background: linear-gradient(100deg, var(--grad-magenta), var(--grad-violet) 78%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 
 /* === Header =============================================================== */
@@ -172,7 +212,9 @@ pre code
 .site-header
 {
     border-bottom: 1px solid var(--border);
-    background: var(--bg);
+    background: color-mix(in srgb, var(--bg) 78%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     position: sticky;
     top: 0;
     z-index: 10;
@@ -235,7 +277,7 @@ pre code
     align-items: center;
     gap: 6px;
     font-size: 0.85rem;
-    padding-left: 4px;
+    padding-left: 10px;
     border-left: 1px solid var(--border);
 }
 
@@ -261,7 +303,7 @@ pre code
 .site-footer
 {
     border-top: 1px solid var(--border);
-    background: var(--bg-soft);
+    background: color-mix(in srgb, var(--bg-soft) 70%, transparent);
     padding: 20px 0;
     font-size: 0.88rem;
     color: var(--fg-muted);
@@ -298,12 +340,13 @@ pre code
 
 .hero
 {
-    padding: 8px 0 22px;
+    padding: 16px 0 26px;
+    position: relative;
 }
 
 .hero h1
 {
-    font-size: 2.1rem;
+    font-size: 2.3rem;
 }
 
 .lead
@@ -351,7 +394,7 @@ pre code
     font-family: var(--font-mono);
     font-size: 0.72rem;
     line-height: 1.6;
-    padding: 1px 7px;
+    padding: 1px 8px;
     border: 1px solid var(--border-strong);
     border-radius: 999px;
     color: var(--fg-muted);
@@ -362,15 +405,15 @@ pre code
 .tag.active
 {
     color: var(--status-active);
-    border-color: var(--status-active);
-    background: transparent;
+    border-color: color-mix(in srgb, var(--status-active) 55%, transparent);
+    background: color-mix(in srgb, var(--status-active) 10%, transparent);
 }
 
 .tag.paused
 {
     color: var(--status-paused);
-    border-color: var(--status-paused);
-    background: transparent;
+    border-color: color-mix(in srgb, var(--status-paused) 55%, transparent);
+    background: color-mix(in srgb, var(--status-paused) 10%, transparent);
 }
 
 .tag.done
@@ -392,7 +435,7 @@ pre code
 {
     display: inline-block;
     font-size: 0.8rem;
-    padding: 2px 9px;
+    padding: 2px 10px;
     border: 1px solid var(--border);
     border-radius: 999px;
     background: var(--bg-soft);
@@ -412,7 +455,7 @@ pre code
     display: grid;
     grid-template-columns: 1fr 200px;
     gap: 20px;
-    padding: 18px 0;
+    padding: 20px 0;
     border-bottom: 1px solid var(--border);
 }
 
@@ -465,10 +508,25 @@ pre code
 
 .card
 {
+    position: relative;
     border: 1px solid var(--border);
     border-radius: var(--radius);
     background: var(--bg-soft);
     padding: 16px;
+    overflow: hidden;
+}
+
+/* One thin luminous line along the top edge — the arc motif of the reference,
+   reduced to something that survives at card scale. */
+.card::before
+{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 12%;
+    right: 12%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent-line), transparent);
 }
 
 .card-header
@@ -547,7 +605,7 @@ pre code
 .callout
 {
     border: 1px solid var(--border);
-    border-left: 3px solid var(--accent);
+    border-left: 2px solid var(--accent);
     border-radius: var(--radius);
     background: var(--accent-soft);
     padding: 14px 16px;
@@ -564,6 +622,12 @@ pre code
 {
     margin: 0;
     font-size: 0.95rem;
+    color: var(--fg-muted);
+}
+
+.callout .callout-title
+{
+    color: var(--fg);
 }
 
 /* === Statline ============================================================= */
@@ -588,10 +652,13 @@ pre code
 .stat .num
 {
     font-family: var(--font-mono);
-    font-size: 1.4rem;
+    font-size: 1.45rem;
     font-weight: 700;
-    color: var(--accent);
     line-height: 1.2;
+    background: linear-gradient(100deg, var(--grad-magenta), var(--grad-violet));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 
 .stat .lbl
@@ -711,6 +778,29 @@ pre code
 
     .hero h1
     {
-        font-size: 1.7rem;
+        font-size: 1.8rem;
+    }
+
+    body::before
+    {
+        filter: blur(24px);
+        opacity: 0.6;
+    }
+}
+
+/* Respect the user's motion and contrast preferences: the decorative layers
+   are the first thing to go. */
+@media (prefers-reduced-transparency: reduce)
+{
+    body::before,
+    body::after
+    {
+        display: none;
+    }
+
+    .site-header
+    {
+        background: var(--bg);
+        backdrop-filter: none;
     }
 }
