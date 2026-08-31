@@ -5,17 +5,16 @@ description: >-
   sistemas distribuidos: proyectos, write-ups tecnicos y CV.
 url: https://federicomoroz.github.io
 
-# Este sitio vive en el repo de perfil (federicomoroz/federicomoroz), asi que
-# GitHub Pages lo sirve bajo un subpath. Si algun dia se muda a un repo
-# `federicomoroz.github.io`, poner baseurl: "" y listo.
-baseurl: "/federicomoroz"
+# El repo se llama federicomoroz.github.io, asi que Pages lo sirve como user
+# site: en la raiz del dominio, sin subpath. De ahi el baseurl vacio.
+baseurl: ""
 
 author:
   name: Federico Moroz
   github: federicomoroz
   linkedin: https://linkedin.com/in/federico-moroz-1760a2241/
 
-repository: federicomoroz/federicomoroz
+repository: federicomoroz/federicomoroz.github.io
 
 permalink: /:path/
 

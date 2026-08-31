@@ -2,18 +2,19 @@
 
 Manual del portfolio. Explica cómo agregar contenido sin tocar plantillas.
 
-> El sitio vive en **este mismo repo** (`federicomoroz/federicomoroz`), que además es el
-> repo de perfil de GitHub — por eso `README.md` sigue ahí y está excluido del build de
-> Jekyll. La URL publicada es `https://federicomoroz.github.io/federicomoroz/`.
+> El repo se llama `federicomoroz.github.io`, que es la convención de GitHub Pages para
+> un *user site*: se publica en la **raíz del dominio**,
+> `https://federicomoroz.github.io/`, sin subpath. Por eso `baseurl` está vacío en
+> `_config.yml`.
 
-## Activar GitHub Pages (una sola vez)
+## GitHub Pages
 
-En GitHub: **Settings → Pages → Build and deployment → Source: Deploy from a branch**,
-branch `main`, folder `/ (root)`. A los pocos minutos el sitio queda arriba.
+**Settings → Pages → Build and deployment → Source: Deploy from a branch**, branch `main`,
+folder `/ (root)`. Cada push a `main` rebuildea solo.
 
-Si algún día el sitio se muda a un repo propio llamado `federicomoroz.github.io`, hay un
-solo cambio: en `_config.yml`, poner `baseurl: ""`. Todos los links usan `relative_url`,
-así que se reacomodan solos.
+Si alguna vez el sitio se moviera a un repo con otro nombre, el único cambio sería poner
+ese nombre en `baseurl` (`/nombre-del-repo`). Todos los links usan `relative_url`, así que
+se reacomodan solos: no hay ni un path hardcodeado en las plantillas.
 
 ## Estructura
 
@@ -85,13 +86,16 @@ bundle install
 bundle exec jekyll serve
 ```
 
-Abre `http://localhost:4000/federicomoroz/`.
+Abre `http://localhost:4000/`.
 
 El preview local es opcional: GitHub Pages buildea al pushear a `main`. Sirve para iterar
 visuales sin ensuciar el historial.
 
 ## Estilos
 
-Toda la paleta está en el bloque `:root` de `assets/css/style.scss` (y su contraparte para
-modo oscuro). Ninguna regla más abajo hardcodea un color: para reestilar el sitio entero se
-tocan esas variables y nada más.
+Toda la paleta está en el bloque `:root` de `assets/css/style.scss`. Ninguna regla más abajo
+hardcodea un color: para reestilar el sitio entero se tocan esas variables y nada más.
+
+El tema es **oscuro único**, sin variante clara: viene de un PDF de referencia y los stops
+del gradiente están muestreados de sus píxeles. El detalle, con los ratios de contraste
+medidos, está en `design/README.md` del repo privado.
