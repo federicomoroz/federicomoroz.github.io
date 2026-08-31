@@ -1,0 +1,716 @@
+---
+# Front matter vacio a proposito: es lo que hace que Jekyll compile este .scss.
+---
+
+/* =============================================================================
+ * Federico Moroz — hoja de estilos del portfolio.
+ *
+ * PALETA: todo el color vive en el bloque `:root` de abajo (y su contraparte
+ * dark). Para reestilar el sitio entero se tocan esas variables y nada mas —
+ * ninguna regla de mas abajo hardcodea un color.
+ *
+ * Estado: neutro a proposito. Pendiente reemplazar por la paleta y tipografia
+ * que salgan del PDF de referencia.
+ * ========================================================================== */
+
+:root
+{
+    /* Surfaces */
+    --bg:            #ffffff;
+    --bg-soft:       #f6f7f9;
+    --bg-code:       #f2f4f7;
+    --border:        #e2e6ec;
+    --border-strong: #cdd4dd;
+
+    /* Text */
+    --fg:            #1b2027;
+    --fg-muted:      #5b6674;
+    --fg-faint:      #8b95a3;
+
+    /* Accents */
+    --accent:        #2f6f9f;
+    --accent-hover:  #235e86;
+    --accent-soft:   #e8f1f8;
+
+    /* Status */
+    --status-active: #1f7a4d;
+    --status-paused: #9a6a12;
+    --status-done:   #5b6674;
+
+    /* Type */
+    --font-sans: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    --font-mono: "JetBrains Mono", SFMono-Regular, Consolas, "Liberation Mono", monospace;
+
+    /* Layout */
+    --radius: 8px;
+    --container: 900px;
+}
+
+@media (prefers-color-scheme: dark)
+{
+    :root
+    {
+        --bg:            #12151a;
+        --bg-soft:       #191d24;
+        --bg-code:       #1d222a;
+        --border:        #262c35;
+        --border-strong: #363e4a;
+
+        --fg:            #e6eaf0;
+        --fg-muted:      #a3adbb;
+        --fg-faint:      #78828f;
+
+        --accent:        #6cb2e0;
+        --accent-hover:  #94c9ec;
+        --accent-soft:   #1b2833;
+
+        --status-active: #4fbf8b;
+        --status-paused: #d3a44b;
+        --status-done:   #a3adbb;
+    }
+}
+
+/* === Base ================================================================= */
+
+*,
+*::before,
+*::after
+{
+    box-sizing: border-box;
+}
+
+html
+{
+    -webkit-text-size-adjust: 100%;
+}
+
+body
+{
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.65;
+}
+
+a
+{
+    color: var(--accent);
+    text-decoration: none;
+}
+
+a:hover
+{
+    color: var(--accent-hover);
+    text-decoration: underline;
+}
+
+h1, h2, h3, h4
+{
+    line-height: 1.25;
+    font-weight: 600;
+    color: var(--fg);
+}
+
+h1 { font-size: 2rem;    margin: 0 0 0.4em; }
+h2 { font-size: 1.35rem; margin: 2.2rem 0 0.7rem; }
+h3 { font-size: 1.05rem; margin: 0 0 0.35rem; }
+
+hr
+{
+    border: 0;
+    border-top: 1px solid var(--border);
+    margin: 2.4rem 0;
+}
+
+code
+{
+    font-family: var(--font-mono);
+    font-size: 0.87em;
+    background: var(--bg-code);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.1em 0.35em;
+}
+
+pre
+{
+    background: var(--bg-code);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 12px 14px;
+    overflow-x: auto;
+}
+
+pre code
+{
+    background: none;
+    border: 0;
+    padding: 0;
+}
+
+.container
+{
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.muted
+{
+    color: var(--fg-muted);
+}
+
+.accent
+{
+    color: var(--accent);
+}
+
+/* === Header =============================================================== */
+
+.site-header
+{
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.header-inner
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    flex-wrap: wrap;
+    padding-top: 14px;
+    padding-bottom: 14px;
+}
+
+.brand
+{
+    display: inline-flex;
+    align-items: baseline;
+    gap: 8px;
+    color: var(--fg);
+    font-weight: 600;
+}
+
+.brand:hover
+{
+    text-decoration: none;
+    color: var(--accent);
+}
+
+.brand-mark
+{
+    color: var(--accent);
+}
+
+.site-nav
+{
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    font-size: 0.92rem;
+}
+
+.site-nav a
+{
+    color: var(--fg-muted);
+}
+
+.site-nav a:hover
+{
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.lang-switch
+{
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    padding-left: 4px;
+    border-left: 1px solid var(--border);
+}
+
+.lang-current
+{
+    color: var(--fg);
+    font-weight: 600;
+}
+
+.lang-sep
+{
+    color: var(--fg-faint);
+}
+
+/* === Main / footer ======================================================== */
+
+.site-main
+{
+    padding: 34px 0 64px;
+    min-height: 60vh;
+}
+
+.site-footer
+{
+    border-top: 1px solid var(--border);
+    background: var(--bg-soft);
+    padding: 20px 0;
+    font-size: 0.88rem;
+    color: var(--fg-muted);
+}
+
+.footer-inner
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.footer-brand
+{
+    color: var(--fg);
+    font-weight: 600;
+}
+
+.footer-tagline
+{
+    color: var(--fg-muted);
+}
+
+.footer-links
+{
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+/* === Hero ================================================================= */
+
+.hero
+{
+    padding: 8px 0 22px;
+}
+
+.hero h1
+{
+    font-size: 2.1rem;
+}
+
+.lead
+{
+    font-size: 1.06rem;
+    color: var(--fg-muted);
+    margin: 0;
+    max-width: 68ch;
+}
+
+.crumbs
+{
+    font-size: 0.88rem;
+    margin: 0 0 12px;
+}
+
+/* === Section headings ===================================================== */
+
+.section-heading
+{
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    border-bottom: 1px solid var(--border);
+    margin-top: 2.2rem;
+}
+
+.section-heading h2
+{
+    margin: 0 0 0.5rem;
+}
+
+.section-action
+{
+    font-size: 0.88rem;
+    white-space: nowrap;
+}
+
+/* === Tags / pills ========================================================= */
+
+.tag
+{
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    line-height: 1.6;
+    padding: 1px 7px;
+    border: 1px solid var(--border-strong);
+    border-radius: 999px;
+    color: var(--fg-muted);
+    background: var(--bg-soft);
+    white-space: nowrap;
+}
+
+.tag.active
+{
+    color: var(--status-active);
+    border-color: var(--status-active);
+    background: transparent;
+}
+
+.tag.paused
+{
+    color: var(--status-paused);
+    border-color: var(--status-paused);
+    background: transparent;
+}
+
+.tag.done
+{
+    color: var(--status-done);
+    border-color: var(--border-strong);
+    background: transparent;
+}
+
+.chip-row
+{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 14px;
+}
+
+.pill
+{
+    display: inline-block;
+    font-size: 0.8rem;
+    padding: 2px 9px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--bg-soft);
+    color: var(--fg);
+}
+
+/* === Project list ========================================================= */
+
+.project-list
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.project-row
+{
+    display: grid;
+    grid-template-columns: 1fr 200px;
+    gap: 20px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.project-row h3
+{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.project-row p
+{
+    margin: 0 0 8px;
+    color: var(--fg-muted);
+    font-size: 0.95rem;
+}
+
+.project-meta
+{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-content: flex-start;
+    justify-content: flex-end;
+}
+
+.row-links
+{
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    font-size: 0.88rem;
+}
+
+.cs-link
+{
+    font-weight: 500;
+}
+
+/* === Cards (tools) ======================================================== */
+
+.cards
+{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+    margin-top: 16px;
+}
+
+.card
+{
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--bg-soft);
+    padding: 16px;
+}
+
+.card-header
+{
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.card-title
+{
+    font-weight: 600;
+}
+
+.card-version
+{
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--fg-faint);
+}
+
+.card-id
+{
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    color: var(--fg-faint);
+    margin-top: 2px;
+}
+
+.card-desc
+{
+    font-size: 0.92rem;
+    color: var(--fg-muted);
+    margin: 10px 0;
+}
+
+.card-desc p
+{
+    margin: 0 0 8px;
+}
+
+.card-meta
+{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    font-size: 0.76rem;
+    color: var(--fg-faint);
+    font-family: var(--font-mono);
+}
+
+.install-block
+{
+    margin: 10px 0;
+}
+
+.install-label
+{
+    display: block;
+    font-size: 0.74rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--fg-faint);
+    margin-bottom: 4px;
+}
+
+.install-block pre
+{
+    margin: 0;
+    font-size: 0.82rem;
+}
+
+/* === Callout ============================================================== */
+
+.callout
+{
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: var(--radius);
+    background: var(--accent-soft);
+    padding: 14px 16px;
+    margin: 22px 0;
+}
+
+.callout-title
+{
+    font-weight: 600;
+    margin: 0 0 6px;
+}
+
+.callout p
+{
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+/* === Statline ============================================================= */
+
+.statline
+{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 28px;
+    padding: 16px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    margin: 22px 0;
+}
+
+.stat
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.stat .num
+{
+    font-family: var(--font-mono);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1.2;
+}
+
+.stat .lbl
+{
+    font-size: 0.78rem;
+    color: var(--fg-muted);
+}
+
+/* === About page =========================================================== */
+
+.profile-block p,
+.way-of-working li
+{
+    color: var(--fg-muted);
+}
+
+.profile-block strong,
+.way-of-working strong
+{
+    color: var(--fg);
+}
+
+.skills
+{
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.skill-group-title
+{
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--fg-faint);
+    margin: 0 0 6px;
+}
+
+.skill-pills
+{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.education-list,
+.languages-list
+{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.education-item
+{
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.education-head
+{
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.education-title
+{
+    font-weight: 600;
+}
+
+.education-period
+{
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--fg-faint);
+}
+
+.education-institution
+{
+    color: var(--fg-muted);
+    font-size: 0.92rem;
+}
+
+.education-note
+{
+    font-size: 0.88rem;
+    color: var(--fg-muted);
+    margin-top: 4px;
+}
+
+.languages-list li
+{
+    padding: 4px 0;
+    color: var(--fg-muted);
+}
+
+/* === Responsive =========================================================== */
+
+@media (max-width: 720px)
+{
+    .project-row
+    {
+        grid-template-columns: 1fr;
+    }
+
+    .project-meta
+    {
+        justify-content: flex-start;
+    }
+
+    .header-inner
+    {
+        align-items: flex-start;
+    }
+
+    .hero h1
+    {
+        font-size: 1.7rem;
+    }
+}

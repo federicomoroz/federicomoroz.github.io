@@ -1,0 +1,24 @@
+_site/
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata
+vendor/
+Gemfile.lock
+.bundle/
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# El sistema de CVs NO entra a este repo: es PUBLICO y el store tiene datos de
+# contacto, contexto interno y notas privadas. Vive en ../Cv/, fuera del repo.
+#
+# Estas reglas son un seguro por si alguien lo copia adentro por error. Ojo: NO
+# se puede ignorar "Cv/" — en Windows git matchea sin distinguir mayusculas y se
+# comeria tambien la carpeta cv/ del sitio, donde van los PDFs publicados.
+/store/
+cvq.py
+build_html.py
+PROTOCOLO_REVALIDACION.md
+CV_*.md

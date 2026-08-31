@@ -1,0 +1,66 @@
+{% assign lang = page.lang | default: 'es' %}
+{% assign t = site.data.i18n[lang] %}
+
+{% comment %} URLs always prefixed with /es or /en. {% endcomment %}
+{% if lang == 'en' %}
+  {% assign alt_lang = 'es' %}
+  {% assign alt_url = page.url | replace_first: '/en', '/es' %}
+{% else %}
+  {% assign alt_lang = 'en' %}
+  {% assign alt_url = page.url | replace_first: '/es', '/en' %}
+{% endif %}
+{% assign home_url     = '/' | append: lang | append: '/' %}
+{% assign projects_url = '/' | append: lang | append: '/projects/' %}
+{% assign tools_url    = '/' | append: lang | append: '/tools/' %}
+{% assign about_url    = '/' | append: lang | append: '/about/' %}
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="{{ home_url | relative_url }}">
+      <span class="brand-mark">◆</span>
+      <span class="brand-name">{{ site.author.name }}</span>
+    </a>
+    <nav class="site-nav">
+      <a href="{{ home_url | relative_url }}">{{ t.nav.home }}</a>
+      <a href="{{ projects_url | relative_url }}">{{ t.nav.projects }}</a>
+      <a href="{{ tools_url | relative_url }}">{{ t.nav.tools }}</a>
+      <a href="{{ about_url | relative_url }}">{{ t.nav.about }}</a>
+      <a href="https://github.com/{{ site.author.github }}" target="_blank" rel="noopener">{{ t.nav.github }} ↗</a>
+      {% if site.author.linkedin %}<a href="{{ site.author.linkedin }}" target="_blank" rel="noopener">LinkedIn ↗</a>{% endif %}
+      <span class="lang-switch">
+        {% if lang == 'es' %}
+          <span class="lang-current">ES</span>
+          <span class="lang-sep">·</span>
+          <a href="{{ alt_url | relative_url }}" data-lang="en">EN</a>
+        {% else %}
+          <a href="{{ alt_url | relative_url }}" data-lang="es">ES</a>
+          <span class="lang-sep">·</span>
+          <span class="lang-current">EN</span>
+        {% endif %}
+      </span>
+    </nav>
+  </div>
+</header>
+
+<script>
+    (function ()
+    {
+        'use strict';
+
+        document.addEventListener('click', function (e)
+        {
+            var a = e.target && e.target.closest ? e.target.closest('.lang-switch a[data-lang]') : null;
+            if (!a)
+                return;
+
+            try
+            {
+                window.localStorage.setItem('lang', a.getAttribute('data-lang'));
+            }
+            catch (err)
+            {
+                // localStorage unavailable — the navigation still happens
+            }
+        });
+    })();
+</script>

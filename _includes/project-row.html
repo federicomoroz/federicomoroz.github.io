@@ -1,0 +1,27 @@
+{% comment %}
+  Una fila del listado de proyectos. Se usa desde el home y desde /projects/.
+  Parametros: proj (entrada de _data/projects.yml), lang, t (bloque i18n).
+{% endcomment %}
+{% assign detail_url = '/' | append: include.lang | append: '/projects/' | append: include.proj.id | append: '/' %}
+
+<div class="project-row">
+  <div>
+    <h3>
+      {% if include.proj.case_study %}<a href="{{ detail_url | relative_url }}">{{ include.proj.name }}</a>{% else %}{{ include.proj.name }}{% endif %}
+      {% if include.proj.status == "active" %}<span class="tag active">{{ include.t.status.active }}</span>
+      {% elsif include.proj.status == "paused" %}<span class="tag paused">{{ include.t.status.paused }}</span>
+      {% elsif include.proj.status == "done" %}<span class="tag done">{{ include.t.status.done }}</span>
+      {% else %}<span class="tag">{{ include.proj.status }}</span>{% endif %}
+    </h3>
+    <p>{{ include.proj.short[include.lang] | markdownify | remove: "<p>" | remove: "</p>" }}</p>
+    <p class="row-links">
+      {% if include.proj.case_study %}<a class="cs-link" href="{{ detail_url | relative_url }}">{{ include.t.projects.read_case_study }}</a>{% endif %}
+      {% if include.proj.demo %}<a href="{{ include.proj.demo }}" target="_blank" rel="noopener">{{ include.t.projects.demo }}</a>{% endif %}
+      {% if include.proj.repo_visibility == "public" and include.proj.repo %}<a href="{{ include.proj.repo }}" target="_blank" rel="noopener">{{ include.t.projects.repo }}</a>
+      {% else %}<span class="muted">{{ include.t.projects.repo_private }}</span>{% endif %}
+    </p>
+  </div>
+  <div class="project-meta">
+    {% for tech in include.proj.tech %}<span class="tag">{{ tech }}</span>{% endfor %}
+  </div>
+</div>

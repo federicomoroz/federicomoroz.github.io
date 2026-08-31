@@ -1,0 +1,119 @@
+# UI strings keyed by language. Pages reference these via {{ site.data.i18n[page.lang].xxx }}.
+#
+# Todo lo que sea texto de interfaz vive aca (nunca hardcodeado en las paginas),
+# asi ES y EN no se desincronizan. Para agregar un idioma: copiar el bloque entero
+# y sumar la opcion al switch en _includes/header.html.
+
+es:
+  site_tagline: "Backend Developer — APIs, integraciones y sistemas distribuidos"
+  nav:
+    home: Home
+    projects: Proyectos
+    tools: Tools
+    about: Sobre mí
+    github: GitHub
+  hero:
+    welcome_prefix: "Portfolio de"
+  home:
+    profile_heading: Perfil
+    profile_short: "Backend developer enfocado en APIs, integraciones y sistemas distribuidos. Arquitectura por capas, contratos explícitos entre componentes y tests que verifican comportamiento."
+    profile_link: "Ver perfil completo →"
+    projects_heading: Proyectos
+    projects_empty: "Aún no hay proyectos publicados."
+    tools_heading: Tools
+    tools_intro_count: "herramientas y librerías publicadas."
+    tools_empty: "Aún no hay herramientas publicadas."
+    view_all: "Ver todos →"
+    purpose_heading: "¿Qué hay acá?"
+    purpose_body: "Un punto de entrada único a mis proyectos, write-ups técnicos y CV. Cada README de los repos públicos puede apuntar acá en vez de duplicar listados."
+  projects:
+    heading: Proyectos
+    lead_with_items: "Proyectos propios y de equipo, con write-ups técnicos autocontenidos."
+    lead_empty: "Aún no hay proyectos publicados."
+    read_case_study: "Leer case study →"
+    back: "← Volver a proyectos"
+    demo: "Demo en vivo ↗"
+    repo: "Repo ↗"
+    repo_private: "repo privado"
+    capabilities_heading: "Sobre estos proyectos"
+    capabilities_note: "Parte del trabajo es privado o está bajo NDA. En vez del repo, en esos casos queda un write-up técnico autocontenido: la decisión de diseño y el resultado, sin exponer código de clientes."
+  tools:
+    heading: Tools
+    lead: "Herramientas y librerías chicas, publicadas como repos independientes."
+    install_label: "Instalación"
+    empty: "Aún no hay herramientas publicadas."
+    empty_long: "Cuando una herramienta se estabilice y se publique, aparece listada acá."
+    notes_heading: Notas
+    notes_semver: "Las versiones siguen semver."
+    notes_changelog: "Cada herramienta mantiene su CHANGELOG en su propio repo."
+  about:
+    heading: Sobre mí
+    lead: "Backend developer. Sistemas que siguen funcionando cuando algo se rompe."
+    cv_download: "⬇ Descargar CV (PDF)"
+    cv_note: "Versión pública, sin datos de contacto directo (para no exponerlos a scrapers). El CV completo, al aplicar o por LinkedIn."
+    profile_heading: Perfil profesional
+    skills_heading: Habilidades técnicas
+    way_of_working_heading: Cómo trabajo
+    education_heading: Educación
+    languages_heading: Idiomas
+  status:
+    active: activo
+    paused: pausado
+    done: terminado
+
+en:
+  site_tagline: "Backend Developer — APIs, integrations and distributed systems"
+  nav:
+    home: Home
+    projects: Projects
+    tools: Tools
+    about: About
+    github: GitHub
+  hero:
+    welcome_prefix: "Portfolio of"
+  home:
+    profile_heading: Profile
+    profile_short: "Backend developer focused on APIs, integrations and distributed systems. Layered architecture, explicit contracts between components, and tests that verify behavior."
+    profile_link: "See full profile →"
+    projects_heading: Projects
+    projects_empty: "No published projects yet."
+    tools_heading: Tools
+    tools_intro_count: "published tools and libraries."
+    tools_empty: "No published tools yet."
+    view_all: "View all →"
+    purpose_heading: "What's here?"
+    purpose_body: "A single entry point to my projects, technical write-ups and CV. Every public repo README can point here instead of duplicating listings."
+  projects:
+    heading: Projects
+    lead_with_items: "Personal and team projects, with self-contained technical write-ups."
+    lead_empty: "No published projects yet."
+    read_case_study: "Read case study →"
+    back: "← Back to projects"
+    demo: "Live demo ↗"
+    repo: "Repo ↗"
+    repo_private: "private repo"
+    capabilities_heading: "About these projects"
+    capabilities_note: "Some of the work is private or under NDA. In those cases what's public is a self-contained technical write-up: the design decision and the outcome, without exposing client code."
+  tools:
+    heading: Tools
+    lead: "Small tools and libraries, shipped as standalone repos."
+    install_label: "Install"
+    empty: "No published tools yet."
+    empty_long: "Once a tool stabilizes and ships, it shows up here."
+    notes_heading: Notes
+    notes_semver: "Versions follow semver."
+    notes_changelog: "Each tool keeps its CHANGELOG in its own repo."
+  about:
+    heading: About
+    lead: "Backend developer. Systems that keep running when something breaks."
+    cv_download: "⬇ Download CV (PDF)"
+    cv_note: "Public version, without direct contact details (to keep them away from scrapers). The full CV comes with the application or through LinkedIn."
+    profile_heading: Professional profile
+    skills_heading: Technical skills
+    way_of_working_heading: How I work
+    education_heading: Education
+    languages_heading: Languages
+  status:
+    active: active
+    paused: paused
+    done: done

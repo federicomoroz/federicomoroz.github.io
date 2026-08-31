@@ -1,0 +1,116 @@
+# Contenido derivado del CV. Subconjunto CURADO: sin datos personales
+# (direccion, telefono, email, documento). La fuente de verdad es el store
+# de CVs (../Cv/store/); este archivo es la proyeccion publica, a mano.
+#
+# COMO LLENARLO: `python ../Cv/cvq.py gather backend` devuelve el briefing;
+# de ahi se baja lo que sea `visibilidad: publico` y no tenga PII.
+#
+# ESTADO: seed inicial. `profile` y `skills` salieron del README publico de
+# GitHub. Todo lo marcado TODO lo tiene que completar Federico.
+
+profile:
+  es: |
+    Backend developer enfocado en **APIs, integraciones y sistemas
+    distribuidos**. Construyo sistemas correctos por diseño: **arquitectura por
+    capas**, contratos explícitos entre componentes y **tests que verifican
+    comportamiento, no implementación**. Trabajo sobre todo con **Python
+    (FastAPI, SQLAlchemy, Pydantic)** sobre **Redis, PostgreSQL y Docker**:
+    colas de tareas distribuidas, gateways de API con circuit breakers y
+    motores de notificación multi-canal. También integro **APIs externas a
+    escala**.
+  en: |
+    Backend developer focused on **APIs, integrations and distributed
+    systems**. I build systems that are correct by design: **layered
+    architecture**, explicit contracts between components, and **tests that
+    verify behavior rather than implementation**. I work mostly with **Python
+    (FastAPI, SQLAlchemy, Pydantic)** on top of **Redis, PostgreSQL and
+    Docker**: distributed task queues, API gateways with circuit breakers and
+    multi-channel notification engines. I also integrate **external APIs at
+    scale**.
+
+# Como trabajo — bullets cortos, descriptivos, en primera persona.
+# Sin comparaciones con la industria ni auto-apreciaciones ("poco comun",
+# "unico"): se statean hechos y el lector juzga.
+#
+# TODO(Federico): reemplazar estos ejemplos por los propios. Los de abajo son
+# placeholders derivados de patrones visibles en los repos publicos — hay que
+# confirmarlos o cambiarlos.
+way_of_working:
+  es: |
+    - **Separación de capas estricta**: la capa de transporte no conoce la de datos.
+    - **Tests de comportamiento**, no de implementación. Un refactor no debería romper la suite.
+    - **Contratos explícitos** entre componentes: si dos módulos hablan, el contrato está escrito.
+    - Los componentes se comunican por **eventos/pub-sub** en vez de importarse entre sí.
+    - Configuración por **variables de entorno**, validadas antes del deploy.
+    - TODO(Federico): sumar/ajustar según tu criterio real.
+  en: |
+    - **Strict layer separation**: the transport layer knows nothing about the data layer.
+    - **Behavior tests**, not implementation tests. A refactor shouldn't break the suite.
+    - **Explicit contracts** between components: if two modules talk, the contract is written down.
+    - Components talk through **events / pub-sub** instead of importing each other.
+    - Configuration through **environment variables**, validated before deploy.
+    - TODO(Federico): add / adjust to match how you actually work.
+
+# Habilidades tecnicas agrupadas por area. Los items son iguales en ambos
+# idiomas; solo cambia la etiqueta del grupo.
+skills:
+  - group:
+      es: Lenguajes
+      en: Languages
+    items: [Python, JavaScript, "C#", SQL, PHP]
+
+  - group:
+      es: Backend
+      en: Backend
+    items: [FastAPI, Django, Flask, Node.js, Laravel, SQLAlchemy, Pydantic]
+
+  - group:
+      es: Infraestructura
+      en: Infrastructure
+    items: [Redis, PostgreSQL, SQLite, Docker, APScheduler]
+
+  - group:
+      es: Integraciones
+      en: Integrations
+    items: [REST APIs, Webhooks, SendGrid, Telegram Bot API, n8n, Airtable, BigQuery]
+
+  - group:
+      es: Testing y calidad
+      en: Testing & quality
+    items: [pytest, httpx, "TODO(Federico): completar"]
+
+# TODO(Federico): completar educacion. Un item por titulo/certificacion.
+education:
+  - title:
+      es: "TODO: título"
+      en: "TODO: degree"
+    institution: "TODO: institución"
+    location: "Buenos Aires, Argentina"
+    period: "TODO: 20XX – 20XX"
+    note:
+      es: ""
+      en: ""
+
+# TODO(Federico): completar idiomas y nivel real.
+# Regla del sistema: el nivel se declara con la escala estandar
+# (Native / Professional Working Proficiency / Limited Working Proficiency),
+# nunca con adjetivos vagos tipo "intermedio" o "en mejora".
+languages:
+  - name:
+      es: Español
+      en: Spanish
+    level:
+      es: Nativo
+      en: Native
+  - name:
+      es: Inglés
+      en: English
+    level:
+      es: "TODO: nivel real"
+      en: "TODO: actual level"
+
+# PDFs del CV publicados en el sitio. Se generan con ../Cv/build_html.py
+# (o browser-print) y se copian a cv/. Dejar vacio el nombre oculta el boton.
+cv_pdf:
+  es: ""
+  en: ""

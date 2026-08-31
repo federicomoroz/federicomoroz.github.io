@@ -1,0 +1,14 @@
+{% assign lang = page.lang | default: 'es' %}
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div>
+      <span class="footer-brand">◆ {{ site.author.name }}</span>
+      <span class="footer-tagline">— {{ site.data.i18n[lang].site_tagline }}</span>
+    </div>
+    <div class="footer-links">
+      <a href="https://github.com/{{ site.author.github }}" target="_blank" rel="noopener">github.com/{{ site.author.github }}</a>
+      {% if site.author.linkedin %}<a href="{{ site.author.linkedin }}" target="_blank" rel="noopener">LinkedIn</a>{% endif %}
+    </div>
+  </div>
+</footer>

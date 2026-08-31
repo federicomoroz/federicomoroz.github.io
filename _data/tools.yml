@@ -1,0 +1,30 @@
+# Herramientas / librerias publicadas como repos independientes.
+#
+# Agnostica de ecosistema: sirve igual para un CLI, un paquete de PyPI, una
+# imagen de Docker o una libreria de npm. Lo que cambia es el snippet `install`.
+#
+# Campos:
+#   id            -> slug estable.
+#   name          -> nombre visible.
+#   visibility    -> public lo muestra en el sitio; private lo oculta.
+#                    Por defecto todo arranca en private.
+#   kind          -> cli | library | service
+#   version       -> version publicada (opcional).
+#   repo          -> URL del repo.
+#   install       -> snippet de instalacion, tal cual se copia y pega.
+#   description.{es,en}
+#   tech          -> chips de stack.
+
+- id: envcheck
+  name: envcheck
+  visibility: public
+  kind: cli
+  repo: https://github.com/federicomoroz/envcheck
+  install: "git clone https://github.com/federicomoroz/envcheck"
+  description:
+    es: "CLI sin dependencias que valida `.env` contra `.env.example`. Detecta variables faltantes y vacías antes de que lleguen a producción; devuelve exit code 1, así que entra como gate de CI previo al deploy."
+    en: "Zero-dependency CLI that validates `.env` against `.env.example`. Catches missing and empty variables before they reach production; exit code 1 makes it a drop-in CI pre-deploy gate."
+  tech:
+    - Python
+    - CLI
+    - Sin dependencias

@@ -1,0 +1,124 @@
+# Metadata de proyectos (manual).
+#
+# Campos:
+#   id              -> slug PUBLICO y estable. Para trabajo con NDA nunca codifica
+#                      el nombre del cliente. La pagina de detalle sale de este id.
+#   listed          -> true lo muestra en /projects/ y en el preview del home.
+#                      Ponerlo en false oculta el proyecto sin borrar la pagina.
+#   case_study      -> true agrega el link "Leer case study" y requiere las paginas
+#                      es/projects/<id>.md + en/projects/<id>.md.
+#   repo_visibility -> public linkea el repo; private muestra la etiqueta "repo privado".
+#                      Un proyecto se puede listar con el repo privado: el write-up
+#                      es el artefacto publico.
+#   short.{es,en}   -> resumen de UNA linea por idioma.
+#   status          -> active | paused | done  (se traduce via i18n.status).
+#   tech            -> chips de stack, neutrales (mismos en ambos idiomas).
+#
+# REGLA: no inventar metricas. Si no hay un numero real medido, se describe
+# cualitativamente. Los numeros de abajo salen del README publico de GitHub.
+#
+# ESTADO: seed desde el README publico. Revisar textos y sumar los que falten.
+
+- id: task-queue
+  name: Task Queue
+  short:
+    es: "Cola de tareas distribuida con API en FastAPI, broker Redis (LPUSH/BRPOP), persistencia en SQLite y workers escalables horizontalmente. Arquitectura multi-contenedor: los workers escalan con `--scale worker=N` sin tocar código."
+    en: "Distributed task queue with a FastAPI API server, Redis broker (LPUSH/BRPOP), SQLite persistence and horizontally scalable workers. Multi-container architecture: workers scale with `--scale worker=N` without touching any code."
+  status: active
+  listed: true
+  case_study: true
+  repo: https://github.com/federicomoroz/task-queue
+  repo_visibility: public
+  demo: https://task-queue-tpdz.onrender.com
+  tech:
+    - Python
+    - FastAPI
+    - Redis
+    - SQLAlchemy 2.0
+    - Docker
+    - APScheduler
+
+- id: rate-guardian
+  name: Rate Guardian
+  short:
+    es: "API gateway con rate limiting de ventana deslizante (sorted sets de Redis), circuit breaker respaldado en Redis, proxy HTTP transparente y dashboard de terminal en tiempo real. El gateway nunca importa el logger: el logging va por un bus pub/sub."
+    en: "API gateway with sliding-window rate limiting (Redis sorted sets), Redis-backed circuit breaker, transparent HTTP proxy and a real-time terminal dashboard. The gateway never imports the logger — logging goes through a pub/sub bus."
+  status: active
+  listed: true
+  case_study: false
+  repo: https://github.com/federicomoroz/rate-guardian
+  repo_visibility: public
+  tech:
+    - Python
+    - FastAPI
+    - Redis
+    - PostgreSQL
+    - Docker
+    - httpx
+
+- id: notify-router
+  name: Notify Router
+  short:
+    es: "Motor de ruteo de notificaciones multi-canal: un evento entrante se evalúa contra reglas de ruteo y se despacha a cualquier combinación de canales (email, Telegram, Slack, webhook genérico). Arquitectura Pipeline + Strategy + EventManager."
+    en: "Multi-channel notification routing engine: an inbound event is evaluated against routing rules and dispatched to any combination of channels (email, Telegram, Slack, generic webhook). Pipeline + Strategy + EventManager architecture."
+  status: active
+  listed: true
+  case_study: false
+  repo: https://github.com/federicomoroz/notify-router
+  repo_visibility: public
+  tech:
+    - Python
+    - FastAPI
+    - SQLite
+    - SendGrid
+    - httpx
+    - APScheduler
+
+- id: webhook-logger
+  name: Webhook Logger
+  short:
+    es: "Servicio backend que recibe, persiste y expone eventos de webhook de cualquier origen. Incluye un tester HTTP para disparar requests salientes desde el browser. MVC + Repository, con separación estricta de capas."
+    en: "Backend service that receives, stores and exposes webhook events from any source. Includes a built-in HTTP tester to fire outbound requests from the browser. MVC + Repository, strict layer separation."
+  status: done
+  listed: true
+  case_study: false
+  repo: https://github.com/federicomoroz/webhook-logger
+  repo_visibility: public
+  demo: https://webhook-logger-9paz.onrender.com
+  tech:
+    - Python
+    - FastAPI
+    - SQLAlchemy
+    - SQLite
+    - Pydantic v2
+
+- id: dollar-tracker
+  name: Dollar Tracker
+  short:
+    es: "Servicio agendado que consulta cotizaciones USD/ARS, persiste el histórico, dispara alertas por email al cruzar umbrales y manda reportes periódicos. Configurable por completo vía variables de entorno."
+    en: "Scheduled service that fetches USD/ARS exchange rates, persists history, fires email alerts on threshold breaches and sends periodic reports. Fully configurable through environment variables."
+  status: done
+  listed: true
+  case_study: false
+  repo: https://github.com/federicomoroz/dollar-tracker
+  repo_visibility: public
+  tech:
+    - Python
+    - FastAPI
+    - SQLAlchemy
+    - APScheduler
+    - SendGrid
+
+- id: rpg-turn-based-battler
+  name: RPG Turn-Based Battler
+  short:
+    es: "Motor de combate por turnos para un RPG 2D. Capa de datos en ScriptableObjects con clonado en runtime (Flyweight), esqueleto de ejecución de skills en 4 fases (Template Method), estrategias de movimiento intercambiables, pool genérico por reflection y pipeline de modificadores de daño (Chain of Responsibility)."
+    en: "Turn-based combat engine for a 2D RPG. ScriptableObject data layer with runtime cloning (Flyweight), 4-phase skill execution skeleton (Template Method), pluggable movement strategies, a generic object pool auto-discovered via reflection and a damage modifier pipeline (Chain of Responsibility)."
+  status: done
+  listed: true
+  case_study: false
+  repo: https://github.com/federicomoroz/RPG-Turn-Based-Battler
+  repo_visibility: public
+  tech:
+    - Unity
+    - "C#"

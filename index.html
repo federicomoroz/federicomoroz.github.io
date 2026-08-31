@@ -1,0 +1,59 @@
+---
+layout: null
+permalink: /
+sitemap: false
+---
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>{{ site.author.name }}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="{{ site.description }}">
+  <meta name="robots" content="noindex">
+  <!-- Fallback for users without JavaScript: send to ES by default. -->
+  <meta http-equiv="refresh" content="0;url={{ '/es/' | relative_url }}">
+  <link rel="canonical" href="{{ '/es/' | absolute_url }}">
+  <script>
+    (function ()
+    {
+        'use strict';
+
+        var base = '{{ site.baseurl }}';
+        var target = base + '/es/';
+
+        try
+        {
+            var saved = window.localStorage.getItem('lang');
+            if (saved === 'es' || saved === 'en')
+            {
+                target = base + '/' + saved + '/';
+            }
+            else
+            {
+                var bl = (navigator.language || navigator.userLanguage || 'es').toLowerCase();
+                target = base + (bl.indexOf('en') === 0 ? '/en/' : '/es/');
+            }
+        }
+        catch (e)
+        {
+            // localStorage unavailable — keep the default
+        }
+
+        window.location.replace(target);
+    })();
+  </script>
+  <style>
+    html, body { margin: 0; padding: 0; background: #ffffff; color: #55606e; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    .wrap { min-height: 100vh; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 14px; }
+    .wrap p { font-size: 14px; }
+    .wrap a { color: #2f6f9f; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <p>Redirecting… / Redirigiendo…</p>
+    <p><a href="{{ '/es/' | relative_url }}">Español</a> · <a href="{{ '/en/' | relative_url }}">English</a></p>
+  </div>
+</body>
+</html>
