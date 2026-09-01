@@ -42,6 +42,7 @@ permalink: /en/about/
 {{ cv.way_of_working[lang] | markdownify }}
 </div>
 
+{% if cv.education.size > 0 %}
 <h2>{{ t.about.education_heading }}</h2>
 <ul class="education-list">
   {% for edu in cv.education %}
@@ -56,9 +57,13 @@ permalink: /en/about/
   {% endfor %}
 </ul>
 
+{% endif %}
+
+{% if cv.languages.size > 0 %}
 <h2>{{ t.about.languages_heading }}</h2>
 <ul class="languages-list">
   {% for lng in cv.languages %}
   <li><strong>{{ lng.name[lang] }}:</strong> {{ lng.level[lang] }}</li>
   {% endfor %}
 </ul>
+{% endif %}

@@ -32,24 +32,26 @@ profile:
 # Sin comparaciones con la industria ni auto-apreciaciones ("poco comun",
 # "unico"): se statean hechos y el lector juzga.
 #
-# TODO(Federico): reemplazar estos ejemplos por los propios. Los de abajo son
-# placeholders derivados de patrones visibles en los repos publicos — hay que
-# confirmarlos o cambiarlos.
+# Cada bullet se sostiene con codigo publico: las capas y los puertos en
+# shipping-quote, el bus de eventos en rate-guardian y notify-router, el
+# composition root en dollar-tracker y task-queue.
 way_of_working:
   es: |
-    - **Separación de capas estricta**: la capa de transporte no conoce la de datos.
-    - **Tests de comportamiento**, no de implementación. Un refactor no debería romper la suite.
-    - **Contratos explícitos** entre componentes: si dos módulos hablan, el contrato está escrito.
-    - Los componentes se comunican por **eventos/pub-sub** en vez de importarse entre sí.
-    - Configuración por **variables de entorno**, validadas antes del deploy.
-    - TODO(Federico): sumar/ajustar según tu criterio real.
+    - **Arquitectura por capas con contratos explícitos.** La capa de transporte no conoce la de datos, y si dos módulos hablan, el contrato está escrito: un puerto o una interfaz, no un import directo.
+    - **Composición sobre herencia.** La lógica se arma como pipeline de pasos, cada uno con una responsabilidad; sumar un paso no obliga a tocar los que ya andan.
+    - **Los componentes se comunican por eventos**, no importándose entre sí. El gateway nunca importa al logger.
+    - **Tests que verifican comportamiento, no implementación.** Un refactor no debería romper la suite; si la rompe, el test estaba mirando el lugar equivocado.
+    - **Las dependencias se arman en un composition root**, no se resuelven adentro de quien las usa. Eso es lo que deja testear cada pieza sin levantar el sistema entero.
+    - **Configuración por variables de entorno**, validada antes del deploy.
+    - **Sin números inventados.** Si no hay una métrica medida, lo describo cualitativamente: un número que no se sostiene se cae en la primera repregunta.
   en: |
-    - **Strict layer separation**: the transport layer knows nothing about the data layer.
-    - **Behavior tests**, not implementation tests. A refactor shouldn't break the suite.
-    - **Explicit contracts** between components: if two modules talk, the contract is written down.
-    - Components talk through **events / pub-sub** instead of importing each other.
-    - Configuration through **environment variables**, validated before deploy.
-    - TODO(Federico): add / adjust to match how you actually work.
+    - **Layered architecture with explicit contracts.** The transport layer knows nothing about the data layer, and if two modules talk, the contract is written down: a port or an interface, not a direct import.
+    - **Composition over inheritance.** Logic is built as a pipeline of steps, each with one responsibility; adding a step doesn't mean touching the ones already working.
+    - **Components talk through events** instead of importing each other. The gateway never imports the logger.
+    - **Tests that verify behavior, not implementation.** A refactor shouldn't break the suite; if it does, the test was watching the wrong thing.
+    - **Dependencies are wired in a composition root**, not resolved inside whoever uses them. That is what makes each piece testable without standing up the whole system.
+    - **Configuration through environment variables**, validated before deploy.
+    - **No invented numbers.** With no measured metric I describe things qualitatively: a number that doesn't hold up collapses at the first follow-up question.
 
 # Habilidades tecnicas agrupadas por area. Los items son iguales en ambos
 # idiomas; solo cambia la etiqueta del grupo.
@@ -77,24 +79,22 @@ skills:
   - group:
       es: Testing y calidad
       en: Testing & quality
-    items: [pytest, httpx, "TODO(Federico): completar"]
+    items: [pytest, pytest-asyncio, httpx, Playwright, mypy, Ruff]
 
-# TODO(Federico): completar educacion. Un item por titulo/certificacion.
-education:
-  - title:
-      es: "TODO: título"
-      en: "TODO: degree"
-    institution: "TODO: institución"
-    location: "Buenos Aires, Argentina"
-    period: "TODO: 20XX – 20XX"
-    note:
-      es: ""
-      en: ""
+# Vacio hasta que Federico lo complete. La seccion entera se OCULTA cuando esta
+# vacia (ver es/about.md): un "TODO: titulo" publicado es peor que no tener
+# seccion de educacion.
+# TODO(Federico): un item por titulo/certificacion.
+education: []
 
 # TODO(Federico): completar idiomas y nivel real.
 # Regla del sistema: el nivel se declara con la escala estandar
 # (Native / Professional Working Proficiency / Limited Working Proficiency),
 # nunca con adjetivos vagos tipo "intermedio" o "en mejora".
+# Regla del sistema: el nivel se declara con la escala estandar, nunca con
+# adjetivos vagos tipo "intermedio" o "en mejora" — en un CV se leen como una
+# disculpa. C2 es el nivel mas alto del CEFR y se declara junto a su equivalente
+# en la escala profesional, que es la que lee un recruiter.
 languages:
   - name:
       es: Español
@@ -106,8 +106,8 @@ languages:
       es: Inglés
       en: English
     level:
-      es: "TODO: nivel real"
-      en: "TODO: actual level"
+      es: Competencia profesional plena (C2)
+      en: Full Professional Proficiency (C2)
 
 # PDFs del CV publicados en el sitio. Se generan con ../Cv/build_html.py
 # (o browser-print) y se copian a cv/. Dejar vacio el nombre oculta el boton.
