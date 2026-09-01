@@ -9,9 +9,13 @@ Dos scripts, los dos stdlib puro y los dos con su workflow:
 
 ## sync_diagrams
 
-Los diagramas se generan en el repo de cada proyecto. Antes se copiaban a mano y
-la copia publicada quedaba vieja sin que nada avisara: la primera corrida
-encontro **los cinco diagramas de contracargos desactualizados**.
+Los diagramas se generan en el repo de cada proyecto. Antes se copiaban a mano,
+asi que la copia publicada podia quedar vieja sin que nada avisara.
+
+La primera corrida los encontro **a todos al dia**: el drift era un riesgo, no
+una deuda acumulada. (En la primera version el script reportaba los cinco de
+contracargos como desactualizados, pero era un falso positivo por fin de linea
+CRLF contra LF; ver `normalizar()`.)
 
 Que sincronizar sale de `scripts/diagramas.json`. Agregar un proyecto es una
 entrada ahi, no un workflow nuevo:

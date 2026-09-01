@@ -1,9 +1,8 @@
 # Copia los diagramas HTML desde los repos de cada proyecto a diagramas/.
 #
 # El problema que resuelve: los diagramas se generan alla y se copiaban a mano
-# aca. Cuando alla se regeneraban, la copia publicada quedaba vieja y nada
-# avisaba. La primera corrida de este workflow encontro los cinco diagramas de
-# contracargos desactualizados.
+# aca. Cuando alla se regeneraban, la copia publicada podia quedar vieja sin que
+# nada avisara. Hoy estan todos al dia; esto es para que sigan estandolo.
 name: sync-diagrams
 
 on:

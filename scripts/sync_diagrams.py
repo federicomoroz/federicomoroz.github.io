@@ -64,6 +64,17 @@ def bajar(repo: str, branch: str, ruta: str) -> bytes:
         raise RuntimeError(f"sin respuesta de {url}: {e.reason}") from None
 
 
+def normalizar(datos: bytes) -> bytes:
+    """Fin de linea unificado, para poder comparar dos copias del mismo archivo.
+
+    En Windows con core.autocrlf=true la copia de trabajo queda con CRLF, y lo
+    que baja de raw.githubusercontent viene con LF. Comparar bytes crudos daba
+    TODOS los archivos como desactualizados en cada corrida local: ruido puro,
+    y peor, un "hallazgo" de drift que no existia.
+    """
+    return datos.replace(b"\r\n", b"\n")
+
+
 def validar(datos: bytes, url: str) -> None:
     """Aborta si lo que llego no puede ser un diagrama."""
     if len(datos) < MINIMO_BYTES:
@@ -112,7 +123,11 @@ def main() -> None:
             ruta = DESTINO / carpeta / destino
             previo = ruta.read_bytes() if ruta.exists() else None
 
-            if previo == datos:
+            # Se compara normalizando fin de linea. En Windows, con
+            # core.autocrlf=true, la copia de trabajo tiene CRLF y lo que baja
+            # de raw.githubusercontent viene con LF: comparar bytes crudos daba
+            # TODOS los archivos como desactualizados en cada corrida.
+            if previo is not None and normalizar(previo) == normalizar(datos):
                 print(f"    = {destino}  ({len(datos) // 1024} KB, sin cambios)")
             else:
                 estado = "nuevo" if previo is None else "actualizado"
