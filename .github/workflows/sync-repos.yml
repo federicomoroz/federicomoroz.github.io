@@ -1,0 +1,68 @@
+# Refresca _data/repos.yml desde la API publica de GitHub.
+name: sync-repos
+
+on:
+  # Una vez por dia. Los hechos que trae (descripcion, lenguaje, ultimo push)
+  # no cambian mas rapido que eso, y cada corrida que commitea cuenta como
+  # actividad, asi que el cron no se auto-deshabilita por repo inactivo.
+  schedule:
+    - cron: "17 6 * * *"
+
+  # Para no esperar al cron despues de tocar un repo.
+  workflow_dispatch:
+
+  # Si se cambia el script o un archivo curado, conviene revalidar.
+  push:
+    branches: [main]
+    paths:
+      - "scripts/sync_repos.py"
+      - "_data/projects.yml"
+      - "_data/tools.yml"
+      - ".github/workflows/sync-repos.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-repos
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Sincronizar
+        env:
+          # Sube el rate limit de la API de 60/h a 1000/h.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python scripts/sync_repos.py --user "${{ github.repository_owner }}" | tee salida.txt
+
+      - name: Resumen
+        if: always()
+        run: |
+          {
+            echo '## sync-repos'
+            echo '```'
+            cat salida.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Commitear si cambio
+        run: |
+          rm -f salida.txt
+          if git diff --quiet -- _data/repos.yml; then
+            echo "Sin cambios."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add _data/repos.yml
+          git commit -m "[Update] Sync de repos publicos"
+          git push

@@ -34,6 +34,48 @@ se reacomodan solos: no hay ni un path hardcodeado en las plantillas.
 Las páginas de `es/` y `en/` son **el mismo cuerpo Liquid**; lo único distinto es el front
 matter. Todo el texto sale de `_data/i18n.yml` vía `page.lang`. Si tocás una, tocá la otra.
 
+## Auto-descubrimiento de repos
+
+`_data/repos.yml` lo **genera** `scripts/sync_repos.py` desde la API pública de GitHub:
+descripción, lenguaje, topics, stars, último push y si está archivado. **No se edita a
+mano**: se pisa entero en cada corrida.
+
+El reparto es deliberado:
+
+| | Archivo | Quién lo escribe |
+|---|---|---|
+| Los hechos del repo | `_data/repos.yml` | el script, solo |
+| Qué se lista y cómo se cuenta | `_data/projects.yml`, `_data/tools.yml` | vos, a mano |
+
+**El contenido se refresca solo; la inclusión se decide a mano.** Si un repo público nuevo
+apareciera automáticamente en el sitio, cualquier repo de prueba terminaría en el portfolio.
+Lo que hace el script es *avisarte* que existe.
+
+Corre solo una vez por día (`.github/workflows/sync-repos.yml`), y también a demanda desde
+**Actions → sync-repos → Run workflow**. Si commitea, deja el resumen en la corrida.
+
+A mano:
+
+```sh
+python scripts/sync_repos.py            # regenera repos.yml
+python scripts/sync_repos.py --check    # solo reporta, no escribe
+```
+
+El reporte dice dos cosas:
+
+- **Repos públicos sin entrada curada** — existen en GitHub pero no se muestran. Para
+  publicarlos, se les escribe una entrada en `projects.yml` o en `tools.yml`.
+- **Repos curados que ya no son públicos** — se volvieron privados, se renombraron o se
+  borraron. La entrada sigue ahí y su link está roto: hay que revisarla. **El script nunca
+  borra una entrada curada**, porque perder un write-up por un cambio de visibilidad sería
+  mucho peor que un link roto.
+
+**Solo ve repos públicos.** Es una limitación real de la API sin credenciales, y también lo
+correcto: el sitio no debería listar nada que no lo sea.
+
+Lo que ese archivo alimenta hoy es la línea de metadata de cada proyecto —cuándo se pusheó
+por última vez, las estrellas, si está archivado—, que es lo que se refresca sin tocar nada.
+
 ## Agregar un proyecto
 
 1. Sumá la entrada a `_data/projects.yml`. Campos:

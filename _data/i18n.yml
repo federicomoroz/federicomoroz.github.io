@@ -35,6 +35,8 @@ es:
     demo: "Demo en vivo ↗"
     repo: "Repo ↗"
     repo_private: "repo privado"
+    updated: "actualizado"
+    archived: "archivado"
     capabilities_heading: "Sobre estos proyectos"
     capabilities_note: "Parte del trabajo es privado o está bajo NDA. En vez del repo, en esos casos queda un write-up técnico autocontenido: la decisión de diseño y el resultado, sin exponer código de clientes."
   tools:
@@ -92,6 +94,8 @@ en:
     demo: "Live demo ↗"
     repo: "Repo ↗"
     repo_private: "private repo"
+    updated: "updated"
+    archived: "archived"
     capabilities_heading: "About these projects"
     capabilities_note: "Some of the work is private or under NDA. In those cases what's public is a self-contained technical write-up: the design decision and the outcome, without exposing client code."
   tools:

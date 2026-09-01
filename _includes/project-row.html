@@ -1,8 +1,17 @@
 {% comment %}
   Una fila del listado de proyectos. Se usa desde el home y desde /projects/.
   Parametros: proj (entrada de _data/projects.yml), lang, t (bloque i18n).
+
+  Los datos vienen de dos lados y no se pisan:
+    _data/projects.yml  curado a mano  -> nombre, resumen, estado, si se lista
+    _data/repos.yml     generado       -> ultimo push, stars, si esta archivado
+
+  El segundo lo regenera scripts/sync_repos.py desde la API de GitHub, asi que
+  la frescura del repo se actualiza sola. Solo aplica a repos publicos: si no
+  hay match, la metadata simplemente no se muestra.
 {% endcomment %}
 {% assign detail_url = '/' | append: include.lang | append: '/projects/' | append: include.proj.id | append: '/' %}
+{% assign gh = site.data.repos.repos | where: "url", include.proj.repo | first %}
 
 <div class="project-row">
   <div>
@@ -12,6 +21,7 @@
       {% elsif include.proj.status == "paused" %}<span class="tag paused">{{ include.t.status.paused }}</span>
       {% elsif include.proj.status == "done" %}<span class="tag done">{{ include.t.status.done }}</span>
       {% else %}<span class="tag">{{ include.proj.status }}</span>{% endif %}
+      {% if gh.archived %}<span class="tag">{{ include.t.projects.archived }}</span>{% endif %}
     </h3>
     <p>{{ include.proj.short[include.lang] | markdownify | remove: "<p>" | remove: "</p>" }}</p>
     <p class="row-links">
@@ -19,6 +29,7 @@
       {% if include.proj.demo %}<a href="{{ include.proj.demo }}" target="_blank" rel="noopener">{{ include.t.projects.demo }}</a>{% endif %}
       {% if include.proj.repo_visibility == "public" and include.proj.repo %}<a href="{{ include.proj.repo }}" target="_blank" rel="noopener">{{ include.t.projects.repo }}</a>
       {% else %}<span class="muted">{{ include.t.projects.repo_private }}</span>{% endif %}
+      {% if gh %}<span class="repo-facts">{{ include.t.projects.updated }} {{ gh.pushed_at | date: "%m/%Y" }}{% if gh.stars > 0 %} · ★ {{ gh.stars }}{% endif %}</span>{% endif %}
     </p>
   </div>
   <div class="project-meta">

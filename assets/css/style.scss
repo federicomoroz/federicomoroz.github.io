@@ -496,6 +496,15 @@ pre code
     font-weight: 500;
 }
 
+/* Metadata que viene de la API de GitHub via _data/repos.yml. Se muestra
+   apagada a proposito: es contexto, no una accion. */
+.repo-facts
+{
+    color: var(--fg-faint);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+}
+
 /* === Cards (tools) ======================================================== */
 
 .cards
