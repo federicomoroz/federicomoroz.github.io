@@ -8,9 +8,16 @@ Cada subcarpeta es un proyecto. Se linkean desde su case study en `es|en/project
 
 `mega-training-system/` es la documentacion de arquitectura, copiada de `docs/architecture/`
 de su repo. **Ojo: a diferencia de los de contracargos, estos NO son autocontenidos** —
-cargan mermaid y font-awesome por CDN, asi que necesitan conexion. Mismo problema de sync:
-si alla se regeneran, hay que volver a copiarlos.
+cargan mermaid y font-awesome por CDN, asi que necesitan conexion.
 
 `contracargos/` son los cinco diagramas del agente de investigación de contracargos,
-copiados de `docs/diagrams/` de su repo. Si allá se regeneran, hay que volver a copiarlos:
-no hay sync automático.
+copiados de `docs/diagrams/` de su repo.
+
+## No se editan a mano
+
+Estos HTML los **genera** `scripts/sync_diagrams.py` desde el repo de cada
+proyecto, y se pisan enteros en cada corrida. Un cambio hecho aca se pierde en
+la proxima sincronizacion: se arregla en el repo de origen.
+
+Que se sincroniza sale de `scripts/diagramas.json`; el detalle esta en
+`scripts/README-sync.md`.

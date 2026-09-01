@@ -1,0 +1,72 @@
+# Copia los diagramas HTML desde los repos de cada proyecto a diagramas/.
+#
+# El problema que resuelve: los diagramas se generan alla y se copiaban a mano
+# aca. Cuando alla se regeneraban, la copia publicada quedaba vieja y nada
+# avisaba. La primera corrida de este workflow encontro los cinco diagramas de
+# contracargos desactualizados.
+name: sync-diagrams
+
+on:
+  # Red de seguridad diaria. Corre despues de sync-repos para no pisarse.
+  schedule:
+    - cron: "37 6 * * *"
+
+  # Para no esperar al cron despues de regenerar un diagrama.
+  workflow_dispatch:
+
+  # Sincronizacion inmediata: un repo de origen puede disparar esto en su push.
+  # Ver scripts/README-sync.md para el snippet y el token que hace falta.
+  repository_dispatch:
+    types: [diagramas-actualizados]
+
+  # Si se cambia el script o el manifiesto, conviene revalidar.
+  push:
+    branches: [main]
+    paths:
+      - "scripts/sync_diagrams.py"
+      - "scripts/diagramas.json"
+      - ".github/workflows/sync-diagrams.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-diagrams
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Sincronizar
+        run: python scripts/sync_diagrams.py | tee salida.txt
+
+      - name: Resumen
+        if: always()
+        run: |
+          {
+            echo '## sync-diagrams'
+            echo '```'
+            cat salida.txt 2>/dev/null || echo 'sin salida'
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Commitear si cambio
+        run: |
+          rm -f salida.txt
+          if git diff --quiet -- diagramas/; then
+            echo "Sin cambios."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add diagramas/
+          git commit -m "[Update] Sync de diagramas desde los repos de origen"
+          git push

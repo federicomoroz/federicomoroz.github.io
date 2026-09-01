@@ -1,0 +1,30 @@
+{
+  "_comentario": [
+    "Manifiesto de diagramas: de que repo sale cada HTML que se sirve en diagramas/.",
+    "Agregar un proyecto es una entrada aca, no un workflow nuevo.",
+    "Las claves de 'archivos' son el nombre destino dentro de diagramas/<carpeta>/;",
+    "los valores, la ruta en el repo de origen. Solo repos PUBLICOS: se bajan por",
+    "raw.githubusercontent sin credenciales."
+  ],
+
+  "contracargos": {
+    "repo": "federicomoroz/ciri-api-aux-sourcecode",
+    "branch": "main",
+    "archivos": {
+      "n8n_workflow_analysis.html": "docs/diagrams/n8n_workflow_analysis.html",
+      "pipeline_n8n_api.html": "docs/diagrams/pipeline_n8n_api.html",
+      "api.html": "docs/diagrams/api.html",
+      "rag.html": "docs/diagrams/rag.html",
+      "tests.html": "docs/diagrams/tests.html"
+    }
+  },
+
+  "mega-training-system": {
+    "repo": "federicomoroz/MegaTrainingSystem",
+    "branch": "master",
+    "archivos": {
+      "arquitectura.html": "docs/architecture/index.html",
+      "arquitectura_en.html": "docs/architecture/index_en.html"
+    }
+  }
+}

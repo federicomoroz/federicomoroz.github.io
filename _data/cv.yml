@@ -91,9 +91,7 @@ skills:
       en: Architecture & practices
     items: [SOLID, "Arquitectura por capas", "Ports & adapters", MVC, Repository, "Arquitectura orientada a eventos", "Circuit breaker", "Inyección de dependencias", "Composition root", "Plugin systems", Pipeline]
 
-# UADE (Marketing, 2007-2010) esta en el store pero NO se publica aca: Federico
-# no lo menciono al enumerar su educacion. Decision suya, ver las notas de
-# Cv/store/colecciones/educacion.json.
+# Orden cronologico inverso, con la formacion sin fecha al final.
 education:
   - title:
       es: "Programación"
@@ -101,6 +99,15 @@ education:
     institution: "Escuela Da Vinci"
     location: "Buenos Aires, Argentina"
     period: "2021 – 2023"
+    note:
+      es: ""
+      en: ""
+  - title:
+      es: "Marketing"
+      en: "Marketing"
+    institution: "UADE"
+    location: "Buenos Aires, Argentina"
+    period: "2007 – 2010"
     note:
       es: ""
       en: ""
