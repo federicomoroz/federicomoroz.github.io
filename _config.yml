@@ -37,6 +37,7 @@ defaults:
 
 exclude:
   - diagramas/README.md
+  - scripts
   - Gemfile
   - Gemfile.lock
   - vendor
