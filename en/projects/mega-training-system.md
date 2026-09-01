@@ -44,6 +44,17 @@ training— with its own methodology, its own catalogue and its own output forma
 where the plugin architecture comes from: the second discipline could not cost a rewrite of
 the first.
 
+## The music editor
+
+A class is not just its structure: it is the structure **with the music on top**. The audio
+editor is a small DAW in the browser — a timeline by phase, tracks dragged onto each block,
+crossfades, and a final render to a single file.
+
+<figure class="shot">
+  <img src="{{ '/assets/img/mts-musicalizador.jpg' | relative_url }}" alt="Audio editor: timeline with the class phases, the music lane with its waveform, the fade controls, and the track library with BPM and intensity." loading="lazy" width="1600" height="1000">
+  <figcaption>The 56 minutes of a class, structure on top and music underneath. Every track in the library carries its BPM and its intensity, which is what decides the phase it can go into.</figcaption>
+</figure>
+
 ## Architecture
 
 Four layers, with the discipline registry cutting across them:
@@ -58,6 +69,19 @@ Four layers, with the discipline registry cutting across them:
 
 Adapters come in through ports (`ClassStoragePort`, `KnowledgeBasePort`, `UserRepoPort`), so
 the services are tested with no filesystem and no database.
+
+## The diagrams
+
+The full architecture is documented as a single self-contained HTML page with nine generated
+diagrams: the overview, the modules, the domain models, the SSE and threading flow, the
+SQLite schema, the discipline system and the API routes.
+
+<div class="cards">
+  <article class="card">
+    <div class="card-header"><a class="card-title" href="{{ '/diagramas/mega-training-system/arquitectura_en.html' | relative_url }}">Full architecture ↗</a></div>
+    <div class="card-desc"><p>Seven sections, from the bird's-eye view down to the table schema: each discipline's secondary ports, the domain invariants, how streaming is solved with threading inside a synchronous Flask, and what the API exposes.</p></div>
+  </article>
+</div>
 
 ## Decisions that mattered
 
@@ -84,14 +108,6 @@ generation away.
 
 **SSE and threading, not asyncio.** Flask is synchronous. Generation returns a `task_id` and
 the client attaches to a stream, with one `threading.Event` per task instead of polling.
-
-## Known limits
-
-- **There is no public demo.** It is a login-gated application: what can be shown are
-  screenshots or a live walkthrough, not a link.
-- **Yoga is a placeholder.** The plugin exists and the registry sees it, but it is not
-  implemented. It is proof that the extension mechanism works, not a discipline.
-- **The architecture documentation lives in the repo** as HTML and is not published here.
 
 <!--
   TODO(Federico): same two items as the Spanish page — how it reached the client, and a real

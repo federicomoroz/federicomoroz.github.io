@@ -1,0 +1,2292 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MEGA TRAINING SYSTEM — Arquitectura v3.4</title>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Archivo:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap');
+
+    :root {
+      --accent: #FF5301;
+      --accent2: #ff8c00;
+      --accent-blue: #4da6ff;
+      --accent-green: #00c864;
+      --accent-red: #ff4d4d;
+      --accent-amber: #ffc800;
+      --bg: #0a0a0a;
+      --surface: #111111;
+      --surface2: #161616;
+      --surface3: #1c1c1c;
+      --border: #222222;
+      --border2: rgba(255,255,255,0.06);
+      --text: #e8e8e8;
+      --muted: #777;
+      --font-head: 'Montserrat', sans-serif;
+      --font-body: 'Archivo', sans-serif;
+      --font-mono: 'Space Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* Scroll progress bar */
+    #scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: var(--accent);
+      z-index: 9999;
+      transition: width 0.1s linear;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 15px;
+      line-height: 1.65;
+      /* Dot grid background texture */
+      background-image: radial-gradient(circle, rgba(255,255,255,0.035) 1px, transparent 1px);
+      background-size: 28px 28px;
+    }
+
+    /* ── HEADER ─────────────────────────────────────────────── */
+    header {
+      background: var(--surface);
+      border-bottom: 2px solid var(--accent);
+      padding: 36px 48px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Decorative gradient glow under accent line */
+    header::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 40px;
+      background: linear-gradient(to bottom, rgba(255,83,1,0.12), transparent);
+      pointer-events: none;
+    }
+
+    /* Large MTS monogram watermark */
+    header::before {
+      content: 'MTS';
+      position: absolute;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--font-head);
+      font-weight: 900;
+      font-size: 160px;
+      color: rgba(255,255,255,0.04);
+      letter-spacing: -8px;
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .header-top {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    header h1 {
+      font-family: var(--font-head);
+      font-weight: 900;
+      font-size: 24px;
+      letter-spacing: 0.06em;
+      color: #fff;
+    }
+
+    header .subtitle {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    header .badge {
+      margin-left: auto;
+      background: var(--accent);
+      color: #fff;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 100px;
+      letter-spacing: 0.05em;
+    }
+
+    /* Stats strip */
+    .stats-strip {
+      display: flex;
+      gap: 0;
+      border-top: 1px solid var(--border);
+      position: relative;
+      z-index: 1;
+    }
+
+    .stat-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-right: 1px solid var(--border);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .stat-item:first-child { padding-left: 0; }
+    .stat-item:last-child { border-right: none; }
+
+    .stat-num {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    /* ── STICKY NAV ─────────────────────────────────────────── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10,10,10,0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 48px;
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+    }
+
+    nav a {
+      display: block;
+      padding: 14px 18px;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 600;
+      font-family: var(--font-body);
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+      transition: color 0.2s;
+      position: relative;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      right: 50%;
+      height: 2px;
+      background: var(--accent);
+      transition: left 0.25s ease, right 0.25s ease;
+    }
+
+    nav a:hover { color: var(--text); }
+
+    nav a.active {
+      color: var(--accent);
+    }
+
+    nav a.active::after {
+      left: 18px;
+      right: 18px;
+    }
+
+    /* ── MAIN CONTENT ───────────────────────────────────────── */
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 56px 48px 100px;
+    }
+
+    /* ── SECTIONS ────────────────────────────────────────────── */
+    section {
+      margin-bottom: 80px;
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    section h2 {
+      font-family: var(--font-head);
+      font-weight: 900;
+      font-size: 20px;
+      letter-spacing: 0.03em;
+      color: #fff;
+      margin-bottom: 8px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Decorative number watermark behind h2 */
+    section h2 .watermark {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--font-head);
+      font-weight: 900;
+      font-size: 80px;
+      color: rgba(255,255,255,0.04);
+      letter-spacing: -2px;
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    section h2 .num {
+      color: var(--accent);
+      margin-right: 12px;
+      font-family: var(--font-mono);
+      font-size: 14px;
+    }
+
+    .section-desc {
+      color: var(--muted);
+      font-size: 13px;
+      margin: 14px 0 28px;
+      max-width: 760px;
+      line-height: 1.7;
+    }
+
+    /* ── DIAGRAM BOX (gradient border) ─────────────────────── */
+    .diagram-box {
+      background: linear-gradient(135deg, rgba(255,83,1,0.15), rgba(77,166,255,0.1));
+      padding: 1px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+    }
+
+    .diagram-box-inner {
+      background: #0e0e0e;
+      border-radius: 7px;
+      padding: 32px 24px;
+      overflow-x: auto;
+    }
+
+    .diagram-box-inner .mermaid {
+      display: flex;
+      justify-content: center;
+    }
+
+    /* ── GLASS MORPHISM CARDS ────────────────────────────────── */
+    .card {
+      background: rgba(255,255,255,0.03);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 8px;
+      padding: 20px 22px;
+      transition: box-shadow 0.25s ease, transform 0.25s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 4px 24px rgba(255,83,1,0.15);
+      transform: translateY(-2px);
+    }
+
+    .card h3 {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 900px) {
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    }
+
+    /* ── TABLES ───────────────────────────────────────────────── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      font-family: var(--font-mono);
+    }
+
+    th {
+      text-align: left;
+      color: var(--muted);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    td {
+      padding: 9px 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      color: var(--text);
+      vertical-align: top;
+    }
+
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(255,255,255,0.025); }
+
+    /* Alternating first-column colors by table context */
+    .table-orange td:first-child { color: var(--accent2); }
+    .table-blue   td:first-child { color: var(--accent-blue); }
+    .table-green  td:first-child { color: var(--accent-green); }
+
+    /* ── CODE ──────────────────────────────────────────────────── */
+    code {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      background: rgba(255,83,1,0.12);
+      color: var(--accent2);
+      padding: 2px 6px;
+      border-radius: 0;
+    }
+
+    /* ── TAGS / BADGES ─────────────────────────────────────────── */
+    .tag-list { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+
+    .tag {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 4px 12px;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    .tag.accent { background: rgba(255,83,1,0.12); border-color: rgba(255,83,1,0.35); color: var(--accent); }
+    .tag.green  { background: rgba(0,200,100,0.1);  border-color: rgba(0,200,100,0.35); color: #00c864; }
+    .tag.blue   { background: rgba(77,166,255,0.1); border-color: rgba(77,166,255,0.35); color: #4da6ff; }
+    .tag.yellow { background: rgba(255,200,0,0.1);  border-color: rgba(255,200,0,0.35); color: #ffc800; }
+
+    /* ── METHOD BADGES ─────────────────────────────────────────── */
+    .method-badge {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 100px;
+      letter-spacing: 0.05em;
+      min-width: 52px;
+      text-align: center;
+    }
+
+    .method-badge.get    { background: rgba(77,166,255,0.15);  color: #4da6ff;  border: 1px solid rgba(77,166,255,0.3); }
+    .method-badge.post   { background: rgba(0,200,100,0.12);   color: #00c864;  border: 1px solid rgba(0,200,100,0.3); }
+    .method-badge.delete { background: rgba(255,77,77,0.12);   color: #ff6060;  border: 1px solid rgba(255,77,77,0.3); }
+    .method-badge.put    { background: rgba(255,200,0,0.12);   color: #ffc800;  border: 1px solid rgba(255,200,0,0.3); }
+    .method-badge.patch  { background: rgba(200,100,255,0.12); color: #cc88ff;  border: 1px solid rgba(200,100,255,0.3); }
+    .method-badge.sse    { background: rgba(255,83,1,0.12);    color: var(--accent); border: 1px solid rgba(255,83,1,0.3); }
+
+    /* ── ROUTE TABLE ───────────────────────────────────────────── */
+    .route-table td { font-size: 12px; }
+    .route-table td:first-child { width: 56px; }
+    .route-table td:nth-child(2) { color: var(--accent-blue); font-family: var(--font-mono); font-size: 11px; }
+    .route-table td:nth-child(3) { color: var(--muted); font-family: var(--font-body); font-size: 12px; }
+
+    /* ── ALERT ─────────────────────────────────────────────────── */
+    .alert {
+      background: rgba(255,83,1,0.06);
+      border: 1px solid rgba(255,83,1,0.25);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 6px 6px 0;
+      padding: 14px 18px;
+      font-size: 13px;
+      margin-top: 16px;
+    }
+
+    .alert strong { color: var(--accent); }
+
+    /* ── STRENGTHS/WEAKNESSES ──────────────────────────────────── */
+    .strengths-weaknesses {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 8px;
+    }
+
+    .sw-block {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 8px;
+      padding: 22px;
+    }
+
+    .sw-block h3 { font-size: 13px; font-weight: 700; margin-bottom: 14px; font-family: var(--font-body); }
+    .sw-block.good h3 { color: #00c864; }
+    .sw-block.bad  h3 { color: #ff6060; }
+    .sw-block ul { list-style: none; padding: 0; }
+    .sw-block li { font-size: 12px; color: var(--text); padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.04); line-height: 1.5; }
+    .sw-block li:last-child { border-bottom: none; }
+    .sw-block.good li::before { content: "✓ "; color: #00c864; }
+    .sw-block.bad  li::before { content: "△ "; color: #ff6060; }
+
+    /* ── SUBSECTION TITLE ──────────────────────────────────────── */
+    .subsection-title {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 32px 0 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .subsection-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── AT A GLANCE CARD ──────────────────────────────────────── */
+    .discipline-glance {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .disc-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 100px;
+      padding: 8px 18px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .disc-pill .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .disc-pill .dot.green  { background: #00c864; box-shadow: 0 0 6px #00c864; }
+    .disc-pill .dot.grey   { background: #555; }
+
+    /* ── BACK TO TOP ────────────────────────────────────────────── */
+    #back-to-top {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      z-index: 200;
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    #back-to-top.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    #back-to-top:hover {
+      background: #ff6a26;
+    }
+
+    /* ── ROUTE SECTION GROUPS ─────────────────────────────────── */
+    .route-group {
+      margin-bottom: 28px;
+    }
+
+    .route-group-header {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 10px 12px;
+      background: rgba(255,255,255,0.02);
+      border-radius: 4px 4px 0 0;
+      border: 1px solid var(--border);
+      border-bottom: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .route-group-header .group-badge {
+      font-size: 10px;
+      padding: 1px 8px;
+      border-radius: 100px;
+      font-weight: 700;
+    }
+
+    .route-group table {
+      border: 1px solid var(--border);
+      border-radius: 0 0 4px 4px;
+      overflow: hidden;
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    /* ── Icon enhancements ─────────────────────────────── */
+    nav a .fa-solid,
+    nav a .fa-regular {
+      width: 16px;
+      opacity: 0.7;
+      flex-shrink: 0;
+      margin-right: 6px;
+    }
+    nav a:hover .fa-solid,
+    nav a.active .fa-solid { opacity: 1; }
+
+    h2 .section-icon {
+      font-size: 18px;
+      opacity: 0.5;
+      margin-left: 10px;
+      vertical-align: middle;
+    }
+
+    .card h3 .fa-solid {
+      font-size: 11px;
+      opacity: 0.6;
+      margin-right: 5px;
+    }
+
+    .sw-block.good h3 .fa-solid { color: #22c55e; opacity: 1; }
+    .sw-block.bad h3 .fa-solid { color: #ef4444; opacity: 1; }
+
+    .alert .fa-solid {
+      margin-right: 7px;
+      opacity: 0.8;
+    }
+
+    th .fa-solid {
+      font-size: 9px;
+      opacity: 0.5;
+      margin-right: 5px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Scroll progress bar -->
+<div id="scroll-progress"></div>
+
+<!-- Back to top button -->
+<button id="back-to-top" title="Volver arriba" aria-label="Back to top">↑</button>
+
+<header>
+  <div class="header-top">
+    <h1>MEGA TRAINING SYSTEM</h1>
+    <span class="subtitle">Informe de Arquitectura</span>
+    <span class="badge">v3.4 — Mayo 2026</span>
+  </div>
+  <div class="stats-strip">
+    <div class="stat-item"><span class="stat-num">775</span> tests ✅</div>
+    <div class="stat-item"><span class="stat-num">2</span> blueprints</div>
+    <div class="stat-item"><span class="stat-num">41</span> routes</div>
+    <div class="stat-item"><span class="stat-num">3</span> SQLite DBs</div>
+    <div class="stat-item">⚡ circuit breaker activo</div>
+    <div class="stat-item">⬡ ports &amp; adapters (IC + MG)</div>
+  </div>
+</header>
+
+<nav id="top-nav">
+  <a href="#overview" class="active"><i class="fa-solid fa-sitemap"></i>Visión general</a>
+  <a href="#modules"><i class="fa-solid fa-layer-group"></i>Módulos</a>
+  <a href="#datamodel"><i class="fa-solid fa-database"></i>Modelos de dominio</a>
+  <a href="#sse-flow"><i class="fa-solid fa-arrows-spin"></i>Flujo SSE</a>
+  <a href="#database"><i class="fa-solid fa-table"></i>Base de datos</a>
+  <a href="#filesystem"><i class="fa-solid fa-folder-tree"></i>Sistema de archivos</a>
+  <a href="#api"><i class="fa-solid fa-route"></i>API Routes</a>
+  <a href="#resilience"><i class="fa-solid fa-shield-halved"></i>Resiliencia</a>
+  <a href="#assessment"><i class="fa-solid fa-chart-line"></i>Evaluación</a>
+</nav>
+
+<main>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     1. VISIÓN GENERAL
+════════════════════════════════════════════════════════════════ -->
+<section id="overview">
+  <h2><span class="num">01</span>Visión General del Sistema<i class="fa-solid fa-sitemap section-icon"></i><span class="watermark">01</span></h2>
+
+  <!-- Discipline at-a-glance pills -->
+  <div class="discipline-glance">
+    <div class="disc-pill"><span class="dot green"></span>IC — Indoor Cycling</div>
+    <div class="disc-pill"><span class="dot green"></span>MG — Musculación</div>
+    <div class="disc-pill"><span class="dot grey"></span>YG — Yoga (placeholder)</div>
+  </div>
+
+  <p class="section-desc">
+    Aplicación Flask multidisciplinaria para generación de planes de entrenamiento mediante Claude API.
+    Arquitectura de 5 capas: Seguridad → Presentación → Aplicación (Blueprints) → Servicios → Datos.
+    IC y MG son paquetes propios (<code>src/ic/</code>, <code>src/mg/</code>) con Blueprint independiente.
+    <code>app.py</code> contiene 9 rutas globales, bootstrap del contenedor DI (<code>AppContainer</code>)
+    y registro dinámico de plugins vía <code>discipline_registry.py</code>.
+    Sprint 4 agrega: sistema de plugins, DI con <code>dependency-injector</code>,
+    <code>api_v1_bp</code> (/api/v1/), idempotency + result persistence, circuit breaker para Claude API,
+    y envcheck al startup.
+    Sprint 8+9 agrega: capa de seguridad (<code>auth.py</code> opt-in API key, <code>rate_limiter.py</code>
+    sliding window per-IP), logging centralizado idempotente (<code>logging_config.py</code>),
+    middleware compartido (<code>app_factory.py</code>), y lazy module attributes PEP 562 en
+    <code>discipline_registry.py</code> — zero costo de import.
+    Sprint 10 agrega: sistema de login por sesión para staff (<code>auth_user/</code> package, <code>auth_cli.py</code>),
+    panel de administración de usuarios (<code>/admin/users</code>), <code>auth.py</code> reescrito como always-on con
+    bypass TESTING, soporte de sesiones Flask firmadas (<code>FLASK_SECRET_KEY</code>).
+    Arquitectura hexagonal (ports &amp; adapters): puertos secundarios <code>ClassStoragePort</code> (IC) y
+    <code>KnowledgeBasePort</code> (MG) con adaptadores filesystem — los services son ahora
+    filesystem-free y Flask-free bajo inyección de test.
+  </p>
+
+  <div class="diagram-box">
+    <div class="diagram-box-inner">
+      <div class="mermaid">
+graph TB
+    subgraph FRONTEND["🖥  FRONTEND  (Vanilla JS + CSS vars)"]
+      direction LR
+      CR["creator.html<br/>Generador IC"]
+      MG_CR["mg_creator.html<br/>Generador MG"]
+      IN["instructor.html<br/>Browser clases"]
+      AE["audio_editor.html<br/>Timeline audio"]
+      PL["instructor_play.html<br/>HUD en vivo"]
+      ML["music_library.html<br/>Gestión tracks"]
+      DS["discipline_select.html<br/>Landing disciplines"]
+    end
+
+    subgraph FLASK["⚙  FLASK  (app.py + Blueprints + DI)"]
+      direction LR
+      PAGES["app.py — 9 rutas globales<br/>/creator /instructor /socios<br/>/setup /api/settings"]
+      DI["AppContainer (DI)<br/>Factory providers<br/>wired post-plugins"]
+      PLUG["discipline_registry<br/>discover_plugins()<br/>startup_validate()"]
+      ICBP["Blueprint ic_bp (src/ic/)<br/>@inject providers<br/>/api/class* /api/music/* /api/audio-*"]
+      MGBP["Blueprint mg_bp (src/mg/)<br/>@inject providers<br/>/api/mg/*"]
+      APIV1["Blueprint api_v1_bp<br/>/api/v1/tasks/&lt;id&gt;/result<br/>/api/v1/disciplines"]
+      SSE["SSE via task_registry<br/>push() / sse_response()"]
+    end
+
+    subgraph SEC["🔒  SEGURIDAD  (src/)"]
+      direction LR
+      AUTH["auth.py<br/>init_auth() always-on<br/>session + MEGAS_API_KEY fallback"]
+      RL["rate_limiter.py<br/>RateLimiter sliding window<br/>per-IP thread-safe"]
+      RLM["rate_limit_middleware.py<br/>@rate_limited() decorator<br/>_gen_limiter compartido"]
+      LOG["logging_config.py<br/>configure_logging()<br/>idempotente · FLASK_LOG_LEVEL"]
+      FAC["app_factory.py<br/>register_shared_middleware()<br/>DRY entry points"]
+    end
+
+    subgraph INFRA["🛡  INFRAESTRUCTURA  (src/)"]
+      direction LR
+      CB["circuit_breaker.py<br/>CLOSED/OPEN/HALF_OPEN<br/>singleton thread-safe"]
+      IDEM["idempotency.py<br/>Idempotency-Key header<br/>INSERT OR IGNORE TTL 48h"]
+      TRS["task_result_store.py<br/>persist done/error<br/>TTL 24h"]
+    end
+
+    subgraph SERVICES["📦  SERVICIOS  (src/ + src/mg/)"]
+      direction LR
+      CGS["ClassGenerationService"]
+      ARS["AudioRenderService"]
+      MUS["MusicUploadService"]
+      MGS["MuscleGenerationService"]
+      REPO_IC["MusicLibrary<br/>(IC)"]
+      REPO_MG["MemberRepository<br/>(MG)"]
+    end
+
+    subgraph AI["🤖  CLAUDE API  +  Infraestructura compartida"]
+      AIC["ai_client.py<br/>call_with_cb() ← CB<br/>resolve_anthropic_client()"]
+      AG_IC["agent.py<br/>generate_class() (IC)"]
+      AG_MG["mg/generator.py<br/>generate_mg_plan()"]
+      SYS_IC["agents/alexandre_indoor_cycling.md"]
+      SYS_MG["agents/musculacion.md"]
+    end
+
+    subgraph DATA["💾  DATOS"]
+      DB_ML["SQLite<br/>music_library.db"]
+      DB_MB["SQLite<br/>members.db"]
+      DB_TK["SQLite<br/>tasks.db<br/>(results + idempotency)"]
+      FS["Filesystem<br/>CLASES/discipline/"]
+      ENV["settings.json / .env"]
+    end
+
+    FRONTEND -->|HTTP / SSE| SEC
+    SEC --> FLASK
+    FLASK --> INFRA
+    FLASK --> SERVICES
+    SERVICES --> AI
+    AI --> CB
+    SERVICES --> DATA
+    INFRA --> DATA
+    FLASK --> DATA
+
+    style FRONTEND fill:#1a1a2e,stroke:#4da6ff,color:#e8e8e8
+    style SEC fill:#2e1a1a,stroke:#ff4d4d,color:#e8e8e8
+    style FLASK fill:#1a2e1a,stroke:#00c864,color:#e8e8e8
+    style INFRA fill:#1e1a2e,stroke:#cc44ff,color:#e8e8e8
+    style SERVICES fill:#2e1a00,stroke:#ff8c00,color:#e8e8e8
+    style AI fill:#2e1a2e,stroke:#cc44ff,color:#e8e8e8
+    style DATA fill:#1a1e2e,stroke:#4da6ff,color:#e8e8e8
+      </div>
+    </div>
+  </div>
+
+  <div class="tag-list">
+    <span class="tag accent">Python 3.10+</span>
+    <span class="tag accent">Flask + Blueprints</span>
+    <span class="tag accent">Pydantic v2</span>
+    <span class="tag blue">Claude claude-sonnet-4-6</span>
+    <span class="tag blue">tool_choice=any</span>
+    <span class="tag green">SQLite vía Repository</span>
+    <span class="tag green">pydub + ffmpeg</span>
+    <span class="tag yellow">Vanilla JS</span>
+    <span class="tag yellow">SSE streaming</span>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     2. MÓDULOS
+════════════════════════════════════════════════════════════════ -->
+<section id="modules">
+  <h2><span class="num">02</span>Arquitectura de Módulos<i class="fa-solid fa-layer-group section-icon"></i><span class="watermark">02</span></h2>
+  <p class="section-desc">
+    Tres vistas complementarias en lugar de un único grafo ininteligible.
+    Cada diagrama cuenta una historia distinta.
+  </p>
+
+  <!-- ── DIAGRAMA A: CAPAS ───────────────────────────────────── -->
+  <div class="subsection-title">A — Arquitectura en capas</div>
+  <p class="section-desc" style="margin-top: 0;">
+    Flujo vertical de dependencias. Las capas solo dependen hacia abajo.
+    IC y MG <strong>no se importan entre sí</strong> — comparten infraestructura.
+  </p>
+  <div class="diagram-box">
+    <div class="diagram-box-inner">
+      <div class="mermaid">
+graph TD
+    subgraph SEC_LAYER["Capa Seguridad — auth · rate limiting · logging"]
+      LOG_C["logging_config.py\nconfigure_logging() idempotente · FLASK_LOG_LEVEL"]
+      AUTH_C["auth.py\ninit_auth() · always-on · sesión + API key fallback\nExento: /login /logout /setup /static/* *-stream/*"]
+      RL_C["rate_limiter.py + rate_limit_middleware.py\nRateLimiter sliding window per-IP\n@rate_limited() decorator · _gen_limiter compartido"]
+      FAC_C["app_factory.py\nregister_shared_middleware()\nDRY: container ext + auth + req logging + api_v1_bp"]
+    end
+
+    subgraph PRES["Capa Presentación — HTTP / SSE"]
+      APP["app.py\n9 rutas globales · DI bootstrap · plugin registry"]
+      IC_BP["ic_bp  (src/ic/)\n6 route modules · @inject providers · @rate_limited()"]
+      MG_BP["mg_bp  (src/mg/)\n3 route modules · @inject providers · @rate_limited()"]
+      API1["api_v1_bp\n/api/v1/disciplines · /api/v1/tasks/…/result"]
+    end
+
+    subgraph APP_LAYER["Capa Aplicación — Orquestación"]
+      ORCH["generation_orchestrator.py\nstart_task()  ·  persist_and_complete()"]
+      TQR["task_registry.py  (singleton)\npush()  ·  sse_response()"]
+      IDEM["idempotency.py\nInsert-or-ignore · TTL 48h"]
+      TRS["task_result_store.py\nTTL 24h · GET /api/v1/tasks"]
+    end
+
+    subgraph SVC["Capa Servicios — Lógica de negocio"]
+      IC_SVC["IC Services\nClassGenerationService · AudioRenderService\nMusicUploadService · DriveSyncService"]
+      MG_SVC["MG Services\nMuscleGenerationService\n(recibe PlanCreationRepo — ISP)"]
+    end
+
+    subgraph INFRA["Capa Infraestructura — compartida IC + MG"]
+      AI_CLIENT["ai_client.py\ncall_with_cb()  ←→  circuit_breaker.py"]
+      REPOS["Repositories\nMusicLibrary (IC) · MemberRepository (MG)"]
+      CONFIG["config.py\nconstantes · validate() · check_dotenv()"]
+    end
+
+    subgraph DATA["Datos"]
+      CLAUDE["Claude API\nclaude-sonnet-4-6"]
+      DBS["SQLite\nmusic_library.db · members.db · tasks.db"]
+      FS["Filesystem\nCLASES/*/  ·  settings.json"]
+    end
+
+    SEC_LAYER --> PRES
+    PRES --> APP_LAYER
+    PRES --> SVC
+    APP_LAYER --> INFRA
+    SVC --> INFRA
+    INFRA --> DATA
+
+    style SEC_LAYER  fill:#2e1a1a,stroke:#ff4d4d,color:#e8e8e8
+    style PRES       fill:#1a2e1a,stroke:#00c864,color:#e8e8e8
+    style APP_LAYER  fill:#1e1a2e,stroke:#cc44ff,color:#e8e8e8
+    style SVC        fill:#2e1a00,stroke:#ff8c00,color:#e8e8e8
+    style INFRA      fill:#1a1e2e,stroke:#4da6ff,color:#e8e8e8
+    style DATA       fill:#1a1a1a,stroke:#555,color:#e8e8e8
+      </div>
+    </div>
+  </div>
+
+  <!-- ── DIAGRAMA B: BLUEPRINTS ─────────────────────────────── -->
+  <div class="subsection-title">B — Estructura interna de los Blueprints</div>
+  <p class="section-desc" style="margin-top: 0;">
+    Cada Blueprint es un <em>thin assembler</em> que importa sub-módulos focalizados.
+    La línea punteada indica "importa de" (no herencia). El singleton de Blueprint
+    (<code>bp.py</code>) es el único punto de acoplamiento entre sub-módulos.
+  </p>
+  <div class="diagram-box">
+    <div class="diagram-box-inner">
+      <div class="mermaid">
+flowchart TD
+    PLUGIN_IC["disciplines/indoor_cycling/plugin.py"]
+    PLUGIN_MG["disciplines/musculacion/plugin.py"]
+
+    subgraph IC["ic_bp — src/ic/"]
+      IC_ASSM["routes.py\nthin assembler"]
+      IC_P["pages.py\n3 HTML · sin @inject"]
+      IC_G["gen_routes.py\n2 SSE · _run_generation"]
+      IC_C["class_routes.py\n12 CRUD/export"]
+      IC_M["music_routes.py\n9 música · drive sync"]
+      IC_A["audio_routes.py\n5 audio · _run_render"]
+      IC_ASSM --> IC_P
+      IC_ASSM --> IC_G
+      IC_ASSM --> IC_C
+      IC_ASSM --> IC_M
+      IC_ASSM --> IC_A
+    end
+
+    subgraph MG["mg_bp — src/mg/"]
+      MG_ASSM["routes.py\nthin assembler"]
+      MG_MR["member_routes.py\n5 CRUD socios"]
+      MG_PR["plan_routes.py\n5 planes"]
+      MG_GR["gen_routes.py\n2 SSE · _run_generation"]
+      MG_ASSM --> MG_MR
+      MG_ASSM --> MG_PR
+      MG_ASSM --> MG_GR
+    end
+
+    PLUGIN_IC -->|from src.ic.routes import ic_bp| IC_ASSM
+    PLUGIN_MG -->|from src.mg.routes import mg_bp| MG_ASSM
+
+    style IC fill:#1a2e1a,stroke:#00c864,color:#e8e8e8
+    style MG fill:#2e1a00,stroke:#ff8c00,color:#e8e8e8
+    style PLUGIN_IC fill:#1e1e1e,stroke:#444,color:#888
+    style PLUGIN_MG fill:#1e1e1e,stroke:#444,color:#888
+      </div>
+    </div>
+  </div>
+
+  <!-- ── DIAGRAMA C: INFRAESTRUCTURA COMPARTIDA ─────────────── -->
+  <div class="subsection-title">C — Infraestructura compartida (IC ↔ MG sin acoplamiento)</div>
+  <p class="section-desc" style="margin-top: 0;">
+    IC y MG son paquetes independientes que <strong>no se importan entre sí</strong>.
+    El acoplamiento es unidireccional hacia módulos de infraestructura en <code>src/</code>.
+  </p>
+  <div class="diagram-box">
+    <div class="diagram-box-inner">
+      <div class="mermaid">
+flowchart LR
+    subgraph DISC["Disciplinas — sin acoplamiento entre sí"]
+      direction TB
+      IC_GEN_R["ic/gen_routes.py"]
+      MG_GEN_R["mg/gen_routes.py"]
+      IC_AGENT["ic/agent.py\nIC generation pipeline"]
+      MG_AGENT["mg/generator.py\nMG generation pipeline"]
+    end
+
+    subgraph SHARED["src/ — infraestructura compartida"]
+      direction TB
+      ORCH["generation_orchestrator.py\nstart_task() · persist_and_complete()"]
+      TQ["task_registry.py\npush() · sse_response()"]
+      IDEM["idempotency.py + task_result_store.py"]
+      AI["ai_client.py\ncall_with_cb()"]
+      CB["circuit_breaker.py\nCLOSED / OPEN / HALF_OPEN\nsingleton compartido"]
+      ORCH --> TQ
+      ORCH --> IDEM
+      AI --> CB
+      CB -.->|CircuitBreakerOpen| TQ
+    end
+
+    CLAUDE["☁  Claude API\nclaude-sonnet-4-6"]
+
+    IC_GEN_R --> ORCH
+    MG_GEN_R --> ORCH
+    IC_AGENT --> AI
+    MG_AGENT --> AI
+    AI --> CLAUDE
+
+    style DISC   fill:#0e150e,stroke:#555,color:#e8e8e8
+    style SHARED fill:#1a1e2e,stroke:#4da6ff,color:#e8e8e8
+    style IC_GEN_R fill:#1a2e1a,stroke:#00c864,color:#e8e8e8
+    style IC_AGENT fill:#1a2e1a,stroke:#00c864,color:#e8e8e8
+    style MG_GEN_R fill:#2e1a00,stroke:#ff8c00,color:#e8e8e8
+    style MG_AGENT fill:#2e1a00,stroke:#ff8c00,color:#e8e8e8
+    style CLAUDE fill:#2e1a2e,stroke:#cc44ff,color:#e8e8e8
+      </div>
+    </div>
+  </div>
+
+  <div class="subsection-title">Módulos core (src/)</div>
+  <table class="table-blue">
+    <thead>
+      <tr><th>Módulo</th><th>Responsabilidad</th><th>Patrón</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>logging_config.py</td><td><code>configure_logging()</code> idempotente — configura root logger con formato consistente. Lee <code>FLASK_LOG_LEVEL</code> env var (default INFO). Silencia loggers ruidosos: anthropic, httpx, urllib3 a WARNING. Llamado una sola vez al startup antes de crear el app.</td><td>Centralized logging (idempotent)</td></tr>
+      <tr><td>auth.py</td><td><code>init_auth(app)</code> — always-on (no opt-in). Prioridad: bypass TESTING → paths exentos → <code>session["user_id"]</code> → <code>MEGAS_API_KEY</code> header (fallback API/CLI) → redirect <code>/login</code> o 401. Exento: <code>/login</code>, <code>/logout</code>, <code>/setup</code>, <code>/api/setup</code>, <code>/static/*</code>, rutas con <code>-stream/</code> (SSE). Headers: <code>Authorization: Bearer &lt;key&gt;</code> o <code>X-API-Key: &lt;key&gt;</code>. <code>_is_api_request()</code> diferencia JSON vs HTML.</td><td>before_request hook (always-on)</td></tr>
+      <tr><td>auth_user/</td><td>Package de gestión de usuarios staff. <code>models.py</code>: <code>UserRecord(BaseModel)</code>. <code>repo_port.py</code>: <code>UserRepoPort(Protocol)</code>. <code>repository.py</code>: <code>SQLiteUserRepository</code> (auth.db, WAL, timeout=10). <code>login_routes.py</code>: GET/POST <code>/login</code>, POST <code>/logout</code>, <code>_safe_next()</code> anti-open-redirect. <code>admin_routes.py</code>: CRUD <code>/admin/users</code> — solo usuario "admin" puede acceder. <code>guards.py</code>: <code>login_required()</code> + <code>current_user()</code>.</td><td>Staff auth package (Sprint 10)</td></tr>
+      <tr><td>auth_cli.py</td><td>CLI offline para gestión de usuarios: <code>create-user</code>, <code>list-users</code>, <code>set-active</code>, <code>reset-password</code>. No requiere servidor corriendo. Salida ASCII (<code>OK</code>/<code>ERR</code>) — compatible con consola Windows.</td><td>CLI staff management</td></tr>
+      <tr><td>rate_limiter.py</td><td><code>RateLimiter</code> — sliding window per-IP, thread-safe con Lock. Config via env vars: <code>MEGAS_RATE_LIMIT</code> (default 10) y <code>MEGAS_RATE_WINDOW_SEC</code> (default 60). Retorna <code>RateResult(allowed, retry_after)</code>.</td><td>In-memory sliding window</td></tr>
+      <tr><td>rate_limit_middleware.py</td><td><code>@rate_limited()</code> decorator factory para endpoints Flask. Orden crítico: <code>@route → @rate_limited() → @inject</code> — el check corre antes de DI. <code>_gen_limiter</code> compartido intencionalmente entre IC, MG y drive-sync: la cuota Claude API es global por IP. Rechaza con 429 + <code>Retry-After</code>.</td><td>Decorator factory (shared limiter)</td></tr>
+      <tr><td>app_factory.py</td><td><code>register_shared_middleware(flask_app, container)</code> — DRY para entry points. Registra: container extension, <code>_configure_secret_key()</code> (FLASK_SECRET_KEY + session lifetime), <code>init_auth()</code>, <code>auth_bp</code>, request timing logs (before/after_request), y <code>api_v1_bp</code>. Debe llamarse después de <code>container.wire()</code>.</td><td>Factory function (DRY entry points)</td></tr>
+      <tr><td>config.py</td><td>Single source of truth: rutas, RE, env vars, MEMBERS_DB, TASKS_DB, AUTH_DB, FLASK_SECRET_KEY, SESSION_HOURS. <code>validate()</code> fail-fast. <code>check_dotenv()</code> compara .env vs .env.example al startup (patrón envcheck). Ya no contiene domain knowledge ni lazy discipline imports — puras constantes.</td><td>Constants + startup checks</td></tr>
+      <tr><td>disciplines/__init__.py</td><td>Registro de disciplinas (IC/YG/MG), lookup por código/slug. Ahora es package para facilitar imports del plugin system.</td><td>Frozen dataclass registry</td></tr>
+      <tr><td>discipline_protocol.py</td><td><code>DisciplinePlugin</code> Protocol (@runtime_checkable): <code>code</code>, <code>slug</code>, <code>blueprint</code>, <code>creator_template</code>, <code>startup_validate()</code>, <code>classes_subdir</code>. <code>from flask import Blueprint</code> movido a <code>TYPE_CHECKING</code> — zero dependencias Flask en runtime.</td><td>Protocol (PEP 544) + TYPE_CHECKING</td></tr>
+      <tr><td>discipline_registry.py</td><td><code>discover_plugins()</code> via pkgutil — descubrimiento dinámico en <code>src/disciplines/*/plugin.py</code>. OCP: agregar disciplina sin tocar app.py. <code>get_plugins()</code> lazy singleton (<code>_plugins_cache=None</code>). PEP 562 <code>__getattr__</code>: <code>CLASS_FILENAME_RE</code> y <code>CLASS_MP3_RE</code> construidos on first access — zero costo de import.</td><td>Plugin registry (OCP) + PEP 562 lazy attrs</td></tr>
+      <tr><td>container.py</td><td><code>AppContainer</code> — DI container plano, compone todos los providers. Para sub-apps: <code>CoreContainer</code> (src/core/container.py), <code>ICContainer</code> (src/ic/container.py), <code>MGContainer</code> (src/mg/container.py). Agrega task_queue Singleton.</td><td>dependency-injector DeclarativeContainer</td></tr>
+      <tr><td>core/container.py</td><td><code>CoreContainer</code> — providers compartidos (task_result_store, idempotency_store, task_queue). Para sub-app standalone: CoreContainer + MGContainer sin depender de IC.</td><td>Modular DI (sub-app ready)</td></tr>
+      <tr><td>circuit_breaker.py</td><td>Circuit breaker in-memory thread-safe para Claude API. Estados: CLOSED → OPEN (3 fallos) → HALF_OPEN (60s). Singleton de módulo compartido IC+MG. <code>CircuitBreakerOpen</code> sube por SSE como evento error.</td><td>State machine + singleton</td></tr>
+      <tr><td>task_result_store.py</td><td>Persistencia de resultados done/error en <code>tasks.db</code> con TTL 24h. Permite recuperar resultado de generaciones ya completadas.</td><td>SQLite repository + TTL</td></tr>
+      <tr><td>idempotency.py</td><td>Idempotency-Key header — INSERT OR IGNORE en tasks.db, TTL 48h. Segundo request con misma key retorna <code>{cached: true, task_id}</code> sin relanzar generación.</td><td>INSERT OR IGNORE + TTL</td></tr>
+      <tr><td>models.py</td><td>Modelos de dominio IC con validación de invariantes (cadencia, fases)</td><td>Pydantic v2 + validators</td></tr>
+      <tr><td>ai_client.py</td><td>Infraestructura Claude API compartida IC+MG: <code>resolve_anthropic_client()</code>, <code>load_system_prompt()</code>, <code>call_with_cb()</code> (circuit breaker wrapper), <code>_is_transient()</code> (clasifica errores 429/529/timeout).</td><td>Shared infrastructure (DIP)</td></tr>
+      <tr><td>utils.py</td><td><code>enum_values(enum_cls)</code> y <code>format_validation_error(exc)</code> — funciones puras compartidas entre agent.py y mg/generator.py.</td><td>Pure functions (DRY)</td></tr>
+      <tr><td>agent.py</td><td>Integración Claude API IC: <code>generate_class_raw()</code>. Delega a <code>ai_client.call_with_cb()</code> — protegido por circuit breaker.</td><td>tool_use, tool_choice=any</td></tr>
+      <tr><td>generator.py</td><td>Interfaz de alto nivel; iter_tree() para traversal del plan IC</td><td>Façade + generator fn</td></tr>
+      <tr><td>class_repository.py</td><td>I/O de archivos de clase: next_filename(), load_classes()</td><td>Repository pattern</td></tr>
+      <tr><td>web_utils.py</td><td>Pure functions compartidas: <code>plan_to_timeline_dict()</code>, <code>safe_download_filename()</code> (RFC 6266 — Content-Disposition con filename*=UTF-8).</td><td>Pure functions (RFC 6266)</td></tr>
+      <tr><td>serializers.py</td><td>ClassPlan → JSON / CSV (serialización pura — consumida por ic/exports.py)</td><td>Pure functions</td></tr>
+      <tr><td>generation_orchestrator.py</td><td><code>start_task()</code> → <code>(task_id, cached: bool)</code> — Flask-free (no importa flask.Response). Caller construye la respuesta HTTP. <code>idem_store=None</code> saltea idempotency (drive sync).</td><td>Application layer (shared)</td></tr>
+      <tr><td>music_library.py</td><td>SQLite tracks + audio_configs; matching por BPM/energy (_BASE_SCORE=5.0)</td><td>Repository + Pydantic models</td></tr>
+      <tr><td>task_queue.py</td><td>TaskQueue thread-safe; TTL cleanup; límite 20 tareas concurrentes</td><td>In-memory registry + Lock + Timer</td></tr>
+      <tr><td>task_registry.py</td><td>Singleton compartido: <code>task_queue</code>, <code>push()</code>, <code>sse_response()</code></td><td>Module-level singleton</td></tr>
+      <tr><td>settings.py</td><td>Persistencia de API keys y configuración de usuario</td><td>Key/value JSON store</td></tr>
+      <tr><td>api/__init__.py</td><td><code>api_v1_bp</code> en <code>/api/v1/</code>: <code>GET /tasks/&lt;id&gt;/result</code> (recupera resultado persistido), <code>GET /disciplines</code> (lista disciplinas registradas).</td><td>Flask Blueprint + @inject</td></tr>
+    </tbody>
+  </table>
+
+  <div class="subsection-title">Paquete src/ic/ — 6 sub-módulos</div>
+  <table class="table-green">
+    <thead>
+      <tr><th>Módulo</th><th>Responsabilidad</th><th>Patrón</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>ic/schemas.py</td><td><code>GenerateClassRequest</code> — valida body HTTP POST /api/generate-start (zone, difficulty, interval params). <code>to_domain()</code> mapea wire fields → <code>GenerationRequest</code> de dominio. Misma arquitectura que mg/schemas.py.</td><td>Pydantic v2 wire schema</td></tr>
+      <tr><td>ic/bp.py</td><td><code>ic_bp = Blueprint("ic", __name__)</code> — Blueprint singleton</td><td>Blueprint singleton</td></tr>
+      <tr><td>ic/helpers.py</td><td><code>_bad_filename()</code> compartida por class_routes + audio_routes</td><td>Shared helper</td></tr>
+      <tr><td>ic/pages.py</td><td>3 rutas HTML (music-library, audio-editor, instructor/play) — sin <code>@inject</code></td><td>Page routes</td></tr>
+      <tr><td>ic/gen_routes.py</td><td><code>generate_start</code> + <code>generate_stream</code> + <code>_run_generation</code>. <code>@inject</code> providers: idempotency_store, lib_factory, result_store_factory</td><td>Generation SSE</td></tr>
+      <tr><td>ic/class_routes.py</td><td>12 rutas CRUD/export + <code>_repair_for_preview</code>, <code>_recompute_parent_durations</code>, <code>_absorb_duration_delta</code></td><td>Class CRUD + export</td></tr>
+      <tr><td>ic/music_routes.py</td><td>9 rutas music library (tracks CRUD, upload, peaks) + drive sync + <code>_run_drive_sync</code></td><td>Music library + Drive sync</td></tr>
+      <tr><td>ic/audio_routes.py</td><td>5 rutas audio config/render + <code>_run_audio_render</code></td><td>Audio config + SSE render</td></tr>
+      <tr><td>ic/routes.py</td><td>Thin assembler (~12 líneas). Importa sub-módulos para registrar <code>@ic_bp.route</code>. Re-exporta <code>ic_bp</code> para plugin.py</td><td>Thin assembler</td></tr>
+      <tr><td>ic/container.py</td><td><code>ICContainer</code> — music_library Factory. Para sub-app IC standalone sin MG.</td><td>Modular DI (sub-app ready)</td></tr>
+      <tr><td>ic/class_storage.py</td><td><strong>Puerto secundario + adaptador.</strong> <code>ClassStoragePort</code> — Protocol <code>@runtime_checkable</code> con <code>save(plan, filename)</code>. <code>FilesystemClassStorage</code> — adaptador concreto que escribe JSON + CSV en <code>CLASES/indoor-cycling/</code>. Inyectado en <code>ClassGenerationService(storage=...)</code>; default a <code>FilesystemClassStorage()</code> si se omite. Permite tests de integración sin I/O de disco via <code>_FakeStorage</code>.</td><td>Puerto secundario hexagonal + adaptador filesystem</td></tr>
+    </tbody>
+  </table>
+
+  <div class="subsection-title">Paquete src/mg/ — 4 sub-módulos</div>
+  <table class="table-orange">
+    <thead>
+      <tr><th>Módulo</th><th>Responsabilidad</th><th>Patrón</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>mg/validators.py</td><td>Funciones standalone de validación: <code>coerce_int()</code>, <code>coerce_int_optional()</code>, <code>coerce_restricciones()</code>. Compartidas por schemas.py y models.py — elimina triplicación (DRY).</td><td>Pure functions (DRY)</td></tr>
+      <tr><td>mg/models.py</td><td>Modelos de dominio MG: MemberProfile, TrainingPlan, Mesocycle, ExerciseBlock. <code>from_generate_request()</code> classmethod. <code>to_repo_dict()</code> elimina Feature Envy en service._save(). <code>ExerciseBlock</code> incorpora dos campos opcionales nuevos: <code>descripcion: Optional[str] = None</code> y <code>notas_entrenador: Optional[str] = None</code> — usados por el editor de planes.</td><td>Pydantic v2 + field_validator</td></tr>
+      <tr><td>mg/prompt_builder.py</td><td>build_mg_prompt() — testeable sin depender de anthropic SDK</td><td>Pure function</td></tr>
+      <tr><td>mg/kb_port.py</td><td><strong>Puerto secundario.</strong> <code>KnowledgeBasePort</code> — Protocol puro <code>@runtime_checkable</code> con <code>load() -&gt; str</code>. Sin acoplamiento a filesystem; testeable con <code>_FakeKnowledgeBase</code> en tests unitarios.</td><td>Puerto secundario hexagonal (Protocol)</td></tr>
+      <tr><td>mg/kb_filesystem.py</td><td><strong>Adaptador secundario.</strong> <code>FilesystemKnowledgeBase</code> — lee docs <code>.txt</code> de <code>Base de conocimiento/musculacion/</code> y los concatena. Anteriormente era <code>_load_mg_knowledge_base()</code> + <code>_kb_cache</code> dentro de <code>generator.py</code>. El singleton de módulo <code>_default_kb</code> provee compatibilidad hacia atrás.</td><td>Adaptador filesystem hexagonal (singleton lazy)</td></tr>
+      <tr><td>mg/generator.py</td><td>Schemas JSON + llamada Claude API + validación TrainingPlan. Importa de <code>ai_client.py</code> (no de agent.py) — desacoplado del módulo IC. <code>generate_training_plan_raw()</code> y <code>generate_mg_plan()</code> aceptan <code>kb: KnowledgeBasePort | None = None</code>; default al singleton de módulo <code>_default_kb = FilesystemKnowledgeBase()</code>. Eliminados: <code>_load_mg_knowledge_base()</code>, <code>_kb_cache</code> y alias <code>_enum_values</code>.</td><td>tool_use + ai_client.py (DIP) + puerto KB</td></tr>
+      <tr><td>mg/service.py</td><td>MuscleGenerationService: SSE pipeline parse→generate→save. Recibe <code>PlanCreationRepo</code> (2 métodos) — no la interfaz completa de 10 métodos (ISP). Constructor acepta también <code>kb: KnowledgeBasePort | None = None</code> y lo reenvía a <code>generate_mg_plan()</code> — el service es filesystem-free cuando se inyecta un fake KB.</td><td>Service object + DI repo (ISP) + puerto KB</td></tr>
+      <tr><td>mg/member_repo_base.py</td><td>4 Protocols ISP (PEP 544): <code>MemberCRUDRepo</code> (5), <code>PlanRepo</code> (4), <code>TrackingRepo</code> (2), <code>PlanCreationRepo</code> (2 — mínimo para MuscleGenerationService). <code>MemberRepositoryBase</code> = unión de los tres primeros.</td><td>ISP — Structural subtyping</td></tr>
+      <tr><td>mg/member_repository.py</td><td>SQLite UPSERT nativo (ON CONFLICT DO UPDATE RETURNING id) — 1 round-trip</td><td>Repository pattern</td></tr>
+      <tr><td>mg/member_repo_ddl.py</td><td>5 constantes DDL (<code>CREATE TABLE</code>) extraídas de <code>member_repository.py</code> — SRP: el adaptador no mezcla SQL de esquema con lógica de acceso.</td><td>DDL constants (SRP)</td></tr>
+      <tr><td>mg/html_export_css.py</td><td>Constante <code>_EXPORT_CSS</code> (~265 líneas CSS) extraída de <code>html_export.py</code> — reduce ruido en el módulo de generación HTML; CSS versionable por separado.</td><td>CSS constant (SRP)</td></tr>
+      <tr><td>mg/schemas.py</td><td>Validación de requests HTTP: MemberSaveRequest, GenerateRequest. Validators delegan a <code>validators.py</code>.</td><td>Pydantic v2 wire models</td></tr>
+      <tr><td>mg/formatters.py</td><td>Formateo de texto para HTML export. <code>muscle_group_key()</code> normaliza NFD antes de match — corrige bug silencioso con acentos (glúteo → piernas).</td><td>Pure functions + Unicode NFD</td></tr>
+      <tr><td>mg/html_export.py</td><td>Genera HTML self-contained del plan MG. Accordion con <code>&lt;details&gt;/&lt;summary&gt;</code> nativo — sin JS, compatible iOS/Android universalmente.</td><td>HTML generation (native accordion)</td></tr>
+      <tr><td>mg/bp.py</td><td><code>mg_bp = Blueprint("mg", __name__)</code> — Blueprint singleton</td><td>Blueprint singleton</td></tr>
+      <tr><td>mg/member_routes.py</td><td>5 rutas CRUD socios + <code>_save_member_from_request</code>. <code>@inject</code> en todos.</td><td>Member CRUD</td></tr>
+      <tr><td>mg/plan_routes.py</td><td>5 rutas de planes (historial, get, export HTML, update, crear manual). <code>@inject</code> en todos.</td><td>Plan management</td></tr>
+      <tr><td>mg/gen_routes.py</td><td><code>api_mg_generate_start</code> + <code>api_mg_generate_stream</code> + <code>_run_mg_generation</code>. Idempotency-Key + result persistence.</td><td>Generation SSE</td></tr>
+      <tr><td>mg/routes.py</td><td>Thin assembler (~12 líneas). Re-exporta <code>mg_bp</code> para plugin.py.</td><td>Thin assembler</td></tr>
+      <tr><td>mg/container.py</td><td><code>MGContainer</code> — member_repo Factory. Para sub-app MG standalone sin IC ni MusicLibrary.</td><td>Modular DI (sub-app ready)</td></tr>
+      <tr><td>mg/app_container.py</td><td><code>MGAppContainer</code> — DI container plano reservado para futura spin-off app MG standalone. Provider names idénticos a <code>AppContainer</code> para que <code>@inject</code>/<code>Provide[AppContainer.xxx]</code> resuelva por nombre. No usado por ningún entry point hoy. <code>music_library</code> ausente intencionalmente: MG no tiene funcionalidad de audio.</td><td>Modular DI (spin-off ready)</td></tr>
+    </tbody>
+  </table>
+
+  <div class="subsection-title">MG Frontend — Módulos JS (static/js/mg/)</div>
+  <div class="grid-2">
+    <div class="card">
+      <h3><i class="fa-solid fa-file-code"></i>session_log.js — split en 5 módulos</h3>
+      <table class="table-orange">
+        <thead><tr><th>Archivo</th><th>Responsabilidad</th></tr></thead>
+        <tbody>
+          <tr><td><code>session_log.js</code></td><td>Core: clase <code>MgSessionLog</code> + globals <code>_timerInterval</code> / <code>_timerEl</code></td></tr>
+          <tr><td><code>sl_storage.js</code></td><td>Persistencia localStorage: <code>_logStorageKey</code>, <code>mgPersistLog</code>, <code>mgRestoreLog</code></td></tr>
+          <tr><td><code>sl_timer.js</code></td><td>Overlay temporizador de descanso: <code>mgStartTimer</code>, <code>mgStopTimer</code></td></tr>
+          <tr><td><code>sl_history.js</code></td><td>Historial de ejercicios: <code>mgLoadHistory</code></td></tr>
+          <tr><td><code>sl_interactions.js</code></td><td>Acciones del usuario: <code>mgCompleteSet</code>, <code>mgSaveSession</code>, et al.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <h3><i class="fa-solid fa-file-code"></i>workout_mode.js — split en 5 módulos</h3>
+      <table class="table-orange">
+        <thead><tr><th>Archivo</th><th>Responsabilidad</th></tr></thead>
+        <tbody>
+          <tr><td><code>workout_mode.js</code></td><td>Core: estado <code>_workout</code> + <code>mgOpenWorkout</code> / <code>mgCloseWorkout(force?)</code> — guard <code>_workoutHasProgress()</code> previene cierre accidental; <code>force=true</code> lo bypasea post-guardado</td></tr>
+          <tr><td><code>wk_wellness.js</code></td><td>Pantalla de bienestar pre-workout</td></tr>
+          <tr><td><code>wk_exercise_view.js</code></td><td>Renderizado de ejercicios + interacciones de series</td></tr>
+          <tr><td><code>wk_history.js</code></td><td>Carga de historial en background</td></tr>
+          <tr><td><code>wk_summary.js</code></td><td>Pantalla de fin de sesión + guardado</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="card" style="margin-top:16px;">
+    <h3><i class="fa-solid fa-gears"></i>utils.js — funciones puras compartidas (DRY)</h3>
+    <table class="table-green">
+      <thead><tr><th>Función</th><th>Descripción</th></tr></thead>
+      <tbody>
+        <tr><td><code>flatExercises(day)</code></td><td>Aplana ejercicios de un día incluyendo circuitos — antes duplicada en <code>session_log.js</code> y <code>workout_mode.js</code></td></tr>
+        <tr><td><code>fetchExerciseHistory(dni, ejercicio, limit=1)</code></td><td>Fetch helper para el endpoint <code>exercise-history</code> — antes duplicado en 3 archivos</td></tr>
+        <tr><td><code>makeSerieEntry(ejercicioNombre, serieNum, peso, rpe, reps, done)</code></td><td>Construye un entry del payload de sesión — antes duplicado en <code>sl_interactions.js</code> y <code>wk_summary.js</code></td></tr>
+        <tr><td><code>_optInt(val, radix?)</code></td><td>Reemplaza <code>parseInt(x)||null</code> — preserva 0, retorna <code>null</code> si NaN. Evita swallowing de cero en campos numéricos</td></tr>
+        <tr><td><code>_optFloat(val)</code></td><td>Reemplaza <code>parseFloat(x)||null</code> — misma corrección para valores decimales (peso_kg, grasa_pct)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="subsection-title">Patrones nuevos — Arquitectura hexagonal (ports &amp; adapters)</div>
+  <div class="grid-2">
+    <div class="card">
+      <h3><i class="fa-solid fa-plug"></i>Puerto secundario IC — ClassStoragePort</h3>
+      <p style="font-size:13px; color:var(--muted); margin-bottom:12px;">
+        <code>ic/class_storage.py</code> introduce el primer puerto secundario hexagonal en IC.
+        <code>ClassStoragePort</code> es un Protocol <code>@runtime_checkable</code>;
+        <code>FilesystemClassStorage</code> es el adaptador de producción (escribe JSON + CSV a disco).
+        <code>ClassGenerationService(storage=None)</code> usa el adaptador filesystem por defecto;
+        los tests inyectan <code>_FakeStorage</code> — sin I/O de disco ni directorios temporales.
+      </p>
+      <table class="table-green">
+        <thead><tr><th>Archivo</th><th>Rol</th></tr></thead>
+        <tbody>
+          <tr><td><code>ic/class_storage.py</code></td><td>Puerto (<code>ClassStoragePort</code>) + adaptador (<code>FilesystemClassStorage</code>)</td></tr>
+          <tr><td><code>ic/generation_service.py</code></td><td>Constructor: <code>storage: ClassStoragePort | None = None</code></td></tr>
+          <tr><td><code>tests/integration/test_services.py</code></td><td><code>TestClassGenerationServiceWithFakeStorage</code> — 4 tests, zero I/O de disco</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <h3><i class="fa-solid fa-plug"></i>Puerto secundario MG — KnowledgeBasePort</h3>
+      <p style="font-size:13px; color:var(--muted); margin-bottom:12px;">
+        <code>mg/kb_port.py</code> define <code>KnowledgeBasePort</code> (Protocol, <code>load() -&gt; str</code>).
+        <code>mg/kb_filesystem.py</code> provee <code>FilesystemKnowledgeBase</code> — reemplaza el
+        anterior <code>_load_mg_knowledge_base()</code> + <code>_kb_cache</code> en línea en <code>generator.py</code>.
+        Tanto <code>MuscleGenerationService</code> como <code>generate_mg_plan()</code> aceptan
+        <code>kb: KnowledgeBasePort | None = None</code>; <code>_FakeKnowledgeBase</code> en tests
+        retorna un string fijo — sin acceso a filesystem.
+      </p>
+      <table class="table-orange">
+        <thead><tr><th>Archivo</th><th>Rol</th></tr></thead>
+        <tbody>
+          <tr><td><code>mg/kb_port.py</code></td><td>Puerto secundario Protocol (<code>KnowledgeBasePort</code>)</td></tr>
+          <tr><td><code>mg/kb_filesystem.py</code></td><td>Adaptador filesystem + singleton de módulo <code>_default_kb</code></td></tr>
+          <tr><td><code>mg/generator.py</code></td><td><code>kb: KnowledgeBasePort | None = None</code> en ambas funciones públicas</td></tr>
+          <tr><td><code>mg/service.py</code></td><td><code>kb: KnowledgeBasePort | None = None</code> reenviado a través del service</td></tr>
+          <tr><td><code>tests/unit/test_mg_service.py</code></td><td>3 tests con <code>_FakeKnowledgeBase</code> — zero filesystem</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     3. MODELOS DE DOMINIO
+════════════════════════════════════════════════════════════════ -->
+<section id="datamodel">
+  <h2><span class="num">03</span>Modelos de Dominio<i class="fa-solid fa-database section-icon"></i><span class="watermark">03</span></h2>
+
+  <div class="subsection-title">Indoor Cycling — ClassPlan (src/models.py)</div>
+  <p class="section-desc">Árbol de 4 niveles. Los invariantes de dominio son validados por Pydantic en construcción.</p>
+
+  <div class="diagram-box">
+    <div class="diagram-box-inner">
+      <div class="mermaid">
+classDiagram
+    class ClassPlan {
+        +ClassMetadata metadata
+        +list~ClassSection~ sections
+        +int total_duration_seconds
+        validate_structure()
+        validate_total_duration() «3360s»
+    }
+    class ClassSection {
+        +ClassPhase phase
+        +int duration_seconds
+        +MusicSuggestion music_suggestion
+        +list~SubSection~ subsections
+        +str cadence_range_rpm «60-110 RPM»
+        validate_cycling_fields()
+    }
+    class SubSection {
+        +str stage_name
+        +int duration_seconds
+        +list~MicroSegment~ micro_segments
+    }
+    class MicroSegment {
+        +bool standing
+        +list~Movement~ movements
+        +list~HandPosition~ hand_positions
+        +str cadence_range_rpm
+        validate_hand_positions()
+    }
+    class MusicSuggestion {
+        +str bpm_range «RPM×2»
+        +str energy_level
+        +str suno_prompt
+        +int track_id
+    }
+    ClassPlan "1" *-- "5..*" ClassSection
+    ClassSection "1" *-- "0..*" SubSection
+    ClassSection "1" *-- "1" MusicSuggestion
+    SubSection "1" *-- "0..*" MicroSegment
+      </div>
+    </div>
+  </div>
+
+  <div class="subsection-title">Musculación — TrainingPlan (src/mg/models.py)</div>
+  <p class="section-desc">
+    Árbol de 3 niveles. Un Mesocycle con semanas=None = rutina fija; N Mesocycles con semanas = periodización.
+    Los campos <code>nivel</code>, <code>subdisciplina</code>, <code>objetivo</code> y <code>frecuencia_semanal</code>
+    son propiedades efímeras del plan (enviadas en el payload de generación) — <strong>no se persisten en el perfil del socio</strong>.
+    <code>MemberProfile</code> solo contiene datos demográficos y de composición corporal.
+  </p>
+
+  <div class="diagram-box">
+    <div class="diagram-box-inner">
+      <div class="mermaid">
+classDiagram
+    class MemberProfile {
+        +str dni
+        +str nombre, apellido
+        +int edad «14-99»
+        +str sexo
+        +list~str~ restricciones
+        +str notas_adicionales «optional»
+        +float peso_kg «optional — composición»
+        +float grasa_pct «optional — composición»
+        +float estatura_cm «optional — composición»
+        +bool apto_medico
+        from_generate_request(data) «classmethod»
+        to_repo_dict() «→ dict para MemberRepository»
+        _coerce_int() «field_validator — vía validators.py»
+    }
+    note for MemberProfile "nivel / subdisciplina / objetivo /\nfrecuencia_semanal son efímeros\nen cada plan — NO campos del socio"
+    class TrainingPlan {
+        +str titulo
+        +TrainingObjective objetivo
+        +int duracion_semanas «optional»
+        +list~Mesocycle~ mesocycles
+        +str notas_entrenador
+        +list~str~ coaching_notes
+        is_fixed_routine «property»
+        total_training_days «property»
+        validate_periodization_consistency()
+    }
+    class Mesocycle {
+        +str nombre
+        +int semanas «optional — None=rutina fija»
+        +str enfoque
+        +list~TrainingDay~ dias
+        +str notas_progresion
+    }
+    class TrainingDay {
+        +str nombre
+        +list~str~ grupos_musculares
+        +list~ExerciseBlock~ ejercicios
+    }
+    class ExerciseBlock {
+        +str nombre
+        +int series «1-20»
+        +str reps_range
+        +int descanso_segundos «0-600»
+        +str rpe_target «optional»
+        +list~str~ notas_tecnicas
+        +str sustitucion «optional»
+    }
+    MemberProfile ..> TrainingPlan : "genera"
+    TrainingPlan "1" *-- "1..*" Mesocycle
+    Mesocycle "1" *-- "1..*" TrainingDay
+    TrainingDay "1" *-- "1..*" ExerciseBlock
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top: 28px;">
+    <div class="card">
+      <h3><i class="fa-solid fa-clock"></i>Fases MEGATLON IC (3360s total)</h3>
+      <table class="table-blue">
+        <thead><tr><th>Fase</th><th>Duración</th><th>Segundos</th></tr></thead>
+        <tbody>
+          <tr><td>presentation</td><td>6 min</td><td>360s</td></tr>
+          <tr><td>activation</td><td>3 min</td><td>180s</td></tr>
+          <tr><td>main_work</td><td>35 min</td><td>2100s</td></tr>
+          <tr><td>cool_down</td><td>2 min</td><td>120s</td></tr>
+          <tr><td>stretching</td><td>10 min</td><td>600s</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <h3><i class="fa-solid fa-lock"></i>Invariantes de dominio</h3>
+      <table class="table-green">
+        <thead><tr><th>Regla</th><th>Valor</th></tr></thead>
+        <tbody>
+          <tr><td>Cadencia mín (IC trabajo)</td><td>60 RPM</td></tr>
+          <tr><td>Cadencia máx IC</td><td>110 RPM</td></tr>
+          <tr><td>Cadencia cool_down IC</td><td>80–90 RPM</td></tr>
+          <tr><td>BPM música IC</td><td>= RPM × 2</td></tr>
+          <tr><td>Posición 3 IC</td><td>Solo cuando standing=true</td></tr>
+          <tr><td>MG frecuencia semanal</td><td>1–7 días</td></tr>
+          <tr><td>MG edad socio</td><td>14–99 años</td></tr>
+          <tr><td>MG series</td><td>1–20 por ejercicio</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     4. FLUJO SSE
+════════════════════════════════════════════════════════════════ -->
+<section id="sse-flow">
+  <h2><span class="num">04</span>Flujo SSE + Threading<i class="fa-solid fa-arrows-spin section-icon"></i><span class="watermark">04</span></h2>
+  <p class="section-desc">
+    Todas las tareas largas (generación IC, render audio, generación MG) usan el mismo patrón:
+    POST → {task_id} → GET SSE stream. El singleton <code>task_registry.py</code> provee
+    <code>task_queue</code>, <code>push()</code> y <code>sse_response()</code> a los Blueprints <code>ic_bp</code> y <code>mg_bp</code>.
+  </p>
+
+  <div class="diagram-box">
+    <div class="diagram-box-inner">
+      <div class="mermaid">
+sequenceDiagram
+    participant B as Browser
+    participant F as Flask
+    participant TR as task_registry
+    participant T as Worker Thread
+    participant CL as Claude API
+    participant DB as SQLite
+
+    Note over TR: TaskQueue — lock + TTL 300s — max 20 tareas
+
+    B->>F: POST /api/mg/generate-start
+    F->>F: GenerateRequest.model_validate
+    F->>TR: task_queue.create(task_id)
+    F->>T: Thread _run_mg_generation
+    F-->>B: task_id
+
+    B->>F: GET /api/mg/generate-stream/task_id [SSE]
+    Note over F: sse_response — ev.wait(timeout)
+
+    T->>TR: push status phase=parsing
+    T->>T: MemberProfile.from_generate_request
+    T->>TR: push status phase=generating
+    T->>CL: generate_mg_plan
+    Note over CL: musculacion.md system prompt — tool_choice=any
+    CL-->>T: TrainingPlan via tool_use
+
+    T->>TR: push status phase=saving
+    T->>DB: repo.save_member UPSERT
+    T->>DB: repo.save_plan
+
+    T->>TR: push done payload
+    TR-->>F: snapshot events
+    F-->>B: SSE done event
+    F-->>B: stream closes cleanup
+      </div>
+    </div>
+  </div>
+
+  <div class="alert">
+    <i class="fa-solid fa-circle-info"></i><strong>task_registry.py</strong> es el singleton compartido entre <code>ic_bp</code> y <code>mg_bp</code>.
+    Importar <code>from src.task_registry import task_queue, push, sse_response</code> en cualquier Blueprint.
+    El consumer SSE hace cleanup al cerrar el stream; el Timer TTL (300s) es el fallback.
+  </div>
+
+  <div class="subsection-title">Idempotency + Result Persistence (Sprint 4)</div>
+  <p class="section-desc">
+    Los endpoints de generación aceptan el header <code>Idempotency-Key</code>. Si el key ya existe en
+    <code>tasks.db</code>, retornan <code>{task_id, cached: true}</code> sin lanzar nueva tarea.
+    Al completar, el resultado (done/error + payload) se persiste en <code>TaskResultStore</code> con TTL 24h
+    y es recuperable vía <code>GET /api/v1/tasks/&lt;id&gt;/result</code> aunque el stream SSE ya se haya cerrado.
+  </p>
+
+  <div class="diagram-box">
+    <div class="diagram-box-inner">
+      <div class="mermaid">
+sequenceDiagram
+    participant B as Browser
+    participant F as Flask
+    participant ID as IdempotencyStore
+    participant TQ as TaskQueue
+    participant BG as Background Thread
+    participant TRS as TaskResultStore
+    participant CB as CircuitBreaker
+
+    B->>F: POST /api/generate-start
+    Note over B,F: Idempotency-Key header opcional
+    F->>ID: check(idem_key)
+    alt Key ya existe
+        ID-->>F: task_id previo
+        F-->>B: task_id cached=true
+    else Key nuevo
+        F->>ID: store(idem_key, task_id)
+        F->>TQ: create(task_id)
+        F->>BG: Thread _run_generation
+        F-->>B: task_id
+    end
+
+    B->>F: GET /api/generate-stream/task_id
+    loop SSE events
+        BG->>CB: call_with_cb
+        CB-->>BG: response o CircuitBreakerOpen
+        BG->>TQ: push status/done/error
+        TQ-->>F: snapshot
+        F-->>B: SSE event
+    end
+    BG->>TRS: persist done/error payload
+    F-->>B: stream closes
+
+    Note over B,TRS: GET /api/v1/tasks/task_id/result recupera resultado 24h
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     5. BASE DE DATOS
+════════════════════════════════════════════════════════════════ -->
+<section id="database">
+  <h2><span class="num">05</span>Schema SQLite<i class="fa-solid fa-table section-icon"></i><span class="watermark">05</span></h2>
+
+  <div class="subsection-title">music_library.db — tracks + audio</div>
+  <p class="section-desc">Acceso exclusivo vía <code>MusicLibrary</code> — nunca SQL directo en app.py.</p>
+
+  <div class="diagram-box">
+    <div class="diagram-box-inner">
+      <div class="mermaid">
+erDiagram
+    tracks {
+        INTEGER id PK
+        TEXT filename UK
+        TEXT title
+        INTEGER duration_sec
+        INTEGER bpm_min
+        INTEGER bpm_max
+        TEXT energy_level
+        TEXT genre
+        TEXT mood_tags "JSON array"
+        TEXT section_use "JSON array"
+        TEXT tonality
+        TEXT terrain
+        INTEGER intensity_level
+        TEXT cadence_range
+        TEXT original_ext
+        INTEGER file_size_bytes
+    }
+
+    audio_configs {
+        INTEGER id PK
+        TEXT class_filename
+        TEXT version_name
+        REAL global_crossfade_sec
+        TEXT rendered_mp3
+        TEXT created_at
+    }
+
+    audio_sections {
+        INTEGER id PK
+        INTEGER config_id FK
+        INTEGER section_index
+        INTEGER subsection_index "-1=top-level"
+        INTEGER track_id FK
+        REAL start_sec
+        INTEGER loop
+        REAL fade_in_sec
+        REAL fade_out_sec
+        REAL volume
+        REAL overlap_sec
+    }
+
+    audio_configs ||--o{ audio_sections : "has sections"
+    tracks ||--o{ audio_sections : "assigned to"
+      </div>
+    </div>
+  </div>
+
+  <div class="subsection-title">members.db — socios MG</div>
+  <p class="section-desc">Acceso exclusivo vía <code>MemberRepository</code> (Protocol <code>MemberRepositoryBase</code>). Upsert nativo con <code>ON CONFLICT DO UPDATE RETURNING id</code>.</p>
+
+  <div class="diagram-box">
+    <div class="diagram-box-inner">
+      <div class="mermaid">
+erDiagram
+    members {
+        INTEGER id PK
+        TEXT dni UK
+        TEXT nombre
+        TEXT apellido
+        INTEGER edad
+        TEXT sexo
+        TEXT nivel
+        TEXT subdisciplina
+        TEXT objetivo
+        INTEGER frecuencia_semanal
+        TEXT restricciones "JSON array"
+        TEXT notas_adicionales
+        REAL peso_kg "optional"
+        REAL grasa_pct "optional"
+        INTEGER apto_medico "0 or 1"
+        TEXT created_at
+        TEXT updated_at
+    }
+
+    training_plans {
+        INTEGER id PK
+        INTEGER member_id FK
+        TEXT plan_json "TrainingPlan serializado"
+        TEXT titulo
+        TEXT notas
+        TEXT created_at
+    }
+
+    goal_tracking {
+        INTEGER id PK
+        INTEGER member_id FK
+        TEXT metric_type "peso_kg|grasa_pct|rm_kg"
+        REAL value
+        TEXT fecha
+        TEXT notas
+    }
+
+    members ||--o{ training_plans : "tiene planes"
+    members ||--o{ goal_tracking : "trackea métricas"
+      </div>
+    </div>
+  </div>
+
+  <div class="subsection-title">tasks.db — resultados + idempotency</div>
+  <p class="section-desc">Compartido por <code>TaskResultStore</code> y <code>IdempotencyStore</code>. Rutas configurables vía <code>TASKS_DB</code> env var.</p>
+
+  <div class="diagram-box">
+    <div class="diagram-box-inner">
+      <div class="mermaid">
+erDiagram
+    task_results {
+        TEXT task_id PK
+        TEXT event_type "done | error"
+        TEXT payload "JSON"
+        TEXT created_at
+    }
+
+    idempotency_keys {
+        TEXT key PK
+        TEXT task_id
+        TEXT created_at
+    }
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top: 24px;">
+    <div class="card">
+      <h3><i class="fa-solid fa-box-archive"></i>TaskResultStore</h3>
+      <table class="table-blue">
+        <thead><tr><th>Patrón</th><th>Detalle</th></tr></thead>
+        <tbody>
+          <tr><td>TTL</td><td>24h — cleanup automático en <code>get()</code></td></tr>
+          <tr><td>Persistencia</td><td>Solo eventos "done" / "error" — no status intermedios</td></tr>
+          <tr><td>Acceso</td><td><code>GET /api/v1/tasks/&lt;id&gt;/result</code> post-stream</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <h3><i class="fa-solid fa-key"></i>IdempotencyStore</h3>
+      <table class="table-green">
+        <thead><tr><th>Patrón</th><th>Detalle</th></tr></thead>
+        <tbody>
+          <tr><td>Inserción</td><td>INSERT OR IGNORE — idempotente por definición</td></tr>
+          <tr><td>TTL</td><td>48h — ventana para que el cliente reintente con mismo key</td></tr>
+          <tr><td>Scope</td><td>Por Idempotency-Key header — opcional por cliente</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top: 20px;">
+    <div class="card">
+      <h3><i class="fa-solid fa-music"></i>Patrones de acceso — music_library.db</h3>
+      <table class="table-orange">
+        <thead><tr><th>Patrón</th><th>Detalle</th></tr></thead>
+        <tbody>
+          <tr><td>Migraciones</td><td>ALTER TABLE en _init_db() con try/except — idempotente</td></tr>
+          <tr><td>Atomicidad</td><td>add_track() INSERT + UPDATE filename en un solo with conn: block</td></tr>
+          <tr><td>Matching</td><td>find_matching_tracks() — _BASE_SCORE=5.0 + BPM + genre + terrain</td></tr>
+          <tr><td>Thread safety</td><td>Cada método abre su propia conexión — sin estado compartido</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <h3><i class="fa-solid fa-users"></i>Patrones de acceso — members.db</h3>
+      <table class="table-blue">
+        <thead><tr><th>Patrón</th><th>Detalle</th></tr></thead>
+        <tbody>
+          <tr><td>UPSERT nativo</td><td>INSERT … ON CONFLICT(dni) DO UPDATE … RETURNING id — 1 query</td></tr>
+          <tr><td>CASCADE</td><td>DELETE members elimina training_plans + goal_tracking por FK</td></tr>
+          <tr><td>Normalización</td><td>apto_medico 0/1 → bool en _member_row_to_dict()</td></tr>
+          <tr><td>Protocol</td><td>MemberRepositoryBase (PEP 544) — swap backend sin tocar service</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     6. SISTEMA DE ARCHIVOS
+════════════════════════════════════════════════════════════════ -->
+<section id="filesystem">
+  <h2><span class="num">06</span>Sistema de Archivos y Disciplinas<i class="fa-solid fa-folder-tree section-icon"></i><span class="watermark">06</span></h2>
+  <p class="section-desc">
+    <code>DATA_DIR</code> separa datos mutables de assets de solo lectura — listo para Docker.
+    <code>config.validate()</code> se llama al arrancar y falla rápido si faltan archivos críticos.
+  </p>
+
+  <div class="diagram-box">
+    <div class="diagram-box-inner">
+      <div class="mermaid">
+graph TD
+    subgraph DOCKER_VOL["📦 Docker Volume (/data)  ←→  DATA_DIR env var"]
+      CLASES["CLASES/<br/>📁 indoor-cycling/<br/>  IC-001_endurance.json + .csv + .mp3<br/>📁 yoga/<br/>  YG-NNN_style.json<br/>📁 musculacion/<br/>  MG-NNN_type.json"]
+      MUSIC["static/music/<br/>  track-001.mp3 …"]
+      DB_ML["music_library.db"]
+      DB_MB["members.db<br/>  ← MEMBERS_DB env var"]
+      SETTINGS["settings.json / .env"]
+    end
+
+    subgraph BUNDLE["📋 Bundle Root  (read-only en Docker)"]
+      TMPL["templates/<br/>  creator.html · mg_creator.html<br/>  instructor.html · audio_editor.html<br/>  instructor_play.html · music_library.html<br/>  discipline_select.html"]
+      STATIC["static/css/ static/js/"]
+      AGENTS["agents/<br/>  alexandre_indoor_cycling.md ✅<br/>  musculacion.md ✅<br/>  yoga.md (placeholder)"]
+      SRC["src/ + src/mg/ (Python)"]
+    end
+
+    subgraph RESOLUTION["🔑 class_path(filename)"]
+      FN["'MG-001_fuerza.json'"]
+      PREFIX["extract prefix → 'MG'"]
+      DISC_LK["discipline_for_code('MG') → musculacion"]
+      FULL["CLASES/musculacion/MG-001_fuerza.json"]
+      FN --> PREFIX --> DISC_LK --> FULL
+    end
+
+    style DOCKER_VOL fill:#1a2e1a,stroke:#00c864,color:#e8e8e8
+    style BUNDLE fill:#1a1a2e,stroke:#4da6ff,color:#e8e8e8
+    style RESOLUTION fill:#2e1a00,stroke:#ff8c00,color:#e8e8e8
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top: 24px;">
+    <h3><i class="fa-solid fa-terminal"></i>Herramientas / Scripts de desarrollo</h3>
+    <table class="table-blue">
+      <thead><tr><th>Script</th><th>Descripción</th><th>Cuándo corre</th></tr></thead>
+      <tbody>
+        <tr><td><code>scripts/lint_frontend.py</code></td><td>Linter Python para JS y CSS. Reglas: JS-01 (sin strings hardcodeados en JS), JS-02 (sin catch{} vacío), CSS-01 (sin colores hardcodeados), CSS-02 (sin <code>!important</code> fuera de tokens), CSS-03 (tokens no definidos). Reporta por archivo y regla.</td><td>Pre-commit junto a <code>ruff check .</code></td></tr>
+        <tr><td><code>ruff check .</code></td><td>Linter Python — configurado en <code>pyproject.toml</code></td><td>Pre-commit hook local</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="grid-2" style="margin-top: 24px;">
+    <div class="card">
+      <h3><i class="fa-solid fa-puzzle-piece"></i>Disciplinas registradas</h3>
+      <table class="table-green">
+        <thead><tr><th>Código</th><th>Slug</th><th>Estado</th></tr></thead>
+        <tbody>
+          <tr><td>IC</td><td>indoor-cycling</td><td>✅ Producción completa</td></tr>
+          <tr><td>MG</td><td>musculacion</td><td>✅ Producción completa</td></tr>
+          <tr><td>YG</td><td>yoga</td><td>Placeholder</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <h3><i class="fa-solid fa-sliders"></i>Variables de entorno</h3>
+      <table class="table-blue">
+        <thead><tr><th>Variable</th><th>Default</th></tr></thead>
+        <tbody>
+          <tr><td>ANTHROPIC_API_KEY</td><td>—  (requerida)</td></tr>
+          <tr><td>DATA_DIR</td><td>PROJECT_ROOT (dev)</td></tr>
+          <tr><td>MUSIC_DIR</td><td>PROJECT_ROOT/static/music</td></tr>
+          <tr><td>MUSIC_DB</td><td>PROJECT_ROOT/music_library.db</td></tr>
+          <tr><td>MEMBERS_DB</td><td>PROJECT_ROOT/members.db</td></tr>
+          <tr><td>TASKS_DB</td><td>PROJECT_ROOT/tasks.db</td></tr>
+          <tr><td>FLASK_PORT</td><td>5000</td></tr>
+          <tr><td>FLASK_HOST</td><td>127.0.0.1</td></tr>
+          <tr><td>FLASK_DEBUG</td><td>1 (dev), 0 (docker)</td></tr>
+          <tr><td>FLASK_LOG_LEVEL</td><td>INFO</td></tr>
+          <tr><td>MEGAS_API_KEY</td><td>— (vacío = solo sesiones)</td></tr>
+          <tr><td>MEGAS_RATE_LIMIT</td><td>10 req / ventana</td></tr>
+          <tr><td>MEGAS_RATE_WINDOW_SEC</td><td>60 segundos</td></tr>
+          <tr><td>FLASK_SECRET_KEY</td><td>— (requerido en producción)</td></tr>
+          <tr><td>SESSION_HOURS</td><td>8</td></tr>
+          <tr><td>AUTH_DB</td><td>auth.db (relativo a DATA_DIR)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     7. API ROUTES
+════════════════════════════════════════════════════════════════ -->
+<section id="api">
+  <h2><span class="num">07</span>API Routes<i class="fa-solid fa-route section-icon"></i><span class="watermark">07</span></h2>
+  <p class="section-desc">
+    <code>app.py</code> solo tiene 9 rutas globales (páginas + settings + setup).
+    Las rutas IC están distribuidas en sub-módulos especializados: <code>pages.py</code>, <code>gen_routes.py</code>, <code>class_routes.py</code>, <code>music_routes.py</code>, <code>audio_routes.py</code>.
+    Las rutas MG están en <code>member_routes.py</code>, <code>plan_routes.py</code>, <code>gen_routes.py</code>.
+    Todas las rutas REST: validar → obtener recurso → return jsonify().
+    Tareas largas: POST → {task_id} → GET SSE stream.
+  </p>
+
+  <!-- app.py global routes -->
+  <div class="route-group">
+    <div class="route-group-header">
+      Páginas globales — <code>app.py</code>
+      <span class="group-badge tag blue">9 rutas</span>
+    </div>
+    <table class="route-table">
+      <thead><tr><th></th><th>Ruta</th><th>Descripción</th></tr></thead>
+      <tbody>
+        <tr><td><span class="method-badge get">GET</span></td><td>/</td><td>Redirect → /instructor</td></tr>
+        <tr><td><span class="method-badge get">GET</span></td><td>/setup</td><td>setup.html</td></tr>
+        <tr><td><span class="method-badge get">GET</span></td><td>/creator</td><td>discipline_select.html</td></tr>
+        <tr><td><span class="method-badge get">GET</span></td><td>/creator/ic</td><td>creator.html</td></tr>
+        <tr><td><span class="method-badge get">GET</span></td><td>/creator/musculacion</td><td>mg_creator.html</td></tr>
+        <tr><td><span class="method-badge get">GET</span></td><td>/instructor</td><td>instructor.html</td></tr>
+        <tr><td><span class="method-badge get">GET</span></td><td>/socios</td><td>socios.html</td></tr>
+        <tr><td><span class="method-badge get">GET</span></td><td>/api/settings</td><td>Configuración redactada</td></tr>
+        <tr><td><span class="method-badge post">POST</span></td><td>/api/settings</td><td>Guardar API keys y settings</td></tr>
+        <tr><td><span class="method-badge post">POST</span></td><td>/api/setup</td><td>Setup inicial</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- IC pages.py -->
+  <div class="route-group">
+    <div class="route-group-header">
+      IC páginas — <code>ic/pages.py</code> (Blueprint ic_bp)
+      <span class="group-badge tag green">3 rutas</span>
+    </div>
+    <table class="route-table">
+      <thead><tr><th></th><th>Ruta</th><th>Descripción</th></tr></thead>
+      <tbody>
+        <tr><td><span class="method-badge get">GET</span></td><td>/music-library</td><td>music_library.html</td></tr>
+        <tr><td><span class="method-badge get">GET</span></td><td>/audio-editor/&lt;fn&gt;</td><td>audio_editor.html</td></tr>
+        <tr><td><span class="method-badge get">GET</span></td><td>/instructor/play/&lt;fn&gt;</td><td>instructor_play.html</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- IC gen_routes.py -->
+  <div class="route-group">
+    <div class="route-group-header">
+      IC generación SSE — <code>ic/gen_routes.py</code> (Blueprint ic_bp)
+      <span class="group-badge tag accent">SSE</span>
+    </div>
+    <table class="route-table">
+      <thead><tr><th></th><th>Ruta</th><th>Descripción</th></tr></thead>
+      <tbody>
+        <tr><td><span class="method-badge post">POST</span></td><td>/api/generate-start</td><td>Inicia tarea IC → {task_id}. Idempotency-Key header.</td></tr>
+        <tr><td><span class="method-badge sse">SSE</span></td><td>/api/generate-stream/&lt;tid&gt;</td><td>SSE: status / done / error</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- IC class_routes.py -->
+  <div class="route-group">
+    <div class="route-group-header">
+      IC clases CRUD — <code>ic/class_routes.py</code> (Blueprint ic_bp)
+      <span class="group-badge tag green">12 rutas</span>
+    </div>
+    <table class="route-table">
+      <thead><tr><th></th><th>Ruta</th><th>Descripción</th></tr></thead>
+      <tbody>
+        <tr><td><span class="method-badge get">GET</span></td><td>/api/classes</td><td>Lista todas las clases</td></tr>
+        <tr><td><span class="method-badge get">GET</span></td><td>/api/class/&lt;fn&gt;</td><td>Timeline dict para HUD</td></tr>
+        <tr><td><span class="method-badge get">GET</span></td><td>/api/class-doc/&lt;fn&gt;</td><td>Documento completo instructor</td></tr>
+        <tr><td><span class="method-badge get">GET</span></td><td>/api/class-raw/&lt;fn&gt;</td><td>ClassPlan JSON crudo</td></tr>
+        <tr><td><span class="method-badge post">POST</span></td><td>/api/class-save/&lt;fn&gt;</td><td>Validar + persistir edición</td></tr>
+        <tr><td><span class="method-badge delete">DELETE</span></td><td>/api/class/&lt;fn&gt;</td><td>Borrar JSON + CSV</td></tr>
+        <tr><td><span class="method-badge get">GET</span></td><td>/api/class-csv/&lt;fn&gt;</td><td>Descarga CSV</td></tr>
+        <tr><td><span class="method-badge get">GET</span></td><td>/api/class-pdf/&lt;fn&gt;</td><td>PDF instructor</td></tr>
+        <tr><td><span class="method-badge get">GET</span></td><td>/api/class-html/&lt;fn&gt;</td><td>HTML instructor (self-contained)</td></tr>
+        <tr><td><span class="method-badge get">GET</span></td><td>/api/class-mp3/&lt;fn&gt;</td><td>Stream MP3 renderizado</td></tr>
+        <tr><td><span class="method-badge post">POST</span></td><td>/api/class-doc-preview</td><td>Preview doc desde JSON (sin I/O)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- IC music_routes.py -->
+  <div class="route-group">
+    <div class="route-group-header">
+      IC música + Drive sync — <code>ic/music_routes.py</code> (Blueprint ic_bp)
+      <span class="group-badge tag blue">9 rutas</span>
+    </div>
+    <table class="route-table">
+      <thead><tr><th></th><th>Ruta</th><th>Descripción</th></tr></thead>
+      <tbody>
+        <tr><td><span class="method-badge post">POST</span></td><td>/api/music/upload</td><td>Upload track (magic bytes validation)</td></tr>
+        <tr><td><span class="method-badge get">GET</span></td><td>/api/music/tracks</td><td>Lista tracks con filtros</td></tr>
+        <tr><td><span class="method-badge get">GET</span></td><td>/api/music/tracks/&lt;id&gt;</td><td>Metadatos de track</td></tr>
+        <tr><td><span class="method-badge patch">PATCH</span></td><td>/api/music/tracks/&lt;id&gt;</td><td>Actualizar metadatos (whitelist)</td></tr>
+        <tr><td><span class="method-badge delete">DELETE</span></td><td>/api/music/tracks/&lt;id&gt;</td><td>Eliminar track</td></tr>
+        <tr><td><span class="method-badge get">GET</span></td><td>/api/music/peaks/&lt;fn&gt;</td><td>Waveform peaks cacheados</td></tr>
+        <tr><td><span class="method-badge post">POST</span></td><td>/api/music/drive-sync</td><td>Sync Google Drive → {task_id}</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- IC audio_routes.py -->
+  <div class="route-group">
+    <div class="route-group-header">
+      IC audio config/render — <code>ic/audio_routes.py</code> (Blueprint ic_bp)
+      <span class="group-badge tag accent">SSE</span>
+    </div>
+    <table class="route-table">
+      <thead><tr><th></th><th>Ruta</th><th>Descripción</th></tr></thead>
+      <tbody>
+        <tr><td><span class="method-badge get">GET</span></td><td>/api/audio-configs/&lt;fn&gt;</td><td>Lista todas las versiones de audio</td></tr>
+        <tr><td><span class="method-badge get">GET</span></td><td>/api/audio-config/&lt;fn&gt;</td><td>Config de audio guardada</td></tr>
+        <tr><td><span class="method-badge post">POST</span></td><td>/api/audio-config/&lt;fn&gt;</td><td>Guardar secciones de audio</td></tr>
+        <tr><td><span class="method-badge post">POST</span></td><td>/api/audio-render/&lt;fn&gt;</td><td>Inicia render → {task_id}</td></tr>
+        <tr><td><span class="method-badge sse">SSE</span></td><td>/api/audio-render-stream/&lt;tid&gt;</td><td>SSE: progress / done / error</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- MG member_routes.py -->
+  <div class="route-group">
+    <div class="route-group-header">
+      MG socios CRUD — <code>mg/member_routes.py</code> (Blueprint mg_bp)
+      <span class="group-badge tag green">5 rutas</span>
+    </div>
+    <table class="route-table">
+      <thead><tr><th></th><th>Ruta</th><th>Descripción</th></tr></thead>
+      <tbody>
+        <tr><td><span class="method-badge get">GET</span></td><td>/api/mg/members</td><td>Lista socios (search ?q=)</td></tr>
+        <tr><td><span class="method-badge get">GET</span></td><td>/api/mg/members/&lt;dni&gt;</td><td>Perfil completo por DNI</td></tr>
+        <tr><td><span class="method-badge post">POST</span></td><td>/api/mg/members</td><td>Crear/upsert socio</td></tr>
+        <tr><td><span class="method-badge put">PUT</span></td><td>/api/mg/members/&lt;dni&gt;</td><td>Actualizar perfil</td></tr>
+        <tr><td><span class="method-badge delete">DELETE</span></td><td>/api/mg/members/&lt;dni&gt;</td><td>Eliminar + CASCADE</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- MG plan_routes.py -->
+  <div class="route-group">
+    <div class="route-group-header">
+      MG planes — <code>mg/plan_routes.py</code> (Blueprint mg_bp)
+      <span class="group-badge tag blue">5 rutas</span>
+    </div>
+    <table class="route-table">
+      <thead><tr><th></th><th>Ruta</th><th>Descripción</th></tr></thead>
+      <tbody>
+        <tr><td><span class="method-badge get">GET</span></td><td>/api/mg/members/&lt;dni&gt;/plans</td><td>Historial de planes del socio</td></tr>
+        <tr><td><span class="method-badge get">GET</span></td><td>/api/mg/plans/&lt;id&gt;</td><td>Plan completo por ID</td></tr>
+        <tr><td><span class="method-badge get">GET</span></td><td>/api/mg/plans/&lt;id&gt;/export</td><td>Exportar plan → HTML self-contained</td></tr>
+        <tr><td><span class="method-badge put">PUT</span></td><td>/api/mg/plans/&lt;id&gt;</td><td>Actualizar plan existente</td></tr>
+        <tr><td><span class="method-badge post">POST</span></td><td>/api/mg/plans</td><td>Crear plan manual</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- MG gen_routes.py -->
+  <div class="route-group">
+    <div class="route-group-header">
+      MG generación SSE — <code>mg/gen_routes.py</code> (Blueprint mg_bp)
+      <span class="group-badge tag accent">SSE</span>
+    </div>
+    <table class="route-table">
+      <thead><tr><th></th><th>Ruta</th><th>Descripción</th></tr></thead>
+      <tbody>
+        <tr><td><span class="method-badge post">POST</span></td><td>/api/mg/generate-start</td><td>Inicia generación → {task_id}. Idempotency-Key header.</td></tr>
+        <tr><td><span class="method-badge sse">SSE</span></td><td>/api/mg/generate-stream/&lt;tid&gt;</td><td>SSE: status / done / error</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- API v1 -->
+  <div class="route-group">
+    <div class="route-group-header">
+      API v1 — <code>api/__init__.py</code> (Blueprint api_v1_bp, prefijo /api/v1/)
+      <span class="group-badge tag yellow">2 rutas</span>
+    </div>
+    <table class="route-table">
+      <thead><tr><th></th><th>Ruta</th><th>Descripción</th></tr></thead>
+      <tbody>
+        <tr><td><span class="method-badge get">GET</span></td><td>/api/v1/disciplines</td><td>Lista disciplinas registradas (code, slug, label)</td></tr>
+        <tr><td><span class="method-badge get">GET</span></td><td>/api/v1/tasks/&lt;id&gt;/result</td><td>Resultado persistido (done/error) — recuperable 24h post-generación</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     8. RESILIENCIA
+════════════════════════════════════════════════════════════════ -->
+<section id="resilience">
+  <h2><span class="num">08</span>Resiliencia y Startup<i class="fa-solid fa-shield-halved section-icon"></i><span class="watermark">08</span></h2>
+  <p class="section-desc">
+    Dos mecanismos independientes protegen la app ante fallos de infraestructura:
+    el circuit breaker para Claude API y el check de variables de entorno al arranque.
+  </p>
+
+  <div class="subsection-title">Circuit Breaker — src/circuit_breaker.py</div>
+
+  <div class="diagram-box">
+    <div class="diagram-box-inner">
+      <div class="mermaid">
+stateDiagram-v2
+    [*] --> CLOSED
+    CLOSED --> OPEN : 3 fallos consecutivos<br/>(RateLimitError / 529 / timeout)
+    OPEN --> HALF_OPEN : 60s transcurridos
+    HALF_OPEN --> CLOSED : probe exitoso
+    HALF_OPEN --> OPEN : probe fallido
+
+    CLOSED : CLOSED\nLlama normalmente
+    OPEN : OPEN\nCircuitBreakerOpen inmediato
+    HALF_OPEN : HALF_OPEN\nUn probe permitido
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top: 24px;">
+    <div class="card">
+      <h3><i class="fa-solid fa-triangle-exclamation"></i>Errores que cuentan como fallo</h3>
+      <table class="table-orange">
+        <thead><tr><th>Tipo</th><th>Causa típica</th></tr></thead>
+        <tbody>
+          <tr><td>RateLimitError (429)</td><td>Cuota de API agotada</td></tr>
+          <tr><td>APIStatusError 529</td><td>Claude overloaded</td></tr>
+          <tr><td>APIConnectionError</td><td>Red caída / timeout DNS</td></tr>
+          <tr><td>APITimeoutError</td><td>Respuesta &gt; 300s</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <h3><i class="fa-solid fa-bolt"></i>Comportamiento cuando OPEN</h3>
+      <table class="table-blue">
+        <thead><tr><th>Capa</th><th>Comportamiento</th></tr></thead>
+        <tbody>
+          <tr><td>ai_client.call_with_cb()</td><td>Lanza <code>CircuitBreakerOpen</code> inmediatamente</td></tr>
+          <tr><td>ClassGenerationService</td><td>Captura → push(task_id, "error", msg)</td></tr>
+          <tr><td>SSE stream</td><td>Emite <code>{type:"error", payload:msg}</code></td></tr>
+          <tr><td>Frontend</td><td>Muestra toast de error al instructor</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="subsection-title">Startup Check — check_dotenv() (patrón envcheck)</div>
+  <p class="section-desc">
+    Llamado en <code>app.py</code> después de <code>load_dotenv()</code>. Parsea <code>.env.example</code>,
+    compara contra <code>os.environ</code>, y loguea WARNING por cada variable no seteada.
+    No bloquea el arranque — <code>ANTHROPIC_API_KEY</code> puede llegar por <code>settings.json</code>
+    y la app ya redirige a <code>/setup</code> si no está configurada.
+  </p>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3><i class="fa-solid fa-circle-exclamation"></i>Variables críticas (ANTHROPIC_API_KEY)</h3>
+      <table class="table-orange">
+        <thead><tr><th>Fuente</th><th>Prioridad</th></tr></thead>
+        <tbody>
+          <tr><td>os.environ / .env</td><td>1° (load_dotenv al inicio)</td></tr>
+          <tr><td>settings.json</td><td>2° (via ai_client.build_client)</td></tr>
+          <tr><td>Ninguna</td><td>EnvironmentError al llamar Claude</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <h3><i class="fa-solid fa-sliders"></i>Variables opcionales documentadas en .env.example</h3>
+      <table class="table-blue">
+        <thead><tr><th>Variable</th><th>Default</th></tr></thead>
+        <tbody>
+          <tr><td>MUSIC_DIR</td><td>PROJECT_ROOT/static/music</td></tr>
+          <tr><td>MUSIC_DB</td><td>PROJECT_ROOT/music_library.db</td></tr>
+          <tr><td>MEMBERS_DB</td><td>PROJECT_ROOT/members.db</td></tr>
+          <tr><td>TASKS_DB</td><td>PROJECT_ROOT/tasks.db</td></tr>
+          <tr><td>DATA_DIR</td><td>PROJECT_ROOT</td></tr>
+          <tr><td>FLASK_PORT</td><td>5000</td></tr>
+          <tr><td>FLASK_LOG_LEVEL</td><td>INFO</td></tr>
+          <tr><td>MEGAS_API_KEY</td><td>— (vacío = solo sesiones)</td></tr>
+          <tr><td>MEGAS_RATE_LIMIT</td><td>10</td></tr>
+          <tr><td>MEGAS_RATE_WINDOW_SEC</td><td>60</td></tr>
+          <tr><td>FLASK_SECRET_KEY</td><td>— (requerido en producción)</td></tr>
+          <tr><td>SESSION_HOURS</td><td>8</td></tr>
+          <tr><td>AUTH_DB</td><td>auth.db (relativo a DATA_DIR)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="subsection-title">Startup Security Order — Sprint 8+9</div>
+  <p class="section-desc">
+    El orden de inicialización en <code>app.py</code> es crítico para garantizar que los decoradores
+    <code>@inject</code> estén ya parcheados cuando se registra la auth y el blueprint de API.
+  </p>
+  <div class="card" style="margin-top: 8px;">
+    <h3><i class="fa-solid fa-list-ol"></i>Orden de startup (app.py)</h3>
+    <table class="table-blue">
+      <thead><tr><th>Paso</th><th>Código</th><th>Motivo</th></tr></thead>
+      <tbody>
+        <tr><td>1. Logging</td><td><code>configure_logging()</code></td><td>Activo antes de cualquier import que pueda loguear</td></tr>
+        <tr><td>2. Plugins</td><td><code>_init_plugins(app)</code></td><td>Importa ic/routes.py + mg/routes.py → en sys.modules</td></tr>
+        <tr><td>3. DI Container</td><td><code>_init_container()</code></td><td>Configura providers sin wirear aún</td></tr>
+        <tr><td>4. Wire</td><td><code>container.wire(modules=[...])</code></td><td>Parchea @inject DESPUÉS de que los módulos están en sys.modules</td></tr>
+        <tr><td>5. Middleware compartido</td><td><code>register_shared_middleware(app, container)</code></td><td>Auth + request logging + api_v1_bp DESPUÉS de wire()</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="subsection-title">Rate Limiting — @rate_limited() decorator</div>
+  <p class="section-desc">
+    Aplicado en <code>ic/gen_routes.py</code>, <code>mg/gen_routes.py</code> e <code>ic/music_routes.py</code>.
+    El orden de los decoradores es <strong>crítico</strong>: <code>@route → @rate_limited() → @inject</code>.
+    <code>@rate_limited()</code> debe envolver <code>@inject</code> para que el chequeo de cuota ocurra
+    antes de que se resuelvan las dependencias. <code>functools.wraps</code> preserva las anotaciones
+    para que DI las vea en la función interna.
+  </p>
+  <div class="grid-2" style="margin-top: 8px;">
+    <div class="card">
+      <h3><i class="fa-solid fa-sort"></i>Orden de decoradores (crítico)</h3>
+      <table class="table-orange">
+        <thead><tr><th>Decorador</th><th>Corre en orden</th></tr></thead>
+        <tbody>
+          <tr><td><code>@bp.route(...)</code></td><td>1° — registra la ruta</td></tr>
+          <tr><td><code>@rate_limited()</code></td><td>2° — chequea cuota per-IP</td></tr>
+          <tr><td><code>@inject</code></td><td>3° — resuelve dependencias DI</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <h3><i class="fa-solid fa-share-nodes"></i>_gen_limiter compartido (diseño intencional)</h3>
+      <table class="table-blue">
+        <thead><tr><th>Aspecto</th><th>Detalle</th></tr></thead>
+        <tbody>
+          <tr><td>Scope</td><td>Singleton de módulo en rate_limit_middleware.py</td></tr>
+          <tr><td>Compartido por</td><td>ic/gen_routes, mg/gen_routes, ic/music_routes</td></tr>
+          <tr><td>Motivo</td><td>Cuota Claude API es global: hammering MG consume la misma cuota que IC</td></tr>
+          <tr><td>Test override</td><td>Resuelto en call time — fixtures pueden swapear el singleton entre tests</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     9. EVALUACIÓN
+════════════════════════════════════════════════════════════════ -->
+<section id="assessment">
+  <h2><span class="num">09</span>Evaluación Arquitectónica<i class="fa-solid fa-chart-line section-icon"></i><span class="watermark">09</span></h2>
+  <p class="section-desc">
+    Estado actual post-refactor v3.4 + arquitectura hexagonal (ports &amp; adapters). Sprints 1–14 aplicados. Sprint 4: plugin system OCP-compliant, DI con <code>dependency-injector</code>,
+    idempotency + result persistence, circuit breaker Claude API, envcheck startup, IC creator drag-and-drop/collapse/duplicate, audio editor resetToDefault.
+    v2.4: IC Blueprint dividido en 6 sub-módulos especializados; MG Blueprint dividido en 4 sub-módulos.
+    v2.5 (Sprint 6b/7): TaskQueue event-driven (threading.Event), DriveSyncService timeouts configurables, api_music_drive_sync migrado a start_task(),
+    generation_orchestrator Flask-free, containers modulares CoreContainer + ICContainer + MGContainer.
+    v3.0 (Sprint 8+9): capa de seguridad completa (auth opt-in, rate limiting sliding window), logging centralizado idempotente,
+    middleware compartido app_factory.py, PEP 562 lazy attrs en discipline_registry, TYPE_CHECKING en discipline_protocol,
+    MGAppContainer para futura spin-off. Eliminado: app_mg.py (prematuro), print() en agent.py y config.py. 222 tests (+35).
+    Hexagonal: <code>ClassStoragePort</code> + <code>FilesystemClassStorage</code> (IC); <code>KnowledgeBasePort</code> + <code>FilesystemKnowledgeBase</code> (MG). Los services son filesystem-free y Flask-free bajo inyección de fakes. +7 tests (229 total).
+    v3.2 (Sprint 10): sistema de login para staff con sesiones Flask firmadas (<code>auth_user/</code> package, auth.db SQLite),
+    panel de administración <code>/admin/users</code> (solo usuario "admin"), CLI offline <code>auth_cli.py</code>. auth.py reescrito como always-on con bypass TESTING. +4 tests (233 total).
+    v3.3 (Sprint 11): split JS MG en 10 módulos cohesivos (<code>session_log</code> × 5 + <code>workout_mode</code> × 5); funciones puras compartidas en <code>utils.js</code> (<code>flatExercises</code>, <code>fetchExerciseHistory</code>, <code>makeSerieEntry</code>); constantes DDL extraídas a <code>member_repo_ddl.py</code>; CSS export a <code>html_export_css.py</code> (SRP). +504 tests (737 total).
+    v3.4 (Sprints 12–14): i18n completo (248+ keys × 2 langs, <code>window.I18n</code>); AirTable custom fields (<code>CustomFieldsRepo</code>, <code>custom_data</code> en 4 tablas, <code>FieldManager.js</code>); panel <code>/admin/tables</code>; linter frontend (<code>scripts/lint_frontend.py</code> JS-01/02 CSS-01/02/03); búsqueda de socios con autocomplete; <code>showCriticalError()</code> + offline banner en sidebar; <code>ExerciseBlock.descripcion/notas_entrenador</code>; <code>_optInt/_optFloat</code> en utils.js; tokens CSS ampliados (<code>--purple</code>, <code>--cyan</code>, overlays, shadows). +38 tests (775 total).
+  </p>
+
+  <div class="strengths-weaknesses">
+    <div class="sw-block good">
+      <h3><i class="fa-solid fa-check"></i>Puntos fuertes</h3>
+      <ul>
+        <li>Plugin system OCP-compliant: discipline_registry.discover_plugins() — agregar disciplina sin tocar app.py</li>
+        <li>AppContainer (dependency-injector) — providers.Factory, wiring post-plugins, zero flask.g en threads</li>
+        <li>@inject + Provide[AppContainer.*] en handlers — deps declaradas en firma, no en strings mágicos</li>
+        <li>Factory providers (.provider) pasados como args explícitos a threads background — thread-safe sin Flask context</li>
+        <li>circuit_breaker.py — CLOSED/OPEN/HALF_OPEN in-memory, singleton compartido IC+MG, CircuitBreakerOpen sube por SSE</li>
+        <li>call_with_cb() + _is_transient() — distingue errores de cuota/red (cuentan) de errores de dominio (no cuentan)</li>
+        <li>IdempotencyStore + TaskResultStore — Idempotency-Key header + resultados persistidos 24h en tasks.db</li>
+        <li>api_v1_bp (/api/v1/) — disciplines + task result endpoints</li>
+        <li>check_dotenv() + .env.example completo — developer feedback inmediato al startup</li>
+        <li>config.py como single source of truth — MEMBERS_DB, TASKS_DB, validate() + check_dotenv() fail-fast</li>
+        <li>DisciplinePlugin Protocol — startup_validate() por disciplina, blueprint registration lazy</li>
+        <li>Pydantic v2 con invariantes de dominio duros (cadencia IC, edad MG, series)</li>
+        <li>TaskQueue thread-safe con TTL + límite de 20 tareas concurrentes</li>
+        <li>task_registry.py singleton compartido — ic_bp y mg_bp usan el mismo SSE</li>
+        <li>IC Blueprint dividido en 6 sub-módulos especializados — alta cohesión, bajo acoplamiento</li>
+        <li>MG Blueprint dividido en 4 sub-módulos — member_routes, plan_routes, gen_routes, thin assembler</li>
+        <li>MG Blueprint completamente desacoplado de IC: usa ai_client.py como shared infrastructure (DIP)</li>
+        <li>ai_client.py — call_with_cb() + resolve_anthropic_client() + load_system_prompt(); único punto de cambio para Claude</li>
+        <li>ISP split: MemberRepositoryBase → 4 Protocols — MuscleGenerationService solo ve PlanCreationRepo (2 métodos)</li>
+        <li>validators.py standalone — coerce_int(), coerce_restricciones() compartidas — elimina triplicación</li>
+        <li>ic/schemas.py GenerateClassRequest.to_domain() — IC validation en paridad arquitectónica con MG</li>
+        <li>web_utils.safe_download_filename() — RFC 6266 (filename*=UTF-8) compartido IC+MG</li>
+        <li>MemberProfile.to_repo_dict() — Feature Envy eliminado en service._save()</li>
+        <li>html_export.py accordion &lt;details&gt;/&lt;summary&gt; nativo — sin JS, compatible iOS/Android universalmente</li>
+        <li>formatters.muscle_group_key() con Unicode NFD — acentos (glúteo → piernas) matchean correctamente</li>
+        <li>MemberRepository UPSERT nativo (ON CONFLICT DO UPDATE RETURNING id) — 1 round-trip</li>
+        <li>prompt_builder.py separado — testeable sin depender del SDK de Anthropic</li>
+        <li>Services desacoplados de Flask via callbacks push_fn — testables sin HTTP</li>
+        <li>DATA_DIR + MEMBERS_DB + TASKS_DB env vars — preparado para Docker sin cambios de código</li>
+        <li>IC creator: drag-and-drop (mousedown/draggable pattern), collapse/expand, duplicate class, applyEdit re-render</li>
+        <li>_repair_for_preview() — normaliza duraciones bottom-up para /api/class-doc-preview sin bloquear validación</li>
+        <li>Audio editor: _defaultClips + resetToDefault() — restaura containers vacíos de la clase</li>
+        <li>TaskQueue event-driven: threading.Event por tarea — SSE consumer usa ev.wait(timeout) en lugar de sleep loop (Sprint 6b)</li>
+        <li>DriveSyncService: request_timeout + download_timeout configurables — propagados por toda la cadena (Sprint 6b)</li>
+        <li>api_music_drive_sync ahora usa start_task() + persist_and_complete() — consistente con IC/MG (Sprint 7)</li>
+        <li>generation_orchestrator Flask-free: start_task() retorna (task_id, cached: bool) — reutilizable sin contexto Flask (Sprint 7)</li>
+        <li>Containers modulares: CoreContainer + ICContainer + MGContainer — base para sub-apps standalone. MG standalone = CoreContainer + MGContainer, cero dependencia IC (Sprint 7)</li>
+        <li>logging_config.py configure_logging() idempotente — activo antes de cualquier import; silencia anthropic/httpx/urllib3 a WARNING (Sprint 8)</li>
+        <li>auth.py init_auth() reescrito como always-on — prioridad: TESTING bypass → exempt → session["user_id"] → MEGAS_API_KEY → redirect/401; exentos: /login, /logout, /setup, /static/*, SSE streams (Sprint 10)</li>
+        <li>_SSE_RE = re.compile(r"-stream/") — requiere guión antes de "stream/" para prevenir bypass de auth con rutas crafteadas (Sprint 8)</li>
+        <li>rate_limiter.py RateLimiter sliding window per-IP — thread-safe, sin dependencias externas (Sprint 8)</li>
+        <li>@rate_limited() decorator — orden @route→@rate_limited()→@inject garantiza que DI no resuelve deps si la cuota está superada (Sprint 8)</li>
+        <li>_gen_limiter compartido intencionalmente: cuota Claude API es global por IP — MG y IC consumen la misma ventana (Sprint 8)</li>
+        <li>app_factory.py register_shared_middleware() — DRY: elimina código duplicado entre entry points; sequence garantizada post-wire() (Sprint 8)</li>
+        <li>discipline_registry.py PEP 562 __getattr__: CLASS_FILENAME_RE y CLASS_MP3_RE lazy — zero costo de import; construidos solo al primer acceso (Sprint 9)</li>
+        <li>discipline_protocol.py TYPE_CHECKING: from flask import Blueprint solo en type checking — zero dependencias Flask en runtime del Protocol (Sprint 9)</li>
+        <li>MGAppContainer reservado para spin-off MG standalone — provider names idénticos a AppContainer para compatibilidad @inject (Sprint 9)</li>
+        <li>MemberRepository.save_member() RuntimeError explícito si RETURNING devuelve None — falla visible en lugar de NoneType error silencioso (Sprint 9)</li>
+        <li>app_mg.py eliminado (prematuro) — spin-off se construirá como proyecto separado cuando sea necesario (Sprint 9)</li>
+        <li>print() eliminados de agent.py y config.py — logging centralizado unifica toda la salida (Sprint 9)</li>
+        <li>Puerto secundario hexagonal IC: <code>ClassStoragePort</code> Protocol + <code>FilesystemClassStorage</code> adaptador — <code>ClassGenerationService</code> es filesystem-free en tests via inyección de <code>_FakeStorage</code> (4 nuevos tests de integración, zero I/O de disco)</li>
+        <li>Puerto secundario hexagonal MG: <code>KnowledgeBasePort</code> Protocol en <code>mg/kb_port.py</code> + <code>FilesystemKnowledgeBase</code> en <code>mg/kb_filesystem.py</code> — reemplaza <code>_load_mg_knowledge_base()</code> en línea; <code>MuscleGenerationService</code> y <code>generate_mg_plan()</code> aceptan <code>kb=None</code> (3 nuevos tests unitarios, zero filesystem)</li>
+        <li>auth_user/ package: SQLiteUserRepository(auth.db) — WAL mode, timeout=10, patrón _connect()/_init_db() igual que MemberRepository; _to_public() excluye password_hash; _to_full() incluye para auth (Sprint 10)</li>
+        <li>auth.py TESTING bypass: if current_app.config.get("TESTING"): return None — preserva suite de tests existente sin cambios (Sprint 10)</li>
+        <li>_safe_next() en login_routes.py — valida que next param sea path relativo, previene open-redirect (Sprint 10)</li>
+        <li>admin_routes.py _require_admin(): session.get("username") != "admin" → 403; admin user protegido contra disable en toggle (Sprint 10)</li>
+        <li>auth_cli.py salida ASCII (OK/ERR en lugar de ✓/✗) — evita UnicodeEncodeError en consola Windows (charmap) (Sprint 10)</li>
+        <li>Ambos puertos siguen el mismo patrón ISP que <code>member_repo_base.py</code> / <code>MemberRepository</code> ya establecido en MG — estilo hexagonal consistente en todo el codebase</li>
+        <li>session_log.js dividido en 5 módulos (core + sl_storage + sl_timer + sl_history + sl_interactions) — alta cohesión, responsabilidad única por archivo (Sprint 11)</li>
+        <li>workout_mode.js dividido en 5 módulos (core + wk_wellness + wk_exercise_view + wk_history + wk_summary) — misma convención de naming que session_log (Sprint 11)</li>
+        <li>utils.js funciones puras compartidas: flatExercises(), fetchExerciseHistory(), makeSerieEntry() — elimina duplicación entre session_log y workout_mode (DRY, Sprint 11)</li>
+        <li>member_repo_ddl.py — 5 constantes CREATE TABLE extraídas de member_repository.py; SRP: el adaptador no mezcla DDL con lógica de acceso a datos (Sprint 11)</li>
+        <li>html_export_css.py — constante _EXPORT_CSS extraída de html_export.py; CSS versionable independientemente del generador HTML (Sprint 11)</li>
+        <li>i18n.js 248+ keys × 2 langs — <code>window.I18n.t(key)</code>, <code>setLang</code>, <code>apply()</code>; prefijos por dominio (<code>mg.*</code>, <code>audio.*</code>, <code>sidebar.*</code>, <code>at.field.*</code>); cero strings hardcodeados visibles en JS/templates (Sprint 12)</li>
+        <li>tokens.css ampliado — nuevos tokens <code>--purple</code>, <code>--cyan</code>, <code>--white</code>, <code>--black</code>, <code>--overlay-sm/md</code>, <code>--shadow-sm/md/lg</code>; regla: NUNCA colores hardcodeados en CSS, siempre <code>var(--*)</code> (Sprint 12–14)</li>
+        <li>AirTable custom fields: <code>CustomFieldsRepo</code> + columna <code>custom_data TEXT DEFAULT '{}'</code> en 4 tablas (members, training_plans, exercises, users); Tabulator dot-notation nativa; <code>FieldManager.js</code> IIFE init/buildColumns/setErrorHandler (Sprint 13)</li>
+        <li>/admin/tables — panel AirTable-style con 4 tabs; RID column persistida en localStorage; hidden-fields por tabla; <code>BUILTIN_COLUMNS</code> keyed by API name (Sprint 13)</li>
+        <li>scripts/lint_frontend.py — linter Python pre-commit para JS/CSS: JS-01 (strings hardcodeados), JS-02 (catch{} vacío), CSS-01 (colores hardcodeados), CSS-02 (!important), CSS-03 (tokens no definidos); corre junto a ruff (Sprint 14)</li>
+        <li>showCriticalError(msg, retryFn) en ui.js — banner fixed-bottom rojo, z-index 9000, botón retry opcional; garantía UX ante fallos de red o API (Sprint 14)</li>
+        <li>MegaSidebar.setActiveMember(name, dni) / clearActiveMember() — cross-page localStorage mega-active-member; offline banner IIFE con eventos online/offline (Sprint 14)</li>
+        <li>member.js búsqueda unificada — dígitos → lookup directo por DNI; texto → <code>/api/mg/members?q=</code> + dropdown autocomplete (Sprint 14)</li>
+        <li>plan_editor.js DB-only selection — autocomplete enforced; on blur sin selección: campo se limpia + estado cleared; descripcion + notas_entrenador sincronizados vía setNestedPath() (Sprint 14)</li>
+        <li>_optInt(val, radix?) / _optFloat(val) en utils.js — reemplaza parseInt(x)||null (swallows 0); patrón correcto para campos numéricos opcionales (Sprint 14)</li>
+      </ul>
+    </div>
+    <div class="sw-block bad">
+      <h3><i class="fa-solid fa-circle-exclamation"></i>Áreas de atención (pendientes)</h3>
+      <ul>
+        <li>audio_render.py: crossfade dual-slot puede producir desincronía subjetiva en algunos BPM</li>
+        <li>YG (Yoga) sin modelos de dominio ni agente — placeholder únicamente</li>
+        <li>discipline_registry.discover_plugins() — ahora lazy via get_plugins(), pero _plugins_cache es módulo-global (no reseteable entre tests sin monkeypatching explícito)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="margin-top: 32px;">
+    <div class="card">
+      <h3><i class="fa-solid fa-stethoscope"></i>Consistencia arquitectónica — Diagnóstico v3.4 (post Sprint 1–14)</h3>
+      <table class="table-green">
+        <thead><tr><th>Área</th><th>Estado</th><th>Observación</th></tr></thead>
+        <tbody>
+          <tr><td>Separation of concerns</td><td>✅ Buena</td><td>Flask routes no contienen lógica de negocio — delegan a Services / Blueprint</td></tr>
+          <tr><td>Single source of truth</td><td>✅ Buena</td><td>config.py, disciplines/__init__.py son las raíces; task_registry.py es el singleton SSE; ai_client.py es el único punto de Claude API</td></tr>
+          <tr><td>OCP — Plugin system</td><td>✅ Resuelto (Sprint 4)</td><td>discipline_registry.discover_plugins() — agregar disciplina sin tocar app.py. Plugin protocol OCP-compliant.</td></tr>
+          <tr><td>DI — Dependency Injection</td><td>✅ Implementado (Sprint 4)</td><td>AppContainer (dependency-injector). @inject + Provide en handlers. Factory providers pasados a threads como args — sin flask.g.</td></tr>
+          <tr><td>Resiliencia Claude API</td><td>✅ Implementado (Sprint 4)</td><td>circuit_breaker.py — CLOSED/OPEN/HALF_OPEN, singleton compartido IC+MG. call_with_cb() con _is_transient().</td></tr>
+          <tr><td>Idempotency + Result persistence</td><td>✅ Implementado (Sprint 4)</td><td>Idempotency-Key header. TaskResultStore TTL 24h. GET /api/v1/tasks/&lt;id&gt;/result.</td></tr>
+          <tr><td>Startup checks</td><td>✅ Implementado (Sprint 4)</td><td>check_dotenv() compara .env vs .env.example. .env.example documenta todas las vars.</td></tr>
+          <tr><td>DIP — Dependency Inversion</td><td>✅ Buena</td><td>ai_client.py compartido elimina dependencia MG→IC. MuscleGenerationService recibe repo por constructor.</td></tr>
+          <tr><td>ISP — Interface Segregation</td><td>✅ Buena</td><td>MemberRepositoryBase → 4 Protocols. MuscleGenerationService recibe PlanCreationRepo (2 métodos), no la interfaz completa.</td></tr>
+          <tr><td>DRY — Don't Repeat Yourself</td><td>✅ Buena</td><td>validators.py elimina triplicación. utils.py comparte enum_values + format_validation_error. web_utils.safe_download_filename compartida IC+MG.</td></tr>
+          <tr><td>Feature Envy</td><td>✅ Eliminado</td><td>MemberProfile.to_repo_dict() — service._save() ya no extrae 11 campos manualmente del modelo.</td></tr>
+          <tr><td>Modelo de dominio IC</td><td>✅ Completo</td><td>ClassPlan + Pydantic validators + invariantes MEGATLON + ic/schemas.py GenerateClassRequest</td></tr>
+          <tr><td>Modelo de dominio MG</td><td>✅ Completo</td><td>TrainingPlan + MemberProfile + to_repo_dict() + schemas + validators.py</td></tr>
+          <tr><td>Acceso a datos IC</td><td>✅ Buena</td><td>MusicLibrary abstrae SQLite; no hay SQL en app.py</td></tr>
+          <tr><td>Acceso a datos MG</td><td>✅ Buena</td><td>MemberRepository con Protocol + UPSERT nativo; no hay SQL en routes.py</td></tr>
+          <tr><td>Thread safety</td><td>✅ Buena</td><td>TaskQueue usa Lock; circuit_breaker usa Lock; Services son stateless; repos abren conexión por método</td></tr>
+          <tr><td>Blueprint architecture</td><td>✅ Buena</td><td>ic_bp + mg_bp + api_v1_bp registrados dinámicamente post-plugins</td></tr>
+          <tr><td>IC sub-module split</td><td>✅ v2.4</td><td>ic/ dividido en 6 módulos: bp, helpers, pages, gen_routes, class_routes, music_routes, audio_routes + thin assembler routes.py</td></tr>
+          <tr><td>MG sub-module split</td><td>✅ v2.4</td><td>mg/ dividido en 4 módulos de rutas: bp, member_routes, plan_routes, gen_routes + thin assembler routes.py</td></tr>
+          <tr><td>Frontend accordion</td><td>✅ Buena</td><td>html_export.py usa &lt;details&gt;/&lt;summary&gt; nativo — sin JS, funciona en iOS Safari, Android Chrome</td></tr>
+          <tr><td>Unicode handling</td><td>✅ Buena</td><td>muscle_group_key() normaliza NFD — acentos (glúteo, bíceps) matchean correctamente</td></tr>
+          <tr><td>Extensibilidad disciplinas</td><td>✅ Buena</td><td>Agregar disciplina: src/disciplines/slug/plugin.py + DisciplinePlugin Protocol + agents/slug.md</td></tr>
+          <tr><td>Docker readiness</td><td>✅ Buena</td><td>DATA_DIR, MUSIC_DIR, MEMBERS_DB, TASKS_DB, FLASK_* env vars implementados</td></tr>
+          <tr><td>Frontend architecture</td><td>✅ Buena</td><td>Vanilla JS, estado plano, render*() functions, DnD mousedown/draggable pattern</td></tr>
+          <tr><td>CB HALF_OPEN concurrencia</td><td>✅ Corregido</td><td><code>_probe_in_flight</code> flag — serializa probes bajo lock; un solo thread sondea en HALF_OPEN</td></tr>
+          <tr><td>TaskQueue polling</td><td>✅ Corregido</td><td>threading.Event por tarea — ev.wait(timeout) reemplaza sleep loop (Sprint 6b)</td></tr>
+          <tr><td>Containers modulares</td><td>✅ Sprint 7</td><td>CoreContainer + ICContainer + MGContainer — base para sub-apps. MG standalone viable.</td></tr>
+          <tr><td>Orchestrator Flask-free</td><td>✅ Sprint 7</td><td>start_task() → (task_id, bool). Sin flask.Response — reutilizable en CLI/tests.</td></tr>
+          <tr><td>Logging centralizado</td><td>✅ Sprint 8</td><td>logging_config.configure_logging() idempotente. FLASK_LOG_LEVEL env var. Silencia anthropic/httpx/urllib3.</td></tr>
+          <tr><td>Auth always-on</td><td>✅ Sprint 10</td><td>auth.init_auth() — always-on. Prioridad: TESTING bypass → exempt → session["user_id"] → MEGAS_API_KEY → redirect/401. Exento: /login, /logout, /setup, /static/*, *-stream/*.</td></tr>
+          <tr><td>Rate limiting</td><td>✅ Sprint 8</td><td>RateLimiter sliding window per-IP. @rate_limited() aplicado en gen_routes IC+MG y music_routes. _gen_limiter compartido = cuota Claude global.</td></tr>
+          <tr><td>Middleware DRY</td><td>✅ Sprint 8</td><td>app_factory.register_shared_middleware() centraliza: container ext + auth + request logging + api_v1_bp. Orden garantizado post-wire().</td></tr>
+          <tr><td>Decorator order</td><td>✅ Sprint 8</td><td>@route → @rate_limited() → @inject. Rate check antes de DI — functools.wraps preserva anotaciones para @inject.</td></tr>
+          <tr><td>PEP 562 lazy attrs</td><td>✅ Sprint 9</td><td>discipline_registry.__getattr__ — CLASS_FILENAME_RE y CLASS_MP3_RE construidos on first access. Zero costo de import.</td></tr>
+          <tr><td>TYPE_CHECKING Protocol</td><td>✅ Sprint 9</td><td>discipline_protocol.py — flask.Blueprint solo bajo TYPE_CHECKING. Zero dependencias Flask en runtime del Protocol.</td></tr>
+          <tr><td>MGAppContainer</td><td>✅ Sprint 9</td><td>Reservado para spin-off MG. Provider names idénticos a AppContainer. No usado hoy — base para futuro proyecto separado.</td></tr>
+          <tr><td>save_member() error handling</td><td>✅ Sprint 9</td><td>RuntimeError explícito si RETURNING devuelve None — falla visible, no NoneType silencioso.</td></tr>
+          <tr><td>Eliminación app_mg.py</td><td>✅ Sprint 9</td><td>Prematuro — spin-off como proyecto separado. Limpieza de print() en agent.py + config.py.</td></tr>
+          <tr><td>Login staff</td><td>✅ Sprint 10</td><td>auth_user/ package — SQLiteUserRepository (auth.db), UserRepoPort Protocol, login_routes (GET/POST /login, /logout), admin_routes (/admin/users CRUD, solo "admin"), guards.py login_required(). CLI offline auth_cli.py.</td></tr>
+          <tr><td>Admin panel</td><td>✅ Sprint 10</td><td>GET/POST /admin/users + toggle + reset-password. _require_admin() guard — username=="admin". Frontend: tabla sticky, inline password change, toasts auto-dismiss, optimistic UI, XSS-safe escapeHtml().</td></tr>
+          <tr><td>MG JS module split</td><td>✅ Sprint 11</td><td><code>session_log.js</code> y <code>workout_mode.js</code> divididos en 5 módulos cada uno. <code>utils.js</code> centraliza funciones puras duplicadas (<code>flatExercises</code>, <code>fetchExerciseHistory</code>, <code>makeSerieEntry</code>) y helpers <code>_optInt</code>/<code>_optFloat</code>. <code>member_repo_ddl.py</code> + <code>html_export_css.py</code> extraen constantes DDL y CSS (SRP).</td></tr>
+          <tr><td>Cobertura de tests</td><td>✅ 775 tests</td><td>+35 nuevos tests en Sprint 8+9 cubriendo auth, rate limiting, logging, app_factory, lazy attrs. +7 tests hexagonal (4 IC storage + 3 MG KB). +4 tests Sprint 10 (auth reescrito). +504 tests Sprint 11. +38 tests Sprints 12–14 (i18n, custom fields, admin tables, UX guards).</td></tr>
+          <tr><td>Puerto secundario IC (storage)</td><td>✅ Hexagonal</td><td><code>ClassStoragePort</code> Protocol + <code>FilesystemClassStorage</code> adaptador en <code>ic/class_storage.py</code>. <code>ClassGenerationService(storage=None)</code> — filesystem-free bajo inyección de test. 4 tests de integración, zero I/O de disco.</td></tr>
+          <tr><td>Puerto secundario MG (KB)</td><td>✅ Hexagonal</td><td><code>KnowledgeBasePort</code> Protocol en <code>mg/kb_port.py</code> + <code>FilesystemKnowledgeBase</code> en <code>mg/kb_filesystem.py</code>. Reemplaza <code>_load_mg_knowledge_base()</code> en línea. <code>MuscleGenerationService</code> y <code>generate_mg_plan()</code> aceptan <code>kb=None</code>. 3 tests unitarios, zero filesystem.</td></tr>
+          <tr><td>i18n completo</td><td>✅ Sprint 12</td><td><code>static/js/i18n.js</code> — 248+ keys × 2 langs (ES/EN). <code>window.I18n.t(key)</code>, <code>setLang</code>, <code>apply()</code>, <code>tFmt(key, values)</code>. Prefijos: <code>mg.*</code>, <code>audio.*</code>, <code>sidebar.*</code>, <code>at.field.*</code> (38 keys). Cero strings hardcodeados en JS/HTML.</td></tr>
+          <tr><td>AirTable custom fields</td><td>✅ Sprint 13</td><td><code>CustomFieldsRepo</code> (custom_fields table, CRUD). Columna <code>custom_data TEXT DEFAULT '{}'</code> migrada en members, training_plans, exercises, users. Tabulator dot-notation nativa — sin flatten. <code>FieldManager.js</code> IIFE reutilizable: <code>init(tableName, rebuildFn)</code>, <code>buildColumns()</code>, <code>setErrorHandler(fn)</code>.</td></tr>
+          <tr><td>Admin tables panel</td><td>✅ Sprint 13</td><td><code>/admin/tables</code> — 4 tabs (socios/ejercicios/trainers/planes). <code>BUILTIN_COLUMNS</code> keyed by API name. RID column en localStorage (sin round-trip servidor). Hidden-fields por tabla. Tabulator 6.3.0 (versión única en template).</td></tr>
+          <tr><td>Linter frontend</td><td>✅ Sprint 14</td><td><code>scripts/lint_frontend.py</code> — reglas JS-01/02 y CSS-01/02/03. Corre en pre-commit junto a ruff. Bloquea commit si hay violaciones. Documentado en CLAUDE.md sección Frontend Quality Rules.</td></tr>
+          <tr><td>UX crítico (guards + offline)</td><td>✅ Sprint 14</td><td><code>showCriticalError(msg, retryFn)</code> en <code>ui.js</code> — banner fixed-bottom red. <code>mgCloseWorkout(force?)</code> con guard <code>_workoutHasProgress()</code>. <code>MegaSidebar.setActiveMember()</code> / <code>clearActiveMember()</code> vía localStorage. Offline banner IIFE (<code>online</code>/<code>offline</code> events).</td></tr>
+          <tr><td>ExerciseBlock campos nuevos</td><td>✅ Sprint 14</td><td><code>mg/models.py ExerciseBlock</code>: <code>descripcion: Optional[str] = None</code> y <code>notas_entrenador: Optional[str] = None</code>. Sincronizados desde DB vía autocomplete en <code>plan_editor.js</code>. Vista read-only <code>.ex-desc-preview</code>.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script>
+  // Mermaid initialization
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'dark',
+    themeVariables: {
+      primaryColor: '#2e1a00',
+      primaryTextColor: '#e8e8e8',
+      primaryBorderColor: '#ff8c00',
+      lineColor: '#666',
+      secondaryColor: '#1a2e1a',
+      tertiaryColor: '#1a1a2e',
+      background: '#0e0e0e',
+      mainBkg: '#161616',
+      nodeBorder: '#333',
+      clusterBkg: '#141414',
+      titleColor: '#e8e8e8',
+      edgeLabelBackground: '#161616',
+      actorBkg: '#1a1a1a',
+      actorBorder: '#ff8c00',
+      actorTextColor: '#e8e8e8',
+      signalColor: '#666',
+      signalTextColor: '#e8e8e8',
+      noteBkgColor: '#1f1f1f',
+      noteTextColor: '#e8e8e8',
+      noteBorderColor: '#333',
+    },
+    flowchart: { curve: 'linear', padding: 20 },
+    sequence: { actorMargin: 60, messageMargin: 40 },
+    er: { diagramPadding: 30 },
+    classDiagram: { diagramPadding: 20 },
+  });
+
+  // Scroll progress bar
+  const progressBar = document.getElementById('scroll-progress');
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    progressBar.style.width = pct + '%';
+  }, { passive: true });
+
+  // Back to top button
+  const backToTop = document.getElementById('back-to-top');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) {
+      backToTop.classList.add('visible');
+    } else {
+      backToTop.classList.remove('visible');
+    }
+  }, { passive: true });
+  backToTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // Active nav link on scroll (animated underline via .active class)
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('nav a');
+
+  const navObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navLinks.forEach(a => a.classList.remove('active'));
+        const link = document.querySelector(`nav a[href="#${e.target.id}"]`);
+        if (link) link.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-25% 0px -65% 0px' });
+
+  sections.forEach(s => navObserver.observe(s));
+
+  // Section fade-in on scroll (IntersectionObserver)
+  const sectionObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        sectionObserver.unobserve(e.target);
+      }
+    });
+  }, { rootMargin: '0px 0px -80px 0px', threshold: 0.05 });
+
+  sections.forEach(s => sectionObserver.observe(s));
+</script>
+</body>
+</html>

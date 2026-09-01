@@ -44,6 +44,17 @@ Después llegó un tercero: cuando el cliente lo adoptó, hizo falta una segunda
 De ahí sale la arquitectura de plugins: la segunda disciplina no podía costar reescribir la
 primera.
 
+## El musicalizador
+
+Una clase no es solo la estructura: es la estructura **con la música encima**. El editor de
+audio es un mini DAW en el navegador — timeline por fases, tracks arrastrables sobre cada
+bloque, crossfades y render final a un solo archivo.
+
+<figure class="shot">
+  <img src="{{ '/assets/img/mts-musicalizador.jpg' | relative_url }}" alt="Editor de audio: timeline con las fases de la clase, la pista de musicalización con su forma de onda, los controles de fade y la librería de tracks con BPM e intensidad." loading="lazy" width="1600" height="1000">
+  <figcaption>Los 56 minutos de una clase con su estructura arriba y la musicalización abajo. Cada track de la librería lleva su BPM y su intensidad, que es lo que decide en qué fase puede entrar.</figcaption>
+</figure>
+
 ## Arquitectura
 
 Cuatro capas, con el registro de disciplinas cruzándolas por arriba:
@@ -58,6 +69,19 @@ Cuatro capas, con el registro de disciplinas cruzándolas por arriba:
 
 Los adaptadores entran por puertos (`ClassStoragePort`, `KnowledgeBasePort`, `UserRepoPort`),
 así que los servicios se testean sin filesystem ni base de datos.
+
+## Los diagramas
+
+La arquitectura completa está documentada como un solo HTML autocontenido con nueve
+diagramas generados: la visión general, los módulos, los modelos de dominio, el flujo de
+SSE y threading, el schema de SQLite, el sistema de disciplinas y las rutas de la API.
+
+<div class="cards">
+  <article class="card">
+    <div class="card-header"><a class="card-title" href="{{ '/diagramas/mega-training-system/arquitectura.html' | relative_url }}">Arquitectura completa ↗</a></div>
+    <div class="card-desc"><p>Siete secciones, de la vista de pájaro al schema de tablas: los puertos secundarios de cada disciplina, las invariantes de dominio, cómo se resuelve el streaming con threading en un Flask sincrónico y qué rutas expone la API.</p></div>
+  </article>
+</div>
 
 ## Decisiones que importaron
 
@@ -84,14 +108,6 @@ sumar una disciplina es un `plugin.py` y su agent, sin abrir `app.py`.
 
 **SSE y threading, no asyncio.** Flask es sincrónico. La generación devuelve un `task_id` y
 el cliente se engancha a un stream, con un `threading.Event` por tarea en vez de polling.
-
-## Límites conocidos
-
-- **No hay demo pública.** Es una aplicación con login: lo que se puede mostrar son
-  capturas o una demo en vivo, no un link.
-- **Yoga está como placeholder.** El plugin existe y el registro lo ve, pero no está
-  implementado. Es la prueba de que el mecanismo de extensión funciona, no una disciplina.
-- **La documentación de arquitectura vive en el repo** como HTML y no está publicada acá.
 
 <!--
   TODO(Federico): dos cosas que solo podés contar vos y que le agregarían mucho a esta
