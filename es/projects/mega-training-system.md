@@ -14,7 +14,7 @@ permalink: /es/projects/mega-training-system/
     <span class="tag">SSE</span><span class="tag">PostgreSQL</span><span class="tag">Docker</span><span class="tag">pytest</span>
   </div>
   <p class="row-links">
-    <a href="https://github.com/federicomoroz/MegaTrainingSystem" target="_blank" rel="noopener">Repo ↗</a>
+    <span class="muted">Repo privado</span>
   </p>
 </section>
 
@@ -28,6 +28,9 @@ permalink: /es/projects/mega-training-system/
   <div class="stat"><span class="num">87%</span><span class="lbl">cobertura</span></div>
   <div class="stat"><span class="num">~670</span><span class="lbl">tests de arquitectura</span></div>
 </div>
+
+El código es cerrado porque **es un producto que se vende**, no porque no esté listo.
+Lo que sigue es lo que se puede mostrar sin el repo: cómo está construido y por qué.
 
 ## El problema
 

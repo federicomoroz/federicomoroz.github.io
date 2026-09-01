@@ -107,6 +107,17 @@ def main() -> None:
     pendientes: list[tuple[Path, bytes, str]] = []
     for carpeta, cfg in proyectos.items():
         repo, branch = cfg["repo"], cfg["branch"]
+
+        # Un repo que paso a privado deja de ser alcanzable por raw. Se congela
+        # en vez de sacarlo del manifiesto: lo ya publicado sigue sirviendose y
+        # queda escrito por que no se actualiza mas. Sacarlo haria que el dia
+        # que vuelva a ser publico nadie se acuerde de reponerlo.
+        if cfg.get("congelado"):
+            motivo = cfg.get("motivo", "sin motivo declarado")
+            print(f"  {carpeta}  [congelado] {motivo}")
+            print(f"    se conserva lo publicado; no se sincroniza contra {repo}")
+            continue
+
         print(f"  {carpeta}  <- {repo}@{branch}")
 
         for destino, origen in cfg["archivos"].items():

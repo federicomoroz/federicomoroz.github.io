@@ -20,6 +20,8 @@
   },
 
   "mega-training-system": {
+    "congelado": true,
+    "motivo": "el repo paso a privado el 2026-09-01: es un producto que se vende",
     "repo": "federicomoroz/MegaTrainingSystem",
     "branch": "master",
     "archivos": {

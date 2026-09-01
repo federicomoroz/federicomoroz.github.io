@@ -49,7 +49,7 @@
   listed: true
   case_study: true
   repo: https://github.com/federicomoroz/MegaTrainingSystem
-  repo_visibility: public
+  repo_visibility: private
   tech:
     - Python
     - Flask
