@@ -47,7 +47,7 @@
     en: "Training plan generator built on the Claude API. It started as a tool for one indoor cycling instructor and is now used by Megatlon in daily operation. Plugin architecture: adding a discipline is a `plugin.py` plus its agent, with no changes to the core. SSE streaming, an exercise catalogue injected as a knowledge base, and the Batch API to halve the cost."
   status: active
   listed: true
-  case_study: false
+  case_study: true
   repo: https://github.com/federicomoroz/MegaTrainingSystem
   repo_visibility: public
   tech:
