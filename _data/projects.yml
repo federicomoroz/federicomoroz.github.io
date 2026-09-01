@@ -19,6 +19,27 @@
 #
 # ESTADO: seed desde el README publico. Revisar textos y sumar los que falten.
 
+- id: agente-contracargos
+  name: "Agente de investigación de contracargos"
+  short:
+    es: "Ante un contracargo, reúne la transacción, sus logs, las políticas que aplican, qué se resolvió en casos parecidos y el historial del cliente; propone una resolución justificada y se autoevalúa con un juez LLM. Los casos de riesgo alto frenan y esperan a un analista. Orquestado en n8n sobre una API FastAPI con RAG en Qdrant."
+    en: "Given a chargeback, it gathers the transaction, its logs, the applicable policies, how similar cases were resolved and the customer's history; proposes a justified resolution and grades itself with an LLM judge. High-risk cases stop and wait for a human analyst. Orchestrated in n8n over a FastAPI service with RAG on Qdrant."
+  status: active
+  listed: true
+  case_study: true
+  repo: https://github.com/federicomoroz/ciri-api-aux-sourcecode
+  repo_visibility: public
+  demo: https://ciri-chargeback-agent.onrender.com/panel
+  tech:
+    - Python
+    - FastAPI
+    - n8n
+    - Claude
+    - Qdrant
+    - RAG
+    - Docker
+    - pytest
+
 - id: task-queue
   name: Task Queue
   short:

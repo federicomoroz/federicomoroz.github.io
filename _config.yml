@@ -36,6 +36,7 @@ defaults:
       lang: en
 
 exclude:
+  - diagramas/README.md
   - Gemfile
   - Gemfile.lock
   - vendor
