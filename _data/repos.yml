@@ -5,36 +5,13 @@
 # y el script no toca.
 #
 # usuario: federicomoroz
-# generado: 2026-09-01T02:36:02+00:00
+# generado: 2026-09-01T03:10:45+00:00
 
 user: "federicomoroz"
-generated_at: "2026-09-01T02:36:02+00:00"
-count: 11
+generated_at: "2026-09-01T03:10:45+00:00"
+count: 10
 
 repos:
-  - name: "MegaTrainingSystem"
-    full_name: "federicomoroz/MegaTrainingSystem"
-    url: "https://github.com/federicomoroz/MegaTrainingSystem"
-    description: "AI-powered training plan generator for indoor cycling and strength training. Flask, Claude API, SSE streaming, and a plugin architecture where a new discipline never touches the core."
-    language: "Python"
-    homepage: null
-    stars: 0
-    forks: 0
-    archived: false
-    is_fork: false
-    pushed_at: "2026-09-01T02:22:19Z"
-    created_at: "2026-04-26T14:28:23Z"
-    topics:
-      - "anthropic"
-      - "claude"
-      - "fitness"
-      - "flask"
-      - "hexagonal-architecture"
-      - "llm"
-      - "plugin-architecture"
-      - "pytest"
-      - "python"
-      - "sse"
   - name: "shipping-quote"
     full_name: "federicomoroz/shipping-quote"
     url: "https://github.com/federicomoroz/shipping-quote"
