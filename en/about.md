@@ -49,10 +49,10 @@ permalink: /en/about/
   <li class="education-item">
     <div class="education-head">
       <span class="education-title">{{ edu.title[lang] }}</span>
-      <span class="education-period">{{ edu.period }}</span>
+      {% if edu.period != blank %}<span class="education-period">{{ edu.period }}</span>{% endif %}
     </div>
-    <div class="education-institution">{{ edu.institution }}{% if edu.location %} · {{ edu.location }}{% endif %}</div>
-    {% if edu.note[lang] != "" %}<div class="education-note">{{ edu.note[lang] | markdownify | remove: "<p>" | remove: "</p>" }}</div>{% endif %}
+    <div class="education-institution">{{ edu.institution }}{% if edu.location != blank %} · {{ edu.location }}{% endif %}</div>
+    {% if edu.note[lang] != blank %}<div class="education-note">{{ edu.note[lang] | markdownify | remove: "<p>" | remove: "</p>" }}</div>{% endif %}
   </li>
   {% endfor %}
 </ul>
