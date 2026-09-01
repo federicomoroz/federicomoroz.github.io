@@ -29,9 +29,6 @@ permalink: /en/projects/mega-training-system/
   <div class="stat"><span class="num">~670</span><span class="lbl">architecture tests</span></div>
 </div>
 
-The code is closed because **it is a product that is sold**, not because it isn't ready.
-What follows is what can be shown without the repo: how it is built, and why.
-
 ## The problem
 
 Putting together an indoor cycling class in the client's format is repetitive work with hard
