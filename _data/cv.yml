@@ -62,30 +62,57 @@ skills:
     items: [Python, JavaScript, "C#", SQL, PHP]
 
   - group:
-      es: Backend
-      en: Backend
-    items: [FastAPI, Django, Flask, Node.js, Laravel, SQLAlchemy, Pydantic]
+      es: Backend y frameworks
+      en: Backend & frameworks
+    items: [FastAPI, Flask, Node.js, SQLAlchemy, Pydantic, Alembic, dependency-injector, APScheduler, httpx, Laravel, Django]
+
+  - group:
+      es: IA aplicada
+      en: Applied AI
+    items: [Claude API, RAG, Qdrant, "Búsqueda vectorial", Guardrails, LLM-as-Judge, "Prompt caching", "SSE streaming", Langfuse, n8n]
 
   - group:
       es: Infraestructura
       en: Infrastructure
-    items: [Redis, PostgreSQL, SQLite, Docker, APScheduler]
+    items: [Redis, PostgreSQL, SQLite, Docker, "Docker Compose", "GitHub Actions", CI/CD, Render]
 
   - group:
       es: Integraciones
       en: Integrations
-    items: [REST APIs, Webhooks, SendGrid, Telegram Bot API, n8n, Airtable, BigQuery]
+    items: [REST APIs, Webhooks, SendGrid, Telegram Bot API, Airtable, BigQuery]
 
   - group:
-      es: Testing y calidad
-      en: Testing & quality
-    items: [pytest, pytest-asyncio, httpx, Playwright, mypy, Ruff]
+      es: Testing y herramientas
+      en: Testing & tooling
+    items: [pytest, pytest-asyncio, Playwright, mypy, Ruff, Git, Postman]
 
-# Vacio hasta que Federico lo complete. La seccion entera se OCULTA cuando esta
-# vacia (ver es/about.md): un "TODO: titulo" publicado es peor que no tener
-# seccion de educacion.
-# TODO(Federico): un item por titulo/certificacion.
-education: []
+  - group:
+      es: Arquitectura y prácticas
+      en: Architecture & practices
+    items: [SOLID, "Arquitectura por capas", "Ports & adapters", MVC, Repository, "Arquitectura orientada a eventos", "Circuit breaker", "Inyección de dependencias", "Composition root", "Plugin systems", Pipeline]
+
+# UADE (Marketing, 2007-2010) esta en el store pero NO se publica aca: Federico
+# no lo menciono al enumerar su educacion. Decision suya, ver las notas de
+# Cv/store/colecciones/educacion.json.
+education:
+  - title:
+      es: "Programación"
+      en: "Programming"
+    institution: "Escuela Da Vinci"
+    location: "Buenos Aires, Argentina"
+    period: "2021 – 2023"
+    note:
+      es: ""
+      en: ""
+  - title:
+      es: "Formación continua"
+      en: "Continuing education"
+    institution: "Coderhouse · Udemy · autodidacta"
+    location: ""
+    period: ""
+    note:
+      es: ""
+      en: ""
 
 # TODO(Federico): completar idiomas y nivel real.
 # Regla del sistema: el nivel se declara con la escala estandar
