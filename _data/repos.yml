@@ -5,11 +5,11 @@
 # y el script no toca.
 #
 # usuario: federicomoroz
-# generado: 2026-09-01T00:57:13+00:00
+# generado: 2026-09-01T01:33:52+00:00
 
 user: "federicomoroz"
-generated_at: "2026-09-01T00:57:13+00:00"
-count: 9
+generated_at: "2026-09-01T01:33:52+00:00"
+count: 10
 
 repos:
   - name: "ciri-api-aux-sourcecode"
@@ -24,6 +24,19 @@ repos:
     is_fork: false
     pushed_at: "2026-08-10T05:32:24Z"
     created_at: "2026-07-22T05:32:48Z"
+    topics: []
+  - name: "MegaTrainingSystem"
+    full_name: "federicomoroz/MegaTrainingSystem"
+    url: "https://github.com/federicomoroz/MegaTrainingSystem"
+    description: null
+    language: "Python"
+    homepage: null
+    stars: 0
+    forks: 0
+    archived: false
+    is_fork: false
+    pushed_at: "2026-06-25T11:40:25Z"
+    created_at: "2026-04-26T14:28:23Z"
     topics: []
   - name: "envcheck"
     full_name: "federicomoroz/envcheck"

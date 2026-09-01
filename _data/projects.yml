@@ -40,6 +40,25 @@
     - Docker
     - pytest
 
+- id: mega-training-system
+  name: Mega Training System
+  short:
+    es: "Generador de planes de entrenamiento sobre la API de Claude. Nació como herramienta para un instructor de indoor cycling y hoy lo usa Megatlon en su operación diaria. Arquitectura de plugins: sumar una disciplina es un `plugin.py` y su agent, sin tocar el core. Streaming SSE, catálogo de ejercicios inyectado como knowledge base y Batch API para bajar el costo a la mitad."
+    en: "Training plan generator built on the Claude API. It started as a tool for one indoor cycling instructor and is now used by Megatlon in daily operation. Plugin architecture: adding a discipline is a `plugin.py` plus its agent, with no changes to the core. SSE streaming, an exercise catalogue injected as a knowledge base, and the Batch API to halve the cost."
+  status: active
+  listed: true
+  case_study: false
+  repo: https://github.com/federicomoroz/MegaTrainingSystem
+  repo_visibility: public
+  tech:
+    - Python
+    - Flask
+    - Claude
+    - SSE
+    - PostgreSQL
+    - Docker
+    - pytest
+
 - id: task-queue
   name: Task Queue
   short:
