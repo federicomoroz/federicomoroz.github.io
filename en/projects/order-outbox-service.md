@@ -65,6 +65,11 @@ The domain and application layers import nothing from Spring, JPA or Hibernate. 
 
 The repository includes a React panel showing the circuit live: orders coming in, their event moving from pending to published, and the notification appearing in the other service's database. The whole thing comes up with one command (`docker compose up`), with nothing to configure.
 
+<figure class="shot">
+  <img src="{{ '/assets/img/order-outbox-panel.jpg' | relative_url }}" alt="Three-column system dashboard: orders coming in, their outbox events marked as published with the time each one took, and the notifications created in the other service's database. Along the top, counters for orders, events by status and relay latency." loading="lazy" width="1600" height="1000">
+  <figcaption>The same identifier shows up in all three columns: that is the event crossing from one service to the other. The rows reading "6 intentos" and "+176,45 s" are the ones that waited out a Kafka outage and published themselves once it came back.</figcaption>
+</figure>
+
 ## Out of scope, on purpose
 
 There is no authentication, no real notification delivery and no public deployment — the stack is two databases, Kafka and two services, which do not fit comfortably in a free tier. The goal was the delivery guarantee, not a finished product.

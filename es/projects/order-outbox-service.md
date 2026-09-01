@@ -65,6 +65,11 @@ El dominio y la capa de aplicación no importan nada de Spring, JPA ni Hibernate
 
 El repositorio incluye un panel en React que muestra el circuito en vivo: los pedidos entrando, su evento pasando de pendiente a publicado, y la notificación apareciendo en la base del otro servicio. Se levanta todo con un comando (`docker compose up`), sin configurar nada.
 
+<figure class="shot">
+  <img src="{{ '/assets/img/order-outbox-panel.jpg' | relative_url }}" alt="Panel del sistema en tres columnas: las órdenes entrando, sus eventos en el outbox marcados como publicados con el tiempo que tardó cada uno, y las notificaciones generadas en la base del otro servicio. Arriba, contadores de órdenes, eventos por estado y latencia del relay." loading="lazy" width="1600" height="1000">
+  <figcaption>El mismo identificador aparece en las tres columnas: es el evento cruzando de un servicio al otro. Las filas con "6 intentos" y "+176,45 s" son las que quedaron esperando durante una caída de Kafka y se publicaron solas cuando volvió.</figcaption>
+</figure>
+
 ## Fuera de alcance, a propósito
 
 No hay autenticación, no hay envío real de notificaciones y no hay deploy público —el stack son dos bases de datos, Kafka y dos servicios, que no entran cómodos en un plan gratuito—. El objetivo era la garantía de entrega, no un producto terminado.
