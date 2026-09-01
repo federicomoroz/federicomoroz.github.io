@@ -52,8 +52,23 @@ crossfades, and a final render to a single file.
 
 <figure class="shot">
   <img src="{{ '/assets/img/mts-musicalizador.jpg' | relative_url }}" alt="Audio editor: timeline with the class phases, the music lane with its waveform, the fade controls, and the track library with BPM and intensity." loading="lazy" width="1600" height="1000">
-  <figcaption>The 56 minutes of a class, structure on top and music underneath. Every track in the library carries its BPM and its intensity, which is what decides the phase it can go into.</figcaption>
+  <figcaption>A finished class: 56 minutes with its structure on top and the music underneath, every block with its track, its waveform and its crossfade. The percentage on each one is how well the track fits the phase; the library below carries BPM and intensity, which is what decides where it can go.</figcaption>
 </figure>
+
+## The training plan
+
+The other discipline generates strength training plans, and it is where the plugin
+architecture stops being an idea: same core, different agent, different output format.
+
+<figure class="shot">
+  <img src="{{ '/assets/img/mts-plan.jpg' | relative_url }}" alt="A twelve-week hypertrophy plan: three mesocycles, four days a week, and the exercises with sets, reps, rest and RPE." loading="lazy" width="1600" height="1150">
+  <figcaption>Twelve weeks across three mesocycles —accumulation, intensification, peak and deload— with every exercise and its sets, reps, rest and target RPE.</figcaption>
+</figure>
+
+What the capture shows and no diagram can: **the member's restriction reaches the exercise**.
+An injury declared in the profile doesn't stay as a footnote —it travels down into the plan
+and decides which movements are avoided and what replaces them, exercise by exercise. That
+is the difference between a routine generator and something a coach can put their name on.
 
 ## Architecture
 

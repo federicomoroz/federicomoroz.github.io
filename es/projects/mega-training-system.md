@@ -52,8 +52,23 @@ bloque, crossfades y render final a un solo archivo.
 
 <figure class="shot">
   <img src="{{ '/assets/img/mts-musicalizador.jpg' | relative_url }}" alt="Editor de audio: timeline con las fases de la clase, la pista de musicalización con su forma de onda, los controles de fade y la librería de tracks con BPM e intensidad." loading="lazy" width="1600" height="1000">
-  <figcaption>Los 56 minutos de una clase con su estructura arriba y la musicalización abajo. Cada track de la librería lleva su BPM y su intensidad, que es lo que decide en qué fase puede entrar.</figcaption>
+  <figcaption>Una clase terminada: los 56 minutos con su estructura arriba y la musicalización abajo, cada bloque con su track, su forma de onda y su crossfade. El porcentaje sobre cada uno es qué tan bien encaja el track con la fase; la librería de abajo lleva BPM e intensidad, que es lo que decide dónde puede entrar.</figcaption>
 </figure>
+
+## El plan de entrenamiento
+
+La otra disciplina genera planes de musculación, y es donde la arquitectura de plugins deja
+de ser una idea: el mismo core, otro agent, otro formato de salida.
+
+<figure class="shot">
+  <img src="{{ '/assets/img/mts-plan.jpg' | relative_url }}" alt="Plan de hipertrofia de doce semanas: tres mesociclos, cuatro días por semana y los ejercicios con series, repeticiones, descanso y RPE." loading="lazy" width="1600" height="1150">
+  <figcaption>Doce semanas en tres mesociclos —acumulación, intensificación, pico y deload— con cada ejercicio y sus series, repeticiones, descanso y RPE objetivo.</figcaption>
+</figure>
+
+Lo que muestra la captura y no se ve en ningún diagrama: **la restricción del socio llega
+hasta el ejercicio**. Una lesión declarada en el perfil no queda como una nota al pie —baja
+al plan y decide qué movimientos se evitan y con qué se reemplazan, ejercicio por ejercicio.
+Es la diferencia entre un generador de rutinas y algo que un entrenador puede firmar.
 
 ## Arquitectura
 
