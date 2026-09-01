@@ -5,13 +5,26 @@
 # y el script no toca.
 #
 # usuario: federicomoroz
-# generado: 2026-09-01T03:11:04+00:00
+# generado: 2026-09-01T06:52:00+00:00
 
 user: "federicomoroz"
-generated_at: "2026-09-01T03:11:04+00:00"
-count: 10
+generated_at: "2026-09-01T06:52:00+00:00"
+count: 11
 
 repos:
+  - name: "order-outbox-service"
+    full_name: "federicomoroz/order-outbox-service"
+    url: "https://github.com/federicomoroz/order-outbox-service"
+    description: "Transactional Outbox + Idempotent Consumer con Java 21, Spring Boot y Kafka. Arquitectura hexagonal verificada con ArchUnit y tests de integracion con Testcontainers."
+    language: "Java"
+    homepage: null
+    stars: 0
+    forks: 0
+    archived: false
+    is_fork: false
+    pushed_at: "2026-09-01T06:23:26Z"
+    created_at: "2026-09-01T04:50:55Z"
+    topics: []
   - name: "shipping-quote"
     full_name: "federicomoroz/shipping-quote"
     url: "https://github.com/federicomoroz/shipping-quote"
@@ -22,7 +35,7 @@ repos:
     forks: 0
     archived: false
     is_fork: false
-    pushed_at: "2026-09-01T02:18:15Z"
+    pushed_at: "2026-09-01T04:51:52Z"
     created_at: "2026-09-01T01:42:34Z"
     topics:
       - "alembic"
