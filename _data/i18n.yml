@@ -13,19 +13,25 @@ es:
     about: Sobre mí
     github: GitHub
   hero:
-    welcome_prefix: "Portfolio de"
+    # Una afirmacion, no un rotulo: "Portfolio de X" dice lo que el visitante
+    # ya sabe. Vale para todo el trabajo -empleo, freelance y proyectos- sin
+    # nombrar ninguno: la lista de abajo es la que muestra cuales.
+    headline: "Construyo backends que otros usan para trabajar."
+    lead: "APIs, integraciones y automatización de procesos. Python sobre Redis, PostgreSQL y Docker, con arquitectura por capas, contratos explícitos entre componentes y tests que verifican comportamiento. Cuando entra un LLM, entra como cualquier otra dependencia que puede fallar: con guardrails y circuit breakers."
+    # El unico numero de negocio medido del perfil, y viene de un puesto, no
+    # de un proyecto.
+    metric: "Antes: automatización de procesos, de 10 minutos a 5 segundos sobre ~2.100 transacciones mensuales."
+    cta_projects: "Ver proyectos"
+    cta_cv: "Descargar CV"
   home:
     profile_heading: Perfil
-    profile_short: "Backend developer enfocado en APIs, integraciones y sistemas distribuidos. Arquitectura por capas, contratos explícitos entre componentes y tests que verifican comportamiento."
-    profile_link: "Ver perfil completo →"
     projects_heading: Proyectos
     projects_empty: "Aún no hay proyectos publicados."
     tools_heading: Tools
+    tools_intro_one: "herramienta publicada."
     tools_intro_count: "herramientas y librerías publicadas."
     tools_empty: "Aún no hay herramientas publicadas."
     view_all: "Ver todos →"
-    purpose_heading: "¿Qué hay acá?"
-    purpose_body: "Un punto de entrada único a mis proyectos, write-ups técnicos y CV. Cada README de los repos públicos puede apuntar acá en vez de duplicar listados."
   projects:
     heading: Proyectos
     lead_with_items: "Proyectos propios y de equipo, con write-ups técnicos autocontenidos."
@@ -72,7 +78,11 @@ en:
     about: About
     github: GitHub
   hero:
-    welcome_prefix: "Portfolio of"
+    headline: "I build backends other people use to do their job."
+    lead: "APIs, integrations and process automation. Python on Redis, PostgreSQL and Docker, with layered architecture, explicit contracts between components and tests that verify behavior. When an LLM comes in, it comes in like any other dependency that can fail: with guardrails and circuit breakers."
+    metric: "Previously: process automation, from 10 minutes to 5 seconds across ~2,100 monthly transactions."
+    cta_projects: "See projects"
+    cta_cv: "Download CV"
   home:
     profile_heading: Profile
     profile_short: "Backend developer focused on APIs, integrations and distributed systems. Layered architecture, explicit contracts between components, and tests that verify behavior."
@@ -80,11 +90,10 @@ en:
     projects_heading: Projects
     projects_empty: "No published projects yet."
     tools_heading: Tools
+    tools_intro_one: "published tool."
     tools_intro_count: "published tools and libraries."
     tools_empty: "No published tools yet."
     view_all: "View all →"
-    purpose_heading: "What's here?"
-    purpose_body: "A single entry point to my projects, technical write-ups and CV. Every public repo README can point here instead of duplicating listings."
   projects:
     heading: Projects
     lead_with_items: "Personal and team projects, with self-contained technical write-ups."

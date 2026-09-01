@@ -841,3 +841,70 @@ pre code
     line-height: 1.5;
     color: var(--fg-muted);
 }
+
+/* === Hero de la home ======================================================
+   El H1 es una afirmacion y se lleva el peso tipografico; el nombre va como
+   linea de encabezado arriba, chico, para que la identidad no se pierda sin
+   competir con el mensaje. */
+
+.hero-eyebrow
+{
+    margin: 0 0 6px;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+}
+
+.hero-metric
+{
+    margin: 16px 0 0;
+    padding-left: 12px;
+    border-left: 2px solid var(--accent-line);
+    font-size: 0.95rem;
+    color: var(--fg-faint);
+    max-width: 62ch;
+}
+
+.hero-actions
+{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 24px 0 0;
+}
+
+.hero-actions a
+{
+    display: inline-block;
+    padding: 9px 18px;
+    border-radius: var(--radius);
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-decoration: none;
+    border: 1px solid var(--border-strong);
+    color: var(--fg);
+    transition: border-color 0.15s, background 0.15s;
+}
+
+/* Una sola accion primaria: dos botones con el mismo peso no son una
+   jerarquia, son una duda. */
+.hero-actions a.primary
+{
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #0b0510;
+    font-weight: 600;
+}
+
+.hero-actions a:hover
+{
+    border-color: var(--accent);
+}
+
+.hero-actions a.primary:hover
+{
+    background: var(--accent-hover);
+    border-color: var(--accent-hover);
+}
