@@ -59,6 +59,26 @@
     - Docker
     - pytest
 
+- id: order-outbox-service
+  name: Order Outbox Service
+  short:
+    es: "Dos microservicios en Java y Spring Boot que resuelven el dual write: el pedido y su evento se escriben en un mismo commit de Postgres, y un relay aparte los publica a Kafka reintentando con backoff. Si el broker está caído el pedido igual entra, y el evento se publica solo cuando vuelve. El consumidor deduplica por event_id, así el reintento no duplica efectos. Las reglas hexagonales no son un acuerdo: son diez tests de ArchUnit que fallan el build."
+    en: "Two Java and Spring Boot microservices solving the dual write problem: the order and its event are written in a single Postgres commit, and a separate relay publishes them to Kafka with exponential backoff. If the broker is down the order still succeeds, and the event publishes itself once it returns. The consumer dedupes by event_id, so a retry never duplicates effects. The hexagonal rules are not a convention: they are ten ArchUnit tests that fail the build."
+  status: active
+  listed: true
+  case_study: true
+  repo: https://github.com/federicomoroz/order-outbox-service
+  repo_visibility: public
+  tech:
+    - Java 21
+    - Spring Boot
+    - Kafka
+    - PostgreSQL
+    - Testcontainers
+    - ArchUnit
+    - React
+    - Docker
+
 - id: task-queue
   name: Task Queue
   short:

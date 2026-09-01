@@ -42,6 +42,11 @@ without ever learning that three of them exist.
 That buys something a toy example doesn't: the whole circuit, with real persistence, real
 error handling and a trace you can read.
 
+<figure class="shot">
+  <img src="{{ '/assets/img/shipping-quote-circuito.gif' | relative_url }}" alt="Animation of the hexagonal circuit: a request comes in over HTTP, crosses the primary adapter, the port, the use case and the domain, exits through the secondary port into the three carrier adapters and returns with the quotes." loading="lazy" width="1168" height="715">
+  <figcaption>The circuit as travelled by a real request, hop by hop. The sequence comes from the trace the response itself returns: it is the output of the code, not a diagram drawn beside it.</figcaption>
+</figure>
+
 ## The circuit
 
 ```

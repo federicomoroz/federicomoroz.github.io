@@ -42,6 +42,11 @@ distintos sin enterarse de que existen tres.
 Eso permite algo que un ejemplo de juguete no da: el circuito completo, con persistencia
 real, manejo de errores real y una traza que se puede leer.
 
+<figure class="shot">
+  <img src="{{ '/assets/img/shipping-quote-circuito.gif' | relative_url }}" alt="Animación del circuito hexagonal: un request entra por HTTP, atraviesa el adaptador primario, el puerto, el caso de uso y el dominio, sale por el puerto secundario hacia los tres adaptadores de transportista y vuelve con las cotizaciones." loading="lazy" width="1168" height="715">
+  <figcaption>El circuito recorrido por un request real, hop por hop. La secuencia sale de la traza que devuelve la propia respuesta: es la salida del código, no un diagrama dibujado al lado.</figcaption>
+</figure>
+
 ## El circuito
 
 ```
