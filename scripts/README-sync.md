@@ -6,6 +6,7 @@ Dos scripts, los dos stdlib puro y los dos con su workflow:
 |---|---|---|
 | `sync_repos.py` | `_data/repos.yml` | diario 06:17 UTC · a demanda · al tocar los curados |
 | `sync_diagrams.py` | `diagramas/**/*.html` | diario 06:37 UTC · a demanda · `repository_dispatch` |
+| `check_visibilidad.py` | nada: solo verifica | en push · diario 06:57 UTC · a demanda |
 
 ## sync_diagrams
 
@@ -85,3 +86,25 @@ El `paths` importa: sin el, cada push al repo dispara una corrida al pedo.
 **Si no se hace nada de esto, el sistema igual funciona** — solo que con hasta
 un dia de retraso en vez de al instante. El cron diario es la red de seguridad,
 no el plan B.
+
+## check_visibilidad
+
+La regla del sitio: **lo publico linkea el repo; lo privado se explica y se
+muestra, sin link.** Es declarativa —alguien escribe `repo_visibility: private`
+a mano— y acordarse no es un mecanismo.
+
+Falla si un proyecto declara `public` y el repo ya no lo es, si declara
+`private` uno que si es publico, o si un proyecto privado dejo el link en el
+hero de su case study. Ese ultimo importa porque el listado respeta
+`repo_visibility` solo; el hero es HTML escrito a mano y no lo mira nadie.
+
+La visibilidad se lee del campo `private` de la API, **no** de si la llamada dio
+200: con un token que si tiene acceso al repo privado, deducirla del codigo lo
+daba como publico. Si la API falla por otra cosa —rate limit, red— lo reporta
+como "no pude verificar" en vez de asumir: una alarma falsa aca haria sacar un
+link que estaba bien.
+
+```sh
+python scripts/check_visibilidad.py       # sale 1 si hay desvios
+python scripts/check_visibilidad.py -v    # lista tambien lo correcto
+```

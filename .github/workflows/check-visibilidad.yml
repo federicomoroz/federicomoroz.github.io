@@ -1,0 +1,61 @@
+# Verifica la regla del sitio: lo publico linkea el repo, lo privado no.
+#
+# El mecanismo es declarativo -alguien escribe `repo_visibility: private` a
+# mano-, y acordarse no es un mecanismo. Esto lo convierte en uno.
+#
+# Corre en push para que un error se vea al momento, y diario porque la
+# visibilidad de un repo puede cambiar sin que nadie toque el sitio: es
+# exactamente lo que paso con MegaTrainingSystem.
+name: check-visibilidad
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "_data/projects.yml"
+      - "_data/tools.yml"
+      - "es/projects/**"
+      - "en/projects/**"
+      - "scripts/check_visibilidad.py"
+      - ".github/workflows/check-visibilidad.yml"
+
+  schedule:
+    - cron: "57 6 * * *"
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: check-visibilidad-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Verificar
+        env:
+          # Sube el rate limit de 60/h a 1000/h. Alcanza con el token del propio
+          # repo: la visibilidad se lee del campo `private`, no de si la llamada
+          # tuvo acceso, asi que no hace falta permiso sobre los otros repos.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python scripts/check_visibilidad.py --verbose | tee salida.txt
+
+      - name: Resumen
+        if: always()
+        run: |
+          {
+            echo '## check-visibilidad'
+            echo '```'
+            cat salida.txt 2>/dev/null || echo 'fallo antes de producir salida'
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
