@@ -15,6 +15,7 @@ permalink: /en/projects/shipping-quote/
   </div>
   <p class="row-links">
     <a href="https://github.com/federicomoroz/shipping-quote" target="_blank" rel="noopener">Repo ↗</a>
+    <a href="https://shipping-quote.onrender.com" target="_blank" rel="noopener">Live demo ↗</a>
   </p>
 </section>
 
@@ -51,6 +52,11 @@ entry -> adapter -> port -> use case -> domain -> port -> adapter -> exit
 
 `main.py` is the composition root: it wires everything in the lifespan. The domain
 (`Package`, zones, `FeePolicy`, `Tracer`) imports nothing from the outside.
+
+None of this has to be taken on faith: **the trace comes back inside the response**. A 2.5 kg
+package to postal code 1425 returns eighteen steps —entry, adapter, port, the domain steps,
+the three carrier adapters and the exit— each with its own timing. The same JSON shows the
+volumetric weight rule deciding: 2.5 kg actual against 4.8 kg effective.
 
 ## Decisions that mattered
 
@@ -90,9 +96,3 @@ quoted. The goal is the architecture, not a finished product.
 The Alembic migrations are deliberately kept apart from the `create_all()` at startup:
 hooking them into the lifespan would have made the tests migrate the real database instead
 of the in-memory one, because the tests patch the engine rather than the URL.
-
-<!--
-  TODO(Federico): same note as the Spanish page — this is the project that gains the most
-  from a live demo, since the trace is something you have to SEE. render.yaml is ready and
-  the SPA already exists.
--->

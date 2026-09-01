@@ -15,6 +15,7 @@ permalink: /es/projects/shipping-quote/
   </div>
   <p class="row-links">
     <a href="https://github.com/federicomoroz/shipping-quote" target="_blank" rel="noopener">Repo ↗</a>
+    <a href="https://shipping-quote.onrender.com" target="_blank" rel="noopener">Demo en vivo ↗</a>
   </p>
 </section>
 
@@ -51,6 +52,11 @@ entrada -> adaptador -> puerto -> caso de uso -> dominio -> puerto -> adaptador 
 
 El `main.py` es el composition root: arma todo en el lifespan. El dominio (`Package`, zonas,
 `FeePolicy`, `Tracer`) no importa nada de afuera.
+
+Esto no hay que creerlo: **la traza vuelve dentro de la respuesta**. Un paquete de 2,5 kg a
+CP 1425 devuelve dieciocho pasos — entrada, adaptador, puerto, los pasos de dominio, los tres
+adaptadores de carrier y la salida— con el tiempo de cada uno. En el mismo JSON se ve la
+regla de peso volumétrico decidiendo: 2,5 kg reales contra 4,8 kg efectivos.
 
 ## Decisiones que importaron
 
@@ -90,10 +96,3 @@ los tres. El objetivo es la arquitectura, no un producto completo.
 Las migraciones con Alembic están deliberadamente separadas del `create_all()` del arranque:
 engancharlas al lifespan habría hecho que los tests migraran la base real en vez de la de
 memoria, porque los tests parchean el engine y no la URL.
-
-<!--
-  TODO(Federico): el proyecto tiene render.yaml listo y una SPA propia en
-  app/adapters/primary/spa.py. De todos los proyectos del portfolio, este es el que más gana
-  con una demo en vivo: la traza es algo que hay que VER, y contarla por escrito es la peor
-  versión de la idea. Deployalo y agrego el link `demo:` en _data/projects.yml.
--->

@@ -88,6 +88,7 @@
   case_study: true
   repo: https://github.com/federicomoroz/shipping-quote
   repo_visibility: public
+  demo: https://shipping-quote.onrender.com
   tech:
     - Python
     - FastAPI
