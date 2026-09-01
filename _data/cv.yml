@@ -146,5 +146,5 @@ languages:
 # PDFs del CV publicados en el sitio. Se generan con ../Cv/build_html.py
 # (o browser-print) y se copian a cv/. Dejar vacio el nombre oculta el boton.
 cv_pdf:
-  es: ""
-  en: ""
+  es: "CV_Federico_Moroz_ES.pdf"
+  en: "CV_Federico_Moroz_EN.pdf"
