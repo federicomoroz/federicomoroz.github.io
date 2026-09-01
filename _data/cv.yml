@@ -16,7 +16,9 @@ profile:
     comportamiento, no implementación**. Trabajo sobre todo con **Python
     (FastAPI, SQLAlchemy, Pydantic)** sobre **Redis, PostgreSQL y Docker**:
     colas de tareas distribuidas, gateways de API con circuit breakers y
-    motores de notificación multi-canal. También integro **APIs externas a
+    motores de notificación multi-canal. También trabajo con **Java y Spring Boot**
+    sobre **Kafka**, en sistemas orientados a eventos con garantías de
+    entrega. Y integro **APIs externas a
     escala**.
   en: |
     Backend developer focused on **APIs, integrations and distributed
@@ -25,8 +27,9 @@ profile:
     verify behavior rather than implementation**. I work mostly with **Python
     (FastAPI, SQLAlchemy, Pydantic)** on top of **Redis, PostgreSQL and
     Docker**: distributed task queues, API gateways with circuit breakers and
-    multi-channel notification engines. I also integrate **external APIs at
-    scale**.
+    multi-channel notification engines. I also work with **Java and Spring
+    Boot** on **Kafka**, building event-driven systems with delivery
+    guarantees. And I integrate **external APIs at scale**.
 
 # Como trabajo — bullets cortos, descriptivos, en primera persona.
 # Sin comparaciones con la industria ni auto-apreciaciones ("poco comun",
@@ -59,12 +62,12 @@ skills:
   - group:
       es: Lenguajes
       en: Languages
-    items: [Python, JavaScript, "C#", SQL, PHP]
+    items: [Python, Java, JavaScript, TypeScript, "C#", SQL, PHP]
 
   - group:
       es: Backend y frameworks
       en: Backend & frameworks
-    items: [FastAPI, Flask, Node.js, SQLAlchemy, Pydantic, Alembic, dependency-injector, APScheduler, httpx, Laravel, Django]
+    items: [FastAPI, "Spring Boot", "Spring Data JPA", Hibernate, Maven, Flask, Node.js, React, SQLAlchemy, Pydantic, Alembic, dependency-injector, APScheduler, httpx, Laravel, Django]
 
   - group:
       es: IA aplicada
@@ -74,7 +77,7 @@ skills:
   - group:
       es: Infraestructura
       en: Infrastructure
-    items: [Redis, PostgreSQL, SQLite, Docker, "Docker Compose", "GitHub Actions", CI/CD, Render]
+    items: ["Apache Kafka", Redis, PostgreSQL, SQLite, Flyway, Docker, "Docker Compose", "GitHub Actions", CI/CD, Render]
 
   - group:
       es: Integraciones
@@ -84,12 +87,12 @@ skills:
   - group:
       es: Testing y herramientas
       en: Testing & tooling
-    items: [pytest, pytest-asyncio, Playwright, mypy, Ruff, Git, Postman]
+    items: [pytest, pytest-asyncio, "JUnit 5", Testcontainers, ArchUnit, Playwright, Vite, mypy, Ruff, Git, Postman]
 
   - group:
       es: Arquitectura y prácticas
       en: Architecture & practices
-    items: [SOLID, "Arquitectura por capas", "Ports & adapters", MVC, Repository, "Arquitectura orientada a eventos", "Circuit breaker", "Inyección de dependencias", "Composition root", "Plugin systems", Pipeline]
+    items: [SOLID, "Arquitectura hexagonal", "Ports & adapters", "Transactional Outbox", "Consumidor idempotente", "Arquitectura por capas", MVC, Repository, "Arquitectura orientada a eventos", "Circuit breaker", "Inyección de dependencias", "Composition root", "Plugin systems", Pipeline]
 
 # Orden cronologico inverso, con la formacion sin fecha al final.
 education:
