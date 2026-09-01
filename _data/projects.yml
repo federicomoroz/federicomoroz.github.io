@@ -78,6 +78,24 @@
     - Docker
     - APScheduler
 
+- id: shipping-quote
+  name: Shipping Quote
+  short:
+    es: "Cotizador de envíos construido para mostrar un circuito hexagonal funcionando, no dibujado: cada request queda trazado hop por hop, de HTTP al dominio y de vuelta por tres adaptadores de transportista. El caso de uso no sabe que existen tres. Uno falla a propósito y la respuesta igual devuelve las otras dos."
+    en: "Shipping rate quoter built to show a hexagonal circuit running rather than drawn: every request is traced hop by hop, from HTTP into the domain and back out through three carrier adapters. The use case does not know there are three. One fails on purpose and the response still returns the other two."
+  status: active
+  listed: true
+  case_study: true
+  repo: https://github.com/federicomoroz/shipping-quote
+  repo_visibility: public
+  tech:
+    - Python
+    - FastAPI
+    - SQLAlchemy
+    - Alembic
+    - httpx
+    - pytest
+
 - id: rate-guardian
   name: Rate Guardian
   short:
