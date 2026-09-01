@@ -22,3 +22,7 @@ cvq.py
 build_html.py
 PROTOCOLO_REVALIDACION.md
 CV_*.md
+
+# Bytecode de los scripts de sync.
+__pycache__/
+*.pyc

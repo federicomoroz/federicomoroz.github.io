@@ -167,13 +167,42 @@ def curated_repo_urls() -> set[str]:
     return urls
 
 
+def curated_privados() -> set[str]:
+    """Las URLs curadas marcadas `repo_visibility: private` a proposito.
+
+    Sin esto, un repo cerrado deliberadamente se reporta como link roto en cada
+    corrida. Una alarma que suena todos los dias por algo que se decidio a mano
+    deja de leerse, y con ella dejan de leerse las que si importan.
+    """
+    privados = set()
+
+    for path in CURADOS:
+        if not path.exists():
+            continue
+
+        actual = None
+        for line in path.read_text(encoding="utf-8").splitlines():
+            line = line.strip()
+            if line.startswith("repo:"):
+                actual = line.split("repo:", 1)[1].strip().strip('"\'')
+            elif line.startswith("repo_visibility:") and actual:
+                if line.split(":", 1)[1].strip().strip('"\'') == "private":
+                    privados.add(actual)
+
+    return privados
+
+
 def report(repos: list[dict]) -> int:
     """Compara lo descubierto contra lo curado. Devuelve la cantidad de avisos."""
     curated = curated_repo_urls()
     live = {r["html_url"] for r in repos}
 
+    privados = curated_privados()
+
     sin_curar = [r for r in repos if r["html_url"] not in curated]
-    ya_no_publicos = curated - live
+    # Un repo cerrado a proposito no es un link roto: el sitio ya lo muestra
+    # como "repo privado" y el write-up es el artefacto publico.
+    ya_no_publicos = curated - live - privados
 
     avisos = 0
 
