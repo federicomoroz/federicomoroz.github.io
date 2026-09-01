@@ -1,6 +1,6 @@
 ---
 title: Mega Training System
-description: "Training plan generator on the Claude API, in production at Megatlon. Plugin architecture and cost control by design."
+description: "Training plan generator on the Claude API, in production at a client. Plugin architecture and cost control by design."
 permalink: /en/projects/mega-training-system/
 ---
 
@@ -8,7 +8,7 @@ permalink: /en/projects/mega-training-system/
 
 <section class="hero">
   <h1>Mega Training System <span class="tag active">active</span></h1>
-  <p class="lead">Training plan generator built on the <strong>Claude API</strong>. It started as a tool for one indoor cycling instructor and is now used by <strong>Megatlon</strong> in daily operation.</p>
+  <p class="lead">Training plan generator built on the <strong>Claude API</strong>. It started as a tool for one indoor cycling instructor and is now used by <strong>a client</strong> in daily operation.</p>
   <div class="chip-row">
     <span class="tag">Python</span><span class="tag">Flask</span><span class="tag">Claude</span>
     <span class="tag">SSE</span><span class="tag">PostgreSQL</span><span class="tag">Docker</span><span class="tag">pytest</span>
@@ -31,7 +31,7 @@ permalink: /en/projects/mega-training-system/
 
 ## The problem
 
-Putting together an indoor cycling class in the MEGATLON format is repetitive work with hard
+Putting together an indoor cycling class in the client's format is repetitive work with hard
 rules: five phases, exactly 3360 seconds, cadence between 60 and 110 RPM, BPM at twice the
 cadence. An LLM drafts that well, but putting one in the middle introduces two problems that
 did not exist before: **the model returns structures that don't always respect the rules**,
@@ -39,7 +39,7 @@ and **every generation costs money**.
 
 The system is built around those two problems, not around the prompt.
 
-Then came a third. When Megatlon adopted it, a second discipline was needed —strength
+Then came a third. When the client adopted it, a second discipline was needed —strength
 training— with its own methodology, its own catalogue and its own output format. That is
 where the plugin architecture comes from: the second discipline could not cost a rewrite of
 the first.
@@ -94,7 +94,7 @@ the client attaches to a stream, with one `threading.Event` per task instead of 
 - **The architecture documentation lives in the repo** as HTML and is not published here.
 
 <!--
-  TODO(Federico): same two items as the Spanish page — how it reached Megatlon, and a real
+  TODO(Federico): same two items as the Spanish page — how it reached the client, and a real
   production incident with its root cause. Both would add more than the pattern list above,
   and neither can be written without you.
 -->

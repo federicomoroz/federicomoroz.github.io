@@ -1,6 +1,6 @@
 ---
 title: Mega Training System
-description: "Generador de planes de entrenamiento sobre la API de Claude, en producción en Megatlon. Arquitectura de plugins y control de costo por diseño."
+description: "Generador de planes de entrenamiento sobre la API de Claude, en producción en un cliente. Arquitectura de plugins y control de costo por diseño."
 permalink: /es/projects/mega-training-system/
 ---
 
@@ -8,7 +8,7 @@ permalink: /es/projects/mega-training-system/
 
 <section class="hero">
   <h1>Mega Training System <span class="tag active">activo</span></h1>
-  <p class="lead">Generador de planes de entrenamiento sobre la <strong>API de Claude</strong>. Nació como herramienta para un instructor de indoor cycling y hoy lo usa <strong>Megatlon</strong> en su operación diaria.</p>
+  <p class="lead">Generador de planes de entrenamiento sobre la <strong>API de Claude</strong>. Nació como herramienta para un instructor de indoor cycling y hoy lo usa <strong>un cliente</strong> en su operación diaria.</p>
   <div class="chip-row">
     <span class="tag">Python</span><span class="tag">Flask</span><span class="tag">Claude</span>
     <span class="tag">SSE</span><span class="tag">PostgreSQL</span><span class="tag">Docker</span><span class="tag">pytest</span>
@@ -31,7 +31,7 @@ permalink: /es/projects/mega-training-system/
 
 ## El problema
 
-Armar una clase de indoor cycling en formato MEGATLON es trabajo repetitivo con reglas
+Armar una clase de indoor cycling en el formato del cliente es trabajo repetitivo con reglas
 duras: cinco fases, 3360 segundos exactos, cadencia entre 60 y 110 RPM, BPM igual al doble
 de la cadencia. Un LLM resuelve bien el borrador, pero al meterlo en el medio aparecen dos
 problemas que antes no existían: **el modelo devuelve estructuras que no siempre respetan
@@ -39,7 +39,7 @@ las reglas**, y **cada generación cuesta plata**.
 
 El sistema está construido alrededor de esos dos problemas, no alrededor del prompt.
 
-Después llegó un tercero: cuando Megatlon lo adoptó, hizo falta una segunda disciplina
+Después llegó un tercero: cuando el cliente lo adoptó, hizo falta una segunda disciplina
 —musculación— con su propia metodología, su propio catálogo y su propio formato de salida.
 De ahí sale la arquitectura de plugins: la segunda disciplina no podía costar reescribir la
 primera.
@@ -97,7 +97,7 @@ el cliente se engancha a un stream, con un `threading.Event` por tarea en vez de
   TODO(Federico): dos cosas que solo podés contar vos y que le agregarían mucho a esta
   página. No las escribo yo porque serían inventadas.
 
-  1. Cómo llegó a Megatlon: si fue freelance, un favor que escaló, o parte de un trabajo.
+  1. Cómo llegó al cliente: si fue freelance, un favor que escaló, o parte de un trabajo.
      Eso decide si esto se cuenta como experiencia laboral o como proyecto.
   2. Qué se rompió en producción y cómo lo arreglaste. Un incidente real con su causa raíz
      vale más que toda la lista de patterns de arriba.
