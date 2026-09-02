@@ -288,5 +288,17 @@ $("#close").addEventListener("click", close);
 scrim.addEventListener("click", close);
 addEventListener("keydown", (e) => e.key === "Escape" && close());
 </script>
+
+<style>/* dark forzado por el sitio */
+
+  :root:not([data-theme=light]){
+    --paper:#0d0f13; --surface:#161a21; --ink:#e9eaee; --muted:#9a9ca6; --faint:#8a8c96;
+    --rule:#232732; --rule-mid:#333846; --wire:#454b5a; --shadow:none;
+    --api:#7ea8f8; --rag:#4fd1c5; --llm:#b39cf7; --decide:#f0b355;
+    --human:#f491bb; --logic:#9aa6b8; --io:#5eead4; --error:#f08a80;
+    --tint:16%;
+  }
+
+</style>
 </body>
 </html>

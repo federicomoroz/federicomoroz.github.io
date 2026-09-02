@@ -18,7 +18,12 @@
       "informe-bloqueante.html": "docs/HTML_Output_Examples/report_blocker_TXN-00051.html",
       "informe-riesgo-alto.html": "docs/HTML_Output_Examples/report_high_TXN-00042.html",
       "informe-sla.html": "docs/HTML_Output_Examples/report_no_latam_TXN-00089.html"
-    }
+    },
+    "invertir": [
+      "informe-bloqueante.html",
+      "informe-riesgo-alto.html",
+      "informe-sla.html"
+    ]
   },
   "mega-training-system": {
     "congelado": true,
