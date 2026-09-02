@@ -44,6 +44,45 @@ El agente arma ese expediente completo, propone una resolución **con su justifi
 después se pone una nota a sí mismo. Lo que no hace es decidir solo cuando no debe: los
 casos de riesgo alto se detienen y quedan esperando a un analista humano.
 
+## Lo que produce
+
+El panel de pruebas deja correr el circuito sobre cualquier transacción del dataset y ver el
+resultado sin instalar nada. Los tres escenarios de arriba cubren los dos desenlaces del
+enrutador: rechazo automático y revisión humana.
+
+<figure class="shot">
+  <img src="{{ '/assets/img/ciri-panel.jpg' | relative_url }}" alt="Panel de pruebas: estado de FastAPI, SQLite, Qdrant y Langfuse, y tres escenarios de prueba con su desenlace esperado." loading="lazy" width="1000" height="1071">
+  <figcaption>El panel chequea sus propias dependencias antes de dejarte correr nada: si Qdrant no responde, se ve ahí y no en un error a mitad del pipeline.</figcaption>
+</figure>
+
+Cada corrida termina en un informe: la transacción, el perfil del cliente y el del comercio con
+sus flags, las políticas que aplican, los precedentes y la resolución propuesta con su
+justificación.
+
+<figure class="shot">
+  <img src="{{ '/assets/img/ciri-informe.jpg' | relative_url }}" alt="Informe de contracargo: datos de la transacción, nivel de riesgo, perfil del cliente y perfil de riesgo del comercio con flags de anomalía." loading="lazy" width="1600" height="1143">
+  <figcaption>Un caso de riesgo alto. El score antifraude, la anomalía geográfica y el comercio suspendido son lo que lleva al circuito a frenar y esperar a un analista.</figcaption>
+</figure>
+
+Estos tres son los que viajan en el paquete de entrega, y no están elegidos por su puntaje sino
+por cubrir situaciones de política distintas: un bloqueante por criptomonedas, un cliente VIP con
+score de fraude, y un SLA extendido fuera de LATAM.
+
+<div class="cards">
+  <article class="card">
+    <div class="card-header"><a class="card-title" href="{{ '/diagramas/contracargos/informe-bloqueante.html' | relative_url }}">Rechazo automático ↗</a></div>
+    <div class="card-desc"><p>Una política bloqueante corta el caso antes de que el modelo opine. El código decide; el informe explica cuál fue la regla y por qué no había nada que deliberar.</p></div>
+  </article>
+  <article class="card">
+    <div class="card-header"><a class="card-title" href="{{ '/diagramas/contracargos/informe-riesgo-alto.html' | relative_url }}">Revisión humana ↗</a></div>
+    <div class="card-desc"><p>Riesgo alto: el agente reúne el caso y propone, pero no resuelve. Queda esperando a un analista, con todo lo que necesita para decidir en una sola pantalla.</p></div>
+  </article>
+  <article class="card">
+    <div class="card-header"><a class="card-title" href="{{ '/diagramas/contracargos/informe-sla.html' | relative_url }}">Alerta de SLA ↗</a></div>
+    <div class="card-desc"><p>Un cargo duplicado fuera de LATAM, donde el plazo de respuesta es otro. El caso más sutil de los tres: la política correcta depende de dónde ocurrió.</p></div>
+  </article>
+</div>
+
 ## El circuito
 
 Cinco diagramas interactivos, autocontenidos: se abren en cualquier navegador, sin conexión

@@ -10,7 +10,12 @@ Cada subcarpeta es un proyecto. Se linkean desde su case study en `es|en/project
 de su repo. **Ojo: a diferencia de los de contracargos, estos NO son autocontenidos** —
 cargan mermaid y font-awesome por CDN, asi que necesitan conexion.
 
-`contracargos/` son los cinco diagramas del agente de investigación de contracargos,
+`contracargos/` tiene los cinco diagramas del agente de investigacion de contracargos mas
+**tres informes de ejemplo**: la salida real del sistema, uno por cada desenlace del enrutador.
+No son diagramas, pero viven aca porque son el mismo tipo de artefacto -HTML autocontenido que
+se sirve tal cual- y salen del mismo repo.
+
+Los cinco diagramas son del agente de investigación de contracargos,
 copiados de `docs/diagrams/` de su repo.
 
 ## No se editan a mano

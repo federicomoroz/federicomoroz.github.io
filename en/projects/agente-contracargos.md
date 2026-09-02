@@ -44,6 +44,44 @@ The agent assembles that full case file, proposes a resolution **with its reason
 then grades itself. What it doesn't do is decide alone when it shouldn't: high-risk cases
 stop and wait for a human analyst.
 
+## What it produces
+
+The testing panel runs the circuit over any transaction in the dataset and shows the result
+without installing anything. The three scenarios cover both of the router's outcomes: automatic
+rejection and human review.
+
+<figure class="shot">
+  <img src="{{ '/assets/img/ciri-panel.jpg' | relative_url }}" alt="Testing panel: health of FastAPI, SQLite, Qdrant and Langfuse, plus three test scenarios with their expected outcome." loading="lazy" width="1000" height="1071">
+  <figcaption>The panel checks its own dependencies before letting you run anything: if Qdrant is down you see it there, not halfway through the pipeline.</figcaption>
+</figure>
+
+Every run ends in a report: the transaction, the customer and merchant profiles with their flags,
+the policies that apply, the precedents, and the proposed resolution with its reasoning.
+
+<figure class="shot">
+  <img src="{{ '/assets/img/ciri-informe.jpg' | relative_url }}" alt="Chargeback report: transaction data, risk level, customer profile and merchant risk profile with anomaly flags." loading="lazy" width="1600" height="1143">
+  <figcaption>A high-risk case. The antifraud score, the geographic anomaly and the suspended merchant are what make the circuit stop and wait for an analyst.</figcaption>
+</figure>
+
+These three ship with the delivery package, and they were not picked for their score but for
+covering different policy situations: a crypto blocker, a VIP customer with a fraud score, and an
+extended SLA outside LATAM.
+
+<div class="cards">
+  <article class="card">
+    <div class="card-header"><a class="card-title" href="{{ '/diagramas/contracargos/informe-bloqueante.html' | relative_url }}">Automatic rejection ↗</a></div>
+    <div class="card-desc"><p>A blocking policy stops the case before the model gets an opinion. The code decides; the report explains which rule applied and why there was nothing to deliberate.</p></div>
+  </article>
+  <article class="card">
+    <div class="card-header"><a class="card-title" href="{{ '/diagramas/contracargos/informe-riesgo-alto.html' | relative_url }}">Human review ↗</a></div>
+    <div class="card-desc"><p>High risk: the agent assembles the case and proposes, but does not resolve. It waits for an analyst, with everything needed to decide on a single screen.</p></div>
+  </article>
+  <article class="card">
+    <div class="card-header"><a class="card-title" href="{{ '/diagramas/contracargos/informe-sla.html' | relative_url }}">SLA alert ↗</a></div>
+    <div class="card-desc"><p>A duplicate charge outside LATAM, where the response window is different. The subtlest of the three: the right policy depends on where it happened.</p></div>
+  </article>
+</div>
+
 ## The circuit
 
 Five interactive, self-contained diagrams: they open in any browser, offline, with nothing to

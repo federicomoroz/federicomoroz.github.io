@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reporte de Contracargo — TXN-00042</title>
+    <style>/* Las utilidades de Tailwind que usa el informe, escritas a mano.
+ *
+ * El informe traia el script del CDN de Tailwind, que genera los estilos en el
+ * browser. Anda casi siempre, y por eso el problema tardo en aparecer: n8n
+ * sirve la respuesta del formulario HITL con
+ * `Content-Security-Policy: sandbox` sin `allow-same-origin`, el documento
+ * queda en un origen opaco y el script no llega a aplicar nada. El analista
+ * aprobaba un contracargo y recibia el informe sin una sola regla de estilo.
+ *
+ * Incrustarlo arregla eso y de paso saca tres dependencias que un entregable no
+ * deberia tener: internet, un CDN de terceros, y 400 KB de JavaScript por cada
+ * informe que se abre. Los HTML de `docs/examples/` se entregan en un ZIP: se
+ * abren desde el disco, y quien los mire puede estar en una red que bloquee
+ * CDNs.
+ *
+ * Son las 151 clases que la plantilla usa de verdad, con los valores de
+ * Tailwind 3.4. Si se agrega una clase nueva a `case_report.html` hay que
+ * agregarla aca — `tests/unit/test_report_generator.py` falla si falta.
+ */
+
+/* ── Base ──────────────────────────────────────────────────────────────── */
+*, ::before, ::after { box-sizing: border-box; border: 0 solid #e5e7eb; }
+html { -webkit-text-size-adjust: 100%; font-family: ui-sans-serif, system-ui, -apple-system,
+       "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; line-height: 1.5; }
+body { margin: 0; }
+h1, h2, h3, h4, p, ul, ol, figure { margin: 0; }
+h1, h2, h3, h4 { font-size: inherit; font-weight: inherit; }
+ul, ol { padding: 0; list-style: none; }
+a { color: inherit; text-decoration: inherit; }
+table { border-collapse: collapse; text-indent: 0; }
+th, td { padding: 0; }
+button, input, textarea, select { font: inherit; color: inherit; margin: 0; }
+button { cursor: pointer; background: none; }
+code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+svg, img { display: block; max-width: 100%; }
+
+/* ── Layout ────────────────────────────────────────────────────────────── */
+.block { display: block; }
+.inline-block { display: inline-block; }
+.flex { display: flex; }
+.grid { display: grid; }
+.flex-1 { flex: 1 1 0%; }
+.flex-wrap { flex-wrap: wrap; }
+.items-center { align-items: center; }
+.items-start { align-items: flex-start; }
+.justify-between { justify-content: space-between; }
+.grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+.grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.gap-2 { gap: .5rem; }
+.gap-4 { gap: 1rem; }
+.gap-6 { gap: 1.5rem; }
+.mx-auto { margin-left: auto; margin-right: auto; }
+.w-full { width: 100%; }
+.max-w-5xl { max-width: 64rem; }
+.max-h-80 { max-height: 20rem; }
+.min-h-screen { min-height: 100vh; }
+.overflow-x-auto { overflow-x: auto; }
+.overflow-y-auto { overflow-y: auto; }
+
+/* `space-y-*`: separacion entre hermanos, no del bloque contra el mundo. */
+.space-y-1 > * + * { margin-top: .25rem; }
+.space-y-2 > * + * { margin-top: .5rem; }
+.space-y-3 > * + * { margin-top: .75rem; }
+.space-y-4 > * + * { margin-top: 1rem; }
+
+/* ── Espaciado ─────────────────────────────────────────────────────────── */
+.p-2 { padding: .5rem; }   .p-3 { padding: .75rem; }
+.p-4 { padding: 1rem; }    .p-6 { padding: 1.5rem; }
+.px-2 { padding-left: .5rem; padding-right: .5rem; }
+.px-3 { padding-left: .75rem; padding-right: .75rem; }
+.px-4 { padding-left: 1rem; padding-right: 1rem; }
+.px-5 { padding-left: 1.25rem; padding-right: 1.25rem; }
+.px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
+.px-8 { padding-left: 2rem; padding-right: 2rem; }
+.py-1 { padding-top: .25rem; padding-bottom: .25rem; }
+.py-2 { padding-top: .5rem; padding-bottom: .5rem; }
+.py-3 { padding-top: .75rem; padding-bottom: .75rem; }
+.py-8 { padding-top: 2rem; padding-bottom: 2rem; }
+.pb-3 { padding-bottom: .75rem; }
+.pr-4 { padding-right: 1rem; }
+.mb-1 { margin-bottom: .25rem; }  .mb-2 { margin-bottom: .5rem; }
+.mb-4 { margin-bottom: 1rem; }    .mb-6 { margin-bottom: 1.5rem; }
+.mt-0\.5 { margin-top: .125rem; } .mt-1 { margin-top: .25rem; }
+.mt-2 { margin-top: .5rem; }      .mt-3 { margin-top: .75rem; }
+.mt-4 { margin-top: 1rem; }
+.ml-1 { margin-left: .25rem; }    .ml-2 { margin-left: .5rem; }
+
+/* ── Tipografia ────────────────────────────────────────────────────────── */
+.text-xs { font-size: .75rem; line-height: 1rem; }
+.text-sm { font-size: .875rem; line-height: 1.25rem; }
+.text-lg { font-size: 1.125rem; line-height: 1.75rem; }
+.text-xl { font-size: 1.25rem; line-height: 1.75rem; }
+.text-2xl { font-size: 1.5rem; line-height: 2rem; }
+.text-3xl { font-size: 1.875rem; line-height: 2.25rem; }
+.text-5xl { font-size: 3rem; line-height: 1; }
+.font-medium { font-weight: 500; }
+.font-semibold { font-weight: 600; }
+.font-bold { font-weight: 700; }
+.font-black { font-weight: 900; }
+.font-mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+.italic { font-style: italic; }
+.uppercase { text-transform: uppercase; }
+.tracking-wide { letter-spacing: .025em; }
+.leading-relaxed { line-height: 1.625; }
+.text-left { text-align: left; }
+.text-center { text-align: center; }
+.whitespace-nowrap { white-space: nowrap; }
+
+/* ── Color del texto ───────────────────────────────────────────────────── */
+.text-white { color: #fff; }        .text-black { color: #000; }
+.text-gray-400 { color: #9ca3af; }  .text-gray-500 { color: #6b7280; }
+.text-gray-600 { color: #4b5563; }  .text-gray-700 { color: #374151; }
+.text-gray-800 { color: #1f2937; }  .text-gray-900 { color: #111827; }
+.text-red-600 { color: #dc2626; }   .text-red-700 { color: #b91c1c; }
+.text-green-500 { color: #22c55e; } .text-green-600 { color: #16a34a; }
+.text-green-700 { color: #15803d; }
+.text-blue-600 { color: #2563eb; }  .text-blue-700 { color: #1d4ed8; }
+.text-blue-800 { color: #1e40af; }
+.text-yellow-500 { color: #eab308; } .text-yellow-600 { color: #ca8a04; }
+.text-yellow-700 { color: #a16207; } .text-yellow-800 { color: #854d0e; }
+.text-orange-500 { color: #f97316; } .text-orange-600 { color: #ea580c; }
+.text-orange-700 { color: #c2410c; } .text-orange-800 { color: #9a3412; }
+.text-amber-900 { color: #78350f; }
+
+/* ── Fondo ─────────────────────────────────────────────────────────────── */
+.bg-white { background-color: #fff; }
+.bg-gray-50 { background-color: #f9fafb; }   .bg-gray-100 { background-color: #f3f4f6; }
+.bg-red-50 { background-color: #fef2f2; }    .bg-red-100 { background-color: #fee2e2; }
+.bg-red-600 { background-color: #dc2626; }   .bg-red-700 { background-color: #b91c1c; }
+.bg-green-50 { background-color: #f0fdf4; }  .bg-green-100 { background-color: #dcfce7; }
+.bg-green-500 { background-color: #22c55e; } .bg-green-600 { background-color: #16a34a; }
+.bg-blue-50 { background-color: #eff6ff; }   .bg-blue-600 { background-color: #2563eb; }
+.bg-yellow-50 { background-color: #fefce8; } .bg-yellow-400 { background-color: #facc15; }
+.bg-yellow-500 { background-color: #eab308; }
+.bg-orange-50 { background-color: #fff7ed; } .bg-orange-100 { background-color: #ffedd5; }
+.bg-orange-500 { background-color: #f97316; }
+.bg-purple-50 { background-color: #faf5ff; }
+.bg-amber-50 { background-color: #fffbeb; }
+
+/* ── Bordes y sombras ──────────────────────────────────────────────────── */
+.border { border-width: 1px; }
+.border-2 { border-width: 2px; }
+.border-b { border-bottom-width: 1px; }
+.border-l-4 { border-left-width: 4px; }
+.border-gray-50 { border-color: #f9fafb; }   .border-gray-100 { border-color: #f3f4f6; }
+.border-gray-300 { border-color: #d1d5db; }
+.border-red-200 { border-color: #fecaca; }
+.border-blue-200 { border-color: #bfdbfe; }
+.border-yellow-200 { border-color: #fef08a; } .border-yellow-400 { border-color: #facc15; }
+.border-orange-400 { border-color: #fb923c; }
+.border-purple-100 { border-color: #f3e8ff; }
+.border-amber-400 { border-color: #fbbf24; }
+.rounded { border-radius: .25rem; }
+.rounded-lg { border-radius: .5rem; }
+.rounded-xl { border-radius: .75rem; }
+.rounded-2xl { border-radius: 1rem; }
+.rounded-full { border-radius: 9999px; }
+.shadow { box-shadow: 0 1px 3px rgb(0 0 0 / .1), 0 1px 2px -1px rgb(0 0 0 / .1); }
+.shadow-lg { box-shadow: 0 10px 15px -3px rgb(0 0 0 / .1), 0 4px 6px -4px rgb(0 0 0 / .1); }
+
+/* ── Interaccion ───────────────────────────────────────────────────────── */
+.cursor-pointer { cursor: pointer; }
+.transition { transition: all .15s cubic-bezier(.4, 0, .2, 1); }
+.hover\:bg-gray-50:hover { background-color: #f9fafb; }
+.hover\:bg-yellow-600:hover { background-color: #ca8a04; }
+.focus\:border-yellow-500:focus { border-color: #eab308; }
+.focus\:outline-none:focus { outline: 2px solid transparent; outline-offset: 2px; }
+
+/* ── Responsive ────────────────────────────────────────────────────────── */
+@media (min-width: 768px) {
+    .md\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .md\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .md\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+/* ── Propias del informe ───────────────────────────────────────────────── */
+/* Antes usaban `@apply`, que solo existe con Tailwind cargado. */
+.badge-blocker, .badge-high, .badge-medium, .badge-low {
+    padding: .25rem .75rem; border-radius: 9999px; font-weight: 700;
+    font-size: .875rem; line-height: 1.25rem;
+}
+.badge-blocker { background-color: #b91c1c; color: #fff; }
+.badge-high { background-color: #f97316; color: #fff; }
+.badge-medium { background-color: #eab308; color: #000; }
+.badge-low { background-color: #22c55e; color: #fff; }
+.verdict-blocker { background: #dc2626; color: #fff; }
+.verdict-fail { background: #f97316; color: #fff; }
+.verdict-warning { background: #eab308; color: #000; }
+.verdict-pass { background: #22c55e; color: #fff; }
+.verdict-not_applicable { background: #94a3b8; color: #fff; }
+.log-error { border-left: 4px solid #dc2626; background: #fef2f2; }
+.log-warn { border-left: 4px solid #f97316; background: #fff7ed; }
+.log-info { border-left: 4px solid #94a3b8; background: #f8fafc; }
+.score-bar { height: 8px; border-radius: 4px; background: #e2e8f0; }
+.score-fill { height: 100%; border-radius: 4px;
+              background: linear-gradient(90deg, #22c55e, #3b82f6); }
+
+/* Al imprimir o guardar como PDF, el color de los badges es informacion. */
+@media print {
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    body { background: #fff; }
+}
+</style>
+</head>
+<body class="bg-gray-50 min-h-screen" data-risk-level="HIGH">
+<div class="max-w-5xl mx-auto px-4 py-8">
+
+    <!-- SECTION 1: Header -->
+    <header class="bg-white rounded-2xl shadow-lg p-6 mb-6 border border-gray-100">
+        <div class="flex items-center justify-between flex-wrap gap-4">
+            <div>
+                <p class="text-sm text-gray-500 font-medium uppercase tracking-wide">Agente Inteligente de Contracargos · CIRI</p>
+                <h1 class="text-3xl font-bold text-gray-900 mt-1">TXN-00042</h1>
+                <p class="text-gray-500 mt-1">Airbnb · 2024-01-05 · USD 2055.76</p>
+            </div>
+            <div class="text-center">
+                
+                
+                    <span class="inline-block bg-orange-500 text-white px-5 py-2 rounded-full font-bold text-lg shadow">⚠️ HIGH</span>
+                
+                <p class="text-xs text-gray-400 mt-2">Nivel de riesgo</p>
+            </div>
+        </div>
+        
+        
+    </header>
+
+    <!-- SECTION 2: Transaction Summary -->
+    <section class="bg-white rounded-2xl shadow-lg p-6 mb-6 border border-gray-100">
+        <h2 class="text-xl font-bold text-gray-800 mb-4">📋 Transacción</h2>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+            <div><p class="text-xs text-gray-500">Cliente</p><p class="font-semibold">CLI-0036</p></div>
+            <div><p class="text-xs text-gray-500">Comercio</p><p class="font-semibold">Airbnb</p></div>
+            <div><p class="text-xs text-gray-500">Monto</p><p class="font-semibold text-lg">USD 2055.76</p></div>
+            <div><p class="text-xs text-gray-500">Método de Pago</p><p class="font-semibold">Crédito Visa</p></div>
+            <div><p class="text-xs text-gray-500">País</p><p class="font-semibold">BRA</p></div>
+            <div><p class="text-xs text-gray-500">Canal</p><p class="font-semibold">Web</p></div>
+            <div><p class="text-xs text-gray-500">Dispositivo</p><p class="font-semibold">iPad</p></div>
+            <div><p class="text-xs text-gray-500">Estado</p><p class="font-semibold">Contracargo iniciado</p></div>
+            <div>
+                <p class="text-xs text-gray-500">Score Antifraude</p>
+                <p class="font-bold text-lg text-red-600">
+                    4/100
+                </p>
+                <div class="score-bar mt-1 w-full">
+                    <div class="score-fill" style="width: 4%; background: #dc2626;"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mt-4 bg-yellow-50 border border-yellow-200 rounded-lg p-3">
+            <p class="text-xs text-gray-500">Notas</p>
+            <p class="text-sm">Alto riesgo detectado</p>
+        </div>
+        
+    </section>
+
+    <!-- SECTION 3: Client Profile -->
+    <section class="bg-white rounded-2xl shadow-lg p-6 mb-6 border border-gray-100">
+        <h2 class="text-xl font-bold text-gray-800 mb-4">👤 Perfil del Cliente</h2>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+            <div class="text-center bg-gray-50 rounded-lg p-3">
+                <p class="text-2xl font-bold text-gray-800">4</p>
+                <p class="text-xs text-gray-500">Transacciones</p>
+            </div>
+            <div class="text-center bg-red-50 rounded-lg p-3">
+                <p class="text-2xl font-bold text-gray-800">1</p>
+                <p class="text-xs text-gray-500">Contracargos</p>
+            </div>
+            <div class="text-center bg-gray-50 rounded-lg p-3">
+                <p class="text-2xl font-bold text-gray-800">0</p>
+                <p class="text-xs text-gray-500">Rechazadas</p>
+            </div>
+            <div class="text-center bg-gray-50 rounded-lg p-3">
+                <p class="text-2xl font-bold text-gray-800">4</p>
+                <p class="text-xs text-gray-500">Países</p>
+            </div>
+        </div>
+        
+        <div class="flex flex-wrap gap-2 mt-2">
+            
+            <span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-xs font-semibold">🚩 geo_anomaly</span>
+            
+        </div>
+        
+        
+    </section>
+
+    <!-- SECTION 4: Merchant Risk -->
+    <section class="bg-white rounded-2xl shadow-lg p-6 mb-6 border border-gray-100">
+        <h2 class="text-xl font-bold text-gray-800 mb-4">🏪 Perfil de Riesgo del Comercio</h2>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+            <div class="text-center bg-gray-50 rounded-lg p-3">
+                <p class="text-2xl font-bold text-gray-800">4</p>
+                <p class="text-xs text-gray-500">Transacciones</p>
+            </div>
+            <div class="text-center bg-red-50 rounded-lg p-3">
+                <p class="text-2xl font-bold text-red-600">75.0%</p>
+                <p class="text-xs text-gray-500">Ratio CB</p>
+            </div>
+            <div class="text-center bg-gray-50 rounded-lg p-3">
+                <p class="text-2xl font-bold text-gray-800">3</p>
+                <p class="text-xs text-gray-500">Contracargos</p>
+            </div>
+            <div class="text-center bg-gray-50 rounded-lg p-3">
+                <p class="text-sm font-bold text-gray-600">
+                    Estándar
+                </p>
+                <p class="text-xs text-gray-500">USD 5521 total</p>
+            </div>
+        </div>
+        
+        <div class="flex flex-wrap gap-2">
+            
+            <span class="bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-xs font-semibold">⚠️ suspended_merchant</span>
+            
+        </div>
+        
+        
+    </section>
+
+    <!-- SECTION 5: Policy Evaluation -->
+    <section class="bg-white rounded-2xl shadow-lg p-6 mb-6 border border-gray-100">
+        <h2 class="text-xl font-bold text-gray-800 mb-4">📜 Evaluación de Políticas</h2>
+        
+        <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+                <thead>
+                    <tr class="text-left text-gray-500 border-b border-gray-100">
+                        <th class="pb-3 pr-4">Código</th>
+                        <th class="pb-3 pr-4">Veredicto</th>
+                        <th class="pb-3">Razonamiento</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    <tr class="border-b border-gray-50 hover:bg-gray-50">
+                        <td class="py-3 pr-4 font-mono font-semibold text-blue-700 whitespace-nowrap">POL-FRD-001</td>
+                        <td class="py-3 pr-4 whitespace-nowrap">
+                            <span class="px-2 py-1 rounded text-xs font-bold verdict-fail">
+                                FAIL
+                            </span>
+                            
+                            <span class="ml-1 text-xs text-yellow-600">👁️ HITL</span>
+                            
+                        </td>
+                        <td class="py-3 text-gray-600">fraud_score=4, umbral minimo=30. 4 &lt; 30 → transaccion viola politica. Debe ser rechazada automaticamente o derivada a revision manual.</td>
+                    </tr>
+                    
+                    <tr class="border-b border-gray-50 hover:bg-gray-50">
+                        <td class="py-3 pr-4 font-mono font-semibold text-blue-700 whitespace-nowrap">POL-CB-004</td>
+                        <td class="py-3 pr-4 whitespace-nowrap">
+                            <span class="px-2 py-1 rounded text-xs font-bold verdict-fail">
+                                FAIL
+                            </span>
+                            
+                            <span class="ml-1 text-xs text-yellow-600">👁️ HITL</span>
+                            
+                        </td>
+                        <td class="py-3 text-gray-600">Comercio Airbnb: total_transactions=4, total_chargebacks=3, cb_ratio=0.75 (75%). Umbral de suspension es &gt;2% (0.02). 0.75 &gt;&gt; 0.02 → comercio supera ampliamente el 2% y debe estar suspendido preventivamente. Flag &#39;suspended_merchant&#39; confirma suspension.</td>
+                    </tr>
+                    
+                    <tr class="border-b border-gray-50 hover:bg-gray-50">
+                        <td class="py-3 pr-4 font-mono font-semibold text-blue-700 whitespace-nowrap">POL-CB-001</td>
+                        <td class="py-3 pr-4 whitespace-nowrap">
+                            <span class="px-2 py-1 rounded text-xs font-bold verdict-pass">
+                                PASS
+                            </span>
+                            
+                        </td>
+                        <td class="py-3 text-gray-600">Transaccion fecha=2024-01-05. Plazo maximo para iniciar CB=120 dias corridos. Contracargo iniciado dentro del plazo. No hay indicacion de que el reclamo este fuera de termino.</td>
+                    </tr>
+                    
+                    <tr class="border-b border-gray-50 hover:bg-gray-50">
+                        <td class="py-3 pr-4 font-mono font-semibold text-blue-700 whitespace-nowrap">POL-FRD-003</td>
+                        <td class="py-3 pr-4 whitespace-nowrap">
+                            <span class="px-2 py-1 rounded text-xs font-bold verdict-pass">
+                                PASS
+                            </span>
+                            
+                        </td>
+                        <td class="py-3 text-gray-600">channel=Web (no IVR ni App Movil). Politica aplica limites a IVR (USD 500) y App Movil (USD 3000/dia). Web no tiene limite especifico en esta politica → PASS.</td>
+                    </tr>
+                    
+                    <tr class="border-b border-gray-50 hover:bg-gray-50">
+                        <td class="py-3 pr-4 font-mono font-semibold text-blue-700 whitespace-nowrap">POL-FRD-002</td>
+                        <td class="py-3 pr-4 whitespace-nowrap">
+                            <span class="px-2 py-1 rounded text-xs font-bold verdict-warning">
+                                WARNING
+                            </span>
+                            
+                            <span class="ml-1 text-xs text-yellow-600">👁️ HITL</span>
+                            
+                        </td>
+                        <td class="py-3 text-gray-600">Cliente CLI-0036 tiene countries_used=[ARG, BRA, CHL, URY] (4 paises). Condicion numerica: &gt;3 paises = 4 paises cumple. Sin embargo, NO hay timestamps en el historial para confirmar si estos 4 paises ocurrieron en ventana de 24h. Datos disponibles: transaccion actual en BRA el 2024-01-05, pero sin timestamps de las otras transacciones no se puede verificar ventana de 24h.</td>
+                    </tr>
+                    
+                    <tr class="border-b border-gray-50 hover:bg-gray-50">
+                        <td class="py-3 pr-4 font-mono font-semibold text-blue-700 whitespace-nowrap">POL-FRD-004</td>
+                        <td class="py-3 pr-4 whitespace-nowrap">
+                            <span class="px-2 py-1 rounded text-xs font-bold verdict-pass">
+                                PASS
+                            </span>
+                            
+                        </td>
+                        <td class="py-3 text-gray-600">No hay indicacion en notas o datos de que la tarjeta Visa haya sido reportada como robada o extraviada. Sin evidencia de denuncia previa, politica no aplica.</td>
+                    </tr>
+                    
+                    <tr class="border-b border-gray-50 hover:bg-gray-50">
+                        <td class="py-3 pr-4 font-mono font-semibold text-blue-700 whitespace-nowrap">POL-CB-003</td>
+                        <td class="py-3 pr-4 whitespace-nowrap">
+                            <span class="px-2 py-1 rounded text-xs font-bold verdict-fail">
+                                FAIL
+                            </span>
+                            
+                            <span class="ml-1 text-xs text-yellow-600">👁️ HITL</span>
+                            
+                        </td>
+                        <td class="py-3 text-gray-600">Comercio Airbnb tiene flag &#39;suspended_merchant&#39;. Aunque esta suspendido, el plazo de 10 dias habiles para presentar defensa sigue siendo relevante para el procesamiento del CB. Un comercio suspendido NO puede responder en plazo → violacion de politica. Requiere revision sobre si la suspension impide la respuesta del comercio.</td>
+                    </tr>
+                    
+                    <tr class="border-b border-gray-50 hover:bg-gray-50">
+                        <td class="py-3 pr-4 font-mono font-semibold text-blue-700 whitespace-nowrap">POL-CB-002</td>
+                        <td class="py-3 pr-4 whitespace-nowrap">
+                            <span class="px-2 py-1 rounded text-xs font-bold verdict-warning">
+                                WARNING
+                            </span>
+                            
+                            <span class="ml-1 text-xs text-yellow-600">👁️ HITL</span>
+                            
+                        </td>
+                        <td class="py-3 text-gray-600">Politica requiere: (a) comprobante de transaccion, (b) comunicacion con comercio, (c) evidencia del cliente. En los datos proporcionados NO se encuentran estos documentos. Documentos necesarios: comprobante de transaccion (recibo/confirmacion Airbnb), comunicacion con Airbnb, evidencia del cliente (reclamo, comunicaciones). Ausencia de documentacion bloquea avance del caso hasta reunion de evidencia.</td>
+                    </tr>
+                    
+                    <tr class="border-b border-gray-50 hover:bg-gray-50">
+                        <td class="py-3 pr-4 font-mono font-semibold text-blue-700 whitespace-nowrap">POL-CB-005</td>
+                        <td class="py-3 pr-4 whitespace-nowrap">
+                            <span class="px-2 py-1 rounded text-xs font-bold verdict-pass">
+                                PASS
+                            </span>
+                            
+                        </td>
+                        <td class="py-3 text-gray-600">Cliente CLI-0036: total_chargebacks=1 (previo, sin contar actual). Total incluyendo actual=2. Umbral es &gt;3 (mas de 3). 2 no supera &gt;3 → politica no violada. Cliente aun no alcanza condicion de alto riesgo por reincidencia.</td>
+                    </tr>
+                    
+                    <tr class="border-b border-gray-50 hover:bg-gray-50">
+                        <td class="py-3 pr-4 font-mono font-semibold text-blue-700 whitespace-nowrap">POL-EXC-004</td>
+                        <td class="py-3 pr-4 whitespace-nowrap">
+                            <span class="px-2 py-1 rounded text-xs font-bold verdict-not_applicable">
+                                NOT_APPLICABLE
+                            </span>
+                            
+                            <span class="ml-1 text-xs text-yellow-600">👁️ HITL</span>
+                            
+                        </td>
+                        <td class="py-3 text-gray-600">Politica aplica a comercios fuera de LATAM. Comercio Airbnb es internacional, pero no hay dato explicito del pais del comercio (merchant_country). Sin embargo, la transaccion ocurre en BRA (LATAM). Determinacion: si Airbnb es considerado comercio internacional (no-LATAM), aplicarian plazos extendidos de 15 dias. Pero sin confirmacion explicita del pais del comercio, y dado que la transaccion es en LATAM, se marca NOT_APPLICABLE por falta de claridad sobre domicilio del merchant.</td>
+                    </tr>
+                    
+                    <tr class="border-b border-gray-50 hover:bg-gray-50">
+                        <td class="py-3 pr-4 font-mono font-semibold text-blue-700 whitespace-nowrap">POL-EXC-003</td>
+                        <td class="py-3 pr-4 whitespace-nowrap">
+                            <span class="px-2 py-1 rounded text-xs font-bold verdict-pass">
+                                PASS
+                            </span>
+                            
+                        </td>
+                        <td class="py-3 text-gray-600">payment_method=&#39;Credito Visa&#39; (no cripto). Politica aplica SOLO a transacciones en criptomonedas. No aplica a esta transaccion.</td>
+                    </tr>
+                    
+                    <tr class="border-b border-gray-50 hover:bg-gray-50">
+                        <td class="py-3 pr-4 font-mono font-semibold text-blue-700 whitespace-nowrap">POL-EXC-001</td>
+                        <td class="py-3 pr-4 whitespace-nowrap">
+                            <span class="px-2 py-1 rounded text-xs font-bold verdict-not_applicable">
+                                NOT_APPLICABLE
+                            </span>
+                            
+                        </td>
+                        <td class="py-3 text-gray-600">Politica aplica a comercios con &gt;USD 1M en volumen mensual. Comercio Airbnb: total_volume_usd=5521.08 (muy por debajo de USD 1M). No califica para SLA extendido ni analista dedicado.</td>
+                    </tr>
+                    
+                    <tr class="border-b border-gray-50 hover:bg-gray-50">
+                        <td class="py-3 pr-4 font-mono font-semibold text-blue-700 whitespace-nowrap">POL-SLA-004</td>
+                        <td class="py-3 pr-4 whitespace-nowrap">
+                            <span class="px-2 py-1 rounded text-xs font-bold verdict-not_applicable">
+                                NOT_APPLICABLE
+                            </span>
+                            
+                        </td>
+                        <td class="py-3 text-gray-600">Politica de compensacion por incumplimiento de SLA. Aun no hay resolucion del caso, por lo que no se puede evaluar si hubo incumplimiento de SLA. Aplica solo si la empresa supera SLA de resolucion.</td>
+                    </tr>
+                    
+                    <tr class="border-b border-gray-50 hover:bg-gray-50">
+                        <td class="py-3 pr-4 font-mono font-semibold text-blue-700 whitespace-nowrap">POL-SLA-001</td>
+                        <td class="py-3 pr-4 whitespace-nowrap">
+                            <span class="px-2 py-1 rounded text-xs font-bold verdict-warning">
+                                WARNING
+                            </span>
+                            
+                            <span class="ml-1 text-xs text-yellow-600">👁️ HITL</span>
+                            
+                        </td>
+                        <td class="py-3 text-gray-600">Politica requiere primera respuesta al cliente dentro de 48 horas habiles desde apertura del reclamo. Fecha de transaccion=2024-01-05, status=&#39;Contracargo iniciado&#39;. Sin timestamp exacto de apertura del reclamo, no se puede verificar si el plazo de 48h se ha cumplido o incumplido. Requiere dato: fecha/hora exacta de apertura del CB.</td>
+                    </tr>
+                    
+                    <tr class="border-b border-gray-50 hover:bg-gray-50">
+                        <td class="py-3 pr-4 font-mono font-semibold text-blue-700 whitespace-nowrap">POL-EXC-002</td>
+                        <td class="py-3 pr-4 whitespace-nowrap">
+                            <span class="px-2 py-1 rounded text-xs font-bold verdict-not_applicable">
+                                NOT_APPLICABLE
+                            </span>
+                            
+                        </td>
+                        <td class="py-3 text-gray-600">Politica aplica a clientes VIP (nivel Platinum o Gold). No hay dato de nivel de fidelidad del cliente CLI-0036 en el historial. Sin confirmacion de estatus VIP, politica no aplica.</td>
+                    </tr>
+                    
+                    <tr class="border-b border-gray-50 hover:bg-gray-50">
+                        <td class="py-3 pr-4 font-mono font-semibold text-blue-700 whitespace-nowrap">POL-SLA-002</td>
+                        <td class="py-3 pr-4 whitespace-nowrap">
+                            <span class="px-2 py-1 rounded text-xs font-bold verdict-warning">
+                                WARNING
+                            </span>
+                            
+                            <span class="ml-1 text-xs text-yellow-600">👁️ HITL</span>
+                            
+                        </td>
+                        <td class="py-3 text-gray-600">Politica establece SLA de 10 dias habiles (casos estándar) o 20 dias habiles (casos complejos). Este caso presenta multiples violaciones (fraud_score bajo, comercio suspendido, documentacion faltante), sugiriendo complejidad. Sin fecha de resolucion objetivo establecida en los datos, no se puede evaluar cumplimiento. Requiere: determinacion de clasificacion (estándar vs complejo) y fecha objetivo de resolucion.</td>
+                    </tr>
+                    
+                    <tr class="border-b border-gray-50 hover:bg-gray-50">
+                        <td class="py-3 pr-4 font-mono font-semibold text-blue-700 whitespace-nowrap">POL-SLA-003</td>
+                        <td class="py-3 pr-4 whitespace-nowrap">
+                            <span class="px-2 py-1 rounded text-xs font-bold verdict-warning">
+                                WARNING
+                            </span>
+                            
+                            <span class="ml-1 text-xs text-yellow-600">👁️ HITL</span>
+                            
+                        </td>
+                        <td class="py-3 text-gray-600">Politica requiere escalacion automatica si no hay resolucion tras 15 dias habiles. Caso abierto el 2024-01-05, sin fecha de resolucion ni timestamp actual. No se puede evaluar si se ha alcanzado el plazo de 15 dias habiles. Requiere: fecha/hora actual y fecha de apertura exacta para calcular dias habiles transcurridos.</td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+        
+    </section>
+
+    <!-- SECTION 6: Similar Precedents -->
+    <section class="bg-white rounded-2xl shadow-lg p-6 mb-6 border border-gray-100">
+        <h2 class="text-xl font-bold text-gray-800 mb-4">🔍 Precedentes Similares (RAG)</h2>
+        
+        <div class="space-y-3">
+            
+            <div class="border border-gray-100 rounded-xl p-4 hover:bg-gray-50 transition">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="font-mono font-bold text-blue-700">CB-0026</span>
+                    <span class="bg-blue-50 text-blue-700 px-2 py-1 rounded-full text-xs font-semibold">
+                        70% similitud
+                    </span>
+                </div>
+                <p class="text-sm text-gray-700"><strong>Motivo:</strong> Servicio no prestado</p>
+                <p class="text-sm text-gray-700"><strong>Resolución:</strong> En escalación (41 días)</p>
+                <p class="text-sm text-gray-500">Netflix · Crédito Visa · BRA · USD 282.75</p>
+                <p class="text-sm text-gray-400 mt-1 italic">Score antifraude bajo — transacción sospechosa desde origen.</p>
+            </div>
+            
+            <div class="border border-gray-100 rounded-xl p-4 hover:bg-gray-50 transition">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="font-mono font-bold text-blue-700">CB-0025</span>
+                    <span class="bg-blue-50 text-blue-700 px-2 py-1 rounded-full text-xs font-semibold">
+                        61% similitud
+                    </span>
+                </div>
+                <p class="text-sm text-gray-700"><strong>Motivo:</strong> Fraude con tarjeta robada</p>
+                <p class="text-sm text-gray-700"><strong>Resolución:</strong> A favor del cliente (10 días)</p>
+                <p class="text-sm text-gray-500">MercadoLibre · Crédito Visa · CHL · USD 4671.09</p>
+                <p class="text-sm text-gray-400 mt-1 italic">Tarjeta clonada — se derivó a área de fraude.</p>
+            </div>
+            
+            <div class="border border-gray-100 rounded-xl p-4 hover:bg-gray-50 transition">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="font-mono font-bold text-blue-700">CB-0040</span>
+                    <span class="bg-blue-50 text-blue-700 px-2 py-1 rounded-full text-xs font-semibold">
+                        60% similitud
+                    </span>
+                </div>
+                <p class="text-sm text-gray-700"><strong>Motivo:</strong> Cargo post-cancelación</p>
+                <p class="text-sm text-gray-700"><strong>Resolución:</strong> Caso cerrado sin resolución (24 días)</p>
+                <p class="text-sm text-gray-500">Falabella · Crédito Visa · BRA · USD 389.13</p>
+                <p class="text-sm text-gray-400 mt-1 italic">Comercio acreditó el envío con tracking confirmado.</p>
+            </div>
+            
+            <div class="border border-gray-100 rounded-xl p-4 hover:bg-gray-50 transition">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="font-mono font-bold text-blue-700">CB-0058</span>
+                    <span class="bg-blue-50 text-blue-700 px-2 py-1 rounded-full text-xs font-semibold">
+                        60% similitud
+                    </span>
+                </div>
+                <p class="text-sm text-gray-700"><strong>Motivo:</strong> Fraude con tarjeta robada</p>
+                <p class="text-sm text-gray-700"><strong>Resolución:</strong> A favor del comercio (19 días)</p>
+                <p class="text-sm text-gray-500">Despegar · Crédito Visa · COL · USD 2028.12</p>
+                <p class="text-sm text-gray-400 mt-1 italic">Cliente presentó evidencia válida de no entrega.</p>
+            </div>
+            
+            <div class="border border-gray-100 rounded-xl p-4 hover:bg-gray-50 transition">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="font-mono font-bold text-blue-700">CB-0019</span>
+                    <span class="bg-blue-50 text-blue-700 px-2 py-1 rounded-full text-xs font-semibold">
+                        59% similitud
+                    </span>
+                </div>
+                <p class="text-sm text-gray-700"><strong>Motivo:</strong> Cargo duplicado</p>
+                <p class="text-sm text-gray-700"><strong>Resolución:</strong> En escalación (44 días)</p>
+                <p class="text-sm text-gray-500">Netflix · Crédito Visa · ARG · USD 3872.47</p>
+                <p class="text-sm text-gray-400 mt-1 italic">Canal no habitual para el cliente — geolocalización distinta.</p>
+            </div>
+            
+        </div>
+        
+    </section>
+
+    <!-- SECTION 7: Log Analysis -->
+    <section class="bg-white rounded-2xl shadow-lg p-6 mb-6 border border-gray-100">
+        <h2 class="text-xl font-bold text-gray-800 mb-4">🔎 Logs de Eventos</h2>
+        
+        <div class="space-y-2 max-h-80 overflow-y-auto">
+            
+            <div class="log-info p-2 rounded text-xs font-mono">
+                <span class="text-gray-400">2024-01-02 22:04:08</span>
+                <span class="font-bold ml-2 text-gray-500">[INFO]</span>
+                <span class="text-blue-700 ml-2">CHARGEBACK_UPDATED</span>
+                <span class="text-gray-500 ml-2">DisputeService</span>
+                <span class="ml-2">HTTP 200</span>
+                <span class="text-gray-600 ml-2">Estado del CB actualizado a: Cerrado.</span>
+            </div>
+            
+            <div class="log-info p-2 rounded text-xs font-mono">
+                <span class="text-gray-400">2024-01-03 11:16:03</span>
+                <span class="font-bold ml-2 text-gray-500">[INFO]</span>
+                <span class="text-blue-700 ml-2">PAYMENT_COMPLETED</span>
+                <span class="text-gray-500 ml-2">PaymentGateway</span>
+                <span class="ml-2">HTTP 200</span>
+                <span class="text-gray-600 ml-2">Pago completado. TXN TXN-00042 liquidada exitosamente.</span>
+            </div>
+            
+        </div>
+        
+    </section>
+
+    <!-- SECTION 8: Resolution -->
+    <section class="bg-white rounded-2xl shadow-lg p-6 mb-6 border border-gray-100">
+        <h2 class="text-xl font-bold text-gray-800 mb-4">⚖️ Resolución Recomendada</h2>
+        <div class="text-center mb-6">
+            
+            
+                <span id="resolution-badge" class="inline-block bg-yellow-500 text-black px-8 py-3 rounded-2xl font-bold text-2xl shadow-lg">👤 REVISIÓN HUMANA</span>
+            
+            <p class="text-gray-500 mt-2 text-sm">Confianza: <strong>75%</strong></p>
+        </div>
+
+        <div class="bg-gray-50 rounded-xl p-4 mb-4">
+            <h3 class="font-semibold text-gray-700 mb-2">Justificación</h3>
+            <p class="text-gray-600 leading-relaxed">Riesgo HIGH por 3 violaciones de política, no únicamente por fraude sofisticado: (1) POL-FRD-001 FAIL: fraud_score=4 vs umbral mínimo=30 — la transacción es sospechosa desde origen y requiere revisión manual obligatoria. (2) POL-CB-004 FAIL: Airbnb tiene cb_ratio=0.75 (75%) vs umbral de suspensión &gt;2%, con flag &#39;suspended_merchant&#39; confirmado — comercio de altísimo riesgo sistémico. (3) POL-CB-003 FAIL: al estar Airbnb suspendido, no puede presentar defensa en los 10 días hábiles requeridos, bloqueando el proceso normal del contracargo. Respecto a precedentes: CB-0026 [MOTIVO SIMILAR] lleva 41 días en escalación con score antifraude bajo, patrón idéntico al caso actual — sugiere que casos con fraud_score bajo en BRA no se resuelven rápidamente. CB-0025 fue resuelto a favor del cliente en 10 días (fraude/tarjeta robada), aportando tendencia favorable. CB-0058, también motivo similar, fue resuelto a favor del comercio en 19 días — patrón mixto. De 3 precedentes de motivo similar: 2 aprobados, tendencia moderadamente favorable al cliente, pero CB-0026 sin resolver indica complejidad. El flag geo_anomaly en el historial del cliente (4 países: ARG, BRA, CHL, URY) corrobora la alerta WARNING de POL-FRD-002. Dado el comercio suspendido, fraud_score crítico y documentación ausente (POL-CB-002 WARNING), la decisión PENDING_HITL es la única viable.</p>
+        </div>
+
+        
+        <div>
+            <h3 class="font-semibold text-gray-700 mb-2">Próximos pasos</h3>
+            <ul class="space-y-2">
+                
+                <li class="flex items-start gap-2">
+                    <span class="text-green-500 font-bold mt-0.5">✓</span>
+                    <span class="text-gray-600 text-sm">Escalar a supervisor/analista para revisión manual inmediata — requires_hitl=true por 3 violaciones de política (POL-FRD-001, POL-CB-004, POL-CB-003)</span>
+                </li>
+                
+                <li class="flex items-start gap-2">
+                    <span class="text-green-500 font-bold mt-0.5">✓</span>
+                    <span class="text-gray-600 text-sm">Verificar fraud_score=4 vs umbral mínimo=30 con el equipo de modelos antifraude — confirmar si el score refleja riesgo real o anomalía del sistema, según POL-FRD-001</span>
+                </li>
+                
+                <li class="flex items-start gap-2">
+                    <span class="text-green-500 font-bold mt-0.5">✓</span>
+                    <span class="text-gray-600 text-sm">Confirmar estado de suspensión del comercio Airbnb (cb_ratio=0.75, flag &#39;suspended_merchant&#39;) y determinar si puede presentar defensa en plazo de 10 días hábiles — según POL-CB-003 y POL-CB-004</span>
+                </li>
+                
+                <li class="flex items-start gap-2">
+                    <span class="text-green-500 font-bold mt-0.5">✓</span>
+                    <span class="text-gray-600 text-sm">Solicitar al cliente CLI-0036 comprobante de transacción, comunicación con Airbnb y evidencia del reclamo para cumplir requisitos de POL-CB-002 — dato faltante que bloquea avance del caso</span>
+                </li>
+                
+                <li class="flex items-start gap-2">
+                    <span class="text-green-500 font-bold mt-0.5">✓</span>
+                    <span class="text-gray-600 text-sm">Solicitar timestamps de transacciones en países ARG, CHL, URY para confirmar o descartar ventana de 24h con 4 países según POL-FRD-002 — dato complementario; si se confirman 4 países en 24h, elevar a FAIL; el flag geo_anomaly en historial del cliente refuerza la necesidad de esta verificación</span>
+                </li>
+                
+            </ul>
+        </div>
+        
+
+        
+
+        
+        <div class="mt-4 bg-purple-50 border border-purple-100 rounded-lg p-3">
+            <p class="text-xs text-gray-500 mb-1">Precedentes utilizados</p>
+            <p class="text-sm text-gray-600">CB-0026 [MOTIVO SIMILAR]: Servicio no prestado, En escalación en 41d, merchant=Netflix. Obs: Score antifraude bajo — transacción sospechosa desde origen.. Relevancia: mismo patron de fraude / no reconocido (match por observaciones, motivo registrado: Servicio no prestado) | CB-0025 [MOTIVO SIMILAR]: Fraude con tarjeta robada, A favor del cliente en 10d, merchant=MercadoLibre. Obs: Tarjeta clonada — se derivó a área de fraude.. Relevancia: mismo patron de fraude / no reconocido. Nota: precedente fue aprobado — patron favorable al cliente para este tipo de caso | CB-0058 [MOTIVO SIMILAR]: Fraude con tarjeta robada, A favor del comercio en 19d, merchant=Despegar. Obs: Cliente presentó evidencia válida de no entrega.. Relevancia: mismo patron de fraude / no reconocido. Nota: precedente fue aprobado — patron favorable al cliente para este tipo de caso | CB-0040: Cargo post-cancelación, Caso cerrado sin resolución en 24d, merchant=Falabella | CB-0019: Cargo duplicado, En escalación en 44d, merchant=Netflix | Patron: de 5 precedentes, 2 aprobados, 0 rechazados — tendencia favorable al cliente. Motivo similar: 3/5, 2 aprobados</p>
+        </div>
+        
+    </section>
+
+    <!-- SECTION 9: Judge Evaluation -->
+    <section class="bg-white rounded-2xl shadow-lg p-6 mb-6 border border-gray-100">
+        <h2 class="text-xl font-bold text-gray-800 mb-4">🏆 Evaluación de Calidad (LLM-as-Judge)</h2>
+        
+        <div class="flex items-center gap-6 mb-6">
+            <div class="text-center">
+                <div class="text-5xl font-black text-green-600">
+                    8.7
+                </div>
+                <p class="text-xs text-gray-500">/ 10.0</p>
+                <span class="inline-block mt-1 px-3 py-1 rounded-full text-xs font-bold bg-green-100 text-green-700">
+                    ✓ APROBADO
+                </span>
+            </div>
+            <div class="flex-1 space-y-3">
+                
+                
+                <div>
+                    <div class="flex justify-between text-xs mb-1">
+                        <span class="text-gray-600">Policy Consistency</span>
+                        <span class="font-semibold">9.1</span>
+                    </div>
+                    <div class="score-bar">
+                        <div class="score-fill" style="width: 90%;"></div>
+                    </div>
+                </div>
+                
+                <div>
+                    <div class="flex justify-between text-xs mb-1">
+                        <span class="text-gray-600">Justification Quality</span>
+                        <span class="font-semibold">8.8</span>
+                    </div>
+                    <div class="score-bar">
+                        <div class="score-fill" style="width: 88%;"></div>
+                    </div>
+                </div>
+                
+                <div>
+                    <div class="flex justify-between text-xs mb-1">
+                        <span class="text-gray-600">Precedent Usage</span>
+                        <span class="font-semibold">8.6</span>
+                    </div>
+                    <div class="score-bar">
+                        <div class="score-fill" style="width: 86%;"></div>
+                    </div>
+                </div>
+                
+                <div>
+                    <div class="flex justify-between text-xs mb-1">
+                        <span class="text-gray-600">Risk Assessment</span>
+                        <span class="font-semibold">8.9</span>
+                    </div>
+                    <div class="score-bar">
+                        <div class="score-fill" style="width: 89%;"></div>
+                    </div>
+                </div>
+                
+                <div>
+                    <div class="flex justify-between text-xs mb-1">
+                        <span class="text-gray-600">Actionability</span>
+                        <span class="font-semibold">8.3</span>
+                    </div>
+                    <div class="score-bar">
+                        <div class="score-fill" style="width: 83%;"></div>
+                    </div>
+                </div>
+                
+                
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            
+            <div class="bg-green-50 rounded-xl p-4">
+                <h3 class="font-semibold text-green-700 mb-2 text-sm">✓ Fortalezas</h3>
+                <ul class="space-y-1">
+                    
+                    <li class="text-green-600 text-xs">• La acción PENDING_HITL es correcta y bien fundamentada: hay múltiples FAILs (POL-FRD-001, POL-CB-004, POL-CB-003) con requires_human_review=true pero ningún BLOCKER explícito que obligue a REJECT, lo que hace de PENDING_HITL el protocolo adecuado según las reglas.</li>
+                    
+                    <li class="text-green-600 text-xs">• La justificación cita datos específicos y verificables del contexto en cada veredicto: fraud_score=4 vs umbral 30, cb_ratio=0.75 vs umbral 2%, flag &#39;suspended_merchant&#39;, countries_used=[ARG, BRA, CHL, URY], y la ausencia de documentación requerida por POL-CB-002 — todos presentes en la evidencia.</li>
+                    
+                    <li class="text-green-600 text-xs">• El análisis de precedentes es sólido: distingue los tres casos de motivo similar (CB-0026, CB-0025, CB-0058), extrae el patrón mixto de resoluciones (1 en escalación, 1 a favor del cliente, 1 a favor del comercio), e identifica la implicación concreta de CB-0026 para la complejidad esperada del caso actual.</li>
+                    
+                </ul>
+            </div>
+            
+            
+            <div class="bg-orange-50 rounded-xl p-4">
+                <h3 class="font-semibold text-orange-700 mb-2 text-sm">⚠ Áreas de mejora</h3>
+                <ul class="space-y-1">
+                    
+                    <li class="text-orange-600 text-xs">• El veredicto FAIL de POL-CB-003 es cuestionable conceptualmente: la política regula el plazo que tiene el comercio para responder, no impone una obligación al analista que se &#39;viole&#39; por la suspensión del merchant. Clasificarlo como FAIL en lugar de WARNING o NOT_APPLICABLE introduce una imprecisión lógica que debilita la solidez del análisis de política.</li>
+                    
+                    <li class="text-orange-600 text-xs">• El precedente CB-0058 es catalogado en el precedent_summary como &#39;patrón favorable al cliente&#39; cuando en realidad fue resuelto &#39;A favor del comercio&#39; — esta contradicción interna en el resumen de precedentes reduce la fiabilidad del análisis, aunque la justificación principal lo menciona correctamente como &#39;patrón mixto&#39;.</li>
+                    
+                    <li class="text-orange-600 text-xs">• Los next_steps, aunque concretos y bien referenciados a políticas, no establecen responsables explícitos ni plazos para cada acción (ej. quién verifica el fraud_score con el equipo de modelos, en qué plazo debe el cliente aportar documentación según POL-CB-002), lo que limita su accionabilidad operativa inmediata.</li>
+                    
+                </ul>
+            </div>
+            
+        </div>
+        
+    </section>
+
+    <!-- SECTION 10: HITL Form (conditional) -->
+    
+    <section class="bg-yellow-50 border-2 border-yellow-400 rounded-2xl shadow-lg p-6 mb-6">
+        <h2 class="text-xl font-bold text-yellow-800 mb-4">👤 Revisión del Analista Requerida</h2>
+        <p class="text-yellow-700 mb-4 text-sm">
+            Este caso requiere revisión manual. Motivo: <strong>3 violacion(es) de politica — requiere revision de analista</strong>
+        </p>
+        <form id="hitl-form" class="space-y-4">
+            <input type="hidden" name="transaction_id" value="TXN-00042">
+            <input type="hidden" name="motivo" value="">
+            <input type="hidden" name="judge_score" value="8.74">
+
+            <div>
+                <p class="font-semibold text-gray-700 mb-2">Decisión del Analista</p>
+                <div class="flex gap-4">
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="radio" name="analyst_decision" value="APPROVED" class="text-green-600">
+                        <span class="text-green-700 font-semibold">✅ Aprobar</span>
+                    </label>
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="radio" name="analyst_decision" value="REJECTED" class="text-red-600">
+                        <span class="text-red-700 font-semibold">❌ Rechazar</span>
+                    </label>
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="radio" name="analyst_decision" value="MODIFIED" class="text-blue-600">
+                        <span class="text-blue-700 font-semibold">✏️ Modificar</span>
+                    </label>
+                </div>
+            </div>
+
+            <div>
+                <label class="block font-semibold text-gray-700 mb-1">Notas del Analista</label>
+                <textarea name="analyst_notes" rows="3"
+                    class="w-full border border-gray-300 rounded-lg p-3 text-sm focus:outline-none focus:border-yellow-500"
+                    placeholder="Ingrese su justificación o modificaciones..."></textarea>
+            </div>
+
+            <button type="submit"
+                class="bg-yellow-500 hover:bg-yellow-600 text-black font-bold px-6 py-3 rounded-xl transition shadow">
+                Enviar Decisión
+            </button>
+        </form>
+        <script>
+            function _resolucionDelCaso() {
+                try {
+                    return JSON.parse(
+                        document.getElementById('datos-del-caso').textContent
+                    ).resolution || null;
+                } catch (err) {
+                    console.error('No se pudo leer la resolucion del informe', err);
+                    return null;
+                }
+            }
+
+            document.getElementById('hitl-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const data = Object.fromEntries(new FormData(e.target));
+                if (!data.analyst_decision) { alert('Seleccione una decisión'); return; }
+                const btn = e.target.querySelector('button[type="submit"]');
+                btn.disabled = true;
+                btn.textContent = 'Enviando...';
+                try {
+                    const resp = await fetch('/api/feedback', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            transaction_id: data.transaction_id,
+                            analyst_decision: data.analyst_decision,
+                            analyst_notes: data.analyst_notes || '',
+                            final_outcome: data.analyst_decision,
+                            judge_score: parseFloat(data.judge_score) || 0,
+                            motivo: data.motivo || null,
+                            // Sin la resolucion el backend registra el feedback
+                            // pero no puede indexar el caso como precedente, que
+                            // es la mitad del circuito de mejora continua. Se
+                            // reusa el bloque que el informe ya embebe.
+                            resolution: _resolucionDelCaso(),
+                        })
+                    });
+                    if (resp.ok) {
+                        btn.textContent = '\u2713 Decision registrada';
+                        btn.className = 'bg-green-500 text-white font-bold px-6 py-3 rounded-xl shadow';
+
+                        // Update resolution badge to reflect analyst override
+                        const badge = document.getElementById('resolution-badge');
+                        if (badge) {
+                            if (data.analyst_decision === 'APPROVED') {
+                                badge.className = 'inline-block bg-green-600 text-white px-8 py-3 rounded-2xl font-bold text-2xl shadow-lg';
+                                badge.innerHTML = '\u2705 APROBADA (HITL)';
+                            } else if (data.analyst_decision === 'REJECTED') {
+                                badge.className = 'inline-block bg-red-600 text-white px-8 py-3 rounded-2xl font-bold text-2xl shadow-lg';
+                                badge.innerHTML = '\u274c RECHAZADA (HITL)';
+                            } else {
+                                badge.className = 'inline-block bg-blue-600 text-white px-8 py-3 rounded-2xl font-bold text-2xl shadow-lg';
+                                badge.innerHTML = '\u270f\ufe0f MODIFICADA (HITL)';
+                            }
+                        }
+
+                        // Hide the form, show confirmation
+                        e.target.style.display = 'none';
+                        const confirm = document.createElement('div');
+                        confirm.className = 'bg-green-100 border border-green-400 rounded-xl p-4 text-green-800 font-semibold text-center';
+                        confirm.textContent = '\u2713 Decision del analista registrada: ' + data.analyst_decision;
+                        e.target.parentElement.appendChild(confirm);
+                    } else {
+                        btn.textContent = 'Error — reintentar';
+                        btn.className = 'bg-red-500 text-white font-bold px-6 py-3 rounded-xl shadow';
+                        btn.disabled = false;
+                    }
+                } catch (err) {
+                    btn.textContent = 'Error de conexion';
+                    btn.className = 'bg-red-500 text-white font-bold px-6 py-3 rounded-xl shadow';
+                    btn.disabled = false;
+                }
+            });
+        </script>
+    </section>
+    
+
+    <!-- HITL Decision (if already resolved) -->
+    
+
+    <!-- Footer -->
+    <footer class="bg-gray-100 rounded-xl p-4 text-center text-xs text-gray-400">
+        <p>Generado: <strong>2026-07-24 19:33 UTC</strong> | Agente: CIRI Chargeback Agent v1.0</p>
+        <p class="mt-1">Prompts: v1_policy_eval v1.2 · v1_resolution v3.0 · v1_judge v2.0 | Embeddings: voyage-multilingual-2 (Voyage AI)</p>
+        
+        <p class="mt-1">Judge score: <strong>8.7/10</strong> | Cache hit: <strong>No</strong></p>
+        
+    </footer>
+
+</div>
+<script type="application/json" id="datos-del-caso">{"resolution": {"risk_level": "HIGH", "recommended_action": "PENDING_HITL", "confidence": 0.75, "justification": "Riesgo HIGH por 3 violaciones de política, no únicamente por fraude sofisticado: (1) POL-FRD-001 FAIL: fraud_score=4 vs umbral mínimo=30 — la transacción es sospechosa desde origen y requiere revisión manual obligatoria. (2) POL-CB-004 FAIL: Airbnb tiene cb_ratio=0.75 (75%) vs umbral de suspensión \u003e2%, con flag 'suspended_merchant' confirmado — comercio de altísimo riesgo sistémico. (3) POL-CB-003 FAIL: al estar Airbnb suspendido, no puede presentar defensa en los 10 días hábiles requeridos, bloqueando el proceso normal del contracargo. Respecto a precedentes: CB-0026 [MOTIVO SIMILAR] lleva 41 días en escalación con score antifraude bajo, patrón idéntico al caso actual — sugiere que casos con fraud_score bajo en BRA no se resuelven rápidamente. CB-0025 fue resuelto a favor del cliente en 10 días (fraude/tarjeta robada), aportando tendencia favorable. CB-0058, también motivo similar, fue resuelto a favor del comercio en 19 días — patrón mixto. De 3 precedentes de motivo similar: 2 aprobados, tendencia moderadamente favorable al cliente, pero CB-0026 sin resolver indica complejidad. El flag geo_anomaly en el historial del cliente (4 países: ARG, BRA, CHL, URY) corrobora la alerta WARNING de POL-FRD-002. Dado el comercio suspendido, fraud_score crítico y documentación ausente (POL-CB-002 WARNING), la decisión PENDING_HITL es la única viable.", "precedent_summary": "CB-0026 [MOTIVO SIMILAR]: Servicio no prestado, En escalación en 41d, merchant=Netflix. Obs: Score antifraude bajo — transacción sospechosa desde origen.. Relevancia: mismo patron de fraude / no reconocido (match por observaciones, motivo registrado: Servicio no prestado) | CB-0025 [MOTIVO SIMILAR]: Fraude con tarjeta robada, A favor del cliente en 10d, merchant=MercadoLibre. Obs: Tarjeta clonada — se derivó a área de fraude.. Relevancia: mismo patron de fraude / no reconocido. Nota: precedente fue aprobado — patron favorable al cliente para este tipo de caso | CB-0058 [MOTIVO SIMILAR]: Fraude con tarjeta robada, A favor del comercio en 19d, merchant=Despegar. Obs: Cliente presentó evidencia válida de no entrega.. Relevancia: mismo patron de fraude / no reconocido. Nota: precedente fue aprobado — patron favorable al cliente para este tipo de caso | CB-0040: Cargo post-cancelación, Caso cerrado sin resolución en 24d, merchant=Falabella | CB-0019: Cargo duplicado, En escalación en 44d, merchant=Netflix | Patron: de 5 precedentes, 2 aprobados, 0 rechazados — tendencia favorable al cliente. Motivo similar: 3/5, 2 aprobados", "compensation_applicable": false, "compensation_amount_usd": 0.0, "next_steps": ["Escalar a supervisor/analista para revisión manual inmediata — requires_hitl=true por 3 violaciones de política (POL-FRD-001, POL-CB-004, POL-CB-003)", "Verificar fraud_score=4 vs umbral mínimo=30 con el equipo de modelos antifraude — confirmar si el score refleja riesgo real o anomalía del sistema, según POL-FRD-001", "Confirmar estado de suspensión del comercio Airbnb (cb_ratio=0.75, flag 'suspended_merchant') y determinar si puede presentar defensa en plazo de 10 días hábiles — según POL-CB-003 y POL-CB-004", "Solicitar al cliente CLI-0036 comprobante de transacción, comunicación con Airbnb y evidencia del reclamo para cumplir requisitos de POL-CB-002 — dato faltante que bloquea avance del caso", "Solicitar timestamps de transacciones en países ARG, CHL, URY para confirmar o descartar ventana de 24h con 4 países según POL-FRD-002 — dato complementario; si se confirman 4 países en 24h, elevar a FAIL; el flag geo_anomaly en historial del cliente refuerza la necesidad de esta verificación"], "policy_verdicts": [{"policy_code": "POL-FRD-001", "verdict": "FAIL", "reasoning": "fraud_score=4, umbral minimo=30. 4 \u003c 30 → transaccion viola politica. Debe ser rechazada automaticamente o derivada a revision manual."}, {"policy_code": "POL-CB-004", "verdict": "FAIL", "reasoning": "Comercio Airbnb: total_transactions=4, total_chargebacks=3, cb_ratio=0.75 (75%). Umbral de suspension es \u003e2% (0.02). 0.75 \u003e\u003e 0.02 → comercio supera ampliamente el 2% y debe estar suspendido preventivamente. Flag 'suspended_merchant' confirma suspension."}, {"policy_code": "POL-CB-001", "verdict": "PASS", "reasoning": "Transaccion fecha=2024-01-05. Plazo maximo para iniciar CB=120 dias corridos. Contracargo iniciado dentro del plazo. No hay indicacion de que el reclamo este fuera de termino."}, {"policy_code": "POL-FRD-003", "verdict": "PASS", "reasoning": "channel=Web (no IVR ni App Movil). Politica aplica limites a IVR (USD 500) y App Movil (USD 3000/dia). Web no tiene limite especifico en esta politica → PASS."}, {"policy_code": "POL-FRD-002", "verdict": "WARNING", "reasoning": "Cliente CLI-0036 tiene countries_used=[ARG, BRA, CHL, URY] (4 paises). Condicion numerica: \u003e3 paises = 4 paises cumple. Sin embargo, NO hay timestamps en el historial para confirmar si estos 4 paises ocurrieron en ventana de 24h. Datos disponibles: transaccion actual en BRA el 2024-01-05, pero sin timestamps de las otras transacciones no se puede verificar ventana de 24h."}, {"policy_code": "POL-FRD-004", "verdict": "PASS", "reasoning": "No hay indicacion en notas o datos de que la tarjeta Visa haya sido reportada como robada o extraviada. Sin evidencia de denuncia previa, politica no aplica."}, {"policy_code": "POL-CB-003", "verdict": "FAIL", "reasoning": "Comercio Airbnb tiene flag 'suspended_merchant'. Aunque esta suspendido, el plazo de 10 dias habiles para presentar defensa sigue siendo relevante para el procesamiento del CB. Un comercio suspendido NO puede responder en plazo → violacion de politica. Requiere revision sobre si la suspension impide la respuesta del comercio."}, {"policy_code": "POL-CB-002", "verdict": "WARNING", "reasoning": "Politica requiere: (a) comprobante de transaccion, (b) comunicacion con comercio, (c) evidencia del cliente. En los datos proporcionados NO se encuentran estos documentos. Documentos necesarios: comprobante de transaccion (recibo/confirmacion Airbnb), comunicacion con Airbnb, evidencia del cliente (reclamo, comunicaciones). Ausencia de documentacion bloquea avance del caso hasta reunion de evidencia."}, {"policy_code": "POL-CB-005", "verdict": "PASS", "reasoning": "Cliente CLI-0036: total_chargebacks=1 (previo, sin contar actual). Total incluyendo actual=2. Umbral es \u003e3 (mas de 3). 2 no supera \u003e3 → politica no violada. Cliente aun no alcanza condicion de alto riesgo por reincidencia."}, {"policy_code": "POL-EXC-004", "verdict": "NOT_APPLICABLE", "reasoning": "Politica aplica a comercios fuera de LATAM. Comercio Airbnb es internacional, pero no hay dato explicito del pais del comercio (merchant_country). Sin embargo, la transaccion ocurre en BRA (LATAM). Determinacion: si Airbnb es considerado comercio internacional (no-LATAM), aplicarian plazos extendidos de 15 dias. Pero sin confirmacion explicita del pais del comercio, y dado que la transaccion es en LATAM, se marca NOT_APPLICABLE por falta de claridad sobre domicilio del merchant."}, {"policy_code": "POL-EXC-003", "verdict": "PASS", "reasoning": "payment_method='Credito Visa' (no cripto). Politica aplica SOLO a transacciones en criptomonedas. No aplica a esta transaccion."}, {"policy_code": "POL-EXC-001", "verdict": "NOT_APPLICABLE", "reasoning": "Politica aplica a comercios con \u003eUSD 1M en volumen mensual. Comercio Airbnb: total_volume_usd=5521.08 (muy por debajo de USD 1M). No califica para SLA extendido ni analista dedicado."}, {"policy_code": "POL-SLA-004", "verdict": "NOT_APPLICABLE", "reasoning": "Politica de compensacion por incumplimiento de SLA. Aun no hay resolucion del caso, por lo que no se puede evaluar si hubo incumplimiento de SLA. Aplica solo si la empresa supera SLA de resolucion."}, {"policy_code": "POL-SLA-001", "verdict": "WARNING", "reasoning": "Politica requiere primera respuesta al cliente dentro de 48 horas habiles desde apertura del reclamo. Fecha de transaccion=2024-01-05, status='Contracargo iniciado'. Sin timestamp exacto de apertura del reclamo, no se puede verificar si el plazo de 48h se ha cumplido o incumplido. Requiere dato: fecha/hora exacta de apertura del CB."}, {"policy_code": "POL-EXC-002", "verdict": "NOT_APPLICABLE", "reasoning": "Politica aplica a clientes VIP (nivel Platinum o Gold). No hay dato de nivel de fidelidad del cliente CLI-0036 en el historial. Sin confirmacion de estatus VIP, politica no aplica."}, {"policy_code": "POL-SLA-002", "verdict": "WARNING", "reasoning": "Politica establece SLA de 10 dias habiles (casos estándar) o 20 dias habiles (casos complejos). Este caso presenta multiples violaciones (fraud_score bajo, comercio suspendido, documentacion faltante), sugiriendo complejidad. Sin fecha de resolucion objetivo establecida en los datos, no se puede evaluar cumplimiento. Requiere: determinacion de clasificacion (estándar vs complejo) y fecha objetivo de resolucion."}, {"policy_code": "POL-SLA-003", "verdict": "WARNING", "reasoning": "Politica requiere escalacion automatica si no hay resolucion tras 15 dias habiles. Caso abierto el 2024-01-05, sin fecha de resolucion ni timestamp actual. No se puede evaluar si se ha alcanzado el plazo de 15 dias habiles. Requiere: fecha/hora actual y fecha de apertura exacta para calcular dias habiles transcurridos."}], "requires_hitl": true, "hitl_reason": "3 violacion(es) de politica — requiere revision de analista", "guardrail_warnings": [], "log_summary": "", "transaction_id": "TXN-00042"}}</script>
+</body>
+</html>

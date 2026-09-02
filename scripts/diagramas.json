@@ -6,7 +6,6 @@
     "los valores, la ruta en el repo de origen. Solo repos PUBLICOS: se bajan por",
     "raw.githubusercontent sin credenciales."
   ],
-
   "contracargos": {
     "repo": "federicomoroz/ciri-api-aux-sourcecode",
     "branch": "main",
@@ -15,10 +14,12 @@
       "pipeline_n8n_api.html": "docs/diagrams/pipeline_n8n_api.html",
       "api.html": "docs/diagrams/api.html",
       "rag.html": "docs/diagrams/rag.html",
-      "tests.html": "docs/diagrams/tests.html"
+      "tests.html": "docs/diagrams/tests.html",
+      "informe-bloqueante.html": "docs/HTML_Output_Examples/report_blocker_TXN-00051.html",
+      "informe-riesgo-alto.html": "docs/HTML_Output_Examples/report_high_TXN-00042.html",
+      "informe-sla.html": "docs/HTML_Output_Examples/report_no_latam_TXN-00089.html"
     }
   },
-
   "mega-training-system": {
     "congelado": true,
     "motivo": "el repo paso a privado el 2026-09-01: es un producto que se vende",
