@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The tests · Chargeback Agent</title>
+<style>
+  :root{
+    --paper:#fcfcfa; --surface:#fff; --ink:#17171b; --muted:#68686f; --faint:#95959d;
+    --rule:#e5e4df;
+    --pasa:#0d9488; --cuida:#2563eb; --real:#b45309;
+    --barra:#e8e7e1;
+    --shadow:0 1px 2px rgba(20,20,25,.06);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --paper:#131316; --surface:#1b1b1f; --ink:#f0efec; --muted:#a3a3ac; --faint:#7a7a84;
+      --rule:#2b2b31;
+      --pasa:#4fd1c5; --cuida:#7ea6ff; --real:#e0a04a;
+      --barra:#2b2b31;
+      --shadow:0 1px 2px rgba(0,0,0,.4);
+    }
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font:15px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .hoja{max-width:940px; margin:0 auto; padding:56px 28px 80px}
+  code,.mono{font:13px/1.5 ui-monospace,"Cascadia Code","SF Mono",Menlo,Consolas,monospace}
+
+  /* ── portada ─────────────────────────────────────────── */
+  .eyebrow{
+    font-size:11.5px; letter-spacing:.13em; text-transform:uppercase;
+    color:var(--faint); font-weight:600; margin:0 0 10px;
+  }
+  h1{font-size:34px; line-height:1.15; margin:0 0 14px; font-weight:680; letter-spacing:-.02em}
+  .bajada{font-size:17px; color:var(--muted); margin:0; max-width:62ch}
+  .bajada b{color:var(--ink); font-weight:620}
+
+  /* ── cifras ──────────────────────────────────────────── */
+  .cifras{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+    gap:1px; background:var(--rule); border:1px solid var(--rule);
+    border-radius:12px; overflow:hidden; margin:34px 0 0;
+  }
+  .cifra{background:var(--surface); padding:18px 20px}
+  .cifra b{display:block; font-size:28px; font-weight:660; letter-spacing:-.02em; line-height:1.1}
+  .cifra span{display:block; font-size:12px; color:var(--faint); margin-top:5px}
+  .cifra .nota{font-size:11.5px; color:var(--muted); margin-top:7px; line-height:1.45}
+
+  /* ── secciones ───────────────────────────────────────── */
+  section{margin:52px 0 0}
+  h2{
+    font-size:12px; letter-spacing:.11em; text-transform:uppercase; color:var(--faint);
+    font-weight:650; margin:0 0 4px; padding-bottom:9px; border-bottom:1px solid var(--rule);
+  }
+  .intro{font-size:14.5px; color:var(--muted); margin:16px 0 22px; max-width:70ch}
+  .intro b{color:var(--ink); font-weight:600}
+
+  /* ── capas ───────────────────────────────────────────── */
+  .capas{display:grid; gap:12px}
+  .capa{
+    display:grid; grid-template-columns:112px 1fr; gap:20px; align-items:start;
+    background:var(--surface); border:1px solid var(--rule); border-radius:11px;
+    padding:16px 18px; box-shadow:var(--shadow);
+  }
+  .capa-n{text-align:right}
+  .capa-n b{display:block; font-size:24px; font-weight:650; letter-spacing:-.02em; line-height:1.1}
+  .capa-n span{display:block; font-size:11px; color:var(--faint); margin-top:3px}
+  .capa-t{font-size:14.5px; font-weight:620; margin:1px 0 5px}
+  .capa-d{font-size:13.5px; color:var(--muted); margin:0}
+  .capa-d em{color:var(--ink); font-style:normal; font-weight:600}
+  .marca{
+    display:inline-block; font-size:10.5px; font-weight:650; letter-spacing:.05em;
+    text-transform:uppercase; padding:2px 7px; border-radius:5px; vertical-align:2px;
+    margin-left:7px;
+  }
+  .m-ci{background:color-mix(in srgb,var(--pasa) 13%,transparent); color:var(--pasa)}
+  .m-fuera{background:color-mix(in srgb,var(--real) 15%,transparent); color:var(--real)}
+
+  /* ── cobertura ───────────────────────────────────────── */
+  .cob{display:grid; gap:7px; margin-top:4px}
+  .fila{display:grid; grid-template-columns:120px 1fr 92px; gap:14px; align-items:center}
+  .fila-n{font-size:13px; color:var(--muted); text-align:right}
+  .pista{height:9px; background:var(--barra); border-radius:5px; overflow:hidden}
+  .relleno{height:100%; border-radius:5px; background:var(--pasa)}
+  .fila-v{font-size:12.5px; color:var(--faint); font-variant-numeric:tabular-nums}
+  .fila-v b{color:var(--ink); font-weight:600}
+  .piso{
+    margin-top:16px; padding:11px 14px; border-left:3px solid var(--cuida);
+    background:color-mix(in srgb,var(--cuida) 6%,transparent);
+    border-radius:0 7px 7px 0; font-size:13.5px; color:var(--muted);
+  }
+  .piso b{color:var(--ink); font-weight:600}
+
+  /* ── el registro ─────────────────────────────────────── */
+  .reg{display:grid; gap:1px; background:var(--rule); border:1px solid var(--rule);
+       border-radius:11px; overflow:hidden}
+  .reg-cab, .reg-fila{
+    display:grid; grid-template-columns:1.35fr 1fr 132px; gap:18px;
+    background:var(--surface); padding:14px 18px;
+  }
+  .reg-cab{
+    font-size:10.5px; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--faint); font-weight:650;
+  }
+  .reg-fila{font-size:13.5px}
+  .reg-fila .que{color:var(--ink)}
+  .reg-fila .como{color:var(--muted)}
+  .reg-fila .quien{
+    font:11.5px/1.4 ui-monospace,"Cascadia Code","SF Mono",Menlo,Consolas,monospace;
+    color:var(--cuida); word-break:break-word;
+  }
+  @media (max-width:720px){
+    .reg-cab{display:none}
+    .reg-fila{grid-template-columns:1fr; gap:6px}
+    .capa{grid-template-columns:1fr}
+    .capa-n{text-align:left}
+    .fila{grid-template-columns:96px 1fr; }
+    .fila-v{grid-column:2; margin-top:-4px}
+  }
+
+  /* ── cierre ──────────────────────────────────────────── */
+  .cierre{
+    margin:56px 0 0; padding:26px 28px; background:var(--surface);
+    border:1px solid var(--rule); border-radius:12px; box-shadow:var(--shadow);
+  }
+  .cierre h3{font-size:16px; margin:0 0 10px; font-weight:640}
+  .cierre p{margin:0 0 12px; color:var(--muted); font-size:14px; max-width:72ch}
+  .cierre p:last-child{margin-bottom:0}
+  .cierre b{color:var(--ink); font-weight:620}
+  .pie{
+    margin:40px 0 0; padding-top:18px; border-top:1px solid var(--rule);
+    font-size:12px; color:var(--faint); display:flex; gap:22px; flex-wrap:wrap;
+  }
+  @media print{
+    body{background:#fff}
+    .hoja{padding:0}
+    section{break-inside:avoid}
+    .capa,.reg,.cierre{break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+<div class="hoja">
+
+  <p class="eyebrow">Intelligent Chargeback Agent · CIRI</p>
+  <h1>What the tests protect</h1>
+  <p class="bajada">
+    There are <b>1235</b>, and what sets them apart is not the count: <b>132 of them do not verify code</b>. They verify the deliverable — that the n8n workflow is wired up, that the README's numbers are the real ones, that the reports that travel open without internet. Things that break no import and break the delivery.
+  </p>
+
+  <div class="cifras">
+    <div class="cifra">
+      <b>1235</b><span>test cases</span>
+      <p class="nota">1082 unit · 119 integration · 34 E2E</p>
+    </div>
+    <div class="cifra">
+      <b style="color:var(--pasa)">92.4%</b><span>statement coverage</span>
+      <p class="nota">the CI's number, on a clean checkout. It fails below 85</p>
+    </div>
+    <div class="cifra">
+      <b>47</b><span>files</span>
+      <p class="nota">one per piece; none mixes domains</p>
+    </div>
+    <div class="cifra">
+      <b>3</b><span>steps on every push</span>
+      <p class="nota">lint, tests with a coverage floor, n8n wiring</p>
+    </div>
+  </div>
+
+  <section>
+    <h2>Three layers, three different things</h2>
+    <p class="intro">
+      Each layer tests something the previous one cannot. Keeping them apart matters because <b>they cost different amounts</b>: the top ones run in a couple of minutes and on every push; the bottom one calls the model and the deployed API, so it is run by hand.
+    </p>
+
+    <div class="capas">
+      <div class="capa">
+        <div class="capa-n"><b>1082</b><span>unit</span></div>
+        <div>
+          <p class="capa-t">The logic, in isolation<span class="marca m-ci">on every push</span></p>
+          <p class="capa-d">
+            Guardrails, SLA evaluation, parsing what the model returns, building the vector-store query. No network and no model; the disk is only read —the workflow, the docs, the reports that travel— and the only thing written is SQLite in memory. <em>They test decisions, not integrations.</em>
+          </p>
+        </div>
+      </div>
+      <div class="capa">
+        <div class="capa-n"><b>119</b><span>integration</span></div>
+        <div>
+          <p class="capa-t">The pieces together<span class="marca m-ci">on every push</span></p>
+          <p class="capa-d">
+            The whole pipeline with the model mocked, the routes with their real dependencies, startup with Qdrant down. <em>They test that the internal wiring exists</em> — that one service receives what the other sends, not that each works on its own.
+          </p>
+        </div>
+      </div>
+      <div class="capa">
+        <div class="capa-n"><b>34</b><span>E2E</span></div>
+        <div>
+          <p class="capa-t">Against the deployed API<span class="marca m-fuera">by hand</span></p>
+          <p class="capa-d">
+            They call Render and the real model. They stay out of CI on purpose: <em>they depend on Render being awake and on there being credit</em>, and a test that fails for something outside the code tells you nothing.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Coverage by package</h2>
+    <p class="intro">
+      Measured over <code>api/app</code>. The CI floor is <b>85%</b>: it is not there to show off a number but so that a drop shows up in the diff that caused it.
+    </p>
+
+    <div class="cob">
+      <div class="fila"><span class="fila-n">reports</span>
+        <div class="pista"><div class="relleno" style="width:100.0%"></div></div>
+        <span class="fila-v"><b>100.0%</b> · 30</span></div>
+      <div class="fila"><span class="fila-n">domain</span>
+        <div class="pista"><div class="relleno" style="width:99.5%"></div></div>
+        <span class="fila-v"><b>99.5%</b> · 600</span></div>
+      <div class="fila"><span class="fila-n">analysis</span>
+        <div class="pista"><div class="relleno" style="width:96.2%"></div></div>
+        <span class="fila-v"><b>96.2%</b> · 132</span></div>
+      <div class="fila"><span class="fila-n">services</span>
+        <div class="pista"><div class="relleno" style="width:94.7%"></div></div>
+        <span class="fila-v"><b>94.7%</b> · 529</span></div>
+      <div class="fila"><span class="fila-n">llm</span>
+        <div class="pista"><div class="relleno" style="width:91.7%"></div></div>
+        <span class="fila-v"><b>91.7%</b> · 348</span></div>
+      <div class="fila"><span class="fila-n">routes</span>
+        <div class="pista"><div class="relleno" style="width:91.4%"></div></div>
+        <span class="fila-v"><b>91.4%</b> · 659</span></div>
+      <div class="fila"><span class="fila-n">observability</span>
+        <div class="pista"><div class="relleno" style="width:91.2%"></div></div>
+        <span class="fila-v"><b>91.2%</b> · 160</span></div>
+      <div class="fila"><span class="fila-n">data</span>
+        <div class="pista"><div class="relleno" style="width:88.5%"></div></div>
+        <span class="fila-v"><b>88.5%</b> · 338</span></div>
+      <div class="fila"><span class="fila-n">rag</span>
+        <div class="pista"><div class="relleno" style="width:87.5%"></div></div>
+        <span class="fila-v"><b>87.5%</b> · 353</span></div>
+      <div class="fila"><span class="fila-n">(root)</span>
+        <div class="pista"><div class="relleno" style="width:86.5%"></div></div>
+        <span class="fila-v"><b>86.5%</b> · 333</span></div>
+    </div>
+
+    <p class="piso">
+      <b>The three lowest are low for different reasons, and only one of them is the usual one.</b>
+      In <code>rag</code> it is indeed depending on something external answering: the calls to the embedder and the creation of Qdrant collections, which covering fully would mean mocking the world until the test stops meaning anything. In <code>data</code> the gap is a different one: reading the Excel file, plus the DDL and the migration seed, which run once when the database is created. At the package root, the app's startup and the dependency wiring. None of the three falls below the floor.
+    </p>
+  </section>
+
+  <section>
+    <h2>Sixteen defects that broke no import</h2>
+    <p class="intro">
+      This is the part that usually does not exist. Every line is <b>a concrete way to break the delivery without breaking a single import</b>: defects that do not show up in the call tree but in what comes out — the HTTP response, the workflow, the documentation, the HTML that travels.
+    </p>
+
+    <div class="reg">
+      <div class="reg-cab"><span>What is watched</span><span>How it would look if it failed</span><span>Who watches it</span></div>
+
+      <div class="reg-fila">
+        <span class="que">That <code>stopAndError</code> aborts before any node answers</span>
+        <span class="como">A malformed <code>transaction_id</code> would return <code>200</code> with an empty body: identical to a success</span>
+        <span class="quien">test_workflows_n8n</span>
+      </div>
+      <div class="reg-fila">
+        <span class="que">That the human-approval form does not publish its URL</span>
+        <span class="como">The case would wait 24 h for a decision nobody would know where to make</span>
+        <span class="quien">test_workflows_n8n</span>
+      </div>
+      <div class="reg-fila">
+        <span class="que">That the reports depend on a CDN for their styles</span>
+        <span class="como">Opened from the ZIP without a network, they would come out as stacked plain text</span>
+        <span class="quien">test_documentacion_verificable</span>
+      </div>
+      <div class="reg-fila">
+        <span class="que">That choosing “n8n Production” runs the direct pipeline</span>
+        <span class="como">A report that would look like it came from the orchestration without having gone through it</span>
+        <span class="quien">test_panel_n8n</span>
+      </div>
+      <div class="reg-fila">
+        <span class="que">That a freshly computed analysis is labelled as an old recording</span>
+        <span class="como">The banner would say “prebuilt case” over an analysis one second old</span>
+        <span class="quien">test_report_generator</span>
+      </div>
+      <div class="reg-fila">
+        <span class="que">That a run on a free model reports an invented cost</span>
+        <span class="como">With no known rate it would fall back to Sonnet's: <code>$0.1050</code> for something that costs zero</span>
+        <span class="quien">test_langfuse_stats_fetch</span>
+      </div>
+      <div class="reg-fila">
+        <span class="que">That the prompts do not survive a change of model</span>
+        <span class="como">Reasoning before the JSON, trailing commas, the list wrapped in an object</span>
+        <span class="quien">test_compatibilidad_modelos</span>
+      </div>
+      <div class="reg-fila">
+        <span class="que">The documentation could promise a score the package does not reach</span>
+        <span class="como">A number with no provenance is disproved with one command</span>
+        <span class="quien">test_documentacion_verificable</span>
+      </div>
+      <div class="reg-fila">
+        <span class="que">That a verdict with a misspelled enum auto-approves the chargeback</span>
+        <span class="como">Crypto with score 8 and <code>BLOCKED</code>/<code>FAILED</code> verdicts would give <code>APPROVE</code>, with no HITL and no alerts</span>
+        <span class="quien">test_guardrails</span>
+      </div>
+      <div class="reg-fila">
+        <span class="que">That the deployed panel's “Analyze” button returns an error</span>
+        <span class="como">It would be enough to ask for Anthropic keys and not look at demo mode</span>
+        <span class="quien">test_panel_n8n</span>
+      </div>
+      <div class="reg-fila">
+        <span class="que">That the alerts depend on how the case comes in</span>
+        <span class="como">A HITL through the direct pipeline would leave no trace; the same case through n8n would</span>
+        <span class="quien">test_guardrails</span>
+      </div>
+      <div class="reg-fila">
+        <span class="que">Thresholds and enums duplicated inside the report template</span>
+        <span class="como">A suspended merchant painted green, or a threshold that moves and a report that does not</span>
+        <span class="quien">test_report_generator</span>
+      </div>
+      <div class="reg-fila">
+        <span class="que">That the SLA is measured from the purchase date when there is no open claim</span>
+        <span class="como">Hundreds of days of breach and USD 15 of compensation on a case just opened</span>
+        <span class="quien">test_analysis</span>
+      </div>
+      <div class="reg-fila">
+        <span class="que">That editing a policy does not invalidate the cached reports</span>
+        <span class="como">It would be reindexed in Qdrant and the report would come out the same, byte for byte</span>
+        <span class="quien">test_policies_crud</span>
+      </div>
+      <div class="reg-fila">
+        <span class="que">That the panel's stream goes silent during the long steps</span>
+        <span class="como">The browser would cut off on its own, and it would look like a cold start with the service warm</span>
+        <span class="quien">test_modo_demo</span>
+      </div>
+      <div class="reg-fila">
+        <span class="que">The report declared a prompt version that was not the one that ran</span>
+        <span class="como">It said <code>v1_</code> —the module's name— for prompts that are on v3.2</span>
+        <span class="quien">test_report_generator</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="cierre">
+    <h3>Why this is in a diagram and not in a README</h3>
+    <p>
+      A coverage number does not say whether the tests are any good. You can reach 90% by executing code without asserting anything about it. <b>What does say something is which concrete defect cannot come back</b>, and that is only visible by reading why each test was written.
+    </p>
+    <p>
+      The sixteen above have something in common: <b>none of them broke an import</b>. The workflow imported, the report generated, the panel returned HTML. They failed where nobody was looking — in the HTTP response, in the banner, in the file that travels inside the ZIP. That is why the suite watches the deliverable and not only the code.
+    </p>
+  </div>
+
+  <div class="pie">
+    <span><b>Running them:</b> <code>pytest tests/unit tests/integration -q</code></span>
+    <span><b>With coverage:</b> <code>--cov=api/app --cov-fail-under=85</code></span>
+    <span><b>CI:</b> <code>.github/workflows/tests.yml</code></span>
+  </div>
+
+</div>
+
+<style>/* dark forzado por el sitio */
+
+    :root{
+      --paper:#131316; --surface:#1b1b1f; --ink:#f0efec; --muted:#a3a3ac; --faint:#7a7a84;
+      --rule:#2b2b31;
+      --pasa:#4fd1c5; --cuida:#7ea6ff; --real:#e0a04a;
+      --barra:#2b2b31;
+      --shadow:0 1px 2px rgba(0,0,0,.4);
+    }
+  
+</style>
+</body>
+</html>

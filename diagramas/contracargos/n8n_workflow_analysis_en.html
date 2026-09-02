@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CIRI · Chargeback agent — the circuit</title>
+<style>
+:root{
+  --paper:#fcfcfa; --surface:#fff; --ink:#17171b; --muted:#68686f; --faint:#6e6e76;
+  --rule:#e5e4df; --rule-mid:#d3d2cb; --wire:#b9b8b0; --shadow:0 1px 2px rgba(20,20,25,.06);
+  --api:#2563eb; --rag:#0d9488; --llm:#7c3aed; --decide:#b45309;
+  --human:#be185d; --logic:#64748b; --io:#0f766e; --error:#dc2626;
+  --tint:12%;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme=light]){
+    --paper:#0d0f13; --surface:#161a21; --ink:#e9eaee; --muted:#9a9ca6; --faint:#8a8c96;
+    --rule:#232732; --rule-mid:#333846; --wire:#454b5a; --shadow:none;
+    --api:#7ea8f8; --rag:#4fd1c5; --llm:#b39cf7; --decide:#f0b355;
+    --human:#f491bb; --logic:#9aa6b8; --io:#5eead4; --error:#f08a80;
+    --tint:16%;
+  }
+}
+:root[data-theme=dark]{
+  --paper:#0d0f13; --surface:#161a21; --ink:#e9eaee; --muted:#9a9ca6; --faint:#8a8c96;
+  --rule:#232732; --rule-mid:#333846; --wire:#454b5a; --shadow:none;
+  --api:#7ea8f8; --rag:#4fd1c5; --llm:#b39cf7; --decide:#f0b355;
+  --human:#f491bb; --logic:#9aa6b8; --io:#5eead4; --error:#f08a80;
+  --tint:16%;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font:400 16px/1.6 Inter,"Segoe UI",system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased}
+.step,.badge,.ep,.eyebrow,h1,.z-n,.n-sec,.chip,.wl{
+  font-family:ui-monospace,"Cascadia Code","SF Mono",Menlo,Consolas,monospace}
+.wrap{max-width:1180px;margin:0 auto;padding:0 40px}
+
+.top{padding:60px 0 0}
+.eyebrow{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);
+  display:flex;justify-content:space-between;align-items:center;gap:24px}
+h1{font-size:clamp(30px,4.2vw,44px);line-height:1.06;font-weight:600;letter-spacing:-.02em;margin:22px 0 0}
+h1 em{font-style:normal;color:var(--muted)}
+.lead{max-width:66ch;color:var(--muted);margin:18px 0 0;font-size:17px}
+.theme{font:inherit;font-size:11px;letter-spacing:.14em;text-transform:uppercase;background:none;
+  border:1px solid var(--rule-mid);color:var(--faint);padding:6px 12px;border-radius:99px;cursor:pointer}
+.theme:hover{color:var(--ink);border-color:var(--ink)}
+
+.legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(232px,1fr));gap:14px 26px;
+  margin:38px 0 0;padding:26px 0 30px;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.lg{display:grid;grid-template-columns:auto 1fr;gap:3px 11px;align-items:baseline}
+.lg i{width:11px;height:11px;border-radius:3px;grid-row:1/3;align-self:center}
+.lg b{font-size:14.5px;font-weight:600}
+.lg em{font-style:normal;font-size:13px;color:var(--faint);line-height:1.4}
+.lg.f-api i{background:var(--api)} .lg.f-rag i{background:var(--rag)}
+.lg.f-llm i{background:var(--llm)} .lg.f-decide i{background:var(--decide)}
+.lg.f-human i{background:var(--human)} .lg.f-logic i{background:var(--logic)}
+.lg.f-io i{background:var(--io)} .lg.f-error i{background:var(--error)}
+
+.fine{margin:18px 0 0;font-size:13px;color:var(--faint)}
+.nota-demo{margin:14px 0 0;padding:12px 15px;font-size:13px;line-height:1.6;
+  color:var(--faint);border-left:3px solid #e8a33d;background:rgba(232,163,61,.08);
+  border-radius:0 6px 6px 0;max-width:76ch}
+.nota-demo b{color:var(--ink,inherit)}
+.fine code{font-family:ui-monospace,monospace}
+.figure{margin:34px 0 0;overflow-x:auto;padding-bottom:18px}
+.canvas{position:relative;width:1896px;height:4768px;margin:0 auto}
+.wires{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.w{fill:none;stroke:var(--wire);stroke-width:1.6;stroke-linejoin:round}
+.w.err{stroke:var(--error);stroke-dasharray:5 4;opacity:.75}
+.wl{font-size:11px;fill:var(--faint);letter-spacing:.02em}
+.canvas.lit .w{opacity:.22}
+.canvas.lit .w.on{opacity:1;stroke:var(--ink);stroke-width:2.2}
+.canvas.lit .node{opacity:.42}
+.canvas.lit .node.on,.canvas.lit .node.near{opacity:1}
+
+.zone{position:absolute;left:24px;width:176px;display:grid;
+  grid-template-columns:auto 1fr;gap:2px 10px;align-items:baseline}
+.z-n{font-size:11.5px;color:var(--faint);letter-spacing:.04em;white-space:nowrap}
+.z-t{font-size:17.5px;font-weight:600;letter-spacing:-.01em;line-height:1.2}
+.z-s{font-size:12.8px;color:var(--faint);grid-column:2;line-height:1.45;margin-top:6px}
+
+.node{position:absolute;width:152px;height:96px;display:flex;flex-direction:column;gap:5px;
+  align-items:flex-start;text-align:left;background:var(--surface);border:1px solid var(--rule);
+  border-left:3px solid var(--logic);border-radius:9px;padding:9px 12px;cursor:pointer;
+  color:inherit;font:inherit;box-shadow:var(--shadow);transition:box-shadow .13s,border-color .13s}
+.node:hover,.node:focus-visible{outline:none;box-shadow:0 4px 14px rgba(20,20,25,.11)}
+.n-top{display:flex;align-items:center;gap:8px}
+.step{font-size:10.5px;color:var(--faint)}
+.badge{font-size:9px;letter-spacing:.05em;white-space:nowrap;text-transform:uppercase;font-weight:700}
+.n-name{font-size:12.8px;font-weight:600;line-height:1.24;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ep{font-size:10px;color:var(--muted);margin-top:auto;white-space:nowrap;overflow:hidden;
+  text-overflow:ellipsis;max-width:100%}
+.f-api{border-left-color:var(--api)} .f-api .badge{color:var(--api)}
+.f-rag{border-left-color:var(--rag)} .f-rag .badge{color:var(--rag)}
+.f-llm{border-left-color:var(--llm)} .f-llm .badge{color:var(--llm)}
+.f-decide{border-left-color:var(--decide)} .f-decide .badge{color:var(--decide)}
+.f-human{border-left-color:var(--human)} .f-human .badge{color:var(--human)}
+.f-logic{border-left-color:var(--logic)} .f-logic .badge{color:var(--logic)}
+.f-io{border-left-color:var(--io)} .f-io .badge{color:var(--io)}
+.node.on{border-color:var(--ink)}
+
+.tail{position:absolute;width:152px;text-align:center;font-size:10.5px;color:var(--faint);font-family:ui-monospace,"Cascadia Code","SF Mono",Menlo,Consolas,monospace}
+.chip{position:absolute;width:150px;font:inherit;font-size:11.5px;line-height:1.3;
+  background:var(--surface);color:var(--error);cursor:pointer;text-align:left;
+  border:1px dashed var(--error);border-radius:8px;padding:8px 10px}
+.chip:hover{border-style:solid}
+
+.notes{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:30px 40px;
+  margin:56px 0 72px;padding-top:34px;border-top:1px solid var(--rule)}
+.note{display:grid;grid-template-columns:auto 1fr;gap:14px}
+.n-sec{font-size:11.5px;color:var(--faint);letter-spacing:.04em;white-space:nowrap}
+.note p{margin:0;color:var(--muted);font-size:15px}
+.note code{font-family:ui-monospace,monospace;font-size:13px;color:var(--ink)}
+
+.panel{position:fixed;top:0;right:0;height:100%;width:400px;max-width:92vw;z-index:40;
+  background:var(--surface);border-left:1px solid var(--rule);padding:34px 32px;overflow-y:auto;
+  transform:translateX(101%);transition:transform .2s cubic-bezier(.4,0,.2,1)}
+.panel.open{transform:none;box-shadow:-24px 0 60px rgba(10,10,14,.15)}
+.p-close{position:absolute;top:20px;right:22px;background:none;border:0;cursor:pointer;
+  color:var(--faint);font-size:22px;line-height:1;padding:4px}
+.p-close:hover{color:var(--ink)}
+.p-top{display:flex;align-items:center;gap:9px;margin-bottom:12px}
+.p-name{font-size:21px;font-weight:600;line-height:1.22;margin:0 0 15px}
+.p-ep{display:block;font-size:12.5px;padding:9px 12px;border-radius:8px;background:var(--paper);
+  border:1px solid var(--rule);color:var(--ink);margin-bottom:19px;font-family:ui-monospace,monospace;
+  word-break:break-all}
+.p-desc{color:var(--muted);margin:0 0 24px}
+.p-desc code{font-family:ui-monospace,monospace;font-size:13px;color:var(--ink)}
+.d-k{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);
+  display:block;margin:0 0 8px;font-family:ui-monospace,monospace}
+.d-list{list-style:none;margin:0 0 20px;padding:0;display:flex;flex-direction:column;gap:6px}
+.d-list button{font:inherit;font-size:14px;text-align:left;background:none;border:0;padding:0;
+  color:var(--ink);cursor:pointer;border-bottom:1px solid transparent}
+.d-list button:hover{border-bottom-color:var(--ink)}
+.d-list .none{color:var(--faint);font-size:14px}
+.scrim{position:fixed;inset:0;background:rgba(10,10,14,.26);opacity:0;pointer-events:none;
+  transition:opacity .2s;z-index:30}
+.scrim.on{opacity:1;pointer-events:auto}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media print{.panel,.scrim,.theme{display:none}body{background:#fff}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <div class="eyebrow">
+    <span>CIRI · Continuous Improvement &amp; Risk Intelligence</span>
+    <button class="theme" id="theme" type="button">Theme</button>
+  </div>
+  <h1>Chargeback agent<br><em>the full circuit</em></h1>
+  <p class="lead">
+    Explicit orchestration in n8n. 36 steps that always run in the same order, plus 4 error exits — 40 executable nodes, 46 counting the canvas notes. There is no agent node deciding which tool to call: that is why every investigation is reproducible and auditable. Tap any node to see what it does and how it connects.
+  </p>
+  <div class="legend"><span class="lg f-api"><i></i><b>API call</b><em>Fetches data from SQLite or runs a business rule.</em></span><span class="lg f-rag"><i></i><b>Semantic search</b><em>Queries the Qdrant vector store.</em></span><span class="lg f-llm"><i></i><b>Model call</b><em>Goes through the API, which is what talks to Claude.</em></span><span class="lg f-decide"><i></i><b>Branches</b><em>Picks which way the case goes.</em></span><span class="lg f-logic"><i></i><b>Canvas logic</b><em>Assembles, merges or reshapes data. No business rules.</em></span><span class="lg f-human"><i></i><b>Waits for a person</b><em>Stops until an analyst decides.</em></span><span class="lg f-io"><i></i><b>Entry and exit</b><em>Where the case comes in and where the report goes out.</em></span><span class="lg f-error"><i></i><b>Error exit</b><em>Aborts the run and reports it.</em></span></div>
+  <p class="fine">API routes are shown without the <code>/api</code> prefix they share; <code>/health</code> and the webhook hang off the root. The full detail of every node is one click away.</p>
+  <p class="nota-demo">
+    <b>Demo mode does not change this circuit.</b> The same 36 steps, in the same order: the only thing that changes is which model answers <em>Synthesize&nbsp;Resolution</em> and <em>Quality&nbsp;Judge</em> — a free-tier one instead of Claude. Only if no free tier is configured do those two steps serve the already-computed analysis instead of running.
+  </p>
+</header>
+</div>
+
+<div class="figure">
+  <div class="canvas" id="canvas">
+    <svg class="wires" viewBox="0 0 1896 4768" preserveAspectRatio="none" aria-hidden="true">
+      <defs>
+        <marker id="tip" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto">
+          <path d="M0 0 L8 4 L0 8 z" fill="var(--wire)"/>
+        </marker>
+        <marker id="tip-err" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+          <path d="M0 0 L8 4 L0 8 z" fill="var(--error)"/>
+        </marker>
+      </defs>
+      <path class="w" data-from="Webhook — Entry" data-to="Validate Format — IF" d="M 1060 188 V 220 H 1060 V 272" marker-end="url(#tip)"/><path class="w" data-from="Validate Format — IF" data-to="Validate TXN Format" d="M 1060 368 V 400 H 1144 V 452" marker-end="url(#tip)"/><text class="wl" x="1153" y="430" text-anchor="start">valid format</text><path class="w" data-from="Validate Format — IF" data-to="Respond — Invalid Format" d="M 1060 368 V 400 H 976 V 452" marker-end="url(#tip)"/><text class="wl" x="985" y="430" text-anchor="start">invalid format</text><path class="w" data-from="Validate TXN Format" data-to="Wake the API" d="M 1144 548 V 580 H 1060 V 690" marker-end="url(#tip)"/><path class="w" data-from="Get Transaction" data-to="Get Logs" d="M 1144 1326 V 1370 H 1060 V 1410" marker-end="url(#tip)"/><path class="w" data-from="Get Transaction" data-to="Search Policies" d="M 1144 1326 V 1370 H 724 V 1410" marker-end="url(#tip)"/><path class="w" data-from="Get Transaction" data-to="Search Similar Cases" d="M 1144 1326 V 1370 H 556 V 1410" marker-end="url(#tip)"/><path class="w" data-from="Get Transaction" data-to="Merchant Risk" d="M 1144 1326 V 1370 H 1396 V 1410" marker-end="url(#tip)"/><path class="w" data-from="Get Transaction" data-to="Customer History" d="M 1144 1326 V 1370 H 892 V 1410" marker-end="url(#tip)"/><path class="w" data-from="Get Transaction" data-to="Check SLA" d="M 1144 1326 V 1370 H 1564 V 1410" marker-end="url(#tip)"/><path class="w" data-from="Get Transaction" data-to="Respond — API Unavailable" d="M 1144 1326 V 1370 H 1228 V 1410" marker-end="url(#tip)"/><text class="wl" x="1237" y="1394" text-anchor="start">on failure</text><path class="w" data-from="Format Cache" data-to="Respond — Report" d="M 976 1326 V 1358 H 410 V 4534 H 1144 V 4586" marker-end="url(#tip)"/><path class="w" data-from="Get Logs" data-to="Merge — Parallel Context" d="M 1060 1506 V 1538 H 1060 V 1590" marker-end="url(#tip)"/><path class="w" data-from="Search Policies" data-to="Merge — Parallel Context" d="M 724 1506 V 1538 H 1060 V 1590" marker-end="url(#tip)"/><path class="w" data-from="Merchant Risk" data-to="Merge — Parallel Context" d="M 1396 1506 V 1538 H 1060 V 1590" marker-end="url(#tip)"/><path class="w" data-from="Customer History" data-to="Merge — Parallel Context" d="M 892 1506 V 1538 H 1060 V 1590" marker-end="url(#tip)"/><path class="w" data-from="Search Similar Cases" data-to="Merge — Parallel Context" d="M 556 1506 V 1538 H 1060 V 1590" marker-end="url(#tip)"/><path class="w" data-from="Check SLA" data-to="Merge — Parallel Context" d="M 1564 1506 V 1538 H 1060 V 1590" marker-end="url(#tip)"/><path class="w" data-from="Merge — Parallel Context" data-to="Compile Context" d="M 1060 1686 V 1718 H 1060 V 1828" marker-end="url(#tip)"/><path class="w" data-from="Compile Context" data-to="Synthesize Resolution" d="M 1060 1924 V 1956 H 1060 V 2008" marker-end="url(#tip)"/><path class="w" data-from="Synthesize Resolution" data-to="Check Guardrails" d="M 1060 2104 V 2136 H 1060 V 2188" marker-end="url(#tip)"/><path class="w" data-from="Synthesize Resolution" data-to="Respond — Analysis Failure" d="M 1060 2104 V 2136 H 1678 V 2496 H 1144 V 2548" marker-end="url(#tip)"/><text class="wl" x="1369" y="2128" text-anchor="middle">on failure</text><path class="w" data-from="Quality Judge" data-to="Extract Evaluation — Judge" d="M 1060 2464 V 2496 H 976 V 2548" marker-end="url(#tip)"/><path class="w" data-from="Quality Judge" data-to="Respond — Analysis Failure" d="M 1060 2464 V 2496 H 1144 V 2548" marker-end="url(#tip)"/><text class="wl" x="1153" y="2526" text-anchor="start">on failure</text><path class="w" data-from="Extract Evaluation — Judge" data-to="Judge Approves?" d="M 976 2644 V 2676 H 1060 V 2728" marker-end="url(#tip)"/><path class="w" data-from="Prepare Report" data-to="Switch — Routing" d="M 1060 3242 V 3274 H 1060 V 3326" marker-end="url(#tip)"/><path class="w" data-from="Generate Report" data-to="Respond — Report" d="M 976 4502 V 4534 H 1144 V 4586" marker-end="url(#tip)"/><path class="w" data-from="Generate Report" data-to="Respond — Report Failure" d="M 976 4502 V 4534 H 976 V 4586" marker-end="url(#tip)"/><path class="w" data-from="Wake the API" data-to="Check Cache" d="M 1060 786 V 818 H 1060 V 870" marker-end="url(#tip)"/><path class="w" data-from="Check Cache" data-to="Cache hit?" d="M 1060 966 V 998 H 1060 V 1050" marker-end="url(#tip)"/><path class="w" data-from="Check Cache" data-to="Get Transaction" d="M 1060 966 V 998 H 1678 V 1178 H 1144 V 1230" marker-end="url(#tip)"/><text class="wl" x="1369" y="990" text-anchor="middle">on failure</text><path class="w" data-from="Cache hit?" data-to="Format Cache" d="M 1060 1146 V 1178 H 976 V 1230" marker-end="url(#tip)"/><text class="wl" x="985" y="1208" text-anchor="start">cache hit</text><path class="w" data-from="Cache hit?" data-to="Get Transaction" d="M 1060 1146 V 1178 H 1144 V 1230" marker-end="url(#tip)"/><text class="wl" x="1153" y="1208" text-anchor="start">needs investigating</text><path class="w" data-from="Check Guardrails" data-to="Quality Judge" d="M 1060 2284 V 2316 H 1060 V 2368" marker-end="url(#tip)"/><path class="w" data-from="Judge Approves?" data-to="Prepare Report" d="M 1060 2824 V 2856 H 442 V 3036 H 1060 V 3146" marker-end="url(#tip)"/><text class="wl" x="751" y="2848" text-anchor="middle">approved</text><path class="w" data-from="Judge Approves?" data-to="Flag — Low Quality" d="M 1060 2824 V 2856 H 1060 V 2908" marker-end="url(#tip)"/><text class="wl" x="1069" y="2886" text-anchor="start">not approved</text><path class="w" data-from="Flag — Low Quality" data-to="Prepare Report" d="M 1060 3004 V 3036 H 1060 V 3146" marker-end="url(#tip)"/><path class="w" data-from="Wait — HITL Approval" data-to="Normalize HITL Decision" d="M 1060 3962 V 3994 H 1060 V 4046" marker-end="url(#tip)"/><path class="w" data-from="Normalize HITL Decision" data-to="Process HITL Response" d="M 1060 4142 V 4174 H 1060 V 4226" marker-end="url(#tip)"/><path class="w" data-from="Process HITL Response" data-to="Generate Report" d="M 1060 4322 V 4354 H 976 V 4406" marker-end="url(#tip)"/><path class="w" data-from="Process HITL Response" data-to="Record HITL Feedback" d="M 1060 4322 V 4354 H 1144 V 4406" marker-end="url(#tip)"/><path class="w" data-from="Switch — Routing" data-to="Generate Report" d="M 1060 3422 V 3454 H 442 V 4354 H 976 V 4406" marker-end="url(#tip)"/><text class="wl" x="751" y="3446" text-anchor="middle">BLOCKER · HIGH · MEDIUM · LOW</text><path class="w" data-from="Switch — Routing" data-to="Notify — HITL Form" d="M 1060 3422 V 3454 H 1060 V 3506" marker-end="url(#tip)"/><text class="wl" x="1069" y="3484" text-anchor="start">HUMAN REVIEW</text><path class="w" data-from="Notify — HITL Form" data-to="Respond — Approval Required" d="M 1060 3602 V 3634 H 1060 V 3686" marker-end="url(#tip)"/><path class="w" data-from="Respond — Approval Required" data-to="Wait — HITL Approval" d="M 1060 3782 V 3814 H 1060 V 3866" marker-end="url(#tip)"/><path class="w err" data-from="Respond — Invalid Format" data-to="Propagate → Error Handler — TXN" d="M 900 500 H 398" marker-end="url(#tip-err)"/><path class="w err" data-from="Respond — API Unavailable" data-to="Propagate → Error Handler — API" d="M 1228 1506 V 1582 H 1722" marker-end="url(#tip-err)"/><path class="w err" data-from="Respond — Analysis Failure" data-to="Propagate → Error Handler — Analysis" d="M 1220 2596 H 1722" marker-end="url(#tip-err)"/><path class="w err" data-from="Respond — Report Failure" data-to="Propagate → Error Handler — Report" d="M 900 4634 H 398" marker-end="url(#tip-err)"/>
+    </svg>
+    <div class="zone" style="top:34px"><span class="z-n">01–04</span><span class="z-t">Entry and validation</span><span class="z-s">Takes the case in and checks the identifier format before spending a single token.</span></div><div class="zone" style="top:632px"><span class="z-n">05–17</span><span class="z-t">Cache and context</span><span class="z-s">Short-circuits if the case was already investigated. Otherwise the transaction first, then six queries in parallel.</span></div><div class="zone" style="top:1770px"><span class="z-n">18–25</span><span class="z-t">AI analysis</span><span class="z-s">Evaluates the policies, synthesizes the resolution, applies guardrails and grades itself.</span></div><div class="zone" style="top:3088px"><span class="z-n">26–36</span><span class="z-t">Routing</span><span class="z-s">Classifies and routes. Cases that call for an analyst stop and wait for a person; the rest resolve on their own.</span></div>
+    <button class="node f-io" data-node="Webhook — Entry" type="button" style="left:984px;top:92px"><span class="n-top"><span class="step">01</span><span class="badge">Entry</span></span><span class="n-name">Webhook — Entry</span><code class='ep'>POST /webhook/chargeback-agent</code></button><button class="node f-decide" data-node="Validate Format — IF" type="button" style="left:984px;top:272px"><span class="n-top"><span class="step">02</span><span class="badge">Decide</span></span><span class="n-name">Validate Format — IF</span></button><button class="node f-io" data-node="Respond — Invalid Format" type="button" style="left:900px;top:452px"><span class="n-top"><span class="step">03</span><span class="badge">Exit</span></span><span class="n-name">Respond — Invalid Format</span></button><button class="node f-logic" data-node="Validate TXN Format" type="button" style="left:1068px;top:452px"><span class="n-top"><span class="step">04</span><span class="badge">Logic</span></span><span class="n-name">Validate TXN Format</span></button><button class="node f-api" data-node="Wake the API" type="button" style="left:984px;top:690px"><span class="n-top"><span class="step">05</span><span class="badge">API</span></span><span class="n-name">Wake the API</span><code class='ep'>GET /health</code></button><button class="node f-api" data-node="Check Cache" type="button" style="left:984px;top:870px"><span class="n-top"><span class="step">06</span><span class="badge">API</span></span><span class="n-name">Check Cache</span><code class='ep'>GET /cache/lookup</code></button><button class="node f-decide" data-node="Cache hit?" type="button" style="left:984px;top:1050px"><span class="n-top"><span class="step">07</span><span class="badge">Decide</span></span><span class="n-name">Cache hit?</span></button><button class="node f-logic" data-node="Format Cache" type="button" style="left:900px;top:1230px"><span class="n-top"><span class="step">08</span><span class="badge">Logic</span></span><span class="n-name">Format Cache</span></button><button class="node f-api" data-node="Get Transaction" type="button" style="left:1068px;top:1230px"><span class="n-top"><span class="step">09</span><span class="badge">API</span></span><span class="n-name">Get Transaction</span><code class='ep'>GET /transactions/…</code></button><button class="node f-rag" data-node="Search Similar Cases" type="button" style="left:480px;top:1410px"><span class="n-top"><span class="step">10</span><span class="badge">RAG · Qdrant</span></span><span class="n-name">Search Similar Cases</span><code class='ep'>GET /cases/similar</code></button><button class="node f-rag" data-node="Search Policies" type="button" style="left:648px;top:1410px"><span class="n-top"><span class="step">11</span><span class="badge">RAG · Qdrant</span></span><span class="n-name">Search Policies</span><code class='ep'>GET /policies/search</code></button><button class="node f-api" data-node="Customer History" type="button" style="left:816px;top:1410px"><span class="n-top"><span class="step">12</span><span class="badge">API</span></span><span class="n-name">Customer History</span><code class='ep'>GET /clients/…/history</code></button><button class="node f-api" data-node="Get Logs" type="button" style="left:984px;top:1410px"><span class="n-top"><span class="step">13</span><span class="badge">API</span></span><span class="n-name">Get Logs</span><code class='ep'>GET /logs/…</code></button><button class="node f-io" data-node="Respond — API Unavailable" type="button" style="left:1152px;top:1410px"><span class="n-top"><span class="step">14</span><span class="badge">Exit</span></span><span class="n-name">Respond — API Unavailable</span></button><button class="node f-api" data-node="Merchant Risk" type="button" style="left:1320px;top:1410px"><span class="n-top"><span class="step">15</span><span class="badge">API</span></span><span class="n-name">Merchant Risk</span><code class='ep'>GET /merchants/…/risk</code></button><button class="node f-api" data-node="Check SLA" type="button" style="left:1488px;top:1410px"><span class="n-top"><span class="step">16</span><span class="badge">API</span></span><span class="n-name">Check SLA</span><code class='ep'>POST /sla/check</code></button><button class="node f-logic" data-node="Merge — Parallel Context" type="button" style="left:984px;top:1590px"><span class="n-top"><span class="step">17</span><span class="badge">Logic</span></span><span class="n-name">Merge — Parallel Context</span></button><button class="node f-logic" data-node="Compile Context" type="button" style="left:984px;top:1828px"><span class="n-top"><span class="step">18</span><span class="badge">Logic</span></span><span class="n-name">Compile Context</span></button><button class="node f-llm" data-node="Synthesize Resolution" type="button" style="left:984px;top:2008px"><span class="n-top"><span class="step">19</span><span class="badge">LLM · Haiku+Sonnet</span></span><span class="n-name">Synthesize Resolution</span><code class='ep'>POST /analyze/resolve</code></button><button class="node f-logic" data-node="Check Guardrails" type="button" style="left:984px;top:2188px"><span class="n-top"><span class="step">20</span><span class="badge">Logic</span></span><span class="n-name">Check Guardrails</span></button><button class="node f-llm" data-node="Quality Judge" type="button" style="left:984px;top:2368px"><span class="n-top"><span class="step">21</span><span class="badge">LLM · Sonnet</span></span><span class="n-name">Quality Judge</span><code class='ep'>POST /analyze/judge</code></button><button class="node f-logic" data-node="Extract Evaluation — Judge" type="button" style="left:900px;top:2548px"><span class="n-top"><span class="step">22</span><span class="badge">Logic</span></span><span class="n-name">Extract Evaluation — Judge</span></button><button class="node f-io" data-node="Respond — Analysis Failure" type="button" style="left:1068px;top:2548px"><span class="n-top"><span class="step">23</span><span class="badge">Exit</span></span><span class="n-name">Respond — Analysis Failure</span></button><button class="node f-decide" data-node="Judge Approves?" type="button" style="left:984px;top:2728px"><span class="n-top"><span class="step">24</span><span class="badge">Decide</span></span><span class="n-name">Judge Approves?</span></button><button class="node f-logic" data-node="Flag — Low Quality" type="button" style="left:984px;top:2908px"><span class="n-top"><span class="step">25</span><span class="badge">Logic</span></span><span class="n-name">Flag — Low Quality</span></button><button class="node f-logic" data-node="Prepare Report" type="button" style="left:984px;top:3146px"><span class="n-top"><span class="step">26</span><span class="badge">Logic</span></span><span class="n-name">Prepare Report</span></button><button class="node f-decide" data-node="Switch — Routing" type="button" style="left:984px;top:3326px"><span class="n-top"><span class="step">27</span><span class="badge">Decide</span></span><span class="n-name">Switch — Routing</span></button><button class="node f-api" data-node="Notify — HITL Form" type="button" style="left:984px;top:3506px"><span class="n-top"><span class="step">28</span><span class="badge">API</span></span><span class="n-name">Notify — HITL Form</span><code class='ep'>POST /alerts</code></button><button class="node f-io" data-node="Respond — Approval Required" type="button" style="left:984px;top:3686px"><span class="n-top"><span class="step">29</span><span class="badge">Exit</span></span><span class="n-name">Respond — Approval Required</span></button><button class="node f-human" data-node="Wait — HITL Approval" type="button" style="left:984px;top:3866px"><span class="n-top"><span class="step">30</span><span class="badge">Human</span></span><span class="n-name">Wait — HITL Approval</span></button><button class="node f-api" data-node="Normalize HITL Decision" type="button" style="left:984px;top:4046px"><span class="n-top"><span class="step">31</span><span class="badge">API</span></span><span class="n-name">Normalize HITL Decision</span><code class='ep'>POST /hitl/decide</code></button><button class="node f-logic" data-node="Process HITL Response" type="button" style="left:984px;top:4226px"><span class="n-top"><span class="step">32</span><span class="badge">Logic</span></span><span class="n-name">Process HITL Response</span></button><button class="node f-api" data-node="Generate Report" type="button" style="left:900px;top:4406px"><span class="n-top"><span class="step">33</span><span class="badge">API</span></span><span class="n-name">Generate Report</span><code class='ep'>POST /reports/html</code></button><button class="node f-api" data-node="Record HITL Feedback" type="button" style="left:1068px;top:4406px"><span class="n-top"><span class="step">34</span><span class="badge">API</span></span><span class="n-name">Record HITL Feedback</span><code class='ep'>POST /feedback</code></button><button class="node f-io" data-node="Respond — Report Failure" type="button" style="left:900px;top:4586px"><span class="n-top"><span class="step">35</span><span class="badge">Exit</span></span><span class="n-name">Respond — Report Failure</span></button><button class="node f-io" data-node="Respond — Report" type="button" style="left:1068px;top:4586px"><span class="n-top"><span class="step">36</span><span class="badge">Exit</span></span><span class="n-name">Respond — Report</span></button><span class="tail" style="left:1068px;top:4510px">ends here</span><button class="chip" data-node="Propagate → Error Handler — TXN" type="button" style="left:248px;top:482px">invalid format</button><button class="chip" data-node="Propagate → Error Handler — API" type="button" style="left:1722px;top:1564px">the API does not answer</button><button class="chip" data-node="Propagate → Error Handler — Analysis" type="button" style="left:1722px;top:2578px">the model fails</button><button class="chip" data-node="Propagate → Error Handler — Report" type="button" style="left:248px;top:4616px">the report could not be generated</button>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="notes"><section class="note"><span class="n-sec">01–04</span><p>The API URL is resolved once, in “Validate TXN Format”, and the fifteen HTTP nodes read it from there: webhook body, n8n variable, or the public API by default. That is why the workflow imports and runs without configuring anything.</p></section><section class="note"><span class="n-sec">05–17</span><p>A cache hit returns the already-generated report and skips everything else: two seconds instead of a hundred and thirteen. When there is investigating to do, this is where RAG and the database meet: Qdrant supplies which policies apply and what was done in similar cases, SQLite supplies the exact facts. No business threshold lives in the canvas — SLA windows, the chargeback ratio and the repeat-offender rules are asked of the API, which reads them from <code>domain/constants.py</code>.</p></section><section class="note"><span class="n-sec">18–25</span><p>Code decides, the LLM explains: nine of the resolution's thirteen fields are computed by Python and always overwrite what the model returns. Then a second model scores that resolution against five criteria with rubrics.</p></section><section class="note"><span class="n-sec">26–36</span><p>If the Judge scored 8.0 or higher, the case is reindexed as a precedent in Qdrant. Every investigation that goes well improves the next one.</p></section></div>
+</div>
+
+<div class="scrim" id="scrim"></div>
+<aside class="panel" id="panel" aria-live="polite" inert>
+  <button class="p-close" id="close" type="button" aria-label="Close">×</button>
+  <div class="p-top"><span class="step" id="p-step"></span><span class="badge" id="p-badge"></span></div>
+  <h2 class="p-name" id="p-name"></h2>
+  <code class="p-ep" id="p-ep"></code>
+  <p class="p-desc" id="p-desc"></p>
+  <span class="d-k">Comes from</span><ul class="d-list" id="p-from"></ul>
+  <span class="d-k">Continues to</span><ul class="d-list" id="p-to"></ul>
+</aside>
+
+<script>
+const DATA = {"Webhook — Entry": {"step": "01", "badge": "Entry", "family": "io", "endpoint": "POST /webhook/chargeback-agent", "desc": "Takes the case in by POST. It needs <code>transaction_id</code> and <code>motivo</code>; <code>cliente_vip</code> and <code>api_base_url</code> are optional.", "from": [], "to": ["Validate Format — IF"]}, "Validate Format — IF": {"step": "02", "badge": "Decide", "family": "decide", "endpoint": "", "desc": "Validates the identifier format with a regular expression. If it does not match, it stops here: no malformed case gets to spend tokens.", "from": ["Webhook — Entry"], "to": ["Validate TXN Format", "Respond — Invalid Format"]}, "Validate TXN Format": {"step": "04", "badge": "Logic", "family": "logic", "endpoint": "", "desc": "Normalizes the input fields and resolves the API URL once. The fifteen HTTP nodes read that value, so pointing everything at another API means changing one place.", "from": ["Validate Format — IF"], "to": ["Wake the API"]}, "Get Transaction": {"step": "09", "badge": "API", "family": "api", "endpoint": "GET /api/transactions/…", "desc": "Structured truth from SQLite: amount, merchant, country, payment method and antifraud score. Exact lookup by identifier.", "from": ["Check Cache", "Cache hit?"], "to": ["Get Logs", "Search Policies", "Search Similar Cases", "Merchant Risk", "Customer History", "Check SLA", "Respond — API Unavailable"]}, "Get Logs": {"step": "13", "badge": "API", "family": "api", "endpoint": "GET /api/logs/…", "desc": "Every processing event for that transaction, complete. They are fetched whole because semantic similarity adds nothing here.", "from": ["Get Transaction"], "to": ["Merge — Parallel Context"]}, "Search Policies": {"step": "11", "badge": "RAG · Qdrant", "family": "rag", "endpoint": "GET /api/policies/search", "desc": "Semantic search over Qdrant. The query is built deterministically and enriched with rules based on payment method, score and country.", "from": ["Get Transaction"], "to": ["Merge — Parallel Context"]}, "Search Similar Cases": {"step": "10", "badge": "RAG · Qdrant", "family": "rag", "endpoint": "GET /api/cases/similar", "desc": "Semantic search over the sixty historical cases: what was decided before on a similar chargeback. It sends the transaction identifier so its own cases are excluded: 47 of the 100 transactions have one, and they came out on top by construction —same merchant, same amount, same country— so the agent was citing the case's own resolution as if it were somebody else's.", "from": ["Get Transaction"], "to": ["Merge — Parallel Context"]}, "Merchant Risk": {"step": "15", "badge": "API", "family": "api", "endpoint": "GET /api/merchants/…/risk", "desc": "Chargeback ratio, volume and merchant signals, compared against the corpus's own baseline. The thresholds live in the API, not in this canvas.", "from": ["Get Transaction"], "to": ["Merge — Parallel Context"]}, "Customer History": {"step": "12", "badge": "API", "family": "api", "endpoint": "GET /api/clients/…/history", "desc": "Repeat offences, countries used and payment methods. The signals arrive already computed.", "from": ["Get Transaction"], "to": ["Merge — Parallel Context"]}, "Check SLA": {"step": "16", "badge": "API", "family": "api", "endpoint": "POST /api/sla/check", "desc": "Counts the claim's business days —from when it was opened until it was closed, not until today— and compares them against the limit by country and VIP status: ten in LATAM, fifteen outside, five for VIP customers. The compensation comes out of here, decided by code, and so do the deadlines seen by the policy evaluator, the Judge and the report: they used to be computed here and go no further than the compensation, so the evaluator asked for dates the system already had. The rule lives in the API so that editing it does not mean touching the workflow.", "from": ["Get Transaction"], "to": ["Merge — Parallel Context"]}, "Merge — Parallel Context": {"step": "17", "badge": "Logic", "family": "logic", "endpoint": "", "desc": "Waits for the six branches. Only once they have all arrived is the context the model sees assembled.", "from": ["Get Logs", "Search Policies", "Merchant Risk", "Customer History", "Search Similar Cases", "Check SLA"], "to": ["Compile Context"]}, "Compile Context": {"step": "18", "badge": "Logic", "family": "logic", "endpoint": "", "desc": "Merges the output of the seven tools into a single object —the six that converge on the Merge plus the transaction, which was queried earlier and opened the fan-out. It is the point where RAG and the database become one context. And the only place where a failed source is known: the context nodes carry on after an error, so this is where it records which one did not answer, and that travels to the report. Without it, “I could not search” read the same as “there are none”, which is the opposite conclusion.", "from": ["Merge — Parallel Context"], "to": ["Synthesize Resolution"]}, "Synthesize Resolution": {"step": "19", "badge": "LLM · Haiku+Sonnet", "family": "llm", "endpoint": "POST /api/analyze/resolve", "desc": "Two chained calls: Haiku evaluates each retrieved policy, Sonnet synthesizes the resolution. Versioned prompt v3.2. It sends the whole compiled context, not a hand-picked list of fields.", "from": ["Compile Context"], "to": ["Check Guardrails", "Respond — Analysis Failure"]}, "Quality Judge": {"step": "21", "badge": "LLM · Sonnet", "family": "llm", "endpoint": "POST /api/analyze/judge", "desc": "A second model grades the resolution against five criteria with rubrics, on a one-to-ten scale. Versioned prompt v2.2.", "from": ["Check Guardrails"], "to": ["Extract Evaluation — Judge", "Respond — Analysis Failure"]}, "Extract Evaluation — Judge": {"step": "22", "badge": "Logic", "family": "logic", "endpoint": "", "desc": "Exposes the judge's evaluation for the nodes that follow.", "from": ["Quality Judge"], "to": ["Judge Approves?"]}, "Prepare Report": {"step": "26", "badge": "Logic", "family": "logic", "endpoint": "", "desc": "Assembles the exact payload the report generator expects.", "from": ["Judge Approves?", "Flag — Low Quality"], "to": ["Switch — Routing"]}, "Switch — Routing": {"step": "27", "badge": "Decide", "family": "decide", "endpoint": "", "desc": "Routes on `requires_hitl`, which the API already decided. The risk level says how severe the case is; what says whether a person is needed is this field.", "from": ["Prepare Report"], "to": ["Notify — HITL Form", "Generate Report", "Generate Report", "Generate Report", "Generate Report"]}, "Wake the API": {"step": "05", "badge": "API", "family": "api", "endpoint": "GET /health", "desc": "A <code>GET /health</code> before the real queries. It absorbs Render's free-tier cold start so the first node with data does not fail on timeout.", "from": ["Validate TXN Format"], "to": ["Check Cache", "Check Cache"]}, "Check Cache": {"step": "06", "badge": "API", "family": "api", "endpoint": "GET /api/cache/lookup", "desc": "Idempotency cache keyed by transaction, VIP status and reason. If this same claim was already investigated, the report exists and there is nothing to recompute. The reason is part of the key because it picks which policies and which precedents RAG retrieves: a different reason is a different analysis.", "from": ["Wake the API", "Wake the API"], "to": ["Cache hit?", "Get Transaction"]}, "Cache hit?": {"step": "07", "badge": "Decide", "family": "decide", "endpoint": "", "desc": "Branches on whether there is a cache hit. A hit skips the whole pipeline: two seconds instead of a hundred and thirteen.", "from": ["Check Cache"], "to": ["Format Cache", "Get Transaction"]}, "Format Cache": {"step": "08", "badge": "Logic", "family": "logic", "endpoint": "", "desc": "Takes the already-generated HTML and sends it straight to the response, without re-rendering it or calling the model.", "from": ["Cache hit?"], "to": ["Respond — Report"]}, "Check Guardrails": {"step": "20", "badge": "Logic", "family": "logic", "endpoint": "", "desc": "Surfaces in the canvas the guardrails that already ran in the API. It does not recompute them: none of their thresholds live in the canvas. The typical case: approving with an active blocking policy self-corrects to a rejection and is recorded.", "from": ["Synthesize Resolution"], "to": ["Quality Judge"]}, "Judge Approves?": {"step": "24", "badge": "Decide", "family": "decide", "endpoint": "", "desc": "Quality control. It reads the `approved` field the API already computed: the threshold lives in `constants.py`, not here. If it does not approve, the resolution is still delivered, but flagged.", "from": ["Extract Evaluation — Judge"], "to": ["Prepare Report", "Flag — Low Quality"]}, "Flag — Low Quality": {"step": "25", "badge": "Logic", "family": "logic", "endpoint": "", "desc": "Adds the low-quality flag. It does not discard the resolution: it delivers it marked so a person reviews it.", "from": ["Judge Approves?"], "to": ["Prepare Report"]}, "Propagate → Error Handler — TXN": {"step": "—", "badge": "Aborts", "family": "error", "endpoint": "", "desc": "Aborts the run with context when the identifier does not have the expected format, and fires the error workflow.", "from": ["Respond — Invalid Format"], "to": []}, "Propagate → Error Handler — API": {"step": "—", "badge": "Aborts", "family": "error", "endpoint": "", "desc": "Aborts if the API does not answer after three attempts two seconds apart (five in the node that wakes the API).", "from": ["Respond — API Unavailable"], "to": []}, "Propagate → Error Handler — Analysis": {"step": "—", "badge": "Aborts", "family": "error", "endpoint": "", "desc": "Aborts if any of the model calls fails.", "from": ["Respond — Analysis Failure"], "to": []}, "Generate Report": {"step": "33", "badge": "API", "family": "api", "endpoint": "POST /api/reports/html", "desc": "Renders the report with Jinja2: nine sections and a conditional approval form. If it fails, the webhook returns an error — never a 200 with an empty body.", "from": ["Process HITL Response", "Switch — Routing", "Switch — Routing", "Switch — Routing", "Switch — Routing"], "to": ["Respond — Report", "Respond — Report Failure"]}, "Respond — Report": {"step": "36", "badge": "Exit", "family": "io", "endpoint": "", "desc": "Returns the HTML to whoever triggered the webhook. It serves a browser, another workflow or a bot just the same.", "from": ["Generate Report", "Format Cache"], "to": []}, "Wait — HITL Approval": {"step": "30", "badge": "Human", "family": "human", "endpoint": "", "desc": "A human in the loop. It exposes a form and waits up to twenty-four hours. If nobody answers, the case is NOT approved: it comes out marked as pending.", "from": ["Respond — Approval Required"], "to": ["Normalize HITL Decision"]}, "Normalize HITL Decision": {"step": "31", "badge": "API", "family": "api", "endpoint": "POST /api/hitl/decide", "desc": "Asks the API to translate the analyst's answer. The three rules —fail closed, MODIFY is not APPROVE, and only what was endorsed as-is gets indexed— live in domain/hitl.py with tests, not in a Code node on the canvas.", "from": ["Wait — HITL Approval"], "to": ["Process HITL Response"]}, "Process HITL Response": {"step": "32", "badge": "Logic", "family": "logic", "endpoint": "", "desc": "Pastes the already-normalized decision onto the report assembled before the Wait. Twelve lines: joining two outputs. The API resolved the rules.", "from": ["Normalize HITL Decision"], "to": ["Generate Report", "Record HITL Feedback"]}, "Record HITL Feedback": {"step": "34", "badge": "API", "family": "api", "endpoint": "POST /api/feedback", "desc": "Closes the improvement loop: it sends the full resolution and, if the judge scored eight or higher, the case is reindexed as a precedent in Qdrant. It runs in parallel with report generation and ends there — it is not part of the webhook's response.", "from": ["Process HITL Response"], "to": []}, "Propagate → Error Handler — Report": {"step": "—", "badge": "Aborts", "family": "error", "endpoint": "", "desc": "Aborts the run when <code>POST /api/reports/html</code> does not return the report, and fires the error workflow.", "from": ["Respond — Report Failure"], "to": []}, "Notify — HITL Form": {"step": "28", "badge": "API", "family": "api", "endpoint": "POST /api/alerts", "desc": "Records a <code>WARN</code> alert with the approval form's URL, the risk level, the HITL reason and the deadline. It goes before the <code>Wait</code> on purpose: afterwards that URL can no longer be read. If the notification fails, the case carries on — the routing is not lost because a notice could not be sent.", "from": ["Switch — Routing"], "to": ["Respond — Approval Required"]}, "Respond — Approval Required": {"step": "29", "badge": "Exit", "family": "io", "endpoint": "", "desc": "", "from": ["Notify — HITL Form"], "to": ["Wait — HITL Approval"]}, "Respond — Invalid Format": {"step": "03", "badge": "Exit", "family": "io", "endpoint": "", "desc": "", "from": ["Validate Format — IF"], "to": ["Propagate → Error Handler — TXN"]}, "Respond — API Unavailable": {"step": "14", "badge": "Exit", "family": "io", "endpoint": "", "desc": "", "from": ["Get Transaction"], "to": ["Propagate → Error Handler — API"]}, "Respond — Analysis Failure": {"step": "23", "badge": "Exit", "family": "io", "endpoint": "", "desc": "", "from": ["Synthesize Resolution", "Quality Judge"], "to": ["Propagate → Error Handler — Analysis"]}, "Respond — Report Failure": {"step": "35", "badge": "Exit", "family": "io", "endpoint": "", "desc": "", "from": ["Generate Report"], "to": ["Propagate → Error Handler — Report"]}};
+const $ = (s) => document.querySelector(s);
+const panel = $("#panel"), scrim = $("#scrim"), canvas = $("#canvas");
+
+const root = document.documentElement;
+const stored = localStorage.getItem("ciri-theme");
+if (stored) root.dataset.theme = stored;
+$("#theme").addEventListener("click", () => {
+  const dark = matchMedia("(prefers-color-scheme: dark)").matches;
+  const now = root.dataset.theme || (dark ? "dark" : "light");
+  root.dataset.theme = now === "dark" ? "light" : "dark";
+  localStorage.setItem("ciri-theme", root.dataset.theme);
+});
+
+function highlight(name) {
+  canvas.querySelectorAll(".w, .node").forEach((el) => el.classList.remove("on", "near"));
+  if (!name) { canvas.classList.remove("lit"); return; }
+  canvas.classList.add("lit");
+  canvas.querySelectorAll(`[data-node="${CSS.escape(name)}"]`).forEach((el) => el.classList.add("on"));
+  canvas.querySelectorAll(`.w[data-from="${CSS.escape(name)}"], .w[data-to="${CSS.escape(name)}"]`)
+    .forEach((w) => {
+      w.classList.add("on");
+      [w.dataset.from, w.dataset.to].forEach((n) => {
+        const el = canvas.querySelector(`.node[data-node="${CSS.escape(n)}"], .chip[data-node="${CSS.escape(n)}"]`);
+        if (el) el.classList.add("near");
+      });
+    });
+}
+
+// Dos salidas del mismo nodo pueden ir al mismo destino (el Switch manda cuatro
+// ramas a “Generate Report”). En la ficha eso serían ítems idénticos, así que se
+// listan una sola vez: el vecino es el mismo aunque el cable sea otro.
+const link = (names) => names.length
+  ? [...new Set(names)].map((n) => `<li><button data-jump="${n}">${n}</button></li>`).join("")
+  : '<li class="none">—</li>';
+
+function open(name) {
+  const d = DATA[name];
+  if (!d) return;
+  $("#p-step").textContent = d.step;
+  $("#p-badge").textContent = d.badge;
+  $("#p-badge").className = "badge f-" + d.family;
+  $("#p-badge").style.color = `var(--${d.family})`;
+  $("#p-name").textContent = name;
+  $("#p-ep").textContent = d.endpoint || "";
+  $("#p-ep").style.display = d.endpoint ? "block" : "none";
+  $("#p-desc").innerHTML = d.desc || "";
+  $("#p-desc").style.display = d.desc ? "block" : "none";
+  $("#p-from").innerHTML = link(d.from);
+  $("#p-to").innerHTML = link(d.to);
+  panel.classList.add("open");
+  panel.inert = false;
+  scrim.classList.add("on");
+  highlight(name);
+}
+
+function close() {
+  panel.classList.remove("open");
+  // Cerrado, el panel sigue en el DOM (sólo se corrió con transform): sin `inert`
+  // el foco cae en su “×” al tabular desde el canvas.
+  panel.inert = true;
+  scrim.classList.remove("on");
+  highlight(null);
+}
+
+document.addEventListener("click", (e) => {
+  const node = e.target.closest("[data-node]");
+  if (node) return open(node.dataset.node);
+  const jump = e.target.closest("[data-jump]");
+  if (jump) {
+    open(jump.dataset.jump);
+    const el = canvas.querySelector(`[data-node="${CSS.escape(jump.dataset.jump)}"]`);
+    if (el) el.scrollIntoView({ block: "center", behavior: "smooth" });
+  }
+});
+
+canvas.addEventListener("mouseover", (e) => {
+  const el = e.target.closest("[data-node]");
+  if (el && !panel.classList.contains("open")) highlight(el.dataset.node);
+});
+canvas.addEventListener("mouseleave", () => {
+  if (!panel.classList.contains("open")) highlight(null);
+});
+
+$("#close").addEventListener("click", close);
+scrim.addEventListener("click", close);
+addEventListener("keydown", (e) => e.key === "Escape" && close());
+</script>
+
+<style>/* dark forzado por el sitio */
+
+  :root:not([data-theme=light]){
+    --paper:#0d0f13; --surface:#161a21; --ink:#e9eaee; --muted:#9a9ca6; --faint:#8a8c96;
+    --rule:#232732; --rule-mid:#333846; --wire:#454b5a; --shadow:none;
+    --api:#7ea8f8; --rag:#4fd1c5; --llm:#b39cf7; --decide:#f0b355;
+    --human:#f491bb; --logic:#9aa6b8; --io:#5eead4; --error:#f08a80;
+    --tint:16%;
+  }
+
+</style>
+</body>
+</html>

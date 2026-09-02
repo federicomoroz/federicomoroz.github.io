@@ -67,6 +67,9 @@ These three ship with the delivery package, and they were not picked for their s
 covering different policy situations: a crypto blocker, a VIP customer with a fraud score, and an
 extended SLA outside LATAM.
 
+*The reports are in Spanish, and they stay that way: this is what the system actually wrote.
+Translating them would mean showing output it never produced.*
+
 <div class="cards">
   <article class="card">
     <div class="card-header"><a class="card-title" href="{{ '/diagramas/contracargos/informe-bloqueante.html' | relative_url }}">Automatic rejection ↗</a></div>
@@ -88,27 +91,30 @@ Five interactive, self-contained diagrams: they open in any browser, offline, wi
 install. They're in reading order — first **what** the circuit does, then **how** the pieces
 talk to each other.
 
+*Sample strings inside them stay in Spanish — the indexed policy, the case document, the
+assembled query. Those are what the system actually sends, not illustrations.*
+
 {% include diagrama-circuito.html lang="en" %}
 
 <div class="cards">
   <article class="card">
-    <div class="card-header"><a class="card-title" href="{{ '/diagramas/contracargos/n8n_workflow_analysis.html' | relative_url }}">The full circuit ↗</a></div>
+    <div class="card-header"><a class="card-title" href="{{ '/diagramas/contracargos/n8n_workflow_analysis_en.html' | relative_url }}">The full circuit ↗</a></div>
     <div class="card-desc"><p>All 36 steps in execution order plus the 4 error exits, each with its endpoint. Generated from the workflow's own JSON, so it can't drift from the real flow.</p></div>
   </article>
   <article class="card">
-    <div class="card-header"><a class="card-title" href="{{ '/diagramas/contracargos/pipeline_n8n_api.html' | relative_url }}">n8n and the API ↗</a></div>
+    <div class="card-header"><a class="card-title" href="{{ '/diagramas/contracargos/pipeline_n8n_api_en.html' | relative_url }}">n8n and the API ↗</a></div>
     <div class="card-desc"><p>Who asks what of whom. The fifteen calls in order, what each one touches —SQLite, Qdrant, the model— and the two times the conversation runs the other way. A one-minute read.</p></div>
   </article>
   <article class="card">
-    <div class="card-header"><a class="card-title" href="{{ '/diagramas/contracargos/api.html' | relative_url }}">Inside the API ↗</a></div>
+    <div class="card-header"><a class="card-title" href="{{ '/diagramas/contracargos/api_en.html' | relative_url }}">Inside the API ↗</a></div>
     <div class="card-desc"><p>The 32 endpoints as a circuit. Beyond what each piece does, it explains why it's split that way: which SOLID principle backs each seam, and which patterns are used. The only one about decisions rather than flow.</p></div>
   </article>
   <article class="card">
-    <div class="card-header"><a class="card-title" href="{{ '/diagramas/contracargos/rag.html' | relative_url }}">The RAG ↗</a></div>
+    <div class="card-header"><a class="card-title" href="{{ '/diagramas/contracargos/rag_en.html' | relative_url }}">The RAG ↗</a></div>
     <div class="card-desc"><p>The whole retrieval chain, followed through a real case: what gets indexed and what doesn't, how the query is built, why the two collections are searched by opposite criteria, and where the index writes itself.</p></div>
   </article>
   <article class="card">
-    <div class="card-header"><a class="card-title" href="{{ '/diagramas/contracargos/tests.html' | relative_url }}">The tests ↗</a></div>
+    <div class="card-header"><a class="card-title" href="{{ '/diagramas/contracargos/tests_en.html' | relative_url }}">The tests ↗</a></div>
     <div class="card-desc"><p>Which concrete defect can't come back. The three layers, coverage per package, and the sixteen real bugs that now have a test pinning them down. None of the sixteen broke an import.</p></div>
   </article>
 </div>

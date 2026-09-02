@@ -11,10 +11,15 @@
     "branch": "main",
     "archivos": {
       "n8n_workflow_analysis.html": "docs/diagrams/n8n_workflow_analysis.html",
+      "n8n_workflow_analysis_en.html": "docs/diagrams/n8n_workflow_analysis_en.html",
       "pipeline_n8n_api.html": "docs/diagrams/pipeline_n8n_api.html",
+      "pipeline_n8n_api_en.html": "docs/diagrams/pipeline_n8n_api_en.html",
       "api.html": "docs/diagrams/api.html",
+      "api_en.html": "docs/diagrams/api_en.html",
       "rag.html": "docs/diagrams/rag.html",
+      "rag_en.html": "docs/diagrams/rag_en.html",
       "tests.html": "docs/diagrams/tests.html",
+      "tests_en.html": "docs/diagrams/tests_en.html",
       "informe-bloqueante.html": "docs/HTML_Output_Examples/report_blocker_TXN-00051.html",
       "informe-riesgo-alto.html": "docs/HTML_Output_Examples/report_high_TXN-00042.html",
       "informe-sla.html": "docs/HTML_Output_Examples/report_no_latam_TXN-00089.html"
