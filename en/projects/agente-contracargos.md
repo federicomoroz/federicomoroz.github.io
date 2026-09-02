@@ -88,6 +88,16 @@ Five interactive, self-contained diagrams: they open in any browser, offline, wi
 install. They're in reading order — first **what** the circuit does, then **how** the pieces
 talk to each other.
 
+<figure class="shot">
+  <a href="{{ '/diagramas/contracargos/n8n_workflow_analysis.html' | relative_url }}"><img src="{{ '/assets/img/ciri-diagrama-circuito.jpg' | relative_url }}" alt="Full circuit diagram: the 36 steps with the legend of node types, from the webhook entry to the report exit." loading="lazy" width="1600" height="1000"></a>
+  <figcaption>The 36 steps in execution order, with each node's type: API call, semantic search, model, branch, human wait or error exit. It is generated from the workflow's own JSON, so it cannot drift. <strong>Click any node to open it.</strong></figcaption>
+</figure>
+
+<figure class="shot">
+  <a href="{{ '/diagramas/contracargos/pipeline_n8n_api.html' | relative_url }}"><img src="{{ '/assets/img/ciri-diagrama-n8n.jpg' | relative_url }}" alt="n8n and the API diagram: the calls in order, with each endpoint and what it touches." loading="lazy" width="1600" height="1000"></a>
+  <figcaption>Who asks what of whom. Every reasoning step is a visible node and every piece of data it needs is a named call: n8n decides the order, the API executes and is the only thing touching the outside world.</figcaption>
+</figure>
+
 <div class="cards">
   <article class="card">
     <div class="card-header"><a class="card-title" href="{{ '/diagramas/contracargos/n8n_workflow_analysis.html' | relative_url }}">The full circuit ↗</a></div>

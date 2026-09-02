@@ -908,3 +908,11 @@ pre code
     background: var(--accent-hover);
     border-color: var(--accent-hover);
 }
+
+/* Una captura que linkea a su version completa: el ancla envuelve la imagen y
+   no debe agregar espacio ni linea propia. */
+.shot a
+{
+    display: block;
+    line-height: 0;
+}
