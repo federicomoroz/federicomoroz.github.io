@@ -3,8 +3,8 @@
 
   La afirmacion que sostiene el dibujo: el modelo razona pero NO decide. El
   codigo reune la evidencia, el modelo la interpreta, y una REGLA elige por
-  donde sale el caso. Por eso el modelo va en magenta y la regla en ambar:
-  son las dos piezas de las que depende el argumento.
+  donde sale el caso. Por eso solo dos cosas llevan color -la banda del modelo
+  y la regla-: son las piezas de las que depende el argumento.
 
   Parametro: lang ("es" | "en").
 {% endcomment %}
@@ -12,76 +12,84 @@
 
 <figure class="diagrama">
   <div class="diagrama-scroll">
-    <svg viewBox="0 0 920 372" role="img"
-         aria-label="{% if es %}El caso entra por un webhook, el codigo reune la evidencia, tres pasos de modelo la interpretan y una regla determinista elige la salida: rechazo automatico o revision humana.{% else %}The case arrives through a webhook, code gathers the evidence, three model steps interpret it, and a deterministic rule picks the exit: automatic rejection or human review.{% endif %}">
+    <svg viewBox="0 0 1040 368" role="img"
+         aria-label="{% if es %}El caso entra por un webhook, el codigo reune la evidencia en siete llamadas, tres pasos de modelo la interpretan y una regla determinista elige la salida: rechazo automatico o revision de un analista. Si el caso ya estaba investigado, el cache lo saltea todo.{% else %}The case arrives through a webhook, code gathers the evidence in seven calls, three model steps interpret it, and a deterministic rule picks the exit: automatic rejection or analyst review. If the case was already investigated, the cache skips everything.{% endif %}">
+
+      <defs>
+        <marker id="pta" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto">
+          <path d="M 0 0 L 8 4 L 0 8 z" fill="currentColor" opacity="0.55" />
+        </marker>
+      </defs>
 
       <!-- La corriente va primero: las cajas la tapan y solo se ve entre una y otra. -->
-      <line class="diag-corriente" x1="102" y1="196" x2="800" y2="196" />
-      <line class="diag-linea" x1="792" y1="196" x2="812" y2="156" />
-      <line class="diag-linea" x1="792" y1="196" x2="812" y2="238" />
+      <line class="diag-corriente" x1="106" y1="196" x2="742" y2="196" />
 
-      <!-- El atajo: si el caso ya se investigo, nada de lo del medio ocurre. -->
-      <path class="diag-atajo" d="M 156 168 C 320 52, 640 52, 812 142" />
-      <text class="diag-nota" x="484" y="66" text-anchor="middle">
-        {% if es %}cache hit · no se llama a nada más{% else %}cache hit · nothing else is called{% endif %}
+      <!-- La regla abre en dos salidas -->
+      <path class="diag-linea" d="M 828 196 L 840 196 L 840 154 L 858 154" marker-end="url(#pta)" />
+      <path class="diag-linea" d="M 828 196 L 840 196 L 840 238 L 858 238" marker-end="url(#pta)" />
+
+      <!-- El atajo: si el caso ya se investigo, sale sin tocar nada de lo caro. -->
+      <path class="diag-atajo" d="M 174 168 C 380 44, 800 44, 1000 96" marker-end="url(#pta)" />
+      <text class="diag-nota" x="560" y="58" text-anchor="middle">
+        {% if es %}cache hit · devuelve el informe guardado y termina{% else %}cache hit · returns the stored report and stops{% endif %}
       </text>
 
       <!-- Entrada -->
-      <rect class="diag-caja" x="10" y="170" width="92" height="52" rx="8" />
-      <text class="diag-titulo" x="56" y="192" text-anchor="middle">Webhook</text>
-      <text class="diag-sub" x="56" y="209" text-anchor="middle">POST</text>
+      <rect class="diag-caja" x="10" y="170" width="96" height="52" rx="8" />
+      <text class="diag-titulo" x="58" y="192" text-anchor="middle">Webhook</text>
+      <text class="diag-sub" x="58" y="209" text-anchor="middle">POST</text>
 
       <!-- Cache -->
-      <rect class="diag-caja" x="120" y="170" width="92" height="52" rx="8" />
-      <text class="diag-titulo" x="166" y="192" text-anchor="middle">{% if es %}Caché{% else %}Cache{% endif %}</text>
-      <text class="diag-sub" x="166" y="209" text-anchor="middle">SQLite</text>
+      <rect class="diag-caja" x="126" y="170" width="96" height="52" rx="8" />
+      <text class="diag-titulo" x="174" y="192" text-anchor="middle">{% if es %}Caché{% else %}Cache{% endif %}</text>
+      <text class="diag-sub" x="174" y="209" text-anchor="middle">SQLite</text>
 
       <!-- Reunir contexto: el fan-out determinista -->
-      <rect class="diag-caja diag-dato" x="230" y="170" width="126" height="52" rx="8" />
-      <text class="diag-titulo diag-dato-tx" x="293" y="192" text-anchor="middle">{% if es %}Contexto{% else %}Context{% endif %}</text>
-      <text class="diag-sub" x="293" y="209" text-anchor="middle">{% if es %}7 llamadas{% else %}7 calls{% endif %}</text>
+      <rect class="diag-caja diag-dato" x="242" y="170" width="130" height="52" rx="8" />
+      <text class="diag-titulo diag-dato-tx" x="307" y="192" text-anchor="middle">{% if es %}Contexto{% else %}Context{% endif %}</text>
+      <text class="diag-sub" x="307" y="209" text-anchor="middle">{% if es %}7 llamadas{% else %}7 calls{% endif %}</text>
 
-      <line class="diag-linea diag-dato" x1="266" y1="222" x2="252" y2="286" />
-      <line class="diag-linea diag-dato" x1="320" y1="222" x2="334" y2="286" />
-      <rect class="diag-caja" x="196" y="288" width="112" height="36" rx="7" />
-      <text class="diag-sub" x="252" y="311" text-anchor="middle">SQLite</text>
-      <rect class="diag-caja" x="318" y="288" width="112" height="36" rx="7" />
-      <text class="diag-sub" x="374" y="311" text-anchor="middle">Qdrant</text>
+      <line class="diag-linea diag-dato" x1="280" y1="222" x2="266" y2="286" />
+      <line class="diag-linea diag-dato" x1="334" y1="222" x2="348" y2="286" />
+      <rect class="diag-caja" x="210" y="288" width="112" height="36" rx="7" />
+      <text class="diag-sub" x="266" y="311" text-anchor="middle">SQLite</text>
+      <rect class="diag-caja" x="332" y="288" width="112" height="36" rx="7" />
+      <text class="diag-sub" x="388" y="311" text-anchor="middle">Qdrant</text>
 
       <!-- Banda del modelo -->
-      <rect x="374" y="150" width="322" height="92" rx="11" fill="none"
+      <rect x="390" y="150" width="330" height="92" rx="11" fill="none"
             class="diag-modelo" stroke-dasharray="5 5" opacity="0.75" />
-      <text class="diag-titulo diag-modelo-tx" x="535" y="142" text-anchor="middle">
+      <text class="diag-titulo diag-modelo-tx" x="555" y="142" text-anchor="middle">
         {% if es %}el modelo razona · no decide{% else %}the model reasons · it doesn't decide{% endif %}
       </text>
 
-      <rect class="diag-caja diag-modelo" x="386" y="170" width="94" height="52" rx="8" />
-      <text class="diag-titulo" x="433" y="192" text-anchor="middle">{% if es %}Políticas{% else %}Policies{% endif %}</text>
-      <text class="diag-sub" x="433" y="209" text-anchor="middle">{% if es %}evalúa{% else %}evaluate{% endif %}</text>
+      <rect class="diag-caja diag-modelo" x="402" y="170" width="96" height="52" rx="8" />
+      <text class="diag-titulo" x="450" y="192" text-anchor="middle">{% if es %}Políticas{% else %}Policies{% endif %}</text>
+      <text class="diag-sub" x="450" y="209" text-anchor="middle">{% if es %}evalúa{% else %}evaluates{% endif %}</text>
 
-      <rect class="diag-caja diag-modelo" x="488" y="170" width="94" height="52" rx="8" />
-      <text class="diag-titulo" x="535" y="192" text-anchor="middle">{% if es %}Resolución{% else %}Resolution{% endif %}</text>
-      <text class="diag-sub" x="535" y="209" text-anchor="middle">{% if es %}redacta{% else %}drafts{% endif %}</text>
+      <rect class="diag-caja diag-modelo" x="508" y="170" width="96" height="52" rx="8" />
+      <text class="diag-titulo" x="556" y="192" text-anchor="middle">{% if es %}Resolución{% else %}Resolution{% endif %}</text>
+      <text class="diag-sub" x="556" y="209" text-anchor="middle">{% if es %}redacta{% else %}drafts{% endif %}</text>
 
-      <rect class="diag-caja diag-modelo" x="590" y="170" width="94" height="52" rx="8" />
-      <text class="diag-titulo" x="637" y="192" text-anchor="middle">{% if es %}Juez{% else %}Judge{% endif %}</text>
-      <text class="diag-sub" x="637" y="209" text-anchor="middle">{% if es %}puntúa{% else %}scores{% endif %}</text>
+      <rect class="diag-caja diag-modelo" x="614" y="170" width="96" height="52" rx="8" />
+      <text class="diag-titulo" x="662" y="192" text-anchor="middle">{% if es %}Juez{% else %}Judge{% endif %}</text>
+      <text class="diag-sub" x="662" y="209" text-anchor="middle">{% if es %}puntúa{% else %}scores{% endif %}</text>
 
-      <!-- La regla: el unico que decide -->
-      <rect class="diag-caja diag-regla" x="706" y="170" width="86" height="52" rx="8" stroke-width="2" />
-      <text class="diag-titulo diag-regla-tx" x="749" y="192" text-anchor="middle">{% if es %}Regla{% else %}Rule{% endif %}</text>
-      <text class="diag-sub" x="749" y="209" text-anchor="middle">{% if es %}decide{% else %}decides{% endif %}</text>
+      <!-- La regla: la unica pieza que decide -->
+      <rect class="diag-caja diag-regla" x="738" y="170" width="90" height="52" rx="8" stroke-width="2" />
+      <text class="diag-titulo diag-regla-tx" x="783" y="192" text-anchor="middle">{% if es %}Regla{% else %}Rule{% endif %}</text>
+      <text class="diag-sub" x="783" y="209" text-anchor="middle">{% if es %}decide{% else %}decides{% endif %}</text>
 
       <!-- Las dos salidas -->
-      <rect class="diag-caja" x="812" y="134" width="100" height="44" rx="8" />
-      <text class="diag-titulo" x="862" y="153" text-anchor="middle">{% if es %}Rechazo{% else %}Rejected{% endif %}</text>
-      <text class="diag-sub" x="862" y="168" text-anchor="middle">{% if es %}automático{% else %}automatic{% endif %}</text>
+      <rect class="diag-caja" x="858" y="132" width="120" height="44" rx="8" />
+      <text class="diag-titulo" x="918" y="151" text-anchor="middle">{% if es %}Rechazo{% else %}Rejected{% endif %}</text>
+      <text class="diag-sub" x="918" y="166" text-anchor="middle">{% if es %}automático{% else %}automatic{% endif %}</text>
 
-      <rect class="diag-caja diag-regla" x="812" y="216" width="100" height="44" rx="8" />
-      <text class="diag-titulo diag-regla-tx" x="862" y="235" text-anchor="middle">{% if es %}Analista{% else %}Analyst{% endif %}</text>
-      <text class="diag-sub" x="862" y="250" text-anchor="middle">{% if es %}revisa{% else %}reviews{% endif %}</text>
+      <rect class="diag-caja diag-regla" x="858" y="216" width="120" height="44" rx="8" />
+      <text class="diag-titulo diag-regla-tx" x="918" y="235" text-anchor="middle">{% if es %}Analista{% else %}Analyst{% endif %}</text>
+      <text class="diag-sub" x="918" y="250" text-anchor="middle">{% if es %}revisa{% else %}reviews{% endif %}</text>
 
-      <text class="diag-nota" x="862" y="284" text-anchor="middle">{% if es %}riesgo alto{% else %}high risk{% endif %}</text>
+      <text class="diag-nota" x="918" y="284" text-anchor="middle">{% if es %}riesgo alto{% else %}high risk{% endif %}</text>
     </svg>
   </div>
   <figcaption>
@@ -89,12 +97,12 @@
       Los 36 pasos, comprimidos en lo que decide el diseño. El código reúne la evidencia
       —siete llamadas, siempre las mismas y siempre en el mismo orden— y recién ahí entra
       el modelo, que interpreta pero no elige la salida: eso lo hace una regla
-      determinista. Si el caso ya se investigó, el atajo del caché saltea todo lo caro.
+      determinista. Por eso una investigación se puede auditar leyendo el canvas.
     {% else %}
       The 36 steps, compressed down to what the design turns on. Code gathers the evidence
       —seven calls, always the same ones in the same order— and only then does the model
-      come in. It interprets, but it doesn't pick the exit: a deterministic rule does. If
-      the case was already investigated, the cache shortcut skips everything expensive.
+      come in. It interprets, but it doesn't pick the exit: a deterministic rule does. That
+      is why an investigation can be audited by reading the canvas.
     {% endif %}
   </figcaption>
 </figure>
