@@ -916,3 +916,101 @@ pre code
     display: block;
     line-height: 0;
 }
+
+/* === Diagramas propios ====================================================
+   SVG escrito a mano, sin librerias ni runtime. La animacion vive aca y no
+   adentro del SVG, asi el fragmento queda autocontenido y se puede copiar.
+
+   El sitio es dark unico, asi que los diagramas se dibujan para ese fondo:
+   estructura en currentColor a distintas opacidades, y solo dos colores con
+   significado -el modelo y la regla que decide-. */
+
+.diagrama
+{
+    margin: 26px 0 30px;
+}
+
+/* Un diagrama ancho no puede empujar el ancho de la pagina: scrollea solo. */
+.diagrama-scroll
+{
+    overflow-x: auto;
+    padding-bottom: 4px;
+}
+
+.diagrama svg
+{
+    display: block;
+    width: 100%;
+    min-width: 620px;
+    height: auto;
+    color: var(--fg);
+}
+
+.diagrama figcaption
+{
+    margin-top: 12px;
+    font-size: 0.9em;
+    line-height: 1.55;
+    color: var(--fg-muted);
+}
+
+/* Cajas y texto */
+.diag-caja      { fill: var(--bg-raised); stroke: var(--border-strong); stroke-width: 1; }
+.diag-titulo    { fill: currentColor; font-size: 13px; font-weight: 600; }
+.diag-sub       { fill: var(--fg-faint); font-size: 11px; font-family: var(--font-mono); }
+.diag-nota      { fill: var(--fg-muted); font-size: 11.5px; }
+.diag-linea     { stroke: var(--border-strong); stroke-width: 1.5; fill: none; }
+
+/* Los dos colores que cargan significado. */
+.diag-modelo    { stroke: var(--accent); }
+.diag-modelo-tx { fill: var(--accent); }
+.diag-regla     { stroke: #f0b429; }
+.diag-regla-tx  { fill: #f0b429; }
+.diag-dato      { stroke: #4dd0e1; }
+.diag-dato-tx   { fill: #4dd0e1; }
+
+/* La corriente: guiones que viajan por la linea del circuito. Se dibuja
+   debajo de las cajas, asi solo se ve en los tramos entre una y otra. */
+.diag-corriente
+{
+    stroke: var(--accent);
+    stroke-width: 2;
+    fill: none;
+    stroke-dasharray: 7 15;
+    animation: diag-fluye 1.6s linear infinite;
+}
+
+@keyframes diag-fluye
+{
+    to { stroke-dashoffset: -22; }
+}
+
+/* El atajo del cache aparece y se desvanece: es el camino que NO se recorre
+   la mayoria de las veces. */
+.diag-atajo
+{
+    stroke: var(--fg-faint);
+    stroke-width: 1.5;
+    fill: none;
+    stroke-dasharray: 4 6;
+    animation: diag-atajo 4.5s ease-in-out infinite;
+}
+
+@keyframes diag-atajo
+{
+    0%, 55%  { opacity: 0.25; }
+    70%      { opacity: 0.85; }
+    100%     { opacity: 0.25; }
+}
+
+/* Nadie tiene por que soportar movimiento que no pidio. */
+@media (prefers-reduced-motion: reduce)
+{
+    .diag-corriente,
+    .diag-atajo
+    {
+        animation: none;
+    }
+
+    .diag-atajo { opacity: 0.5; }
+}

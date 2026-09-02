@@ -1,0 +1,83 @@
+{% comment %}
+  El RAG: dos colecciones indexadas con criterios OPUESTOS.
+
+  La afirmacion: una politica no se parte nunca -su unidad de sentido es
+  indivisible- y un caso nunca va solo -el precedente sin su transaccion no se
+  parece a nada-. Y ninguna de esas decisiones la toma un modelo.
+
+  Parametro: lang ("es" | "en").
+{% endcomment %}
+{% assign es = false %}{% if include.lang == 'es' %}{% assign es = true %}{% endif %}
+
+<figure class="diagrama">
+  <div class="diagrama-scroll">
+    <svg viewBox="0 0 920 340" role="img"
+         aria-label="{% if es %}Dos colecciones se indexan con criterios opuestos: una politica entra entera y sin partir, un caso entra pegado a su transaccion. El codigo arma la consulta y ordena; el modelo recibe el contexto ya armado.{% else %}Two collections are indexed by opposite rules: a policy goes in whole and unsplit, a case goes in glued to its transaction. Code builds the query and ranks; the model receives the context already assembled.{% endif %}">
+
+      <!-- Fila 1: la politica entra entera -->
+      <rect class="diag-caja" x="10" y="46" width="150" height="58" rx="8" />
+      <text class="diag-titulo" x="85" y="70" text-anchor="middle">{% if es %}Política{% else %}Policy{% endif %}</text>
+      <text class="diag-sub" x="85" y="88" text-anchor="middle">60–90 tokens</text>
+
+      <line class="diag-corriente" x1="160" y1="75" x2="352" y2="75" />
+      <text class="diag-nota" x="256" y="66" text-anchor="middle">{% if es %}sin partir{% else %}never split{% endif %}</text>
+
+      <rect class="diag-caja diag-dato" x="352" y="46" width="132" height="58" rx="8" />
+      <text class="diag-titulo diag-dato-tx" x="418" y="70" text-anchor="middle">1 {% if es %}punto{% else %}point{% endif %}</text>
+      <text class="diag-sub" x="418" y="88" text-anchor="middle">policies · 17</text>
+
+      <!-- Fila 2: el caso entra con su transaccion pegada -->
+      <rect class="diag-caja" x="10" y="196" width="150" height="34" rx="7" />
+      <text class="diag-sub" x="85" y="218" text-anchor="middle">{% if es %}Caso histórico{% else %}Historical case{% endif %}</text>
+      <rect class="diag-caja" x="10" y="238" width="150" height="34" rx="7" />
+      <text class="diag-sub" x="85" y="260" text-anchor="middle">{% if es %}su transacción{% else %}its transaction{% endif %}</text>
+      <path class="diag-linea" d="M 160 213 L 186 213 L 186 255 L 160 255" />
+
+      <line class="diag-corriente" x1="186" y1="234" x2="352" y2="234" />
+      <text class="diag-nota" x="272" y="225" text-anchor="middle">{% if es %}pegados{% else %}glued together{% endif %}</text>
+
+      <rect class="diag-caja diag-dato" x="352" y="205" width="132" height="58" rx="8" />
+      <text class="diag-titulo diag-dato-tx" x="418" y="229" text-anchor="middle">1 {% if es %}punto{% else %}point{% endif %}</text>
+      <text class="diag-sub" x="418" y="247" text-anchor="middle">historical_cases · 60</text>
+
+      <!-- Confluyen en el vector store -->
+      <path class="diag-linea diag-dato" d="M 484 75 L 528 75 L 528 140" />
+      <path class="diag-linea diag-dato" d="M 484 234 L 528 234 L 528 170" />
+
+      <rect class="diag-caja diag-dato" x="528" y="126" width="140" height="58" rx="8" />
+      <text class="diag-titulo diag-dato-tx" x="598" y="150" text-anchor="middle">Qdrant</text>
+      <text class="diag-sub" x="598" y="168" text-anchor="middle">1024 d · voyage</text>
+
+      <!-- El codigo arma el contexto -->
+      <line class="diag-corriente" x1="668" y1="155" x2="724" y2="155" />
+      <rect class="diag-caja" x="724" y="126" width="120" height="58" rx="8" />
+      <text class="diag-titulo" x="784" y="150" text-anchor="middle">{% if es %}Contexto{% else %}Context{% endif %}</text>
+      <text class="diag-sub" x="784" y="168" text-anchor="middle">{% if es %}lo arma el código{% else %}built by code{% endif %}</text>
+
+      <!-- Recien aca aparece el modelo -->
+      <line class="diag-corriente" x1="844" y1="155" x2="884" y2="155" />
+      <rect class="diag-caja diag-modelo" x="844" y="196" width="68" height="44" rx="8" />
+      <text class="diag-titulo diag-modelo-tx" x="878" y="223" text-anchor="middle">{% if es %}Modelo{% else %}Model{% endif %}</text>
+      <path class="diag-linea diag-modelo" d="M 884 155 L 884 196" />
+
+      <text class="diag-nota" x="460" y="314" text-anchor="middle">
+        {% if es %}el código arma la consulta, elige cuántos resultados y los ordena — nada de eso lo decide un modelo{% else %}code builds the query, picks how many results and ranks them — a model decides none of it{% endif %}
+      </text>
+    </svg>
+  </div>
+  <figcaption>
+    {% if es %}
+      Las dos colecciones se indexan con criterios <strong>opuestos</strong>, y esa es la
+      decisión de diseño. Una política entra entera: condición, umbral y excepción solo
+      significan algo juntos, y partirlas habría multiplicado los puntos sin agregar una
+      distinción útil. Un caso, en cambio, nunca entra solo — se le pega su transacción,
+      porque un precedente sin su contexto no se parece a nada.
+    {% else %}
+      The two collections are indexed by <strong>opposite</strong> rules, and that is the
+      design decision. A policy goes in whole: condition, threshold and exception only mean
+      something together, and splitting them would have multiplied the points without adding
+      a single useful distinction. A case, on the other hand, never goes in alone — its
+      transaction is glued to it, because a precedent without its context resembles nothing.
+    {% endif %}
+  </figcaption>
+</figure>

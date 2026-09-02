@@ -88,15 +88,7 @@ Five interactive, self-contained diagrams: they open in any browser, offline, wi
 install. They're in reading order — first **what** the circuit does, then **how** the pieces
 talk to each other.
 
-<figure class="shot">
-  <a href="{{ '/diagramas/contracargos/n8n_workflow_analysis.html' | relative_url }}"><img src="{{ '/assets/img/ciri-diagrama-circuito.jpg' | relative_url }}" alt="Full circuit diagram: the 36 steps with the legend of node types, from the webhook entry to the report exit." loading="lazy" width="1600" height="1000"></a>
-  <figcaption>The 36 steps in execution order, with each node's type: API call, semantic search, model, branch, human wait or error exit. It is generated from the workflow's own JSON, so it cannot drift. <strong>Click any node to open it.</strong></figcaption>
-</figure>
-
-<figure class="shot">
-  <a href="{{ '/diagramas/contracargos/pipeline_n8n_api.html' | relative_url }}"><img src="{{ '/assets/img/ciri-diagrama-n8n.jpg' | relative_url }}" alt="n8n and the API diagram: the calls in order, with each endpoint and what it touches." loading="lazy" width="1600" height="1000"></a>
-  <figcaption>Who asks what of whom. Every reasoning step is a visible node and every piece of data it needs is a named call: n8n decides the order, the API executes and is the only thing touching the outside world.</figcaption>
-</figure>
+{% include diagrama-circuito.html lang="en" %}
 
 <div class="cards">
   <article class="card">
@@ -120,6 +112,15 @@ talk to each other.
     <div class="card-desc"><p>Which concrete defect can't come back. The three layers, coverage per package, and the sixteen real bugs that now have a test pinning them down. None of the sixteen broke an import.</p></div>
   </article>
 </div>
+
+## The RAG
+
+It isn't a call: it's a chain of transformations over text, and a model decides none of them.
+
+{% include diagrama-rag.html lang="en" %}
+
+The full detail —what text gets embedded, how the query is built, and why the two collections
+are searched by different criteria— is in the RAG diagram further down.
 
 ## How it's built
 

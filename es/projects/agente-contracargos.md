@@ -89,15 +89,7 @@ Cinco diagramas interactivos, autocontenidos: se abren en cualquier navegador, s
 ni instalar nada. Están en orden de lectura — primero **qué** hace el circuito, después
 **cómo** se hablan las piezas.
 
-<figure class="shot">
-  <a href="{{ '/diagramas/contracargos/n8n_workflow_analysis.html' | relative_url }}"><img src="{{ '/assets/img/ciri-diagrama-circuito.jpg' | relative_url }}" alt="Diagrama del circuito completo: los 36 pasos con su leyenda de tipos de nodo, de la entrada del webhook a la salida del informe." loading="lazy" width="1600" height="1000"></a>
-  <figcaption>Los 36 pasos en el orden en que corren, con el tipo de cada nodo: llamada a la API, búsqueda semántica, modelo, bifurcación, espera humana o salida de error. Se genera del propio JSON del workflow, así que no puede quedar desfasado. <strong>Tocá cualquier nodo para abrirlo.</strong></figcaption>
-</figure>
-
-<figure class="shot">
-  <a href="{{ '/diagramas/contracargos/pipeline_n8n_api.html' | relative_url }}"><img src="{{ '/assets/img/ciri-diagrama-n8n.jpg' | relative_url }}" alt="Diagrama de n8n y la API: las llamadas en orden, con su endpoint y qué toca cada una." loading="lazy" width="1600" height="1000"></a>
-  <figcaption>Quién le pide qué a quién. Cada paso del razonamiento es un nodo visible y cada dato que necesita es una llamada con nombre: n8n decide el orden, la API ejecuta y es la única que toca el mundo exterior.</figcaption>
-</figure>
+{% include diagrama-circuito.html lang="es" %}
 
 <div class="cards">
   <article class="card">
@@ -121,6 +113,16 @@ ni instalar nada. Están en orden de lectura — primero **qué** hace el circui
     <div class="card-desc"><p>Qué defecto concreto no puede volver. Las tres capas, la cobertura por paquete y los dieciséis errores reales que hoy tienen un test que los fija. Ninguno de los dieciséis rompía un import.</p></div>
   </article>
 </div>
+
+## El RAG
+
+No es una llamada: es una cadena de transformaciones sobre texto, y ninguna de ellas la
+decide un modelo.
+
+{% include diagrama-rag.html lang="es" %}
+
+El detalle completo —qué texto se embebe, cómo se arma la consulta y por qué las dos
+colecciones se buscan con criterios distintos— está en el diagrama del RAG, más abajo.
 
 ## Cómo está armado
 
