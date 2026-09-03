@@ -8,7 +8,7 @@ permalink: /en/projects/shipping-quote-dotnet/
 
 <section class="hero">
   <h1>Shipping Quote — .NET <span class="tag active">active</span></h1>
-  <p class="lead">The same shipping quoter that exists in Python, ported to <strong>ASP.NET Core</strong>. The interesting part wasn't rewriting it: it was that the port <strong>found two bugs</strong> the original had never surfaced.</p>
+  <p class="lead">The same <strong>hexagonal architecture</strong> shipping quoter that exists in Python, ported to <strong>ASP.NET Core</strong>. The interesting part wasn't rewriting it: it was that the port <strong>found two bugs</strong> the original had never surfaced.</p>
   <div class="chip-row">
     <span class="tag">C#</span><span class="tag">.NET 8</span><span class="tag">ASP.NET Core</span>
     <span class="tag">EF Core</span><span class="tag">MySQL</span><span class="tag">Testcontainers</span>
@@ -120,9 +120,12 @@ The controller has no `try/catch` at all. A new one inherits the mapping without
 anything. It's Chain of Responsibility — which is exactly what the ASP.NET Core pipeline
 is underneath: each middleware decides whether it handles the request or passes it on.
 
-## What didn't change
+## What didn't change: the hexagon
 
-Four projects, with dependencies always pointing inward:
+The hexagonal architecture survived the language change intact, which is the proof that it
+was design rather than a Python habit. Four projects, with dependencies always pointing
+inward, and boundaries the compiler enforces: the domain cannot import ASP.NET because it
+doesn't reference it.
 
 ```
 ShippingQuote.Domain           no dependencies

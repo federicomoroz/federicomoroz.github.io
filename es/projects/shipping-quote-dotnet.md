@@ -8,7 +8,7 @@ permalink: /es/projects/shipping-quote-dotnet/
 
 <section class="hero">
   <h1>Shipping Quote — .NET <span class="tag active">activo</span></h1>
-  <p class="lead">El mismo cotizador de envíos que existe en Python, portado a <strong>ASP.NET Core</strong>. Lo interesante no fue reescribirlo: fue que el port <strong>encontró dos bugs</strong> que el original nunca había mostrado.</p>
+  <p class="lead">El mismo cotizador de envíos con <strong>arquitectura hexagonal</strong> que existe en Python, portado a <strong>ASP.NET Core</strong>. Lo interesante no fue reescribirlo: fue que el port <strong>encontró dos bugs</strong> que el original nunca había mostrado.</p>
   <div class="chip-row">
     <span class="tag">C#</span><span class="tag">.NET 8</span><span class="tag">ASP.NET Core</span>
     <span class="tag">EF Core</span><span class="tag">MySQL</span><span class="tag">Testcontainers</span>
@@ -121,9 +121,12 @@ El controller no tiene un solo `try/catch`. Uno nuevo hereda el mapeo sin escrib
 Es Chain of Responsibility, que es exactamente lo que el pipeline de ASP.NET Core es por
 dentro: cada middleware decide si maneja el request o se lo pasa al siguiente.
 
-## Lo que no cambió
+## Lo que no cambió: el hexágono
 
-Cuatro proyectos, con las dependencias apuntando siempre hacia adentro:
+La arquitectura hexagonal sobrevivió entera al cambio de lenguaje, que es la prueba de que
+era diseño y no una costumbre de Python. Cuatro proyectos, con las dependencias apuntando
+siempre hacia adentro, y reglas que el compilador hace cumplir: el dominio no puede
+importar ASP.NET porque no lo referencia.
 
 ```
 ShippingQuote.Domain           sin dependencias
