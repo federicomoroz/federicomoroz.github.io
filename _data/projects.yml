@@ -117,6 +117,26 @@
     - httpx
     - pytest
 
+- id: shipping-quote-dotnet
+  name: "Shipping Quote — .NET"
+  short:
+    es: "El mismo cotizador de envíos, portado a ASP.NET Core. Lo interesante no fue reescribirlo: fue lo que el port dejó a la vista. Los tres transportistas se consultan con `Task.WhenAll` y hay un test que mide el reloj —306 ms donde en fila serían 900— así que falla si alguien lo convierte en un `foreach`. Corre sobre MySQL, no SQLite, porque SQLite serializa las escrituras."
+    en: "The same shipping quoter, ported to ASP.NET Core. The interesting part wasn't rewriting it: it was what the port exposed. The three carriers are queried with `Task.WhenAll`, and a test measures the clock —306 ms where sequential would be 900— so it fails if anyone turns it into a `foreach`. It runs on MySQL rather than SQLite, because SQLite serializes writes."
+  status: active
+  listed: true
+  case_study: true
+  repo: https://github.com/federicomoroz/shipping-quote-dotnet
+  repo_visibility: public
+  tech:
+    - "C#"
+    - .NET 8
+    - ASP.NET Core
+    - EF Core
+    - MySQL
+    - Testcontainers
+    - xUnit
+    - Docker
+
 - id: rate-guardian
   name: Rate Guardian
   short:
