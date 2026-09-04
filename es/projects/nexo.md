@@ -17,13 +17,13 @@ permalink: /es/projects/nexo/
   </div>
   <p class="row-links">
     <a href="https://github.com/federicomoroz/nexo" target="_blank" rel="noopener">Repo ↗</a>
-    <a href="https://github.com/federicomoroz/nexo/tree/main/docs/adr" target="_blank" rel="noopener">Los nueve ADR ↗</a>
+    <a href="https://github.com/federicomoroz/nexo/tree/main/docs/adr" target="_blank" rel="noopener">Los once ADR ↗</a>
   </p>
 </section>
 
 <div class="callout">
   <p class="callout-title">Sobre el escenario</p>
-  <p>El distribuidor y su red de revendedores son un escenario construido, y en el repo está dicho. Lo escribí como se escribiría la documentación interna de ese proyecto —con los ADR, el runbook y el contrato con el ERP incluidos— porque ese era justamente el ejercicio: ver si podía sostener un sistema completo, no un endpoint de demostración. El código, las mediciones y los 335 tests son reales y se reproducen con los comandos del README.</p>
+  <p>El distribuidor y su red de revendedores son un escenario construido, y en el repo está dicho. Lo escribí como se escribiría la documentación interna de ese proyecto —con los ADR, el runbook y el contrato con el ERP incluidos— porque ese era justamente el ejercicio: ver si podía sostener un sistema completo, no un endpoint de demostración. El código, las mediciones y los 343 tests son reales y se reproducen con los comandos del README.</p>
 </div>
 
 {% include nexo-diagramas.html
@@ -62,8 +62,8 @@ permalink: /es/projects/nexo/
 %}
 
 <div class="statline">
-  <div class="stat"><span class="num">335</span><span class="lbl">tests en CI</span></div>
-  <div class="stat"><span class="num">24<small>×4</small></span><span class="lbl">casos de contrato × motores</span></div>
+  <div class="stat"><span class="num">343</span><span class="lbl">tests en CI</span></div>
+  <div class="stat"><span class="num">26<small>×4</small></span><span class="lbl">casos de contrato × motores</span></div>
   <div class="stat"><span class="num">4</span><span class="lbl">bugs que encontraron los tests</span></div>
 </div>
 

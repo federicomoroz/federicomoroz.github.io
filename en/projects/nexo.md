@@ -17,13 +17,13 @@ permalink: /en/projects/nexo/
   </div>
   <p class="row-links">
     <a href="https://github.com/federicomoroz/nexo" target="_blank" rel="noopener">Repo ↗</a>
-    <a href="https://github.com/federicomoroz/nexo/tree/main/docs/adr" target="_blank" rel="noopener">The nine ADRs ↗</a>
+    <a href="https://github.com/federicomoroz/nexo/tree/main/docs/adr" target="_blank" rel="noopener">The eleven ADRs ↗</a>
   </p>
 </section>
 
 <div class="callout">
   <p class="callout-title">About the scenario</p>
-  <p>The distributor and its reseller network are a constructed scenario, and the repo says so. I wrote it the way that project's internal documentation would be written —ADRs, runbook and the ERP integration contract included— because that was the exercise: to see whether I could hold up a whole system rather than a demo endpoint. The code, the measurements and the 335 tests are real, and they reproduce with the commands in the README.</p>
+  <p>The distributor and its reseller network are a constructed scenario, and the repo says so. I wrote it the way that project's internal documentation would be written —ADRs, runbook and the ERP integration contract included— because that was the exercise: to see whether I could hold up a whole system rather than a demo endpoint. The code, the measurements and the 343 tests are real, and they reproduce with the commands in the README.</p>
 </div>
 
 {% include nexo-diagramas.html
@@ -62,8 +62,8 @@ permalink: /en/projects/nexo/
 %}
 
 <div class="statline">
-  <div class="stat"><span class="num">335</span><span class="lbl">tests in CI</span></div>
-  <div class="stat"><span class="num">24<small>×4</small></span><span class="lbl">contract cases × engines</span></div>
+  <div class="stat"><span class="num">343</span><span class="lbl">tests in CI</span></div>
+  <div class="stat"><span class="num">26<small>×4</small></span><span class="lbl">contract cases × engines</span></div>
   <div class="stat"><span class="num">4</span><span class="lbl">bugs the tests found</span></div>
 </div>
 
