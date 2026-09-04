@@ -69,7 +69,6 @@
   case_study: true
   repo: https://github.com/federicomoroz/nexo
   repo_visibility: public
-  demo: https://federicomoroz.github.io/nexo/
   tech:
     - "C#"
     - .NET 8

@@ -17,7 +17,6 @@ permalink: /en/projects/nexo/
   </div>
   <p class="row-links">
     <a href="https://github.com/federicomoroz/nexo" target="_blank" rel="noopener">Repo ↗</a>
-    <a href="https://federicomoroz.github.io/nexo/" target="_blank" rel="noopener">Project page ↗</a>
     <a href="https://github.com/federicomoroz/nexo/tree/main/docs/adr" target="_blank" rel="noopener">The nine ADRs ↗</a>
   </p>
 </section>
