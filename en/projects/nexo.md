@@ -23,7 +23,7 @@ permalink: /en/projects/nexo/
 
 <div class="callout">
   <p class="callout-title">About the scenario</p>
-  <p>The distributor and its reseller network are a constructed scenario, and the repo says so. I wrote it the way that project's internal documentation would be written —ADRs, runbook and the ERP integration contract included— because that was the exercise: to see whether I could hold up a whole system rather than a demo endpoint. The code, the measurements and the 343 tests are real, and they reproduce with the commands in the README.</p>
+  <p>The distributor and its reseller network are a constructed scenario, and the repo says so. I wrote it the way that project's internal documentation would be written —ADRs, runbook and the ERP integration contract included— because that was the exercise: to see whether I could hold up a whole system rather than a demo endpoint. The code, the measurements and the 346 tests are real, and they reproduce with the commands in the README.</p>
 </div>
 
 {% include nexo-diagramas.html
@@ -62,7 +62,7 @@ permalink: /en/projects/nexo/
 %}
 
 <div class="statline">
-  <div class="stat"><span class="num">343</span><span class="lbl">tests in CI</span></div>
+  <div class="stat"><span class="num">346</span><span class="lbl">tests in CI</span></div>
   <div class="stat"><span class="num">26<small>×4</small></span><span class="lbl">contract cases × engines</span></div>
   <div class="stat"><span class="num">4</span><span class="lbl">bugs the tests found</span></div>
 </div>
@@ -82,7 +82,7 @@ Framework**. There are four implementations, chosen by configuration:
 | Provider | Where it runs | How it is built |
 |---|---|---|
 | MySQL | production | EF Core, its own migrations |
-| PostgreSQL | the deployed demo | EF Core, its own migrations |
+| PostgreSQL | the deployment configuration | EF Core, its own migrations |
 | SQLite | pre-production | EF Core, its own migrations |
 | In-memory | development and tests | by hand, **not a line of EF** |
 

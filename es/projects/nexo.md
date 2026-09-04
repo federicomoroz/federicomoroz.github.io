@@ -23,7 +23,7 @@ permalink: /es/projects/nexo/
 
 <div class="callout">
   <p class="callout-title">Sobre el escenario</p>
-  <p>El distribuidor y su red de revendedores son un escenario construido, y en el repo está dicho. Lo escribí como se escribiría la documentación interna de ese proyecto —con los ADR, el runbook y el contrato con el ERP incluidos— porque ese era justamente el ejercicio: ver si podía sostener un sistema completo, no un endpoint de demostración. El código, las mediciones y los 343 tests son reales y se reproducen con los comandos del README.</p>
+  <p>El distribuidor y su red de revendedores son un escenario construido, y en el repo está dicho. Lo escribí como se escribiría la documentación interna de ese proyecto —con los ADR, el runbook y el contrato con el ERP incluidos— porque ese era justamente el ejercicio: ver si podía sostener un sistema completo, no un endpoint de demostración. El código, las mediciones y los 346 tests son reales y se reproducen con los comandos del README.</p>
 </div>
 
 {% include nexo-diagramas.html
@@ -62,7 +62,7 @@ permalink: /es/projects/nexo/
 %}
 
 <div class="statline">
-  <div class="stat"><span class="num">343</span><span class="lbl">tests en CI</span></div>
+  <div class="stat"><span class="num">346</span><span class="lbl">tests en CI</span></div>
   <div class="stat"><span class="num">26<small>×4</small></span><span class="lbl">casos de contrato × motores</span></div>
   <div class="stat"><span class="num">4</span><span class="lbl">bugs que encontraron los tests</span></div>
 </div>
@@ -82,7 +82,7 @@ Framework**. Hay cuatro implementaciones y se elige por configuración:
 | Proveedor | Dónde corre | Cómo está hecho |
 |---|---|---|
 | MySQL | producción | EF Core, migraciones propias |
-| PostgreSQL | la demo desplegada | EF Core, migraciones propias |
+| PostgreSQL | la configuración de despliegue | EF Core, migraciones propias |
 | SQLite | preproducción | EF Core, migraciones propias |
 | En memoria | desarrollo y tests | a mano, **sin una línea de EF** |
 
