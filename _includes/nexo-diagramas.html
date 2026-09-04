@@ -1,0 +1,430 @@
+{% comment %}
+    Animated diagrams for the Nexo case study.
+
+    Pure CSS, no images and no scripts: they stay crisp at any zoom, they cost a
+    few kilobytes, and they honour prefers-reduced-motion. Every class is
+    prefixed with nx- so nothing leaks into the site stylesheet.
+
+    Each diagram answers exactly one question. Motion here is not decoration:
+    it is what shows the mechanism, so a still frame would lose the point.
+
+    Text comes from include parameters so the same markup serves both languages.
+{% endcomment %}
+
+<style>
+.nx {
+    --nx-line: var(--border-strong, #342c4d);
+    --nx-ink: var(--fg, #ece9f3);
+    --nx-dim: var(--fg-muted, #a49cba);
+    --nx-faint: var(--fg-faint, #8c84a6);
+    --nx-hot: var(--accent, #ff42b4);
+    --nx-ok: var(--status-active, #35d69b);
+    --nx-warn: var(--status-paused, #e0a33c);
+    --nx-surface: var(--bg-raised, #14111e);
+    --nx-deep: var(--bg-code, #100e19);
+
+    background: var(--nx-deep);
+    border: 1px solid var(--border, #221d33);
+    border-radius: 10px;
+    padding: 24px 22px 18px;
+    margin: 28px 0;
+}
+
+.nx-head {
+    font-size: 0.95rem;
+    color: var(--nx-dim);
+    margin-bottom: 26px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border, #221d33);
+    line-height: 1.5;
+}
+
+.nx-foot {
+    font-size: 0.9rem;
+    color: var(--nx-faint);
+    margin-top: 24px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border, #221d33);
+    line-height: 1.6;
+}
+
+.nx b { color: var(--nx-ink); font-weight: 600; }
+.nx-num { font-variant-numeric: tabular-nums; }
+
+.nx-box {
+    border: 1px solid var(--nx-line);
+    border-radius: 8px;
+    background: var(--nx-surface);
+    padding: 13px 14px;
+}
+.nx-box .nx-t { font-weight: 700; font-size: 1rem; color: var(--nx-ink); }
+.nx-box .nx-s { font-size: 0.82rem; color: var(--nx-faint); margin-top: 4px; line-height: 1.45; }
+
+/* ─────────────────────────────────────────────────────────────
+   1. The circuit. Five columns so Nexo sits in the middle of the
+      flow rather than beside it: ERP, pipe, Nexo, pipes, network.
+   ───────────────────────────────────────────────────────────── */
+
+.nx-circuit {
+    display: grid;
+    grid-template-columns: 120px 1fr 148px 1fr 132px;
+    align-items: center;
+    gap: 10px;
+}
+
+.nx-core {
+    border: 2px solid var(--nx-hot);
+    border-radius: 10px;
+    background: var(--nx-surface);
+    text-align: center;
+    padding: 16px 10px;
+    box-shadow: 0 0 0 5px rgba(255, 66, 180, .07);
+}
+.nx-core .nx-name { font-size: 1.25rem; font-weight: 700; letter-spacing: .06em; color: var(--nx-ink); }
+.nx-core .nx-wm { font-size: 0.75rem; color: var(--nx-faint); margin-top: 8px; line-height: 1.4; }
+.nx-core .nx-wm b { display: block; color: var(--nx-hot); font-size: 0.95rem; margin-top: 2px; }
+
+/* A lane is label plus rail. The label sits in its own row instead of being
+   absolutely positioned above, which is what made them collide when the lanes
+   were stacked close together. */
+.nx-lanes { display: flex; flex-direction: column; gap: 20px; }
+.nx-lane .nx-cap {
+    font-size: 0.76rem;
+    color: var(--nx-faint);
+    margin-bottom: 5px;
+    line-height: 1.2;
+    min-height: 1.2em;
+}
+
+.nx-rail {
+    position: relative;
+    height: 9px;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, .05);
+}
+.nx-rail::after {
+    content: "";
+    position: absolute;
+    right: -1px;
+    top: -4px;
+    border-left: 10px solid var(--nx-line);
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+}
+.nx-rail.nx-rev::after {
+    right: auto;
+    left: -1px;
+    border-left: 0;
+    border-right: 10px solid var(--nx-line);
+}
+
+.nx-pkt {
+    position: absolute;
+    top: 0;
+    height: 9px;
+    width: 38px;
+    border-radius: 5px;
+    background: var(--nx-hot);
+    animation: nx-flow 3s linear infinite;
+}
+.nx-pkt.nx-back { background: var(--nx-ok); animation-name: nx-flow-back; }
+
+@keyframes nx-flow {
+    0%   { left: -38px; opacity: 0; }
+    12%  { opacity: 1; }
+    88%  { opacity: 1; }
+    100% { left: 100%; opacity: 0; }
+}
+@keyframes nx-flow-back {
+    0%   { right: -38px; opacity: 0; }
+    12%  { opacity: 1; }
+    88%  { opacity: 1; }
+    100% { right: 100%; opacity: 0; }
+}
+
+.nx-net { display: flex; flex-direction: column; gap: 7px; }
+.nx-peer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-left: 3px solid var(--nx-hot);
+    padding: 4px 0 4px 9px;
+    font-size: 0.82rem;
+    color: var(--nx-ink);
+    line-height: 1.25;
+}
+.nx-peer.nx-quiet { border-left-color: var(--nx-line); color: var(--nx-faint); }
+.nx-peer i {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--nx-hot);
+    animation: nx-blink 3s ease-in-out infinite;
+    flex-shrink: 0;
+}
+@keyframes nx-blink { 0%, 100% { opacity: .2; } 50% { opacity: 1; } }
+
+/* ─────────────────────────────────────────────────────────────
+   2. Backpressure. The two wires need real vertical separation:
+      the gap between them is where the reader sees the waiting.
+   ───────────────────────────────────────────────────────────── */
+
+.nx-bp {
+    display: grid;
+    grid-template-columns: 92px 1fr 104px;
+    align-items: center;
+    gap: 14px;
+}
+.nx-bp-side { font-size: 0.88rem; color: var(--nx-dim); }
+.nx-bp-side.nx-r { text-align: right; }
+
+.nx-bp-wires { display: flex; flex-direction: column; gap: 54px; padding: 22px 0 6px; }
+
+.nx-wire { position: relative; height: 2px; background: var(--nx-line); }
+.nx-wire-cap {
+    position: absolute;
+    left: 0;
+    top: -22px;
+    font-size: 0.78rem;
+    color: var(--nx-faint);
+}
+
+.nx-batch {
+    position: absolute;
+    top: -12px;
+    height: 26px;
+    width: 104px;
+    border-radius: 4px;
+    background: var(--nx-hot);
+    color: #16000e;
+    font-size: 0.78rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: nx-batch 4s cubic-bezier(.45, 0, .3, 1) infinite;
+}
+@keyframes nx-batch {
+    0%       { left: 0; opacity: 0; }
+    6%       { opacity: 1; }
+    34%, 50% { left: calc(100% - 104px); opacity: 1; }
+    56%      { left: calc(100% - 104px); opacity: 0; }
+    100%     { left: calc(100% - 104px); opacity: 0; }
+}
+
+.nx-ack {
+    position: absolute;
+    top: -12px;
+    height: 26px;
+    width: 64px;
+    border-radius: 4px;
+    border: 2px solid var(--nx-ok);
+    color: var(--nx-ok);
+    background: var(--nx-deep);
+    font-size: 0.78rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: nx-ack 4s cubic-bezier(.45, 0, .3, 1) infinite;
+}
+@keyframes nx-ack {
+    0%, 54%   { right: 0; opacity: 0; }
+    60%       { right: 0; opacity: 1; }
+    90%       { right: calc(100% - 64px); opacity: 1; }
+    96%, 100% { right: calc(100% - 64px); opacity: 0; }
+}
+
+/* The point of the whole diagram is the dead air between the batch landing and
+   the ack coming back, so the caption only shows during that window. */
+.nx-held {
+    grid-column: 1 / -1;
+    text-align: center;
+    font-size: 0.86rem;
+    color: var(--nx-warn);
+    margin-top: 12px;
+    min-height: 1.3em;
+    animation: nx-held 4s ease-in-out infinite;
+}
+@keyframes nx-held {
+    0%, 32%   { opacity: 0; }
+    39%, 53%  { opacity: 1; }
+    60%, 100% { opacity: 0; }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   3. One contract, four engines. All four boxes stay visible at all
+      times; only the highlight and the stamp animate.
+   ───────────────────────────────────────────────────────────── */
+
+.nx-ports {
+    border: 2px solid var(--nx-ink);
+    border-radius: 8px;
+    padding: 14px 16px;
+    text-align: center;
+}
+.nx-ports .nx-t { font-weight: 700; color: var(--nx-ink); font-size: 1rem; }
+.nx-ports .nx-l { font-size: 0.8rem; color: var(--nx-faint); margin-top: 6px; line-height: 1.65; }
+
+.nx-spokes { display: grid; grid-template-columns: repeat(4, 1fr); height: 26px; }
+.nx-spokes span { justify-self: center; width: 2px; background: var(--nx-line); }
+
+.nx-engines { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+
+.nx-engine {
+    border: 2px solid var(--nx-line);
+    border-radius: 8px;
+    background: var(--nx-surface);
+    padding: 13px 8px;
+    text-align: center;
+    color: var(--nx-dim);
+    animation: nx-eng-lit 10s linear infinite;
+}
+.nx-engine .nx-e { font-weight: 700; font-size: 0.95rem; }
+.nx-engine .nx-w { font-size: 0.76rem; color: var(--nx-faint); margin-top: 3px; }
+.nx-engine .nx-pass {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--nx-ok);
+    margin-top: 8px;
+    min-height: 1.2em;
+    opacity: 0;
+    animation: nx-eng-stamp 10s linear infinite;
+}
+
+.nx-engine:nth-child(2), .nx-engine:nth-child(2) .nx-pass { animation-delay: -2.5s; }
+.nx-engine:nth-child(3), .nx-engine:nth-child(3) .nx-pass { animation-delay: -5s; }
+.nx-engine:nth-child(4), .nx-engine:nth-child(4) .nx-pass { animation-delay: -7.5s; }
+
+/* Only border and text colour move here. Putting opacity in this keyframe is
+   what made three of the four boxes disappear in the first version. */
+@keyframes nx-eng-lit {
+    0%, 22%   { border-color: var(--nx-hot); color: var(--nx-ink); }
+    25%, 100% { border-color: var(--nx-line); color: var(--nx-dim); }
+}
+@keyframes nx-eng-stamp {
+    0%, 22%   { opacity: 1; }
+    25%, 100% { opacity: 0; }
+}
+
+@media (max-width: 720px) {
+    .nx-circuit { grid-template-columns: 1fr; }
+    .nx-bp { grid-template-columns: 1fr; gap: 8px; }
+    .nx-bp-side.nx-r { text-align: left; }
+    .nx-engines { grid-template-columns: repeat(2, 1fr); }
+    .nx-spokes { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .nx *, .nx *::before, .nx *::after { animation: none !important; }
+    .nx-pkt { left: 38%; opacity: 1; }
+    .nx-pkt.nx-back { right: 38%; left: auto; }
+    .nx-batch { left: calc(100% - 104px); opacity: 1; }
+    .nx-ack { right: 0; opacity: 1; }
+    .nx-held { opacity: 1; }
+    .nx-engine { border-color: var(--nx-hot); color: var(--nx-ink); }
+    .nx-engine .nx-pass { opacity: 1; }
+}
+</style>
+
+<figure class="nx" role="img" aria-label="{{ include.circuit_alt }}">
+    <figcaption class="nx-head">{{ include.circuit_head }}</figcaption>
+
+    <div class="nx-circuit">
+        <div class="nx-box">
+            <div class="nx-t">ERP</div>
+            <div class="nx-s">{{ include.erp_sub }}</div>
+        </div>
+
+        <div class="nx-lanes">
+            <div class="nx-lane">
+                <div class="nx-cap">{{ include.pipe_write }}</div>
+                <div class="nx-rail"><span class="nx-pkt"></span></div>
+            </div>
+        </div>
+
+        <div class="nx-core">
+            <div class="nx-name">NEXO</div>
+            <div class="nx-wm">{{ include.watermark_label }}<b class="nx-num">148 230</b></div>
+        </div>
+
+        <div class="nx-lanes">
+            <div class="nx-lane">
+                <div class="nx-cap">{{ include.pipe_read }}</div>
+                <div class="nx-rail nx-rev"><span class="nx-pkt nx-back" style="animation-delay:.4s"></span></div>
+            </div>
+            <div class="nx-lane">
+                <div class="nx-cap">{{ include.pipe_push }}</div>
+                <div class="nx-rail"><span class="nx-pkt" style="animation-delay:1.5s"></span></div>
+            </div>
+        </div>
+
+        <div class="nx-net">
+            <div class="nx-peer"><i></i>{{ include.peer_1 }}</div>
+            <div class="nx-peer"><i style="animation-delay:.7s"></i>{{ include.peer_2 }}</div>
+            <div class="nx-peer"><i style="animation-delay:1.4s"></i>{{ include.peer_3 }}</div>
+            <div class="nx-peer nx-quiet">{{ include.peer_more }}</div>
+        </div>
+    </div>
+
+    <div class="nx-foot">{{ include.circuit_foot }}</div>
+</figure>
+
+<figure class="nx" role="img" aria-label="{{ include.bp_alt }}">
+    <figcaption class="nx-head">{{ include.bp_head }}</figcaption>
+
+    <div class="nx-bp">
+        <div class="nx-bp-side">{{ include.bp_server }}</div>
+
+        <div class="nx-bp-wires">
+            <div class="nx-wire">
+                <span class="nx-wire-cap">{{ include.bp_batch_tag }}</span>
+                <span class="nx-batch">{{ include.bp_batch }}</span>
+            </div>
+            <div class="nx-wire">
+                <span class="nx-wire-cap">{{ include.bp_ack_tag }}</span>
+                <span class="nx-ack">ack</span>
+            </div>
+        </div>
+
+        <div class="nx-bp-side nx-r">{{ include.bp_client }}</div>
+
+        <div class="nx-held">{{ include.bp_held }}</div>
+    </div>
+
+    <div class="nx-foot">{{ include.bp_foot }}</div>
+</figure>
+
+<figure class="nx" role="img" aria-label="{{ include.eng_alt }}">
+    <figcaption class="nx-head">{{ include.eng_head }}</figcaption>
+
+    <div class="nx-ports">
+        <div class="nx-t">{{ include.eng_ports }}</div>
+        <div class="nx-l">ICatalogReader · ICatalogSearch · ICatalogSnapshotSource<br>IChangeLog · IChangeRecorder · IStockReader · IApiKeyDirectory</div>
+    </div>
+
+    <div class="nx-spokes"><span></span><span></span><span></span><span></span></div>
+
+    <div class="nx-engines">
+        <div class="nx-engine">
+            <div class="nx-e">MySQL</div>
+            <div class="nx-w">{{ include.eng_prod }}</div>
+            <div class="nx-pass">24/24 ✓</div>
+        </div>
+        <div class="nx-engine">
+            <div class="nx-e">PostgreSQL</div>
+            <div class="nx-w">{{ include.eng_demo }}</div>
+            <div class="nx-pass">24/24 ✓</div>
+        </div>
+        <div class="nx-engine">
+            <div class="nx-e">SQLite</div>
+            <div class="nx-w">{{ include.eng_pre }}</div>
+            <div class="nx-pass">24/24 ✓</div>
+        </div>
+        <div class="nx-engine">
+            <div class="nx-e">{{ include.eng_mem }}</div>
+            <div class="nx-w">{{ include.eng_dev }}</div>
+            <div class="nx-pass">24/24 ✓</div>
+        </div>
+    </div>
+
+    <div class="nx-foot">{{ include.eng_foot }}</div>
+</figure>

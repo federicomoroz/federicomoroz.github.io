@@ -17,7 +17,7 @@ permalink: /en/projects/nexo/
   </div>
   <p class="row-links">
     <a href="https://github.com/federicomoroz/nexo" target="_blank" rel="noopener">Repo ↗</a>
-    <a href="https://federicomoroz.github.io/nexo/" target="_blank" rel="noopener">Animated diagrams ↗</a>
+    <a href="https://federicomoroz.github.io/nexo/" target="_blank" rel="noopener">Project page ↗</a>
     <a href="https://github.com/federicomoroz/nexo/tree/main/docs/adr" target="_blank" rel="noopener">The nine ADRs ↗</a>
   </p>
 </section>
@@ -27,6 +27,41 @@ permalink: /en/projects/nexo/
   <p>The distributor and its reseller network are a constructed scenario, and the repo says so. I wrote it the way that project's internal documentation would be written —ADRs, runbook and the ERP integration contract included— because that was the exercise: to see whether I could hold up a whole system rather than a demo endpoint. The code, the measurements and the 306 tests are real, and they reproduce with the commands in the README.</p>
 </div>
 
+{% include nexo-diagramas.html
+    circuit_head="The ERP publishes; the network queries and listens. The change journal carries a sequential number, and each reseller stores how far it has read."
+    circuit_alt="Animated diagram of the circuit: the ERP writes into Nexo, resellers query it, and Nexo pushes changes back to them. Below, the change journal watermark."
+    erp_sub="catalogue · prices<br>stock levels"
+    pipe_write="the ERP writes"
+    pipe_read="the network queries"
+    pipe_push="Nexo pushes changes"
+    peer_1="Sanitarios Sur"
+    peer_2="Ferretera Norte"
+    peer_3="Casa Grande"
+    peer_more="+ 37 resellers"
+    watermark_label="journal watermark"
+    circuit_foot="A stock change published at 14:03 reaches connected resellers before 14:03:01. That is what the morning FTP file could not do."
+
+    bp_head="The server does not send the next batch until the previous one is acknowledged."
+    bp_alt="Animated backpressure diagram: the server sends a batch of 500 items, waits, and only sends the next one once the reseller's ack arrives."
+    bp_server="server"
+    bp_client="reseller"
+    bp_batch_tag="batch"
+    bp_batch="500 items"
+    bp_ack_tag="acknowledgement"
+    bp_held="holding · nothing goes out"
+    bp_foot="A WebSocket write buffer accepts far more than the network on the other side can swallow. Without this pause the server piles up megabytes in memory for every reseller on a slow link while it keeps reading the database at full speed. On the client side the rule is to acknowledge <b>after</b> persisting the batch, not on receipt."
+
+    eng_head="The application layer references only the domain: zero packages, not one mention of Entity Framework."
+    eng_alt="Animated diagram: the same ports on top and four database engines below taking turns, each stamped with 24 of 24 contract cases passed."
+    eng_ports="Ports"
+    eng_prod="production"
+    eng_demo="the demo"
+    eng_pre="pre-production"
+    eng_mem="In-memory"
+    eng_dev="development"
+    eng_foot="The same 24 cases run against all four, with no per-provider <code>if</code>. MySQL and PostgreSQL in real containers in CI; without Docker those cases report as skipped, never green. The in-memory provider uses no EF Core at all: it is the one that proves the ports leak nothing."
+%}
+
 <div class="statline">
   <div class="stat"><span class="num">306</span><span class="lbl">tests in CI</span></div>
   <div class="stat"><span class="num">24<small>×4</small></span><span class="lbl">contract cases × engines</span></div>
@@ -35,8 +70,7 @@ permalink: /en/projects/nexo/
 
 ## Switching databases is a one-line change
 
-That is the claim every "clean architecture" project makes and almost none
-demonstrates. Here it is demonstrated by a suite, not by a diagram.
+Here that sentence is backed by a suite, not by a diagram.
 
 All persistence goes through ports declared in the application layer, which
 **references only the domain: zero packages, not one mention of Entity
@@ -182,6 +216,11 @@ It is genuine MVC — `AddControllersWithViews`, five controllers, Razor views �
 though to be precise: four of the five serve JSON, because integrations sit on
 the other side, not browsers. The view is a single screen, and that is the right
 call.
+
+<figure class="shot">
+  <img src="{{ '/assets/img/nexo-panel.jpg' | relative_url }}" alt="Nexo operations console: four indicators across the top —one active connection, 59 requests per minute, 7 rejections per minute and 4 milliseconds p95 latency—; below, per-reseller activity with each account's requests and rejections, rejections grouped by reason (BadSecret, UnknownKey, ScopeNotGranted), and the live feed showing a stream opening and the rejected credentials." loading="lazy" width="1500" height="823">
+  <figcaption>The view, running. The numbers come from real traffic against the local instance: successful queries, invalid credentials being rejected, and a snapshot in flight. The panel feeds off the event bus, not the business database.</figcaption>
+</figure>
 
 The panel shows active connections, per-reseller activity, rejections by reason
 and p95 latency, live. It **does not query the business database**: it feeds off

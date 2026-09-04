@@ -17,7 +17,7 @@ permalink: /es/projects/nexo/
   </div>
   <p class="row-links">
     <a href="https://github.com/federicomoroz/nexo" target="_blank" rel="noopener">Repo ↗</a>
-    <a href="https://federicomoroz.github.io/nexo/" target="_blank" rel="noopener">Diagramas animados ↗</a>
+    <a href="https://federicomoroz.github.io/nexo/" target="_blank" rel="noopener">Página del proyecto ↗</a>
     <a href="https://github.com/federicomoroz/nexo/tree/main/docs/adr" target="_blank" rel="noopener">Los nueve ADR ↗</a>
   </p>
 </section>
@@ -27,6 +27,41 @@ permalink: /es/projects/nexo/
   <p>El distribuidor y su red de revendedores son un escenario construido, y en el repo está dicho. Lo escribí como se escribiría la documentación interna de ese proyecto —con los ADR, el runbook y el contrato con el ERP incluidos— porque ese era justamente el ejercicio: ver si podía sostener un sistema completo, no un endpoint de demostración. El código, las mediciones y los 306 tests son reales y se reproducen con los comandos del README.</p>
 </div>
 
+{% include nexo-diagramas.html
+    circuit_head="El ERP publica; la red consulta y escucha. El diario de cambios lleva un número correlativo y cada revendedor guarda hasta dónde leyó."
+    circuit_alt="Diagrama animado del circuito: el ERP escribe hacia Nexo, los revendedores consultan, y Nexo les empuja los cambios de vuelta. Debajo, la marca del diario de cambios."
+    erp_sub="catálogo · precios<br>existencias"
+    pipe_write="el ERP escribe"
+    pipe_read="la red consulta"
+    pipe_push="Nexo empuja los cambios"
+    peer_1="Sanitarios Sur"
+    peer_2="Ferretera Norte"
+    peer_3="Casa Grande"
+    peer_more="+ 37 revendedores"
+    watermark_label="marca del diario"
+    circuit_foot="Un cambio de stock publicado a las 14:03 le llega a los revendedores conectados antes de las 14:03:01. Es lo que el archivo por FTP de la mañana no podía hacer."
+
+    bp_head="El servidor no manda el siguiente lote hasta que vuelve la confirmación del anterior."
+    bp_alt="Diagrama animado de contrapresión: el servidor envía un lote de 500 artículos, espera, y recién cuando llega el ack del revendedor manda el siguiente."
+    bp_server="servidor"
+    bp_client="revendedor"
+    bp_batch_tag="lote"
+    bp_batch="500 artículos"
+    bp_ack_tag="confirmación"
+    bp_held="esperando · nada sale"
+    bp_foot="El buffer de escritura de un WebSocket acepta mucho más de lo que la red del otro lado puede tragar. Sin esta pausa, el servidor acumula megabytes en memoria por cada revendedor con enlace lento mientras sigue leyendo la base a toda velocidad. Del lado del cliente, la regla es confirmar <b>después</b> de haber persistido el lote, no al recibirlo."
+
+    eng_head="La capa de aplicación referencia únicamente al dominio: cero paquetes, ni una mención a Entity Framework."
+    eng_alt="Diagrama animado: los mismos puertos arriba y cuatro motores de base abajo turnándose, cada uno con la marca de 24 de 24 casos de contrato pasados."
+    eng_ports="Puertos"
+    eng_prod="producción"
+    eng_demo="la demo"
+    eng_pre="preproducción"
+    eng_mem="En memoria"
+    eng_dev="desarrollo"
+    eng_foot="Los mismos 24 casos corren contra los cuatro, sin un <code>if</code> por proveedor. MySQL y PostgreSQL en contenedores reales en CI; sin Docker los casos se reportan omitidos, nunca verdes. El proveedor en memoria no usa una línea de EF Core: es el que prueba que los puertos no filtran nada."
+%}
+
 <div class="statline">
   <div class="stat"><span class="num">306</span><span class="lbl">tests en CI</span></div>
   <div class="stat"><span class="num">24<small>×4</small></span><span class="lbl">casos de contrato × motores</span></div>
@@ -35,8 +70,7 @@ permalink: /es/projects/nexo/
 
 ## Cambiar de base de datos es cambiar una línea
 
-Es la afirmación que todo proyecto con "arquitectura limpia" hace, y casi ninguno
-demuestra. Acá está demostrada por una suite, no por un diagrama.
+Acá esa frase la sostiene una suite, no un diagrama.
 
 Toda la persistencia pasa por puertos declarados en la capa de aplicación, que
 **referencia únicamente al dominio: cero paquetes, ni una mención a Entity
@@ -178,6 +212,11 @@ molestar a nadie.
 Es MVC de verdad —`AddControllersWithViews`, cinco controladores, vistas Razor—,
 aunque siendo preciso: cuatro de los cinco sirven JSON, porque del otro lado hay
 integraciones y no navegadores. La vista es una sola pantalla, y es la correcta.
+
+<figure class="shot">
+  <img src="{{ '/assets/img/nexo-panel.jpg' | relative_url }}" alt="Consola de operaciones de Nexo: cuatro indicadores arriba —una conexión activa, 59 pedidos por minuto, 7 rechazos por minuto y 4 milisegundos de latencia p95—; debajo, la actividad por revendedor con los pedidos y rechazos de cada cuenta, los rechazos agrupados por motivo (BadSecret, UnknownKey, ScopeNotGranted) y el feed de últimos hechos con la apertura de un stream y las credenciales rechazadas." loading="lazy" width="1500" height="823">
+  <figcaption>La vista, corriendo. Los números salen de tráfico real contra la instancia local: consultas que pasan, credenciales inválidas que se rechazan y un snapshot en curso. El panel se alimenta del bus de hechos, no de la base de negocio.</figcaption>
+</figure>
 
 El panel muestra conexiones activas, actividad por revendedor, rechazos por
 motivo y latencia p95, en vivo. **No consulta la base de negocio**: se alimenta
