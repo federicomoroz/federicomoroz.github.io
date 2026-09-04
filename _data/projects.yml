@@ -62,8 +62,8 @@
 - id: nexo
   name: Nexo
   short:
-    es: "Un mayorista mandaba el catálogo por FTP una vez por día y el stock quedaba viejo antes del mediodía. Acá el ERP publica y los revendedores bajan el catálogo por WebSocket, con confirmación por lote, y quedan en la misma conexión recibiendo los cambios. La persistencia está detrás de puertos: los mismos 24 casos corren contra MySQL, PostgreSQL, SQLite y un proveedor en memoria, y ya encontraron dos divergencias entre motores. Un benchmark propio refutó la justificación del primer ADR y el documento quedó corregido."
-    en: "A wholesaler was sending its catalogue over FTP once a day, and stock was stale by noon. Here the ERP publishes and resellers pull the catalogue over a WebSocket, batch by batch with acknowledgements, then stay on that connection receiving changes. Persistence sits behind ports: the same 24 cases run against MySQL, PostgreSQL, SQLite and an in-memory provider, and they have already caught two engine divergences. A benchmark refuted the reasoning in the first ADR, and the document was corrected rather than quietly dropped."
+    es: "Un mayorista mandaba el catálogo por FTP una vez por día y el stock quedaba viejo antes del mediodía. Acá el ERP publica y los revendedores bajan el catálogo por WebSocket, con confirmación por lote, y quedan en la misma conexión recibiendo los cambios. La persistencia está detrás de puertos: los mismos 26 casos corren contra MySQL, PostgreSQL, SQLite y un proveedor en memoria, y ya encontraron tres divergencias entre motores. Un benchmark propio refutó la justificación del primer ADR y el documento quedó corregido."
+    en: "A wholesaler was sending its catalogue over FTP once a day, and stock was stale by noon. Here the ERP publishes and resellers pull the catalogue over a WebSocket, batch by batch with acknowledgements, then stay on that connection receiving changes. Persistence sits behind ports: the same 26 cases run against MySQL, PostgreSQL, SQLite and an in-memory provider, and they have already caught three engine divergences. A benchmark refuted the reasoning in the first ADR, and the document was corrected rather than quietly dropped."
   status: active
   listed: true
   case_study: true
@@ -78,6 +78,8 @@
     - EF Core
     - MySQL
     - PostgreSQL
+    - Redis
+    - OpenID Connect
     - Testcontainers
     - xUnit
     - Docker

@@ -13,23 +13,25 @@ profile:
     Backend developer enfocado en **APIs, integraciones y sistemas
     distribuidos**. Construyo sistemas correctos por diseño: **arquitectura por
     capas**, contratos explícitos entre componentes y **tests que verifican
-    comportamiento, no implementación**. Trabajo sobre todo con **Python
-    (FastAPI, SQLAlchemy, Pydantic)** sobre **Redis, PostgreSQL y Docker**:
-    colas de tareas distribuidas, gateways de API con circuit breakers y
-    motores de notificación multi-canal. También trabajo con **Java y Spring Boot**
-    sobre **Kafka**, en sistemas orientados a eventos con garantías de
-    entrega. Y integro **APIs externas a
+    comportamiento, no implementación**. Trabajo con **Python (FastAPI, SQLAlchemy, Pydantic)** sobre **Redis,
+    PostgreSQL y Docker**: colas de tareas distribuidas, gateways de API con
+    circuit breakers y motores de notificación multi-canal. Con **.NET 8 y
+    ASP.NET Core** sobre **MySQL y EF Core**, en un servicio cuya capa de
+    persistencia tiene cuatro motores intercambiables verificados por la misma
+    suite de contrato. Y con **Java y Spring Boot** sobre **Kafka**, en sistemas
+    orientados a eventos con garantías de entrega. Y integro **APIs externas a
     escala**.
   en: |
     Backend developer focused on **APIs, integrations and distributed
     systems**. I build systems that are correct by design: **layered
     architecture**, explicit contracts between components, and **tests that
-    verify behavior rather than implementation**. I work mostly with **Python
-    (FastAPI, SQLAlchemy, Pydantic)** on top of **Redis, PostgreSQL and
-    Docker**: distributed task queues, API gateways with circuit breakers and
-    multi-channel notification engines. I also work with **Java and Spring
-    Boot** on **Kafka**, building event-driven systems with delivery
-    guarantees. And I integrate **external APIs at scale**.
+    verify behavior rather than implementation**. I work with **Python (FastAPI, SQLAlchemy, Pydantic)** on top of **Redis,
+    PostgreSQL and Docker**: distributed task queues, API gateways with circuit
+    breakers and multi-channel notification engines. With **.NET 8 and ASP.NET
+    Core** on **MySQL and EF Core**, in a service whose persistence layer has
+    four interchangeable engines verified by the same contract suite. And with
+    **Java and Spring Boot** on **Kafka**, building event-driven systems with
+    delivery guarantees. And I integrate **external APIs at scale**.
 
 # Como trabajo — bullets cortos, descriptivos, en primera persona.
 # Sin comparaciones con la industria ni auto-apreciaciones ("poco comun",

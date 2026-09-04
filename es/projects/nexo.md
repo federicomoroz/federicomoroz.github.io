@@ -23,7 +23,7 @@ permalink: /es/projects/nexo/
 
 <div class="callout">
   <p class="callout-title">Sobre el escenario</p>
-  <p>El distribuidor y su red de revendedores son un escenario construido, y en el repo está dicho. Lo escribí como se escribiría la documentación interna de ese proyecto —con los ADR, el runbook y el contrato con el ERP incluidos— porque ese era justamente el ejercicio: ver si podía sostener un sistema completo, no un endpoint de demostración. El código, las mediciones y los 306 tests son reales y se reproducen con los comandos del README.</p>
+  <p>El distribuidor y su red de revendedores son un escenario construido, y en el repo está dicho. Lo escribí como se escribiría la documentación interna de ese proyecto —con los ADR, el runbook y el contrato con el ERP incluidos— porque ese era justamente el ejercicio: ver si podía sostener un sistema completo, no un endpoint de demostración. El código, las mediciones y los 335 tests son reales y se reproducen con los comandos del README.</p>
 </div>
 
 {% include nexo-diagramas.html
@@ -51,18 +51,18 @@ permalink: /es/projects/nexo/
     bp_foot="El buffer de escritura de un WebSocket acepta mucho más de lo que la red del otro lado puede tragar. Sin esta pausa, el servidor acumula megabytes en memoria por cada revendedor con enlace lento mientras sigue leyendo la base a toda velocidad. Del lado del cliente, la regla es confirmar <b>después</b> de haber persistido el lote, no al recibirlo."
 
     eng_head="La capa de aplicación referencia únicamente al dominio: cero paquetes, ni una mención a Entity Framework."
-    eng_alt="Diagrama animado: los mismos puertos arriba y cuatro motores de base abajo turnándose, cada uno con la marca de 24 de 24 casos de contrato pasados."
+    eng_alt="Diagrama animado: los mismos puertos arriba y cuatro motores de base abajo turnándose, cada uno con la marca de 26 de 26 casos de contrato pasados."
     eng_ports="Puertos"
     eng_prod="producción"
     eng_demo="la demo"
     eng_pre="preproducción"
     eng_mem="En memoria"
     eng_dev="desarrollo"
-    eng_foot="Los mismos 24 casos corren contra los cuatro, sin un <code>if</code> por proveedor. MySQL y PostgreSQL en contenedores reales en CI; sin Docker los casos se reportan omitidos, nunca verdes. El proveedor en memoria no usa una línea de EF Core: es el que prueba que los puertos no filtran nada."
+    eng_foot="Los mismos 26 casos corren contra los cuatro, sin un <code>if</code> por proveedor. MySQL y PostgreSQL en contenedores reales en CI; sin Docker los casos se reportan omitidos, nunca verdes. El proveedor en memoria no usa una línea de EF Core: es el que prueba que los puertos no filtran nada."
 %}
 
 <div class="statline">
-  <div class="stat"><span class="num">306</span><span class="lbl">tests en CI</span></div>
+  <div class="stat"><span class="num">335</span><span class="lbl">tests en CI</span></div>
   <div class="stat"><span class="num">24<small>×4</small></span><span class="lbl">casos de contrato × motores</span></div>
   <div class="stat"><span class="num">4</span><span class="lbl">bugs que encontraron los tests</span></div>
 </div>
@@ -90,7 +90,7 @@ El cuarto es el que hace que la abstracción sea verificable y no declarativa: s
 los puertos filtraran algo de EF, ese proyecto no compilaría.
 
 Y encima corre `tests/Nexo.Persistence.ContractTests`, que ejecuta **los mismos
-24 casos contra los cuatro proveedores**, sin un `if` por proveedor. Las clases
+26 casos contra los cuatro proveedores**, sin un `if` por proveedor. Las clases
 por motor son cuatro líneas y no definen ni un caso propio. MySQL y PostgreSQL
 corren en contenedores reales en CI, con las migraciones versionadas aplicadas;
 sin Docker los casos se reportan **omitidos, nunca verdes** — un test que pasa
@@ -98,7 +98,7 @@ sin haber corrido es peor que no tenerlo.
 
 **La prueba llegó sola.** PostgreSQL se sumó cuando todo lo demás ya estaba
 escrito: dos archivos de proveedor, sus migraciones, un fixture y una clase de
-cuatro líneas. Los 24 casos pasaron a la primera, y no se tocó ni un caso de uso,
+cuatro líneas. Los 26 casos pasaron a la primera, y no se tocó ni un caso de uso,
 ni un controlador, ni el handler del WebSocket.
 
 ## Lo que la suite encontró antes de producción
@@ -228,19 +228,66 @@ donde no hay salida a internet para bajar el cliente de un CDN, y no hay build d
 front en el repo. `EventSource` ya viene en el navegador, reconecta solo, y para
 un flujo de una sola vía alcanza.
 
-## Lo que no está resuelto
+## Las cuatro deudas, y cómo se pagaron
 
-Escrito en el repo, no acá para quedar bien:
+Este apartado listaba cuatro limitaciones con la salida anotada al lado. Están
+cerradas. Interesa menos el anuncio que lo que apareció al hacerlo, que en tres
+de los cuatro casos no era lo previsto:
 
-- **El cupo es por proceso.** Con dos instancias detrás de un balanceador, cada
-  una aplica el suyo. La salida es implementar el mismo puerto contra Redis; no
-  está hecho porque hoy no hace falta.
-- **No hay prueba de carga.** El diseño evita el problema obvio —contrapresión,
-  colas acotadas, `async` de punta a punta— pero eso es diseño, no medición, y no
-  lo presento como si fuera lo mismo.
-- **El panel se protege con un token compartido.** Alcanza detrás de la VPN; si
-  sale a internet hay que pasarlo al SSO.
-- **La búsqueda no ignora acentos.** «Válvula» y «Valvula» son distintas.
+**El cupo era por proceso.** Con dos instancias detrás de un balanceador, cada
+una aplicaba el suyo y el techo real se duplicaba. Ahora se comparte en Redis:
+ventana deslizante sobre un *sorted set*, y las cuatro operaciones —descartar lo
+viejo, contar, agregar, renovar el vencimiento— en un solo script Lua, porque
+partidas en cuatro viajes dos instancias leen 119 al mismo tiempo y pasan las
+dos. Con Redis caído el servicio **sigue atendiendo** contra el contador en
+memoria y deja un aviso en el log: se elige atender de más antes que no atender,
+y queda escrito en el ADR para que sea una decisión y no un descubrimiento.
 
-Los cuatro están en los ADR con la salida anotada. Un ADR sin contras no se
-pensó.
+**No había prueba de carga.** Ahora hay una herramienta que mide dos cosas: N
+revendedores bajando el catálogo completo a la vez, y cuánto tarda un cambio del
+ERP en llegar a N conexiones suscriptas. Contra 8.000 artículos y 40 conexiones,
+en localhost: **40 de 40** completas, p50 0,30 s por conexión, y el cambio
+publicado llega a las cuarenta con **p50 227 ms**.
+
+Lo interesante no es el número. La primera corrida dio **0 de 40**, y bisecando
+con la otra herramienta apareció un bug de verdad: cuando el que cerraba primero
+era el cliente, el servidor nunca completaba el apretón de manos de cierre. Los
+otros dos clientes del repo lo venían tapando con un `try/catch` alrededor del
+cierre, que es tratar el síntoma en el lado equivocado.
+
+**El panel se protegía con un token compartido.** Ahora, cuando hay un proveedor
+de identidad cargado, pide inicio de sesión por OpenID Connect —*code flow* con
+PKCE, grupo exigible por configuración— y el token deja de valer: si conviviera
+sería una puerta trasera que se saltea el control de identidad, y alguien la
+usaría por comodidad el primer día. Escribirlo obligó a corregir el motivo que yo
+mismo había anotado: no era la exposición a internet. Un token compartido no dice
+**quién** revocó una clave, no se revoca por persona, y termina pegado en un chat
+interno. Las tres cosas pasan igual detrás de la VPN.
+
+**La búsqueda no ignoraba acentos.** Ahora sí, verificado por los mismos 26 casos
+contra los cuatro motores. Dos sorpresas en el camino. La primera: la forma de
+libro —descomponer a `FormD` y descartar las marcas combinantes— **no hace nada**
+en este servicio y tampoco falla; el proyecto declara `InvariantGlobalization`
+para no depender de la versión de ICU del sistema, y eso desactiva la
+normalización Unicode en silencio. La reemplaza una tabla explícita. La segunda:
+la eñe no es un acento —«caña» y «cana» son dos artículos distintos en una
+ferretería— y el caso que lo fija **falló solo en MySQL**, que con su collation
+por defecto vuelve a planchar una columna que el código ya había dejado canónica.
+El arreglo entra por una interfaz que cada motor implementa, no por un `if` sobre
+el nombre del proveedor.
+
+## Lo que sigue sin resolver
+
+- **El flujo OIDC no está probado de punta a punta.** Acá no hay un Entra ID
+  contra el cual hacerlo. Lo verificado es la decisión propia —qué modo se elige,
+  qué pasa con el token, qué pasa con alguien autenticado sin el grupo—; el
+  apretón de manos con el proveedor es el de ASP.NET Core y lo doy por bueno.
+- **Los números de carga son de localhost.** Miden el costo del servidor en
+  despachar a N conexiones, no el viaje hasta el revendedor, que se suma.
+- **Con Redis caído el cupo se degrada**, no falla. Es la decisión de arriba, y
+  es discutible.
+- **El diario de cambios asume un solo escritor.** El ERP publica secuencial. Con
+  dos fuentes de escritura la marca de agua deja de ser monótona y el mecanismo
+  de reanudación se cae.
+
+Los ocho puntos están en los ADR. Un ADR sin contras no se pensó.

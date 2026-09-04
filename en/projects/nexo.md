@@ -23,7 +23,7 @@ permalink: /en/projects/nexo/
 
 <div class="callout">
   <p class="callout-title">About the scenario</p>
-  <p>The distributor and its reseller network are a constructed scenario, and the repo says so. I wrote it the way that project's internal documentation would be written —ADRs, runbook and the ERP integration contract included— because that was the exercise: to see whether I could hold up a whole system rather than a demo endpoint. The code, the measurements and the 306 tests are real, and they reproduce with the commands in the README.</p>
+  <p>The distributor and its reseller network are a constructed scenario, and the repo says so. I wrote it the way that project's internal documentation would be written —ADRs, runbook and the ERP integration contract included— because that was the exercise: to see whether I could hold up a whole system rather than a demo endpoint. The code, the measurements and the 335 tests are real, and they reproduce with the commands in the README.</p>
 </div>
 
 {% include nexo-diagramas.html
@@ -51,18 +51,18 @@ permalink: /en/projects/nexo/
     bp_foot="A WebSocket write buffer accepts far more than the network on the other side can swallow. Without this pause the server piles up megabytes in memory for every reseller on a slow link while it keeps reading the database at full speed. On the client side the rule is to acknowledge <b>after</b> persisting the batch, not on receipt."
 
     eng_head="The application layer references only the domain: zero packages, not one mention of Entity Framework."
-    eng_alt="Animated diagram: the same ports on top and four database engines below taking turns, each stamped with 24 of 24 contract cases passed."
+    eng_alt="Animated diagram: the same ports on top and four database engines below taking turns, each stamped with 26 of 26 contract cases passed."
     eng_ports="Ports"
     eng_prod="production"
     eng_demo="the demo"
     eng_pre="pre-production"
     eng_mem="In-memory"
     eng_dev="development"
-    eng_foot="The same 24 cases run against all four, with no per-provider <code>if</code>. MySQL and PostgreSQL in real containers in CI; without Docker those cases report as skipped, never green. The in-memory provider uses no EF Core at all: it is the one that proves the ports leak nothing."
+    eng_foot="The same 26 cases run against all four, with no per-provider <code>if</code>. MySQL and PostgreSQL in real containers in CI; without Docker those cases report as skipped, never green. The in-memory provider uses no EF Core at all: it is the one that proves the ports leak nothing."
 %}
 
 <div class="statline">
-  <div class="stat"><span class="num">306</span><span class="lbl">tests in CI</span></div>
+  <div class="stat"><span class="num">335</span><span class="lbl">tests in CI</span></div>
   <div class="stat"><span class="num">24<small>×4</small></span><span class="lbl">contract cases × engines</span></div>
   <div class="stat"><span class="num">4</span><span class="lbl">bugs the tests found</span></div>
 </div>
@@ -89,7 +89,7 @@ Framework**. There are four implementations, chosen by configuration:
 The fourth is what makes the abstraction verifiable rather than declarative: if
 the ports leaked anything from EF, that project would not compile.
 
-On top of that, `tests/Nexo.Persistence.ContractTests` runs **the same 24 cases
+On top of that, `tests/Nexo.Persistence.ContractTests` runs **the same 26 cases
 against all four providers**, with no per-provider branching. The per-engine
 classes are four lines each and define no cases of their own. MySQL and
 PostgreSQL run in real containers in CI, with the versioned migrations applied;
@@ -98,7 +98,7 @@ passes without running is worse than no test.
 
 **The proof arrived on its own.** PostgreSQL was added once everything else was
 already written: two provider files, its migrations, a fixture and a four-line
-class. All 24 cases passed on the first run, and not one use case, controller or
+class. All 26 cases passed on the first run, and not one use case, controller or
 WebSocket handler was touched.
 
 ## What the suite caught before production
@@ -232,19 +232,66 @@ VPN, with no internet access to fetch a client from a CDN, and there is no
 front-end build in the repo. `EventSource` ships with the browser, reconnects on
 its own, and for one-way traffic that is enough.
 
-## What is not solved
+## The four debts, and how they were paid
 
-Written in the repo, not here to look good:
+This section used to list four limitations with the way out noted beside each.
+They are closed. The announcement matters less than what turned up along the way,
+which in three of the four cases was not what I expected:
 
-- **Quota is per process.** With two instances behind a load balancer each
-  enforces its own. The way out is implementing the same port against Redis; not
-  done, because it is not needed yet.
-- **There is no load test.** The design avoids the obvious problem —
-  backpressure, bounded queues, `async` end to end — but that is design, not
-  measurement, and I will not present one as the other.
-- **The panel is protected by a shared token.** Enough behind the VPN; if it goes
-  public it needs the corporate SSO.
-- **Search does not strip accents.** "Válvula" and "Valvula" are different.
+**Quota was per process.** With two instances behind a load balancer each
+enforced its own and the real ceiling doubled. It is now shared in Redis: a
+sliding window over a sorted set, with all four operations — drop what expired,
+count, add, renew the TTL — in a single Lua script, because split across four
+round trips two instances both read 119 at the same time and both let the request
+through. With Redis down the service **keeps serving** against the in-memory
+counter and logs a warning: over-serving beats not serving, and it is written in
+the ADR so it reads as a decision rather than a discovery.
 
-All four are in the ADRs with the way out noted. An ADR with no downsides was not
-thought through.
+**There was no load test.** There is now a tool that measures two things: N
+resellers pulling the full catalogue at once, and how long an ERP change takes to
+reach N subscribed connections. Against 8,000 items and 40 connections, on
+localhost: **40 of 40** completed, p50 0.30 s per connection, and the published
+change reaches all forty at **p50 227 ms**.
+
+The number is not the interesting part. The first run gave **0 of 40**, and
+bisecting with the other tool turned up a real bug: when the client closed first,
+the server never completed the close handshake. The repo's other two clients had
+been masking it with a `try/catch` around the close, which is treating the
+symptom on the wrong side.
+
+**The panel was protected by a shared token.** Now, when an identity provider is
+configured, it requires sign-in over OpenID Connect — code flow with PKCE, an
+enforceable group in config — and the token stops working: if the two coexisted,
+the token would be a back door around the whole identity check, and someone would
+use it out of convenience on day one. Writing it forced me to correct the reason
+I had noted myself: it was never about internet exposure. A shared token cannot
+say **who** revoked a key, cannot be revoked per person, and ends up pasted in an
+internal chat. All three happen behind the VPN too.
+
+**Search did not strip accents.** It does now, verified by the same 26 cases
+against all four engines. Two surprises on the way. First: the textbook approach
+— decompose to `FormD`, drop the combining marks — **does nothing** in this
+service and does not fail either; the project declares `InvariantGlobalization` so
+the image does not depend on the system's ICU version, and that silently disables
+Unicode normalization. An explicit table replaces it. Second: ñ is not an accent
+— "caña" and "cana" are two different items in a hardware catalogue — and the case
+that pins it **failed on MySQL alone**, whose default collation flattens a second
+time a column the code had already made canonical. The fix arrives through an
+interface each engine implements, not an `if` on the provider name.
+
+## What is still not solved
+
+- **The OIDC flow is not tested end to end.** There is no Entra ID here to test
+  it against. What is verified is the decision itself — which mode is chosen,
+  what happens to the token, what happens to someone authenticated without the
+  group; the handshake with the provider is ASP.NET Core's and I take it as read.
+- **The load numbers are from localhost.** They measure the server's cost of
+  dispatching to N connections, not the trip to the reseller, which adds on top.
+- **With Redis down the quota degrades**, it does not fail. That is the decision
+  above, and it is arguable.
+- **The change journal assumes a single writer.** The ERP publishes
+  sequentially. With two write sources the watermark stops being monotonic and
+  the resume mechanism breaks.
+
+All eight points are in the ADRs. An ADR with no downsides was not thought
+through.
