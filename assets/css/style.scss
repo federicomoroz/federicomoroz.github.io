@@ -186,6 +186,92 @@ pre code
     padding: 0;
 }
 
+/* Tables — the stylesheet had no rule for them at all, so every markdown table
+   rendered as bare rows with no padding and columns that collapsed into each
+   other. They carry real content in the case studies (persistence providers,
+   benchmark results), so they get the same surface treatment as `pre`. */
+table
+{
+    /* Shrink to content instead of stretching to the container: with three short
+       columns, a full-width table leaves a gap wide enough that the eye stops
+       connecting a row across it. */
+    width: auto;
+    max-width: 100%;
+    margin: 18px 0;
+    border-collapse: collapse;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    /* border-radius does not clip collapsed cell borders on its own. */
+    overflow: hidden;
+    font-size: 0.94rem;
+    line-height: 1.5;
+}
+
+thead th
+{
+    background: var(--bg-raised);
+    color: var(--fg);
+    font-weight: 600;
+    text-align: left;
+    white-space: nowrap;
+    border-bottom: 1px solid var(--border-strong);
+}
+
+th,
+td
+{
+    padding: 9px 14px;
+    vertical-align: top;
+}
+
+/* Hairlines between rows only: vertical rules would fight the row rhythm on a
+   three-column table this narrow. */
+tbody tr + tr td
+{
+    border-top: 1px solid var(--border);
+}
+
+/* The first column is the thing being described — the engine, the method — and
+   it is what the eye lands on when scanning down. */
+tbody td:first-child
+{
+    color: var(--fg);
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+tbody td
+{
+    color: var(--fg-muted);
+}
+
+tbody td code
+{
+    white-space: nowrap;
+}
+
+/* Narrow screens: the table scrolls inside itself rather than pushing the page
+   sideways. `display: block` is what makes overflow apply to a table. */
+@media (max-width: 640px)
+{
+    table
+    {
+        display: block;
+        overflow-x: auto;
+        font-size: 0.88rem;
+    }
+
+    /* Only the first column stays on one line. Letting the rest wrap is what
+       keeps the whole table on screen instead of pushing two thirds of it
+       behind a scroll nobody notices. */
+    td,
+    th
+    {
+        padding: 8px 10px;
+        white-space: normal;
+    }
+}
+
 .container
 {
     max-width: var(--container);
