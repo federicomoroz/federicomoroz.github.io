@@ -59,6 +59,30 @@
     - Docker
     - pytest
 
+- id: nexo
+  name: Nexo
+  short:
+    es: "Un mayorista mandaba el catálogo por FTP una vez por día y el stock quedaba viejo antes del mediodía. Acá el ERP publica y los revendedores bajan el catálogo por WebSocket, con confirmación por lote, y quedan en la misma conexión recibiendo los cambios. La persistencia está detrás de puertos: los mismos 24 casos corren contra MySQL, PostgreSQL, SQLite y un proveedor en memoria, y ya encontraron dos divergencias entre motores. Un benchmark propio refutó la justificación del primer ADR y el documento quedó corregido."
+    en: "A wholesaler was sending its catalogue over FTP once a day, and stock was stale by noon. Here the ERP publishes and resellers pull the catalogue over a WebSocket, batch by batch with acknowledgements, then stay on that connection receiving changes. Persistence sits behind ports: the same 24 cases run against MySQL, PostgreSQL, SQLite and an in-memory provider, and they have already caught two engine divergences. A benchmark refuted the reasoning in the first ADR, and the document was corrected rather than quietly dropped."
+  status: active
+  listed: true
+  case_study: true
+  repo: https://github.com/federicomoroz/nexo
+  repo_visibility: public
+  demo: https://federicomoroz.github.io/nexo/
+  tech:
+    - "C#"
+    - .NET 8
+    - ASP.NET Core MVC
+    - WebSocket
+    - SSE
+    - EF Core
+    - MySQL
+    - PostgreSQL
+    - Testcontainers
+    - xUnit
+    - Docker
+
 - id: order-outbox-service
   name: Order Outbox Service
   short:
@@ -120,8 +144,8 @@
 - id: shipping-quote-dotnet
   name: "Shipping Quote — .NET"
   short:
-    es: "El mismo cotizador de envíos, portado a ASP.NET Core. Lo interesante no fue reescribirlo: fue lo que el port dejó a la vista. Los tres transportistas se consultan con `Task.WhenAll` y hay un test que mide el reloj —306 ms donde en fila serían 900— así que falla si alguien lo convierte en un `foreach`. Corre sobre MySQL, no SQLite, porque SQLite serializa las escrituras."
-    en: "The same shipping quoter, ported to ASP.NET Core. The interesting part wasn't rewriting it: it was what the port exposed. The three carriers are queried with `Task.WhenAll`, and a test measures the clock —306 ms where sequential would be 900— so it fails if anyone turns it into a `foreach`. It runs on MySQL rather than SQLite, because SQLite serializes writes."
+    es: "Un port, no una pieza nueva: el mismo cotizador de envíos que existe en Python, reescrito en ASP.NET Core para ver qué partes eran arquitectura y cuáles eran costumbre. Los tres transportistas se consultan con `Task.WhenAll` y hay un test que mide el reloj —306 ms donde en fila serían 900— así que falla si alguien lo convierte en un `foreach`. Corre sobre MySQL, no SQLite, porque SQLite serializa las escrituras."
+    en: "A port, not a new piece: the same shipping quoter that exists in Python, rewritten in ASP.NET Core to see which parts were architecture and which were habit. The three carriers are queried with `Task.WhenAll`, and a test measures the clock —306 ms where sequential would be 900— so it fails if anyone turns it into a `foreach`. It runs on MySQL rather than SQLite, because SQLite serializes writes."
   status: active
   listed: true
   case_study: true

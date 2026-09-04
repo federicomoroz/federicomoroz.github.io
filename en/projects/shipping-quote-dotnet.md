@@ -17,6 +17,7 @@ permalink: /en/projects/shipping-quote-dotnet/
   <p class="row-links">
     <a href="https://github.com/federicomoroz/shipping-quote-dotnet" target="_blank" rel="noopener">Repo ↗</a>
     <a href="{{ '/en/projects/shipping-quote/' | relative_url }}">The Python version →</a>
+    <a href="{{ '/en/projects/nexo/' | relative_url }}">The fuller .NET project &rarr;</a>
   </p>
 </section>
 
