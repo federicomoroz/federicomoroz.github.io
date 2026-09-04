@@ -5,13 +5,26 @@
 # y el script no toca.
 #
 # usuario: federicomoroz
-# generado: 2026-09-03T23:39:08+00:00
+# generado: 2026-09-04T03:19:35+00:00
 
 user: "federicomoroz"
-generated_at: "2026-09-03T23:39:08+00:00"
-count: 12
+generated_at: "2026-09-04T03:19:35+00:00"
+count: 13
 
 repos:
+  - name: "nexo"
+    full_name: "federicomoroz/nexo"
+    url: "https://github.com/federicomoroz/nexo"
+    description: "Servicio de distribucion de catalogo, precios y stock a una red de revendedores. .NET 8, cuatro motores de base intercambiables verificados por la misma suite de contrato."
+    language: "C#"
+    homepage: null
+    stars: 0
+    forks: 0
+    archived: false
+    is_fork: false
+    pushed_at: "2026-09-04T03:00:20Z"
+    created_at: "2026-09-04T02:57:06Z"
+    topics: []
   - name: "shipping-quote-dotnet"
     full_name: "federicomoroz/shipping-quote-dotnet"
     url: "https://github.com/federicomoroz/shipping-quote-dotnet"
