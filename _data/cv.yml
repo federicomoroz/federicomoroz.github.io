@@ -67,7 +67,7 @@ skills:
   - group:
       es: Backend y frameworks
       en: Backend & frameworks
-    items: [FastAPI, "Spring Boot", "Spring Data JPA", Hibernate, Maven, Flask, Node.js, React, SQLAlchemy, Pydantic, Alembic, dependency-injector, APScheduler, httpx, Laravel, Django]
+    items: [FastAPI, "Spring Boot", "Spring Data JPA", Hibernate, Maven, ".NET 8", "ASP.NET Core", "Entity Framework Core", Flask, Node.js, React, SQLAlchemy, Pydantic, Alembic, dependency-injector, APScheduler, httpx, Laravel, Django]
 
   - group:
       es: IA aplicada
@@ -77,22 +77,22 @@ skills:
   - group:
       es: Infraestructura
       en: Infrastructure
-    items: ["Apache Kafka", Redis, PostgreSQL, SQLite, Flyway, Docker, "Docker Compose", "GitHub Actions", CI/CD, Render]
+    items: ["Apache Kafka", Redis, PostgreSQL, MySQL, SQLite, Flyway, Docker, "Docker Compose", "GitHub Actions", CI/CD, Render]
 
   - group:
       es: Integraciones
       en: Integrations
-    items: [REST APIs, Webhooks, SendGrid, Telegram Bot API, Airtable, BigQuery]
+    items: [REST APIs, Webhooks, WebSockets, SendGrid, Telegram Bot API, Airtable, BigQuery]
 
   - group:
       es: Testing y herramientas
       en: Testing & tooling
-    items: [pytest, pytest-asyncio, "JUnit 5", Testcontainers, ArchUnit, Playwright, Vite, mypy, Ruff, Git, Postman]
+    items: [pytest, pytest-asyncio, "JUnit 5", xUnit, Testcontainers, ArchUnit, Playwright, Vite, mypy, Ruff, Git, Postman]
 
   - group:
       es: Arquitectura y prácticas
       en: Architecture & practices
-    items: [SOLID, "Arquitectura hexagonal", "Ports & adapters", "Transactional Outbox", "Consumidor idempotente", "Arquitectura por capas", MVC, Repository, "Arquitectura orientada a eventos", "Circuit breaker", "Inyección de dependencias", "Composition root", "Plugin systems", Pipeline]
+    items: [SOLID, "Arquitectura hexagonal", "Ports & adapters", "Transactional Outbox", "Consumidor idempotente", "Arquitectura por capas", MVC, Repository, "Arquitectura orientada a eventos", "Circuit breaker", "Inyección de dependencias", "Composition root", "Plugin systems", Pipeline, Contrapresión, "Tests de contrato"]
 
 # Orden cronologico inverso, con la formacion sin fecha al final.
 education:
