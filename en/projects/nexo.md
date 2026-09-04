@@ -98,7 +98,7 @@ passes without running is worse than no test.
 
 **The proof arrived on its own.** PostgreSQL was added once everything else was
 already written: two provider files, its migrations, a fixture and a four-line
-class. All 26 cases passed on the first run, and not one use case, controller or
+class. All the contract cases passed on the first run, and not one use case, controller or
 WebSocket handler was touched.
 
 ## What the suite caught before production
@@ -197,8 +197,8 @@ I wrote the test that sends a forged `X-Forwarded-For` with no proxies configure
 and expects a 403. It returned 200.
 
 `ForwardedHeadersMiddleware` **only validates the header's origin if there is
-something** in `KnownProxies` or `KnownNetworks`. With both lists empty — the
-default — it trusts anyone. So in the default configuration, anyone with a valid
+something** in `KnownProxies` or `KnownNetworks`. With both lists empty — which is
+where the sample leaves them — it trusts anyone. So in that configuration, anyone with a valid
 credential could bypass the allowlist with a forged header.
 
 Now, with no proxies declared, header processing is switched off entirely. The

@@ -98,7 +98,7 @@ sin haber corrido es peor que no tenerlo.
 
 **La prueba llegó sola.** PostgreSQL se sumó cuando todo lo demás ya estaba
 escrito: dos archivos de proveedor, sus migraciones, un fixture y una clase de
-cuatro líneas. Los 26 casos pasaron a la primera, y no se tocó ni un caso de uso,
+cuatro líneas. Los casos de contrato pasaron a la primera, y no se tocó ni un caso de uso,
 ni un controlador, ni el handler del WebSocket.
 
 ## Lo que la suite encontró antes de producción
@@ -194,8 +194,8 @@ Escribí el test que manda un `X-Forwarded-For` falso sin proxies configurados y
 espera un 403. Dio 200.
 
 `ForwardedHeadersMiddleware` **solo controla el origen del header si hay algo** en
-`KnownProxies` o `KnownNetworks`. Con las dos listas vacías —el default— le cree
-a cualquiera. O sea: en la configuración por defecto, cualquiera con una
+`KnownProxies` o `KnownNetworks`. Con las dos listas vacías —que es donde las deja el ejemplo— le cree
+a cualquiera. O sea: en la configuración que trae el ejemplo, cualquiera con una
 credencial válida se salteaba la whitelist con un header inventado.
 
 Ahora, sin proxies declarados, el procesamiento del header se apaga entero. La
