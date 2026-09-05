@@ -22,8 +22,8 @@ permalink: /es/projects/nexo/
 </section>
 
 <div class="callout">
-  <p class="callout-title">Sobre el escenario</p>
-  <p>El distribuidor y su red de revendedores son un escenario construido, y en el repo está dicho. Lo escribí como se escribiría la documentación interna de ese proyecto —con los ADR, el runbook y el contrato con el ERP incluidos— porque ese era justamente el ejercicio: ver si podía sostener un sistema completo, no un endpoint de demostración. El código, las mediciones y los 356 tests son reales y se reproducen con los comandos del README.</p>
+  <p class="callout-title">Sobre los datos</p>
+  <p>Los datos del repositorio son placeholder: el sistema se publica sin exponer al cliente. Lo que está acá es la documentación interna del proyecto —con los ADR, el runbook y el contrato con el ERP incluidos—, y el código, las mediciones y los 356 tests son reales y se reproducen con los comandos del README.</p>
 </div>
 
 {% include nexo-diagramas.html

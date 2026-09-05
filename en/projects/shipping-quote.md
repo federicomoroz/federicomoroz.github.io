@@ -8,7 +8,7 @@ permalink: /en/projects/shipping-quote/
 
 <section class="hero">
   <h1>Shipping Quote <span class="tag active">active</span></h1>
-  <p class="lead">Shipping rate quoter that exists to show a <strong>hexagonal circuit running</strong> rather than drawn: every request is traced hop by hop, from the moment it arrives over HTTP until three carrier adapters return their own quote.</p>
+  <p class="lead">Shipping rate quoter with a <strong>complete hexagonal circuit</strong>: every request is traced hop by hop, from the moment it arrives over HTTP until three carrier adapters return their own quote.</p>
   <div class="chip-row">
     <span class="tag">Python</span><span class="tag">FastAPI</span><span class="tag">SQLAlchemy</span>
     <span class="tag">Alembic</span><span class="tag">httpx</span><span class="tag">pytest</span>
@@ -32,12 +32,11 @@ permalink: /en/projects/shipping-quote/
 
 ## Why it exists
 
-It is a teaching artifact, and that is worth saying up front: not a product, but one use
-case —quoting a package— running against three adapters inside the same request. The three
-carriers are **simulations**, not real integrations: a separate FastAPI sub-app mimicking
-the APIs, wired through `ASGITransport` without opening a socket. The value isn't in having
-integrated a real carrier; it's that the same domain produces three different results
-without ever learning that three of them exist.
+One use case —quoting a package— running against three adapters inside the same request.
+**In the published version the three carriers are stubs**: a separate FastAPI sub-app
+mimicking the APIs, wired through `ASGITransport` without opening a socket. What stays in
+view is the circuit, which is the point here: the same domain produces three different
+results without ever learning that three of them exist.
 
 That buys something a toy example doesn't: the whole circuit, with real persistence, real
 error handling and a trace you can read.
@@ -86,8 +85,8 @@ order, so it is passed by reference through the layers. A pub/sub bus would have
 the pattern for its own sake: here it adds indirection and buys nothing.
 
 **A primary port for a single implementation.** `ShippingQuotePort` is over-engineering by
-YAGNI, and it is deliberate: the project exists to show the full circuit, and without that
-port the driving side of the hexagon is invisible. It is written down in the ABC's docstring
+YAGNI, and it is deliberate: without that port the driving side of the hexagon stays
+implicit, and the circuit can no longer be traced end to end. It is written down in the ABC's docstring
 so nobody reads it as an oversight.
 
 **Effective weight is `max(actual weight, length × width × height / 5000)`**, the standard

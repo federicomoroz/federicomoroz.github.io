@@ -8,7 +8,7 @@ permalink: /es/projects/shipping-quote/
 
 <section class="hero">
   <h1>Shipping Quote <span class="tag active">activo</span></h1>
-  <p class="lead">Cotizador de envíos que existe para mostrar un <strong>circuito hexagonal funcionando</strong>, no dibujado: cada request queda trazado hop por hop, desde que entra por HTTP hasta que tres adaptadores de transportista devuelven su propia cotización.</p>
+  <p class="lead">Cotizador de envíos con un <strong>circuito hexagonal completo</strong>: cada request queda trazado hop por hop, desde que entra por HTTP hasta que tres adaptadores de transportista devuelven su propia cotización.</p>
   <div class="chip-row">
     <span class="tag">Python</span><span class="tag">FastAPI</span><span class="tag">SQLAlchemy</span>
     <span class="tag">Alembic</span><span class="tag">httpx</span><span class="tag">pytest</span>
@@ -32,11 +32,10 @@ permalink: /es/projects/shipping-quote/
 
 ## Por qué existe
 
-Es un artefacto didáctico y conviene decirlo de entrada: no es un producto, es un caso de
-uso —cotizar un paquete— corriendo contra tres adaptadores en el mismo request. Los tres
-transportistas son **simulaciones**, no integraciones reales: un sub-app de FastAPI aparte
-que imita las APIs, conectado por `ASGITransport` sin abrir un socket. El valor no está en
-haber integrado a Correo Argentino: está en que el mismo dominio produzca tres resultados
+Un caso de uso —cotizar un paquete— corriendo contra tres adaptadores en el mismo request.
+**En la versión publicada los tres transportistas son stubs**: un sub-app de FastAPI aparte
+que imita las APIs, conectado por `ASGITransport` sin abrir un socket. Lo que queda a la
+vista es el circuito, que es lo que importa acá: el mismo dominio produce tres resultados
 distintos sin enterarse de que existen tres.
 
 Eso permite algo que un ejemplo de juguete no da: el circuito completo, con persistencia
@@ -86,8 +85,8 @@ orden estricto, así que se pasa por referencia a través de las capas. Un pub/s
 usar el patrón porque sí: acá no aporta nada y agrega indirección.
 
 **Un puerto primario para una sola implementación.** `ShippingQuotePort` es over-engineering
-según YAGNI, y está a propósito: el proyecto existe para mostrar el circuito completo, y sin
-ese puerto el lado de entrada del hexágono no se ve. Está anotado en el docstring del ABC
+según YAGNI, y está a propósito: sin ese puerto el lado de entrada del hexágono queda
+implícito, y el circuito deja de poder trazarse de punta a punta. Está anotado en el docstring del ABC
 para que nadie lo lea como un descuido.
 
 **El peso efectivo es `max(peso real, largo × ancho × alto / 5000)`**, la fórmula estándar de

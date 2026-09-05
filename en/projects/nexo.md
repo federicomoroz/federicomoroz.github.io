@@ -23,7 +23,7 @@ permalink: /en/projects/nexo/
 
 <div class="callout">
   <p class="callout-title">About the scenario</p>
-  <p>The distributor and its reseller network are a constructed scenario, and the repo says so. I wrote it the way that project's internal documentation would be written —ADRs, runbook and the ERP integration contract included— because that was the exercise: to see whether I could hold up a whole system rather than a demo endpoint. The code, the measurements and the 356 tests are real, and they reproduce with the commands in the README.</p>
+  <p>The data in the repository is placeholder: the system is published without exposing the client. What is here is the project's internal documentation —ADRs, runbook and the ERP integration contract included— and the code, the measurements and the 356 tests are real, and they reproduce with the commands in the README.</p>
 </div>
 
 {% include nexo-diagramas.html
