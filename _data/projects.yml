@@ -19,6 +19,25 @@
 #
 # ESTADO: seed desde el README publico. Revisar textos y sumar los que falten.
 
+- id: handoff
+  name: handoff
+  short:
+    es: "Un cliente escribe «me llegó roto». Para contestarle hay que mirar el pedido, el envío, cuántas veces reclamó antes y qué anotó el depósito, y recién ahí decidir si se le manda otro, se le devuelve la plata, se le pide una foto o lo mira una persona. handoff hace esas cuatro consultas contra un sistema que contesta mal a propósito, y propone la decisión. Once reglas revisan la propuesta antes de que ocurra: sobre 96 pruebas quiso mover plata sin respaldo 19 veces y no lo consiguió ninguna."
+    en: "A customer writes \"it arrived broken\". To answer them someone has to look at the order, the shipment, how many times that customer claimed before and what the warehouse wrote down, and only then decide between a replacement, a refund, asking for a photo, or handing it to a person. handoff does those four reads against a system built to answer badly, and proposes the decision. Eleven rules review the proposal before it happens: across 96 test runs it tried to move money without backing 19 times and got through none of them."
+  status: active
+  listed: true
+  case_study: true
+  repo: https://github.com/federicomoroz/handoff
+  repo_visibility: public
+  tech:
+    - TypeScript
+    - Node
+    - Hono
+    - Zod
+    - Ollama
+    - vitest
+    - GitHub Actions
+
 - id: agente-contracargos
   name: "Agente de investigación de contracargos"
   short:

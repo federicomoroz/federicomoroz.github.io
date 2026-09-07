@@ -1,0 +1,112 @@
+{% comment %}
+  El circuito de handoff, dibujado a mano.
+
+  La afirmacion que sostiene el dibujo: el modelo PROPONE y las reglas DECIDEN si eso
+  llega a ejecutarse. Por eso solo dos cosas llevan color -la banda del modelo y la
+  columna de reglas-: son las dos piezas de las que depende el argumento. El resto es
+  gris a proposito.
+
+  El camino punteado que aparece y se desvanece es el reintento: el ERP contesta mal
+  seguido, y el agente vuelve a preguntar. Se dibuja porque es lo que un lector no
+  tecnico no imaginaria solo.
+
+  Parametro: lang ("es" | "en").
+{% endcomment %}
+{% assign es = false %}{% if include.lang == 'es' %}{% assign es = true %}{% endif %}
+
+<figure class="diagrama">
+  <div class="diagrama-scroll">
+    <svg viewBox="0 0 1040 372" role="img"
+         aria-label="{% if es %}Llega el reclamo de un cliente. El agente hace cuatro consultas al sistema de la empresa -pedido, envio, historial del cliente y notas internas-, reintentando cuando el sistema falla. Con eso, el modelo propone una accion. Once reglas revisan esa propuesta y eligen la salida: o el caso se resuelve solo, o pasa a una persona.{% else %}A customer claim arrives. The agent makes four reads against the company's system -order, shipment, customer history and internal notes-, retrying when that system fails. With those, the model proposes an action. Eleven rules review the proposal and pick the exit: either the case is resolved on its own, or it goes to a person.{% endif %}">
+
+      <defs>
+        <marker id="hf-pt" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto">
+          <path d="M 0 0 L 8 4 L 0 8 z" fill="currentColor" opacity="0.55" />
+        </marker>
+      </defs>
+
+      <!-- La corriente va primero: las cajas la tapan y solo se ve entre una y otra. -->
+      <line class="diag-corriente" x1="110" y1="196" x2="600" y2="196" />
+
+      <!-- La columna de reglas abre en dos salidas -->
+      <path class="diag-linea" d="M 724 196 L 752 196 L 752 152 L 786 152" marker-end="url(#hf-pt)" />
+      <path class="diag-linea" d="M 724 196 L 752 196 L 752 242 L 786 242" marker-end="url(#hf-pt)" />
+
+      <!-- El reintento: el ERP contesta mal y hay que volver a preguntar. -->
+      <path class="diag-atajo" d="M 300 176 C 330 118, 200 106, 160 168" marker-end="url(#hf-pt)" />
+      <text class="diag-nota" x="230" y="100" text-anchor="middle">
+        {% if es %}el sistema falla · vuelve a preguntar{% else %}the system fails · it asks again{% endif %}
+      </text>
+
+      <!-- Entrada -->
+      <rect class="diag-caja" x="12" y="170" width="108" height="52" rx="8" />
+      <text class="diag-titulo" x="66" y="192" text-anchor="middle">{% if es %}Reclamo{% else %}Claim{% endif %}</text>
+      <text class="diag-sub" x="66" y="209" text-anchor="middle">{% if es %}del cliente{% else %}from a customer{% endif %}</text>
+
+      <!-- Las cuatro lecturas -->
+      <rect class="diag-caja diag-dato" x="150" y="170" width="160" height="52" rx="8" />
+      <text class="diag-titulo diag-dato-tx" x="230" y="192" text-anchor="middle">{% if es %}Busca los datos{% else %}Gathers the facts{% endif %}</text>
+      <text class="diag-sub" x="230" y="209" text-anchor="middle">{% if es %}4 consultas{% else %}4 reads{% endif %}</text>
+
+      <line class="diag-linea diag-dato" x1="186" y1="222" x2="106" y2="284" />
+      <line class="diag-linea diag-dato" x1="214" y1="222" x2="196" y2="284" />
+      <line class="diag-linea diag-dato" x1="246" y1="222" x2="290" y2="284" />
+      <line class="diag-linea diag-dato" x1="274" y1="222" x2="382" y2="284" />
+
+      <rect class="diag-caja" x="60" y="286" width="92" height="34" rx="7" />
+      <text class="diag-sub" x="106" y="308" text-anchor="middle">{% if es %}pedido{% else %}order{% endif %}</text>
+      <rect class="diag-caja" x="158" y="286" width="92" height="34" rx="7" />
+      <text class="diag-sub" x="204" y="308" text-anchor="middle">{% if es %}envío{% else %}shipment{% endif %}</text>
+      <rect class="diag-caja" x="256" y="286" width="92" height="34" rx="7" />
+      <text class="diag-sub" x="302" y="308" text-anchor="middle">{% if es %}historial{% else %}history{% endif %}</text>
+      <rect class="diag-caja" x="354" y="286" width="92" height="34" rx="7" />
+      <text class="diag-sub" x="400" y="308" text-anchor="middle">{% if es %}notas{% else %}notes{% endif %}</text>
+
+      <text class="diag-nota" x="253" y="342" text-anchor="middle">
+        {% if es %}el sistema de la empresa · uno solo, viejo{% else %}the company's own system · one, and old{% endif %}
+      </text>
+
+      <!-- Banda del modelo -->
+      <rect x="356" y="150" width="192" height="92" rx="11" fill="none"
+            class="diag-modelo" stroke-dasharray="5 5" opacity="0.75" />
+      <text class="diag-titulo diag-modelo-tx" x="452" y="142" text-anchor="middle">
+        {% if es %}propone · no ejecuta{% else %}proposes · does not execute{% endif %}
+      </text>
+
+      <rect class="diag-caja diag-modelo" x="372" y="170" width="160" height="52" rx="8" />
+      <text class="diag-titulo" x="452" y="192" text-anchor="middle">{% if es %}El modelo{% else %}The model{% endif %}</text>
+      <text class="diag-sub" x="452" y="209" text-anchor="middle">{% if es %}elige una acción{% else %}picks an action{% endif %}</text>
+
+      <!-- Las reglas: la unica pieza que decide si eso sale -->
+      <rect class="diag-caja diag-regla" x="596" y="170" width="128" height="52" rx="8" stroke-width="2" />
+      <text class="diag-titulo diag-regla-tx" x="660" y="192" text-anchor="middle">{% if es %}11 reglas{% else %}11 rules{% endif %}</text>
+      <text class="diag-sub" x="660" y="209" text-anchor="middle">{% if es %}revisan{% else %}review it{% endif %}</text>
+
+      <!-- Las dos salidas -->
+      <rect class="diag-caja" x="786" y="128" width="242" height="48" rx="8" />
+      <text class="diag-titulo" x="907" y="149" text-anchor="middle">{% if es %}Se resuelve solo{% else %}Resolved on its own{% endif %}</text>
+      <text class="diag-sub" x="907" y="166" text-anchor="middle">{% if es %}reintegro · reenvío · pedir una foto{% else %}refund · replacement · ask for a photo{% endif %}</text>
+
+      <rect class="diag-caja diag-regla" x="786" y="218" width="242" height="48" rx="8" />
+      <text class="diag-titulo diag-regla-tx" x="907" y="239" text-anchor="middle">{% if es %}Lo mira una persona{% else %}A person looks at it{% endif %}</text>
+      <text class="diag-sub" x="907" y="256" text-anchor="middle">{% if es %}cuando los datos no alcanzan{% else %}when the facts fall short{% endif %}</text>
+
+      <text class="diag-nota" x="907" y="292" text-anchor="middle">
+        {% if es %}o cuando el monto es alto, o el cliente ya reclamó tres veces{% else %}or the amount is high, or the customer has claimed three times{% endif %}
+      </text>
+    </svg>
+  </div>
+  <figcaption>
+    {% if es %}
+      El modelo elige qué hacer; las once reglas deciden si eso llega a ejecutarse. Las que
+      cuidan la plata —reintegro y reenvío— son estrictas; pedirle una foto al cliente no
+      cuesta nada y no las necesita. En 96 casos de prueba el modelo quiso mover plata sin
+      respaldo suficiente 19 veces, y no lo consiguió ninguna.
+    {% else %}
+      The model picks what to do; the eleven rules decide whether that ever executes. The
+      ones guarding money —refunds and replacements— are strict; asking the customer for a
+      photo costs nothing and does not need them. Across 96 test cases the model tried to
+      move money without enough backing 19 times, and got through none of them.
+    {% endif %}
+  </figcaption>
+</figure>

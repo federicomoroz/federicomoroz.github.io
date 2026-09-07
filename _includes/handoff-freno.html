@@ -1,0 +1,79 @@
+{% comment %}
+  Lo que hicieron las reglas, en dos numeros.
+
+  Es el unico dibujo de la pagina que no explica como funciona nada: existe para que
+  alguien que no lee codigo entienda el argumento en tres segundos. La corriente entra
+  al muro y no sale. Del otro lado no hay linea, y eso es el dibujo: no llego nada.
+
+  Los dos numeros salen de evals/baseline.json (corrida 2026-09-07T09-02-50Z): 19
+  propuestas temerarias sobre 96 pruebas, 0 ejecutadas.
+
+  Parametro: lang ("es" | "en").
+{% endcomment %}
+{% assign es = false %}{% if include.lang == 'es' %}{% assign es = true %}{% endif %}
+
+<figure class="diagrama">
+  <div class="diagrama-scroll">
+    <svg viewBox="0 0 1040 268" role="img"
+         aria-label="{% if es %}Sobre 96 casos de prueba, el modelo propuso diecinueve veces mover plata en un caso que necesitaba una persona. Las once reglas frenaron las diecinueve: ninguna llego a ejecutarse.{% else %}Across 96 test cases, the model proposed nineteen times to move money on a case that needed a person. The eleven rules stopped all nineteen: none of them ever executed.{% endif %}">
+
+      <!-- La corriente entra al muro y termina ahi. Del otro lado no hay linea. -->
+      <line class="diag-corriente" x1="286" y1="132" x2="556" y2="132" />
+
+      <!-- Lo que quiso hacer el modelo -->
+      <text class="diag-modelo-tx" x="150" y="150" text-anchor="middle"
+            font-size="88" font-weight="700">19</text>
+      <text class="diag-titulo diag-modelo-tx" x="150" y="184" text-anchor="middle">
+        {% if es %}veces quiso mover plata{% else %}times it tried to move money{% endif %}
+      </text>
+      <text class="diag-nota" x="150" y="204" text-anchor="middle">
+        {% if es %}en un caso que necesitaba una persona{% else %}on a case that needed a person{% endif %}
+      </text>
+      <text class="diag-nota" x="150" y="224" text-anchor="middle">
+        {% if es %}sobre 96 pruebas{% else %}across 96 test runs{% endif %}
+      </text>
+
+      <!-- El muro -->
+      <rect class="diag-caja diag-regla" x="556" y="44" width="46" height="176" rx="8" stroke-width="2" />
+      <line class="diag-linea diag-regla" x1="566" y1="60" x2="592" y2="60" />
+      <line class="diag-linea diag-regla" x1="566" y1="75" x2="592" y2="75" />
+      <line class="diag-linea diag-regla" x1="566" y1="90" x2="592" y2="90" />
+      <line class="diag-linea diag-regla" x1="566" y1="105" x2="592" y2="105" />
+      <line class="diag-linea diag-regla" x1="566" y1="120" x2="592" y2="120" />
+      <line class="diag-linea diag-regla" x1="566" y1="135" x2="592" y2="135" />
+      <line class="diag-linea diag-regla" x1="566" y1="150" x2="592" y2="150" />
+      <line class="diag-linea diag-regla" x1="566" y1="165" x2="592" y2="165" />
+      <line class="diag-linea diag-regla" x1="566" y1="180" x2="592" y2="180" />
+      <line class="diag-linea diag-regla" x1="566" y1="195" x2="592" y2="195" />
+      <line class="diag-linea diag-regla" x1="566" y1="210" x2="592" y2="210" />
+      <text class="diag-titulo diag-regla-tx" x="579" y="30" text-anchor="middle">
+        {% if es %}11 reglas{% else %}11 rules{% endif %}
+      </text>
+
+      <!-- Del otro lado no llega nada -->
+      <text class="diag-regla-tx" x="820" y="150" text-anchor="middle"
+            font-size="88" font-weight="700">0</text>
+      <text class="diag-titulo diag-regla-tx" x="820" y="184" text-anchor="middle">
+        {% if es %}veces lo consiguió{% else %}times it got through{% endif %}
+      </text>
+      <text class="diag-nota" x="820" y="204" text-anchor="middle">
+        {% if es %}las 19 pasaron a una persona{% else %}all 19 went to a person instead{% endif %}
+      </text>
+    </svg>
+  </div>
+  <figcaption>
+    {% if es %}
+      Un modelo chico corriendo en una placa de video común propone cosas que no
+      corresponden. Eso se da por sentado: el trabajo no es que no las proponga, es que no
+      lleguen a ejecutarse. Las reglas estrictas cubren reintegro y reenvío, que mueven
+      plata y mercadería; pedirle una foto al cliente no las necesita, porque una pregunta
+      siempre se puede deshacer.
+    {% else %}
+      A small model running on an ordinary graphics card proposes things it should not.
+      That is taken as given: the job is not to stop it proposing them, it is to stop them
+      executing. The strict rules cover refunds and replacements, which move money and
+      goods; asking the customer for a photo does not need them, because a question can
+      always be taken back.
+    {% endif %}
+  </figcaption>
+</figure>
