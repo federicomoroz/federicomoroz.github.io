@@ -5,13 +5,26 @@
 # y el script no toca.
 #
 # usuario: federicomoroz
-# generado: 2026-09-06T11:02:17+00:00
+# generado: 2026-09-07T10:26:48+00:00
 
 user: "federicomoroz"
-generated_at: "2026-09-06T11:02:17+00:00"
-count: 12
+generated_at: "2026-09-07T10:26:48+00:00"
+count: 13
 
 repos:
+  - name: "handoff"
+    full_name: "federicomoroz/handoff"
+    url: "https://github.com/federicomoroz/handoff"
+    description: "Incident triage agent against a hostile legacy ERP, with fail-closed guardrails and an eval suite that blocks the merge. TypeScript, local Ollama, no API bill."
+    language: "TypeScript"
+    homepage: null
+    stars: 0
+    forks: 0
+    archived: false
+    is_fork: false
+    pushed_at: "2026-09-07T10:25:40Z"
+    created_at: "2026-09-07T07:09:12Z"
+    topics: []
   - name: "order-outbox-service"
     full_name: "federicomoroz/order-outbox-service"
     url: "https://github.com/federicomoroz/order-outbox-service"
