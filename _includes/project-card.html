@@ -1,0 +1,68 @@
+{% comment %}
+  Tarjeta de proyecto. Reemplaza a project-row.html, que era texto separado por
+  filetes: sin superficie, sin imagen y sin profundidad. Una pagina de filas de
+  texto se lee como un listado; una de tarjetas con portada se lee como trabajo.
+
+  Parametros: proj (entrada de _data/projects.yml), lang, t (bloque i18n),
+              i (indice en el listado, para variar la portada generada).
+
+  Las dos fuentes de datos siguen sin pisarse, igual que antes:
+    _data/projects.yml  curado a mano  -> nombre, resumen, estado, portada
+    _data/repos.yml     generado       -> ultimo push, stars, si esta archivado
+
+  PORTADA: si el proyecto declara `cover`, va la captura. Si no, se dibuja una
+  portada tipografica con el primer chip de `tech`. Es a proposito que TODAS
+  tengan portada: una grilla donde la mitad de las tarjetas tiene imagen y la
+  otra mitad un hueco se lee como error, no como variedad.
+{% endcomment %}
+{% assign detail_url = '/' | append: include.lang | append: '/projects/' | append: include.proj.id | append: '/' %}
+{% assign gh = site.data.repos.repos | where: "url", include.proj.repo | first %}
+
+{% comment %} A donde lleva la portada: al case study si existe; si no, a la demo; si no, al repo publico. {% endcomment %}
+{% if include.proj.case_study %}
+  {% assign cover_url = detail_url | relative_url %}
+{% elsif include.proj.demo %}
+  {% assign cover_url = include.proj.demo %}
+{% elsif include.proj.repo_visibility == "public" and include.proj.repo %}
+  {% assign cover_url = include.proj.repo %}
+{% else %}
+  {% assign cover_url = "" %}
+{% endif %}
+
+{% assign variante = include.i | default: 0 | modulo: 5 %}
+
+<article class="pcard">
+  {% if cover_url != "" %}<a class="pcard-cover" href="{{ cover_url }}"{% unless include.proj.case_study %} target="_blank" rel="noopener"{% endunless %}>{% else %}<div class="pcard-cover">{% endif %}
+    {% if include.proj.cover %}
+      {% comment %} width/height evitan el salto de layout mientras carga. {% endcomment %}
+      <img src="{{ '/assets/img/covers/' | append: include.proj.cover | relative_url }}"
+           alt="{{ include.proj.cover_alt }}" width="720" height="405" loading="lazy" decoding="async">
+    {% else %}
+      <span class="pcard-generada v{{ variante }}" aria-hidden="true"></span>
+    {% endif %}
+    {% if include.proj.status == "active" %}<span class="pcard-estado activo">{{ include.t.status.active }}</span>
+    {% elsif include.proj.status == "paused" %}<span class="pcard-estado pausado">{{ include.t.status.paused }}</span>
+    {% elsif include.proj.status == "done" %}<span class="pcard-estado hecho">{{ include.t.status.done }}</span>{% endif %}
+  {% if cover_url != "" %}</a>{% else %}</div>{% endif %}
+
+  <div class="pcard-body">
+    <h3>
+      {% if include.proj.case_study %}<a href="{{ detail_url | relative_url }}">{{ include.proj.name }}</a>{% else %}{{ include.proj.name }}{% endif %}
+      {% if gh.archived %}<span class="tag">{{ include.t.projects.archived }}</span>{% endif %}
+    </h3>
+
+    <p class="pcard-desc">{{ include.proj.short[include.lang] | markdownify | remove: "<p>" | remove: "</p>" }}</p>
+
+    <div class="pcard-tech">
+      {% for tech in include.proj.tech %}<span class="tag">{{ tech }}</span>{% endfor %}
+    </div>
+
+    <p class="pcard-links">
+      {% if include.proj.case_study %}<a class="cs-link" href="{{ detail_url | relative_url }}">{{ include.t.projects.read_case_study }}</a>{% endif %}
+      {% if include.proj.demo %}<a href="{{ include.proj.demo }}" target="_blank" rel="noopener">{{ include.t.projects.demo }}</a>{% endif %}
+      {% if include.proj.repo_visibility == "public" and include.proj.repo %}<a href="{{ include.proj.repo }}" target="_blank" rel="noopener">{{ include.t.projects.repo }}</a>
+      {% else %}<span class="muted">{{ include.t.projects.repo_private }}</span>{% endif %}
+      {% if gh %}<span class="repo-facts">{{ include.t.projects.updated }} {{ gh.pushed_at | date: "%m/%Y" }}{% if gh.stars > 0 %} · ★ {{ gh.stars }}{% endif %}</span>{% endif %}
+    </p>
+  </div>
+</article>

@@ -13,6 +13,12 @@
 #   short.{es,en}   -> resumen de UNA linea por idioma.
 #   status          -> active | paused | done  (se traduce via i18n.status).
 #   tech            -> chips de stack, neutrales (mismos en ambos idiomas).
+#   cover           -> archivo en assets/img/covers/ (16:9, webp). OPCIONAL: si
+#                      falta, la tarjeta dibuja una portada tipografica con el
+#                      primer chip de `tech`. Se declara a mano porque Liquid no
+#                      puede preguntar si un archivo existe, y un src roto es
+#                      peor que no tener portada.
+#   cover_alt       -> texto alternativo de esa imagen. Obligatorio si hay cover.
 #
 # REGLA: no inventar metricas. Si no hay un numero real medido, se describe
 # cualitativamente. Los numeros de abajo salen del README publico de GitHub.
@@ -20,6 +26,8 @@
 # ESTADO: seed desde el README publico. Revisar textos y sumar los que falten.
 
 - id: agente-contracargos
+  cover: agente-contracargos.webp
+  cover_alt: "Panel del agente de contracargos, con el caso y su resolución propuesta"
   name: "Agente de investigación de contracargos"
   short:
     es: "Ante un contracargo, reúne la transacción, sus logs, las políticas que aplican, qué se resolvió en casos parecidos y el historial del cliente; propone una resolución justificada y se autoevalúa con un juez LLM. Los casos de riesgo alto frenan y esperan a un analista. Orquestado en n8n sobre una API FastAPI con RAG en Qdrant."
@@ -41,6 +49,8 @@
     - pytest
 
 - id: mega-training-system
+  cover: mega-training-system.webp
+  cover_alt: "Plan de entrenamiento generado por Mega Training System"
   name: Mega Training System
   short:
     es: "Generador de planes de entrenamiento sobre la API de Claude. Nació como herramienta para un instructor de indoor cycling y hoy lo usa un cliente en su operación diaria. Arquitectura de plugins: sumar una disciplina es un `plugin.py` y su agent, sin tocar el core. Streaming SSE, catálogo de ejercicios inyectado como knowledge base y Batch API para bajar el costo a la mitad."
@@ -60,6 +70,8 @@
     - pytest
 
 - id: nexo
+  cover: nexo.webp
+  cover_alt: "Panel de Nexo mostrando los motores de base y su estado"
   name: Nexo
   short:
     es: "Un mayorista mandaba el catálogo por FTP una vez por día y el stock quedaba viejo antes del mediodía. Acá el ERP publica y los revendedores bajan el catálogo por WebSocket, con confirmación por lote, y quedan en la misma conexión recibiendo los cambios. La persistencia está detrás de puertos: los mismos 26 casos corren contra MySQL, PostgreSQL, SQLite y un proveedor en memoria, y ya encontraron tres divergencias entre motores. Un benchmark propio refutó la justificación del primer ADR y el documento quedó corregido."
@@ -85,6 +97,8 @@
     - Docker
 
 - id: order-outbox-service
+  cover: order-outbox-service.webp
+  cover_alt: "Dashboard de Order Outbox Service con la cola de eventos"
   name: Order Outbox Service
   short:
     es: "Dos microservicios en Java y Spring Boot que resuelven el dual write: el pedido y su evento se escriben en un mismo commit de Postgres, y un relay aparte los publica a Kafka reintentando con backoff. Si el broker está caído el pedido igual entra, y el evento se publica solo cuando vuelve. El consumidor deduplica por event_id, así el reintento no duplica efectos. Las reglas hexagonales no son un acuerdo: son diez tests de ArchUnit que fallan el build."
@@ -124,6 +138,8 @@
     - GitHub Actions
 
 - id: task-queue
+  cover: task-queue.webp
+  cover_alt: "Panel de Task Queue con la cola y los workers"
   name: Task Queue
   short:
     es: "Cola de tareas distribuida con API en FastAPI, broker Redis (LPUSH/BRPOP), persistencia en SQLite y workers escalables horizontalmente. Arquitectura multi-contenedor: los workers escalan con `--scale worker=N` sin tocar código."
@@ -143,6 +159,8 @@
     - APScheduler
 
 - id: shipping-quote
+  cover: shipping-quote.webp
+  cover_alt: "Cotizador de envíos mostrando la traza del circuito"
   name: Shipping Quote
   short:
     es: "Cotizador de envíos construido para mostrar un circuito hexagonal funcionando, no dibujado: cada request queda trazado hop por hop, de HTTP al dominio y de vuelta por tres adaptadores de transportista. El caso de uso no sabe que existen tres. Uno falla a propósito y la respuesta igual devuelve las otras dos."
@@ -218,6 +236,8 @@
     - APScheduler
 
 - id: webhook-logger
+  cover: webhook-logger.webp
+  cover_alt: "Consola de Webhook Logger con el log de eventos"
   name: Webhook Logger
   short:
     es: "Servicio backend que recibe, persiste y expone eventos de webhook de cualquier origen. Incluye un tester HTTP para disparar requests salientes desde el browser. MVC + Repository, con separación estricta de capas."

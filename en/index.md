@@ -32,9 +32,9 @@ permalink: /en/
 </div>
 
 {% if visible_projects.size > 0 %}
-<div class="project-list">
+<div class="project-grid">
   {% for proj in visible_projects limit:4 %}
-    {% include project-row.html proj=proj lang=lang t=t %}
+    {% include project-card.html proj=proj lang=lang t=t i=forloop.index0 %}
   {% endfor %}
 </div>
 {% else %}
