@@ -61,8 +61,8 @@ faq:
   - id: quien
     claves: [quien, sobre federico, presentate, presentacion, perfil, who, about, bio, himself]
     respuesta:
-      es: "Federico Palatnik Moroz, backend developer en Buenos Aires. Construye APIs, integraciones y automatización de procesos: arquitectura por capas, contratos explícitos entre componentes y tests que verifican comportamiento. En un puesto anterior pasó un proceso manual de 10 minutos a 5 segundos, sobre ~2.100 transacciones mensuales."
-      en: "Federico Palatnik Moroz, a backend developer based in Buenos Aires. He builds APIs, integrations and process automation: layered architecture, explicit contracts between components, and tests that verify behavior. In a previous role he took a manual 10-minute process down to 5 seconds, across ~2,100 monthly transactions."
+      es: "Federico Palatnik Moroz, backend developer en Buenos Aires. Integra modelos de lenguaje en producción sin cajas negras —el modelo propone y reglas determinísticas deciden antes de que algo se ejecute— y construye las APIs e integraciones sobre las que eso corre. En un puesto anterior pasó un proceso manual de 10 minutos a 5 segundos, sobre ~2.100 transacciones mensuales."
+      en: "Federico Palatnik Moroz, a backend developer based in Buenos Aires. He integrates language models into production with no black boxes —the model proposes and deterministic rules decide before anything runs— and builds the APIs and integrations it all runs on. In a previous role he took a manual 10-minute process down to 5 seconds, across ~2,100 monthly transactions."
 
   - id: stack
     claves: [stack, tecnologias, tecnologia, lenguajes, lenguaje, herramientas, technologies, languages, tools]

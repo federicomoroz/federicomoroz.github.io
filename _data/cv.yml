@@ -24,7 +24,11 @@ profile:
     persistencia tiene cuatro motores intercambiables verificados por la misma
     suite de contrato. Y con **Java y Spring Boot** sobre **Kafka**, en sistemas
     orientados a eventos con garantías de entrega. Y integro **APIs externas a
-    escala**.
+    escala**. En **IA aplicada** meto modelos de lenguaje en producción sin
+    cajas negras: el modelo propone y **reglas determinísticas** deciden antes
+    de que algo se ejecute, con **RAG** sobre Qdrant para traer contexto real,
+    **guardrails**, **LLM-as-judge** y la calidad del modelo **medida en CI**,
+    que bloquea el merge si empeora.
   en: |
     Backend developer focused on **APIs, integrations and distributed
     systems**. I build systems that are correct by design: **layered
@@ -35,7 +39,12 @@ profile:
     Core** on **MySQL and EF Core**, in a service whose persistence layer has
     four interchangeable engines verified by the same contract suite. And with
     **Java and Spring Boot** on **Kafka**, building event-driven systems with
-    delivery guarantees. And I integrate **external APIs at scale**.
+    delivery guarantees. And I integrate **external APIs at scale**. In
+    **applied AI** I put language models into production with no black boxes:
+    the model proposes and **deterministic rules** decide before anything runs,
+    with **RAG** over Qdrant to bring in real context, **guardrails**,
+    **LLM-as-judge**, and the model's quality **measured in CI**, which blocks
+    the merge if it regresses.
 
 # Como trabajo — bullets cortos, descriptivos, en primera persona.
 # Sin comparaciones con la industria ni auto-apreciaciones ("poco comun",
@@ -52,6 +61,7 @@ way_of_working:
     - **Tests que verifican comportamiento, no implementación.** Un refactor no debería romper la suite; si la rompe, el test estaba mirando el lugar equivocado.
     - **Las dependencias se arman en un composition root**, no se resuelven adentro de quien las usa. Eso es lo que deja testear cada pieza sin levantar el sistema entero.
     - **Configuración por variables de entorno**, validada antes del deploy.
+    - **El LLM es una dependencia más, y de las que fallan.** El modelo propone; reglas determinísticas deciden antes de que algo se ejecute. La calidad del modelo se mide en CI contra casos grabados, no se estima, y cuando el sistema no está seguro frena y se lo pasa a una persona.
     - **Sin números inventados.** Si no hay una métrica medida, lo describo cualitativamente: un número que no se sostiene se cae en la primera repregunta.
   en: |
     - **Layered architecture with explicit contracts.** The transport layer knows nothing about the data layer, and if two modules talk, the contract is written down: a port or an interface, not a direct import.
@@ -60,6 +70,7 @@ way_of_working:
     - **Tests that verify behavior, not implementation.** A refactor shouldn't break the suite; if it does, the test was watching the wrong thing.
     - **Dependencies are wired in a composition root**, not resolved inside whoever uses them. That is what makes each piece testable without standing up the whole system.
     - **Configuration through environment variables**, validated before deploy.
+    - **The LLM is one more dependency, and one of the flaky ones.** The model proposes; deterministic rules decide before anything runs. Model quality is measured in CI against recorded cases rather than estimated, and when the system is not confident it stops and hands over to a person.
     - **No invented numbers.** With no measured metric I describe things qualitatively: a number that doesn't hold up collapses at the first follow-up question.
 
 # Habilidades tecnicas agrupadas por area. Los items son iguales en ambos

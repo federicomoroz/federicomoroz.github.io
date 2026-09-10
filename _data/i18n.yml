@@ -13,11 +13,14 @@ es:
     about: Sobre mí
     github: GitHub
   hero:
-    # Una afirmacion, no un rotulo: "Portfolio de X" dice lo que el visitante
-    # ya sabe. Vale para todo el trabajo -empleo, freelance y proyectos- sin
-    # nombrar ninguno: la lista de abajo es la que muestra cuales.
-    headline: "Construyo backends que *otros usan para trabajar*."
-    lead: "APIs, integraciones y automatización de procesos. Python sobre Redis, PostgreSQL y Docker, con arquitectura por capas, contratos explícitos entre componentes y tests que verifican comportamiento. Cuando entra un LLM, entra como cualquier otra dependencia que puede fallar: con guardrails y circuit breakers."
+    # El titular lleva la IA adelante a proposito: es lo que separa este perfil
+    # del resto, y enterrado en la cuarta oracion del lead no lo leia nadie.
+    #
+    # "Sin cajas negras" es la parte que hace el trabajo. Cualquiera dice que
+    # integra IA; lo raro es poder decir COMO se controla lo que el modelo
+    # propone, y eso es lo que el lead desarrolla y los case studies prueban.
+    headline: "Integro IA en producción *sin cajas negras*."
+    lead: "El modelo propone; reglas determinísticas deciden antes de que algo se ejecute. RAG para traer contexto real, guardrails y circuit breakers para lo que puede fallar, y la calidad del modelo medida en CI, que bloquea el merge si empeora. Debajo, el backend de siempre: APIs, integraciones y automatización de procesos sobre Python, .NET y Java."
     # El unico numero de negocio medido del perfil, y viene de un puesto, no
     # de un proyecto.
     metric: "Antes: automatización de procesos, de 10 minutos a 5 segundos sobre ~2.100 transacciones mensuales."
@@ -72,7 +75,7 @@ es:
     notes_changelog: "Cada herramienta mantiene su CHANGELOG en su propio repo."
   about:
     heading: Sobre mí
-    lead: "Backend developer. Sistemas que siguen funcionando cuando algo se rompe."
+    lead: "Backend e integración de IA. Sistemas que siguen funcionando cuando algo se rompe, y modelos que no deciden solos."
     cv_download: "⬇ Descargar CV (PDF)"
     cv_note: "Mismo contenido que el CV que mando al aplicar, con teléfono y mail."
     profile_heading: Perfil profesional
@@ -94,8 +97,8 @@ en:
     about: About
     github: GitHub
   hero:
-    headline: "I build backends *other people use to do their job*."
-    lead: "APIs, integrations and process automation. Python on Redis, PostgreSQL and Docker, with layered architecture, explicit contracts between components and tests that verify behavior. When an LLM comes in, it comes in like any other dependency that can fail: with guardrails and circuit breakers."
+    headline: "I integrate AI in production *with no black boxes*."
+    lead: "The model proposes; deterministic rules decide before anything runs. RAG to bring in real context, guardrails and circuit breakers for what can fail, and the model's quality measured in CI, which blocks the merge if it regresses. Underneath, the same backend as always: APIs, integrations and process automation on Python, .NET and Java."
     metric: "Previously: process automation, from 10 minutes to 5 seconds across ~2,100 monthly transactions."
     cta_projects: "See projects"
     cta_cv: "Download CV"
@@ -150,7 +153,7 @@ en:
     notes_changelog: "Each tool keeps its CHANGELOG in its own repo."
   about:
     heading: About
-    lead: "Backend developer. Systems that keep running when something breaks."
+    lead: "Backend and AI integration. Systems that keep running when something breaks, and models that do not decide on their own."
     cv_download: "⬇ Download CV (PDF)"
     cv_note: "Same content as the CV I send with an application, phone and email included."
     profile_heading: Professional profile
