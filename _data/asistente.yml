@@ -20,16 +20,16 @@ ui:
   es:
     boton: "Preguntale al asistente"
     titulo: "Asistente del portfolio"
-    subtitulo: "Respuestas escritas por Federico · sin IA generativa"
-    saludo: "Contesto sobre el perfil de Federico: experiencia, proyectos, stack, formación y disponibilidad. Nada más que eso — no resuelvo consultas técnicas ni escribo código."
+    subtitulo: "Respuestas escritas por Federico, no generadas"
+    saludo: "Hola. Preguntame por la experiencia de Federico, sus proyectos, el stack que usa, su formación o si está disponible."
     placeholder: "Escribí tu pregunta..."
     enviar: "Enviar"
     cerrar: "Cerrar"
   en:
     boton: "Ask the assistant"
     titulo: "Portfolio assistant"
-    subtitulo: "Answers written by Federico · no generative AI"
-    saludo: "I answer about Federico's profile: experience, projects, stack, education and availability. That is all — I do not solve technical questions or write code."
+    subtitulo: "Answers written by Federico, not generated"
+    saludo: "Hi. Ask me about Federico's experience, his projects, the stack he uses, his education, or whether he is available."
     placeholder: "Type your question..."
     enviar: "Send"
     cerrar: "Close"
@@ -39,11 +39,11 @@ ui:
 # patron que handoff: cuando no esta seguro, frena y deriva.
 rechazo:
   tarea:
-    es: "Eso es una consulta técnica, y no es lo mío: solo contesto sobre el perfil de Federico. No escribo código, no depuro errores ni explico cómo se hace algo. Si querés hablarlo con él:"
-    en: "That is a technical question, and it is not what I do: I only answer about Federico's profile. I do not write code, debug errors or explain how to do something. If you want to take it up with him:"
+    es: "Para eso no te sirvo: contesto sobre el perfil de Federico, no sobre código. Si se lo querés preguntar a él, va directo:"
+    en: "I am not the one for that: I answer about Federico's profile, not about code. If you want to ask him directly, here he is:"
   fuera:
-    es: "No tengo eso. Contesto sobre la experiencia de Federico, sus proyectos, el stack que usa, su formación y su disponibilidad. Si tu pregunta es otra, mejor se la hacés directo:"
-    en: "I do not have that. I answer about Federico's experience, his projects, the stack he uses, his education and his availability. If your question is something else, better ask him directly:"
+    es: "Esa no la tengo. Probá con su experiencia, sus proyectos, el stack, la formación o la disponibilidad — o preguntale a él, que contesta:"
+    en: "I do not have that one. Try his experience, his projects, the stack, his education or his availability — or ask him directly, he answers:"
 
 sugerencias:
   es:
