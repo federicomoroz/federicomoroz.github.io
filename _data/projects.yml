@@ -119,6 +119,8 @@
     - Docker
 
 - id: handoff
+  cover: handoff.webp
+  cover_alt: "Diagrama del circuito de handoff: el modelo propone y once reglas deciden, con 19 intentos de mover plata frenados"
   name: handoff
   short:
     es: "Un cliente escribe «me llegó roto». Para contestarle hay que mirar el pedido, el envío, cuántas veces reclamó antes y qué anotó el depósito, y recién ahí decidir si se le manda otro, se le devuelve la plata, se le pide una foto o lo mira una persona. handoff hace esas cuatro consultas contra un sistema que contesta mal a propósito, y decide en dos segundos: en ocho de cada diez casos la decisión es la que correspondía, y cuando los datos no alcanzan el reclamo llega a una persona ya armado. Once reglas revisan cada propuesta antes de que ocurra, así que ninguna devolución sale sin respaldo."
@@ -180,6 +182,8 @@
     - pytest
 
 - id: shipping-quote-dotnet
+  cover: shipping-quote-dotnet.webp
+  cover_alt: "Swagger de la API .NET de Shipping Quote con los endpoints de cotización e historial"
   name: "Shipping Quote — .NET"
   short:
     es: "Un port, no una pieza nueva: el mismo cotizador de envíos que existe en Python, reescrito en ASP.NET Core para ver qué partes eran arquitectura y cuáles eran costumbre. Los tres transportistas se consultan con `Task.WhenAll` y hay un test que mide el reloj —306 ms donde en fila serían 900— así que falla si alguien lo convierte en un `foreach`. Corre sobre MySQL, no SQLite, porque SQLite serializa las escrituras."
@@ -200,6 +204,8 @@
     - Docker
 
 - id: rate-guardian
+  cover: rate-guardian.webp
+  cover_alt: "Dashboard de Rate Guardian: medidor de saturación de la API, stats y requests bloqueados por el circuit breaker"
   name: Rate Guardian
   short:
     es: "API gateway con rate limiting de ventana deslizante (sorted sets de Redis), circuit breaker respaldado en Redis, proxy HTTP transparente y dashboard de terminal en tiempo real. El gateway nunca importa el logger: el logging va por un bus pub/sub."
@@ -218,6 +224,8 @@
     - httpx
 
 - id: notify-router
+  cover: notify-router.webp
+  cover_alt: "Dashboard de Notify Router con eventos entrantes y despachos multi-canal exitosos"
   name: Notify Router
   short:
     es: "Motor de ruteo de notificaciones multi-canal: un evento entrante se evalúa contra reglas de ruteo y se despacha a cualquier combinación de canales (email, Telegram, Slack, webhook genérico). Arquitectura Pipeline + Strategy + EventManager."
@@ -256,6 +264,8 @@
     - Pydantic v2
 
 - id: dollar-tracker
+  cover: dollar-tracker.webp
+  cover_alt: "Panel de Dollar Tracker con las cotizaciones del dólar y las alertas de precio configuradas"
   name: Dollar Tracker
   short:
     es: "Servicio agendado que consulta cotizaciones USD/ARS, persiste el histórico, dispara alertas por email al cruzar umbrales y manda reportes periódicos. Configurable por completo vía variables de entorno."
@@ -273,6 +283,8 @@
     - SendGrid
 
 - id: rpg-turn-based-battler
+  cover: rpg-turn-based-battler.webp
+  cover_alt: "Combate por turnos del RPG: un caballero enfrenta a un grupo de tres personajes en un claro"
   name: RPG Turn-Based Battler
   short:
     es: "Motor de combate por turnos para un RPG 2D. Capa de datos en ScriptableObjects con clonado en runtime (Flyweight), esqueleto de ejecución de skills en 4 fases (Template Method), estrategias de movimiento intercambiables, pool genérico por reflection y pipeline de modificadores de daño (Chain of Responsibility)."
