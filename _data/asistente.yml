@@ -1,0 +1,149 @@
+# Base de conocimiento del asistente del sitio.
+#
+# QUE ES: un FAQ con matching de palabras clave. NO hay modelo generativo, ni
+# API, ni backend. Cada respuesta que sale de aca la escribio Federico a mano.
+# Esa es la garantia dura de que no puede contestar una consulta de codigo: no
+# tiene con que generar texto nuevo. Los gates de asistente.js son la segunda
+# capa, la que ademas lo dice en voz alta en vez de contestar cualquier cosa.
+#
+# Los proyectos NO se listan aca: el asistente los toma de _data/projects.yml
+# al construir el sitio. Si se agrega un proyecto, el asistente lo sabe solo.
+#
+# COMO SUMAR UNA RESPUESTA: una entrada en `faq` con `claves` (las palabras que
+# la disparan, sin acentos y en minuscula) y `respuesta` en los dos idiomas.
+#
+# REGLA: no inventar datos. Si algo no esta verificado en _data/cv.yml, en
+# projects.yml o en el CV, la respuesta manda al CV o al contacto en vez de
+# afirmar. Vale la nota de way_of_working: "sin numeros inventados".
+
+ui:
+  es:
+    boton: "Preguntale al asistente"
+    titulo: "Asistente del portfolio"
+    subtitulo: "Respuestas escritas por Federico · sin IA generativa"
+    saludo: "Contesto sobre el perfil de Federico: experiencia, proyectos, stack, formación y disponibilidad. Nada más que eso — no resuelvo consultas técnicas ni escribo código."
+    placeholder: "Escribí tu pregunta..."
+    enviar: "Enviar"
+    cerrar: "Cerrar"
+  en:
+    boton: "Ask the assistant"
+    titulo: "Portfolio assistant"
+    subtitulo: "Answers written by Federico · no generative AI"
+    saludo: "I answer about Federico's profile: experience, projects, stack, education and availability. That is all — I do not solve technical questions or write code."
+    placeholder: "Type your question..."
+    enviar: "Send"
+    cerrar: "Close"
+
+# Las dos formas de frenar. Las dos ofrecen el contacto: si el asistente no
+# sirve, la conversacion no se muere ahi, pasa a una persona. Es el mismo
+# patron que handoff: cuando no esta seguro, frena y deriva.
+rechazo:
+  tarea:
+    es: "Eso es una consulta técnica, y no es lo mío: solo contesto sobre el perfil de Federico. No escribo código, no depuro errores ni explico cómo se hace algo. Si querés hablarlo con él:"
+    en: "That is a technical question, and it is not what I do: I only answer about Federico's profile. I do not write code, debug errors or explain how to do something. If you want to take it up with him:"
+  fuera:
+    es: "No tengo eso. Contesto sobre la experiencia de Federico, sus proyectos, el stack que usa, su formación y su disponibilidad. Si tu pregunta es otra, mejor se la hacés directo:"
+    en: "I do not have that. I answer about Federico's experience, his projects, the stack he uses, his education and his availability. If your question is something else, better ask him directly:"
+
+sugerencias:
+  es:
+    - "¿Qué experiencia tiene con .NET?"
+    - "¿Qué es handoff?"
+    - "¿Está disponible para trabajar?"
+    - "¿Cómo testea lo que construye?"
+  en:
+    - "What experience does he have with .NET?"
+    - "What is handoff?"
+    - "Is he available for work?"
+    - "How does he test what he builds?"
+
+faq:
+  - id: quien
+    claves: [quien, sobre federico, presentate, presentacion, perfil, who, about, bio, himself]
+    respuesta:
+      es: "Federico Palatnik Moroz, backend developer en Buenos Aires. Construye APIs, integraciones y automatización de procesos: arquitectura por capas, contratos explícitos entre componentes y tests que verifican comportamiento. En un puesto anterior pasó un proceso manual de 10 minutos a 5 segundos, sobre ~2.100 transacciones mensuales."
+      en: "Federico Palatnik Moroz, a backend developer based in Buenos Aires. He builds APIs, integrations and process automation: layered architecture, explicit contracts between components, and tests that verify behavior. In a previous role he took a manual 10-minute process down to 5 seconds, across ~2,100 monthly transactions."
+
+  - id: stack
+    claves: [stack, tecnologias, tecnologia, lenguajes, lenguaje, herramientas, technologies, languages, tools]
+    respuesta:
+      es: "Tres stacks, según el problema: **Python** (FastAPI, SQLAlchemy, Pydantic), **C#/.NET 8** (ASP.NET Core, EF Core) y **Java** (Spring Boot, Kafka). Encima de eso: Redis, PostgreSQL, MySQL, Docker y GitHub Actions. En IA aplicada: Claude API, RAG con Qdrant, guardrails y LLM-as-judge. La lista completa está en Sobre mí."
+      en: "Three stacks, depending on the problem: **Python** (FastAPI, SQLAlchemy, Pydantic), **C#/.NET 8** (ASP.NET Core, EF Core) and **Java** (Spring Boot, Kafka). On top of that: Redis, PostgreSQL, MySQL, Docker and GitHub Actions. In applied AI: Claude API, RAG with Qdrant, guardrails and LLM-as-judge. The full list is on the About page."
+
+  - id: python
+    claves: [python, fastapi, sqlalchemy, pydantic, django, flask]
+    respuesta:
+      es: "Python es su stack principal: FastAPI, SQLAlchemy, Pydantic, Alembic, pytest. Lo usó en task-queue (colas distribuidas sobre Redis), rate-guardian (gateway con rate limiting y circuit breaker), notify-router (notificaciones multicanal) y shipping-quote (arquitectura hexagonal). Django y Laravel los conoce, pero no los pone al mismo nivel."
+      en: "Python is his main stack: FastAPI, SQLAlchemy, Pydantic, Alembic, pytest. He used it in task-queue (distributed queues on Redis), rate-guardian (a gateway with rate limiting and circuit breaker), notify-router (multi-channel notifications) and shipping-quote (hexagonal architecture). He knows Django and Laravel, but does not put them at the same level."
+
+  - id: dotnet
+    claves: [dotnet, net, csharp, aspnet, entity framework, ef core, nexo]
+    respuesta:
+      es: "C# y .NET 8 con ASP.NET Core y Entity Framework Core. El proyecto de referencia es **Nexo**: su capa de persistencia tiene cuatro motores de base intercambiables, verificados todos por la misma suite de tests de contrato — 306 tests. También hizo shipping-quote-dotnet, un port del original en Python."
+      en: "C# and .NET 8 with ASP.NET Core and Entity Framework Core. The reference project is **Nexo**: its persistence layer has four interchangeable database engines, all verified by the same contract test suite — 306 tests. He also built shipping-quote-dotnet, a port of the Python original."
+
+  - id: java
+    claves: [java, spring, spring boot, kafka, jpa, hibernate, maven, outbox]
+    respuesta:
+      es: "Java con Spring Boot sobre Apache Kafka. El proyecto es **order-outbox-service**: patrón transactional outbox con consumidor idempotente, para que un evento no se pierda ni se procese dos veces aunque el sistema se caiga en el medio. 86 tests y un dashboard en React."
+      en: "Java with Spring Boot on Apache Kafka. The project is **order-outbox-service**: a transactional outbox pattern with an idempotent consumer, so an event is neither lost nor processed twice even if the system goes down mid-flight. 86 tests and a React dashboard."
+
+  - id: ia
+    claves: [ia, ai, llm, claude, openai, gpt, rag, agente, agentes, inteligencia artificial, guardrails, embeddings, qdrant, handoff]
+    respuesta:
+      es: "Trata al LLM como cualquier otra dependencia que puede fallar: con guardrails y circuit breakers. **handoff** es un agente de triage donde el modelo propone y once reglas revisan la propuesta antes de que se ejecute; la CI mide el modelo contra cassettes grabados y bloquea el merge si empeora. El **agente de contracargos** usa RAG sobre Qdrant, se autoevalúa con un juez LLM y frena los casos de riesgo alto para que los mire un analista."
+      en: "He treats the LLM like any other dependency that can fail: with guardrails and circuit breakers. **handoff** is a triage agent where the model proposes and eleven rules review the proposal before it runs; CI measures the model against recorded cassettes and blocks the merge if it regresses. The **chargeback agent** uses RAG over Qdrant, grades itself with an LLM judge, and stops high-risk cases for a human analyst."
+
+  - id: testing
+    claves: [test, tests, testing, testea, testear, testeo, pytest, junit, xunit, calidad, cobertura, prueba, pruebas, probar, ci, coverage]
+    respuesta:
+      es: "Tests que verifican comportamiento, no implementación: si un refactor rompe la suite, el test estaba mirando el lugar equivocado. Nexo tiene 306 tests, con una suite de contrato que corre igual contra los cuatro motores de base; handoff tiene 227, y su CI mide el modelo y bloquea el merge; order-outbox-service tiene 86. Todo con CI en GitHub Actions."
+      en: "Tests that verify behavior, not implementation: if a refactor breaks the suite, the test was watching the wrong thing. Nexo has 306 tests, with a contract suite that runs identically against all four database engines; handoff has 227, and its CI measures the model and blocks the merge; order-outbox-service has 86. All with CI on GitHub Actions."
+
+  - id: arquitectura
+    claves: [arquitectura, solid, patrones, patron, diseño, hexagonal, ddd, architecture, patterns, design]
+    respuesta:
+      es: "Arquitectura por capas con contratos explícitos: si dos módulos hablan, hay un puerto o una interfaz, no un import directo. Composición sobre herencia, componentes que se comunican por eventos en vez de importarse entre sí, y dependencias armadas en un composition root para poder testear cada pieza sin levantar el sistema entero. Está desarrollado en Sobre mí."
+      en: "Layered architecture with explicit contracts: if two modules talk, there is a port or an interface, not a direct import. Composition over inheritance, components talking through events instead of importing each other, and dependencies wired in a composition root so each piece is testable without standing up the whole system. It is spelled out on the About page."
+
+  - id: experiencia
+    claves: [experiencia, experiencias, años, anos, trayectoria, senior, junior, seniority, carrera, experience, years]
+    respuesta:
+      es: "Trabaja como desarrollador de software desde 2022, y antes de programar tuvo un negocio propio de importación durante años — de ahí le viene el trato con clientes y procesos reales. Su último puesto fue construyendo la plataforma operativa de una empresa: automatizaciones, workflows e integraciones con sistemas externos. El detalle con fechas está en el CV, que se baja desde el inicio."
+      en: "He has worked as a software developer since 2022, and before programming he ran his own import business for years — that is where dealing with clients and real processes comes from. His last role was building a company's operational platform: automations, workflows and integrations with external systems. The dated detail is in the CV, downloadable from the home page."
+
+  - id: disponibilidad
+    claves: [disponible, disponibilidad, contratar, contratacion, trabajo, empleo, busca, buscando, remoto, presencial, hibrido, reubicacion, relocation, available, hiring, freelance, salario, sueldo, pretensiones]
+    respuesta:
+      es: "Sí, está buscando: posiciones backend, remoto o híbrido en Buenos Aires. Trabaja en UTC-3, con superposición completa con el horario de Estados Unidos. Lo demás —condiciones, banda, fechas— lo habla él directo:"
+      en: "Yes, he is looking: backend roles, remote or hybrid in Buenos Aires. He works in UTC-3, with full overlap with US business hours. The rest — terms, range, dates — he discusses directly:"
+
+  - id: contacto
+    claves: [contacto, contactar, contactarlo, contactarte, contactarme, email, mail, telefono, whatsapp, celular, escribir, escribirle, hablar, llamar, contact, phone, reach, linkedin]
+    respuesta:
+      es: "Por acá, y contesta él:"
+      en: "Right here, and he answers himself:"
+
+  - id: idiomas
+    claves: [ingles, idioma, idiomas, english, bilingue, español, spanish]
+    respuesta:
+      es: "Español nativo e inglés con competencia profesional plena (C2). Puede trabajar, escribir documentación y llevar reuniones técnicas en inglés."
+      en: "Native Spanish and English at full professional proficiency (C2). He can work, write documentation and run technical meetings in English."
+
+  - id: educacion
+    claves: [educacion, formacion, estudio, estudios, titulo, universidad, davinci, uade, education, degree, studied, university]
+    respuesta:
+      es: "Programación en la Escuela Da Vinci (2021–2023) y Marketing en UADE (2007–2010), las dos en Buenos Aires. Más formación continua por Coderhouse, Udemy y por su cuenta."
+      en: "Programming at Escuela Da Vinci (2021–2023) and Marketing at UADE (2007–2010), both in Buenos Aires. Plus continuing education through Coderhouse, Udemy and self-teaching."
+
+  - id: cv
+    claves: [cv, curriculum, resume, pdf, descargar, bajar, download]
+    respuesta:
+      es: "El CV completo se baja con el botón **Descargar CV** del inicio, en español o en inglés. Trae el detalle de roles con fechas, las skills agrupadas y la formación."
+      en: "The full CV downloads with the **Download CV** button on the home page, in Spanish or English. It has the dated role detail, grouped skills and education."
+
+  - id: proyectos
+    claves: [proyectos, proyecto, portfolio, repos, repositorios, github, trabajos, projects, work]
+    respuesta:
+      es: "Hay varios, y cada uno tiene su case study con el problema, las decisiones y lo que se midió. Preguntame por uno en particular — handoff, Nexo, order-outbox-service, shipping-quote, task-queue, rate-guardian — o mirá la sección Proyectos."
+      en: "There are several, and each has a case study with the problem, the decisions and what was measured. Ask me about a specific one — handoff, Nexo, order-outbox-service, shipping-quote, task-queue, rate-guardian — or check the Projects section."

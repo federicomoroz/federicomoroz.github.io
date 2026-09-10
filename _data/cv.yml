@@ -1,6 +1,10 @@
-# Contenido derivado del CV. Subconjunto CURADO: sin datos personales
-# (direccion, telefono, email, documento). La fuente de verdad es el store
+# Contenido derivado del CV. Subconjunto CURADO. La fuente de verdad es el store
 # de CVs (../Cv/store/); este archivo es la proyeccion publica, a mano.
+#
+# Telefono y email NO van aca igual, pero por otra razon que antes: el sitio los
+# toma de `site.author` (_config.yml), que es donde vive la identidad. Este
+# archivo proyecta el CV, no la ficha de contacto. Direccion y documento no van
+# a ningun lado.
 #
 # COMO LLENARLO: `python ../Cv/cvq.py gather backend` devuelve el briefing;
 # de ahi se baja lo que sea `visibilidad: publico` y no tenga PII.
@@ -151,5 +155,5 @@ languages:
 # PDFs del CV publicados en el sitio. Se generan con ../Cv/build_html.py
 # (o browser-print) y se copian a cv/. Dejar vacio el nombre oculta el boton.
 cv_pdf:
-  es: "CV_Federico_Moroz_ES.pdf"
-  en: "CV_Federico_Moroz_EN.pdf"
+  es: "CV_Federico_Palatnik_Moroz_ES.pdf"
+  en: "CV_Federico_Palatnik_Moroz_EN.pdf"

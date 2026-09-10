@@ -1,7 +1,7 @@
-title: Federico Moroz
+title: Federico Palatnik Moroz
 tagline: Backend Developer — APIs, integraciones y sistemas distribuidos
 description: >-
-  Portfolio de Federico Moroz. Backend, integraciones de APIs y
+  Portfolio de Federico Palatnik Moroz. Backend, integraciones de APIs y
   sistemas distribuidos: proyectos, write-ups tecnicos y CV.
 url: https://federicomoroz.github.io
 
@@ -9,10 +9,29 @@ url: https://federicomoroz.github.io
 # site: en la raiz del dominio, sin subpath. De ahi el baseurl vacio.
 baseurl: ""
 
+# El contacto directo se publica a proposito (decision de Federico, 2026-09-09).
+# Reemplaza la regla anti-scraper anterior, que lo mandaba todo por LinkedIn: la
+# friccion de un paso extra costaba mas que el spam que evitaba.
 author:
-  name: Federico Moroz
+  name: Federico Palatnik Moroz
   github: federicomoroz
   linkedin: https://linkedin.com/in/federico-moroz-1760a2241/
+  email: fedegfs@gmail.com
+  phone: "+54 9 11 2251-5943"
+  phone_href: "+5491122515943"
+  whatsapp: "5491122515943"
+
+# El sitio es estatico: GitHub Pages no puede recibir un POST. El formulario lo
+# recibe un tercero y lo reenvia por mail.
+#
+# FormSubmit no pide cuenta: el primer envio dispara un mail de confirmacion a
+# la direccion del endpoint y recien ahi queda activo. Si algun dia se cambia
+# por Formspree o Web3Forms, se cambia esta linea y nada mas.
+#
+# Vaciar `form_endpoint` es una salida valida: el formulario desaparece y la
+# seccion de contacto queda con WhatsApp y mail, que no dependen de nadie.
+contact:
+  form_endpoint: "https://formsubmit.co/fedegfs@gmail.com"
 
 repository: federicomoroz/federicomoroz.github.io
 

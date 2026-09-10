@@ -16,13 +16,29 @@ es:
     # Una afirmacion, no un rotulo: "Portfolio de X" dice lo que el visitante
     # ya sabe. Vale para todo el trabajo -empleo, freelance y proyectos- sin
     # nombrar ninguno: la lista de abajo es la que muestra cuales.
-    headline: "Construyo backends que otros usan para trabajar."
+    headline: "Construyo backends que *otros usan para trabajar*."
     lead: "APIs, integraciones y automatización de procesos. Python sobre Redis, PostgreSQL y Docker, con arquitectura por capas, contratos explícitos entre componentes y tests que verifican comportamiento. Cuando entra un LLM, entra como cualquier otra dependencia que puede fallar: con guardrails y circuit breakers."
     # El unico numero de negocio medido del perfil, y viene de un puesto, no
     # de un proyecto.
     metric: "Antes: automatización de procesos, de 10 minutos a 5 segundos sobre ~2.100 transacciones mensuales."
     cta_projects: "Ver proyectos"
     cta_cv: "Descargar CV"
+    location: "Buenos Aires, Argentina · Remoto"
+  contact:
+    heading: "Contacto"
+    lead: "Busco posiciones backend, remoto o híbrido en Buenos Aires. Si tenés una búsqueda abierta o una idea que necesita quien la construya, escribime."
+    wpp: "Escribirme por WhatsApp"
+    wpp_prefill: "Hola Federico, te escribo por tu portfolio."
+    email_btn: "Mandarme un mail"
+    form_intro: "O dejame un mensaje acá y te respondo por mail."
+    f_name: "Nombre"
+    f_email: "Email"
+    f_message: "Mensaje"
+    f_send: "Enviar mensaje"
+    f_subject: "Mensaje desde el portfolio"
+    thanks_heading: "Mensaje enviado"
+    thanks_body: "Gracias por escribir. Te respondo a la brevedad."
+    thanks_back: "Volver al inicio"
   home:
     profile_heading: Perfil
     projects_heading: Proyectos
@@ -58,7 +74,7 @@ es:
     heading: Sobre mí
     lead: "Backend developer. Sistemas que siguen funcionando cuando algo se rompe."
     cv_download: "⬇ Descargar CV (PDF)"
-    cv_note: "Versión pública, sin datos de contacto directo (para no exponerlos a scrapers). El CV completo, al aplicar o por LinkedIn."
+    cv_note: "Mismo contenido que el CV que mando al aplicar, con teléfono y mail."
     profile_heading: Perfil profesional
     skills_heading: Habilidades técnicas
     way_of_working_heading: Cómo trabajo
@@ -78,11 +94,27 @@ en:
     about: About
     github: GitHub
   hero:
-    headline: "I build backends other people use to do their job."
+    headline: "I build backends *other people use to do their job*."
     lead: "APIs, integrations and process automation. Python on Redis, PostgreSQL and Docker, with layered architecture, explicit contracts between components and tests that verify behavior. When an LLM comes in, it comes in like any other dependency that can fail: with guardrails and circuit breakers."
     metric: "Previously: process automation, from 10 minutes to 5 seconds across ~2,100 monthly transactions."
     cta_projects: "See projects"
     cta_cv: "Download CV"
+    location: "Buenos Aires, Argentina · Remote"
+  contact:
+    heading: "Contact"
+    lead: "I'm looking for backend roles, remote or hybrid in Buenos Aires. If you have an open search, or an idea that needs someone to build it, get in touch."
+    wpp: "Message me on WhatsApp"
+    wpp_prefill: "Hi Federico, I'm writing about your portfolio."
+    email_btn: "Send me an email"
+    form_intro: "Or leave a message here and I'll reply by email."
+    f_name: "Name"
+    f_email: "Email"
+    f_message: "Message"
+    f_send: "Send message"
+    f_subject: "Message from the portfolio"
+    thanks_heading: "Message sent"
+    thanks_body: "Thanks for reaching out. I'll get back to you shortly."
+    thanks_back: "Back to home"
   home:
     profile_heading: Profile
     profile_short: "Backend developer focused on APIs, integrations and distributed systems. Layered architecture, explicit contracts between components, and tests that verify behavior."
@@ -120,7 +152,7 @@ en:
     heading: About
     lead: "Backend developer. Systems that keep running when something breaks."
     cv_download: "⬇ Download CV (PDF)"
-    cv_note: "Public version, without direct contact details (to keep them away from scrapers). The full CV comes with the application or through LinkedIn."
+    cv_note: "Same content as the CV I send with an application, phone and email included."
     profile_heading: Professional profile
     skills_heading: Technical skills
     way_of_working_heading: How I work

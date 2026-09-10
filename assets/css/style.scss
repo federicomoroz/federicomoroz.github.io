@@ -3,7 +3,7 @@
 ---
 
 /* =============================================================================
- * Federico Moroz — hoja de estilos del portfolio.
+ * Federico Palatnik Moroz — hoja de estilos del portfolio.
  *
  * Tema OSCURO, comprometido: no hay variante clara. La referencia visual
  * (design/FedericoMoroz-Pages-referencia.pdf en el repo padre) es dark, con
@@ -54,7 +54,10 @@
     --status-paused: #e0a33c;
     --status-done:   #8f88a5;
 
-    /* Type */
+    /* Type — la display es serif a proposito: Inter + JetBrains Mono es el par
+       que usa todo portfolio dark de dev, y solo con ese par el sitio se lee
+       como plantilla. La serif aparece unicamente en h1 y h2. */
+    --font-display: "Instrument Serif", "Times New Roman", Georgia, serif;
     --font-sans: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
     --font-mono: "JetBrains Mono", SFMono-Regular, Consolas, "Liberation Mono", monospace;
 
@@ -149,9 +152,23 @@ h1, h2, h3, h4
     letter-spacing: -0.01em;
 }
 
-h1 { font-size: 2rem;    margin: 0 0 0.4em; }
-h2 { font-size: 1.35rem; margin: 2.2rem 0 0.7rem; }
+/* h1 y h2 son display. Instrument Serif tiene un solo peso (400): pedirle 600
+   dispara el bold sintetico del navegador, que engorda los trazos finos y
+   arruina los remates. Por eso el peso se baja aca en vez de heredarse.
+
+   h3 se queda en Inter a proposito: es el nombre de proyecto dentro de una
+   fila del listado, y ahi manda la densidad, no el gesto tipografico. */
+h1, h2
+{
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+}
+
+h1 { font-size: 2.4rem;  line-height: 1.12; margin: 0 0 0.4em; }
+h2 { font-size: 1.7rem;  line-height: 1.2;  margin: 2.2rem 0 0.7rem; }
 h3 { font-size: 1.05rem; margin: 0 0 0.35rem; }
+p + h3 { margin-top: 1.7rem; }
 
 hr
 {
@@ -432,7 +449,8 @@ tbody td code
 
 .hero h1
 {
-    font-size: 2.3rem;
+    font-size: 2.6rem;
+    text-wrap: balance;
 }
 
 .lead
@@ -876,6 +894,13 @@ tbody td code
         font-size: 1.8rem;
     }
 
+    /* En pantalla angosta las dos columnas dejan campos de ~140px: se apilan. */
+    .form-grid
+    {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
     body::before
     {
         filter: blur(24px);
@@ -935,12 +960,41 @@ tbody td code
 
 .hero-eyebrow
 {
-    margin: 0 0 6px;
+    margin: 0 0 10px;
     font-family: var(--font-mono);
     font-size: 0.82rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--accent);
+}
+
+/* La home es el unico lugar donde el titulo se comporta como cartel: es una
+   afirmacion corta y no compite con nada abajo. En las internas el h1 es el
+   nombre de un proyecto y tiene que dejar aire para el case study, asi que la
+   escala grande se acota con .hero-home en vez de tocar .hero h1.
+
+   El max-width esta en ch y no en px para que el quiebre de linea dependa del
+   largo de la frase y no del ancho de la pantalla: la version en ingles tiene
+   otro largo y cae en la misma cantidad de lineas. */
+.hero-home h1
+{
+    font-size: clamp(2.1rem, 6.4vw, 4.6rem);
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+    margin: 0 0 0.32em;
+    max-width: 18ch;
+}
+
+/* El tramo en italica es el que carga la afirmacion: el punto no es que
+   construyo backends, es que alguien los usa para trabajar. Mismo gradiente
+   que .accent, aplicado aparte porque aca se combina con font-style. */
+.hero-home h1 em
+{
+    font-style: italic;
+    background: linear-gradient(100deg, var(--grad-magenta), var(--grad-violet) 78%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 
 .hero-metric
@@ -993,6 +1047,457 @@ tbody td code
 {
     background: var(--accent-hover);
     border-color: var(--accent-hover);
+}
+
+/* === Contacto del hero ====================================================
+   Va debajo de los botones y no arriba: primero el mensaje y la accion, y el
+   contacto para el que ya decidio. En mono y en gris para que se lea como
+   metadata de ficha y no compita con el CTA primario. */
+
+.hero-contact
+{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 20px;
+    margin: 22px 0 0;
+    font-family: var(--font-mono);
+    font-size: 0.84rem;
+}
+
+.hero-contact-item
+{
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: var(--fg-faint);
+    text-decoration: none;
+}
+
+.hero-contact-item svg
+{
+    width: 14px;
+    height: 14px;
+    flex: none;
+    /* El icono se apaga mas que el texto: senala el tipo de dato, no compite
+       con el dato. */
+    opacity: 0.65;
+}
+
+/* Solo lo clickeable se prende al hover. La ubicacion no es un link y quedarse
+   igual es la senal de que no lo es. */
+a.hero-contact-item:hover
+{
+    color: var(--accent);
+    text-decoration: none;
+}
+
+a.hero-contact-item:hover svg { opacity: 1; }
+
+/* === Contacto: acciones y formulario ======================================
+   El verde de WhatsApp es el unico color del sitio que no sale de la paleta.
+   Se banca a proposito: es una marca reconocible y el boton se identifica por
+   el color antes que por el texto. */
+
+.contact-actions
+{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 20px 0 0;
+}
+
+.btn-wpp,
+.btn-plain
+{
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 11px 20px;
+    border-radius: var(--radius);
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+    border: 1px solid transparent;
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.btn-wpp
+{
+    background: #25d366;
+    color: #04220f;
+}
+
+.btn-wpp:hover
+{
+    background: #43e57f;
+    color: #04220f;
+    text-decoration: none;
+}
+
+.btn-wpp svg
+{
+    width: 18px;
+    height: 18px;
+    flex: none;
+}
+
+.btn-plain
+{
+    border-color: var(--border-strong);
+    color: var(--fg);
+    font-weight: 500;
+}
+
+.btn-plain:hover
+{
+    border-color: var(--accent);
+    color: var(--fg);
+    text-decoration: none;
+}
+
+.contact-form-intro
+{
+    margin: 26px 0 12px;
+}
+
+.contact-form
+{
+    max-width: 620px;
+}
+
+/* Dos columnas para nombre y mail, una sola para el mensaje: son campos
+   cortos y ponerlos apilados alarga el formulario sin ganar nada. */
+.form-grid
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.field
+{
+    display: block;
+    margin: 0 0 14px;
+}
+
+.field > span
+{
+    display: block;
+    margin: 0 0 6px;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--fg-faint);
+}
+
+.field input,
+.field textarea
+{
+    width: 100%;
+    padding: 10px 12px;
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    font-size: 0.96rem;
+    line-height: 1.5;
+    transition: border-color 0.15s, background 0.15s;
+}
+
+.field textarea
+{
+    resize: vertical;
+    min-height: 120px;
+}
+
+.field input:focus,
+.field textarea:focus
+{
+    outline: none;
+    border-color: var(--accent);
+    background: var(--bg-raised);
+}
+
+/* El foco visible no se apoya solo en el color del borde: con daltonismo el
+   magenta sobre gris no se distingue, el anillo si. */
+.field input:focus-visible,
+.field textarea:focus-visible
+{
+    box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.btn-submit
+{
+    display: inline-block;
+    padding: 11px 22px;
+    border-radius: var(--radius);
+    border: 1px solid var(--accent);
+    background: var(--accent);
+    color: #0b0510;
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+}
+
+.btn-submit:hover
+{
+    background: var(--accent-hover);
+    border-color: var(--accent-hover);
+}
+
+/* La trampa de spam. Fuera de pantalla y no `display:none`: algunos bots
+   descartan los campos ocultos por display, y entonces no caen. */
+.honey
+{
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+}
+
+/* === Asistente ============================================================
+   Widget flotante abajo a la derecha. Es lo unico del sitio que se superpone
+   al contenido, asi que arranca colapsado a un boton y no roba foco: si nadie
+   lo abre, no molesta. */
+
+.asistente
+{
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 60;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+.as-lanzador
+{
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 11px 18px;
+    border-radius: 999px;
+    border: 1px solid var(--accent);
+    background: var(--accent);
+    color: #0b0510;
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 8px 28px -8px rgba(0, 0, 0, 0.7);
+    transition: background 0.15s, transform 0.15s;
+}
+
+.as-lanzador:hover { background: var(--accent-hover); transform: translateY(-1px); }
+.as-lanzador svg   { width: 18px; height: 18px; flex: none; }
+
+/* `display` en una regla propia le gana al atributo `hidden`, que es solo un
+   `display:none` del user-agent. Sin esto el panel nunca arranca cerrado y las
+   sugerencias no se esconden nunca: el JS pone el atributo y no pasa nada. */
+.asistente [hidden]
+{
+    display: none !important;
+}
+
+.as-panel
+{
+    width: min(380px, calc(100vw - 32px));
+    max-height: min(560px, calc(100vh - 120px));
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-raised);
+    border: 1px solid var(--border-strong);
+    border-radius: 14px;
+    box-shadow: 0 20px 60px -12px rgba(0, 0, 0, 0.8);
+    overflow: hidden;
+}
+
+.as-cabecera
+{
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 14px 12px;
+    border-bottom: 1px solid var(--border);
+}
+
+.as-titulo
+{
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    line-height: 1.2;
+}
+
+/* El subtitulo dice que no hay IA generativa. Es una aclaracion, no un
+   adorno: el visitante llega esperando un LLM y conviene desarmarlo antes
+   de que pruebe pidiendole codigo. */
+.as-subtitulo
+{
+    margin-top: 2px;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.03em;
+    color: var(--fg-faint);
+}
+
+.as-cerrar
+{
+    flex: none;
+    width: 28px;
+    height: 28px;
+    display: grid;
+    place-items: center;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--fg-muted);
+    cursor: pointer;
+}
+
+.as-cerrar:hover { background: var(--bg-soft); color: var(--fg); }
+.as-cerrar svg   { width: 16px; height: 16px; }
+
+.as-mensajes
+{
+    flex: 1;
+    overflow-y: auto;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.as-msg
+{
+    max-width: 92%;
+    padding: 9px 12px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.as-bot
+{
+    align-self: flex-start;
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    color: var(--fg);
+}
+
+.as-user
+{
+    align-self: flex-end;
+    background: var(--accent-soft);
+    border: 1px solid var(--accent-line);
+    color: var(--fg);
+}
+
+.as-msg code
+{
+    font-size: 0.85em;
+    background: var(--bg-code);
+    padding: 0.1em 0.3em;
+    border-radius: 4px;
+}
+
+/* Los links de contacto que acompañan a un rechazo. Que un "no sé" termine en
+   una via de contacto es el punto: la conversacion no se muere ahi. */
+.as-contacto
+{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 14px;
+    margin-top: 10px;
+    padding-top: 9px;
+    border-top: 1px solid var(--border);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+}
+
+.as-sugerencias
+{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 0 14px 12px;
+}
+
+.as-sug
+{
+    padding: 6px 11px;
+    border-radius: 999px;
+    border: 1px solid var(--border-strong);
+    background: transparent;
+    color: var(--fg-muted);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s;
+}
+
+.as-sug:hover { border-color: var(--accent); color: var(--accent); }
+
+.as-form
+{
+    display: flex;
+    gap: 8px;
+    padding: 12px 14px;
+    border-top: 1px solid var(--border);
+}
+
+.as-input
+{
+    flex: 1;
+    min-width: 0;
+    padding: 9px 12px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--bg-soft);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+}
+
+.as-input:focus
+{
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.as-enviar
+{
+    flex: none;
+    width: 38px;
+    border: 0;
+    border-radius: 10px;
+    background: var(--accent);
+    color: #0b0510;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+}
+
+.as-enviar:hover { background: var(--accent-hover); }
+.as-enviar svg   { width: 16px; height: 16px; }
+
+/* Abierto, el texto del boton sobra: el panel ya dice que es. */
+.asistente.abierto .as-lanzador-txt { display: none; }
+.asistente.abierto .as-lanzador     { padding: 11px; }
+
+@media (max-width: 720px)
+{
+    .asistente { right: 12px; bottom: 12px; left: 12px; align-items: stretch; }
+    .as-panel  { width: 100%; max-height: calc(100vh - 140px); }
+    .as-lanzador { align-self: flex-end; }
 }
 
 /* Una captura que linkea a su version completa: el ancla envuelve la imagen y

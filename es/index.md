@@ -1,6 +1,6 @@
 ---
 title: Home
-description: Portfolio de Federico Moroz. Backend, integraciones de APIs y sistemas distribuidos.
+description: Portfolio de Federico Palatnik Moroz. Backend, integraciones de APIs y sistemas distribuidos.
 permalink: /es/
 ---
 
@@ -9,9 +9,9 @@ permalink: /es/
 {% assign visible_projects = site.data.projects | where: "listed", true %}
 {% assign visible_tools = site.data.tools | where: "visibility", "public" %}
 
-<section class="hero">
+<section class="hero hero-home">
   <p class="hero-eyebrow">{{ site.author.name }}</p>
-  <h1>{{ t.hero.headline }}</h1>
+  <h1>{{ t.hero.headline | markdownify | remove: "<p>" | remove: "</p>" }}</h1>
   <p class="lead">{{ t.hero.lead }}</p>
   <p class="hero-metric">{{ t.hero.metric }}</p>
   {% assign cv_file = site.data.cv.cv_pdf[lang] %}
@@ -20,6 +20,7 @@ permalink: /es/
     {% if cv_file and cv_file != "" %}<a href="{{ '/cv/' | append: cv_file | relative_url }}" download>{{ t.hero.cta_cv }}</a>{% endif %}
     <a href="{{ '/' | append: lang | append: '/about/' | relative_url }}">{{ t.nav.about }}</a>
   </div>
+  {% include hero-contact.html t=t %}
 </section>
 
 <hr>
@@ -65,3 +66,7 @@ permalink: /es/
 {% else %}
 <p class="muted">{{ t.home.tools_empty }}</p>
 {% endif %}
+
+<hr>
+
+{% include contact-section.html t=t lang='es' %}
