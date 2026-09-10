@@ -682,6 +682,22 @@ tbody td code
     font-size: 1.08rem;
 }
 
+/* El nombre del proyecto va en blanco aunque sea un link. En una grilla de
+   trece tarjetas, trece titulos magenta convierten al acento en el color de
+   fondo del listado: deja de senalar. El magenta se reserva para las acciones
+   de abajo, que son las que uno decide tocar. */
+.pcard-body h3 a
+{
+    color: var(--fg);
+    text-decoration: none;
+}
+
+.pcard-body h3 a:hover
+{
+    color: var(--accent);
+    text-decoration: none;
+}
+
 .pcard-desc
 {
     margin: 0 0 12px;
@@ -1200,6 +1216,13 @@ tbody td code
    Va debajo de los botones y no arriba: primero el mensaje y la accion, y el
    contacto para el que ya decidio. En mono y en gris para que se lea como
    metadata de ficha y no compita con el CTA primario. */
+
+.cv-note
+{
+    margin: 10px 0 0;
+    font-size: 0.85rem;
+    color: var(--fg-faint);
+}
 
 .hero-contact
 {

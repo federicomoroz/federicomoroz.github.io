@@ -12,39 +12,44 @@
 # ESTADO: seed inicial. `profile` y `skills` salieron del README publico de
 # GitHub. Todo lo marcado TODO lo tiene que completar Federico.
 
+# NEGRITA: como maximo tres tramos, y solo lo que alguien deberia llevarse si
+# lee tres palabras. La version anterior tenia el 33% del parrafo en negrita
+# repartido en 16 tramos: resaltar todo es no resaltar nada, y de paso se lee
+# como esfuerzo por convencer. Los stacks no van en negrita, que ya estan
+# listados como chips justo abajo.
 profile:
   es: |
     Backend developer enfocado en **APIs, integraciones y sistemas
-    distribuidos**. Construyo sistemas correctos por diseño: **arquitectura por
-    capas**, contratos explícitos entre componentes y **tests que verifican
-    comportamiento, no implementación**. Trabajo con **Python (FastAPI, SQLAlchemy, Pydantic)** sobre **Redis,
-    PostgreSQL y Docker**: colas de tareas distribuidas, gateways de API con
-    circuit breakers y motores de notificación multi-canal. Con **.NET 8 y
-    ASP.NET Core** sobre **MySQL y EF Core**, en un servicio cuya capa de
+    distribuidos**. Construyo sistemas correctos por diseño: arquitectura por
+    capas, contratos explícitos entre componentes y tests que verifican
+    comportamiento, no implementación. Trabajo con Python (FastAPI, SQLAlchemy,
+    Pydantic) sobre Redis, PostgreSQL y Docker: colas de tareas distribuidas,
+    gateways de API con circuit breakers y motores de notificación multi-canal.
+    Con .NET 8 y ASP.NET Core sobre MySQL y EF Core, en un servicio cuya capa de
     persistencia tiene cuatro motores intercambiables verificados por la misma
-    suite de contrato. Y con **Java y Spring Boot** sobre **Kafka**, en sistemas
-    orientados a eventos con garantías de entrega. Y integro **APIs externas a
-    escala**. En **IA aplicada** meto modelos de lenguaje en producción sin
-    cajas negras: el modelo propone y **reglas determinísticas** deciden antes
-    de que algo se ejecute, con **RAG** sobre Qdrant para traer contexto real,
-    **guardrails**, **LLM-as-judge** y la calidad del modelo **medida en CI**,
-    que bloquea el merge si empeora.
+    suite de contrato. Y con Java y Spring Boot sobre Kafka, en sistemas
+    orientados a eventos con garantías de entrega. Y integro APIs externas a
+    escala. En IA aplicada meto modelos de lenguaje en producción **sin cajas
+    negras**: el modelo propone y reglas determinísticas deciden antes de que
+    algo se ejecute, con RAG sobre Qdrant para traer contexto real, guardrails,
+    LLM-as-judge y la calidad del modelo **medida en CI**, que bloquea el merge
+    si empeora.
   en: |
     Backend developer focused on **APIs, integrations and distributed
-    systems**. I build systems that are correct by design: **layered
-    architecture**, explicit contracts between components, and **tests that
-    verify behavior rather than implementation**. I work with **Python (FastAPI, SQLAlchemy, Pydantic)** on top of **Redis,
-    PostgreSQL and Docker**: distributed task queues, API gateways with circuit
-    breakers and multi-channel notification engines. With **.NET 8 and ASP.NET
-    Core** on **MySQL and EF Core**, in a service whose persistence layer has
-    four interchangeable engines verified by the same contract suite. And with
-    **Java and Spring Boot** on **Kafka**, building event-driven systems with
-    delivery guarantees. And I integrate **external APIs at scale**. In
-    **applied AI** I put language models into production with no black boxes:
-    the model proposes and **deterministic rules** decide before anything runs,
-    with **RAG** over Qdrant to bring in real context, **guardrails**,
-    **LLM-as-judge**, and the model's quality **measured in CI**, which blocks
-    the merge if it regresses.
+    systems**. I build systems that are correct by design: layered
+    architecture, explicit contracts between components, and tests that verify
+    behavior rather than implementation. I work with Python (FastAPI,
+    SQLAlchemy, Pydantic) on top of Redis, PostgreSQL and Docker: distributed
+    task queues, API gateways with circuit breakers and multi-channel
+    notification engines. With .NET 8 and ASP.NET Core on MySQL and EF Core, in
+    a service whose persistence layer has four interchangeable engines verified
+    by the same contract suite. And with Java and Spring Boot on Kafka,
+    building event-driven systems with delivery guarantees. And I integrate
+    external APIs at scale. In applied AI I put language models into production
+    **with no black boxes**: the model proposes and deterministic rules decide
+    before anything runs, with RAG over Qdrant to bring in real context,
+    guardrails, LLM-as-judge, and the model's quality **measured in CI**, which
+    blocks the merge if it regresses.
 
 # Como trabajo — bullets cortos, descriptivos, en primera persona.
 # Sin comparaciones con la industria ni auto-apreciaciones ("poco comun",

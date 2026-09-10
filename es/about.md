@@ -13,10 +13,10 @@ permalink: /es/about/
   <p class="lead">{{ t.about.lead }}</p>
   {% assign cv_file = cv.cv_pdf[lang] %}
   {% if cv_file and cv_file != "" %}
-  <p style="margin: 14px 0 6px;">
-    <a href="{{ '/cv/' | append: cv_file | relative_url }}" download><strong>{{ t.about.cv_download }}</strong></a>
-  </p>
-  <p style="font-size: 0.85em; opacity: 0.72; margin-top: 0;">{{ t.about.cv_note }}</p>
+  <div class="hero-actions">
+    <a class="primary" href="{{ '/cv/' | append: cv_file | relative_url }}" download>{{ t.about.cv_download }}</a>
+  </div>
+  <p class="cv-note">{{ t.about.cv_note }}</p>
   {% endif %}
 </section>
 
