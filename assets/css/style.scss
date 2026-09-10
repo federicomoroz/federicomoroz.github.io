@@ -367,6 +367,11 @@ tbody td code
 .site-nav a
 {
     color: var(--fg-muted);
+    /* Area tocable, no espaciado visual: en movil estos links median 24px de
+       alto y la guia pide 44. El padding negativo en el margen evita que el
+       alto extra separe las filas de la nav. */
+    padding: 10px 0;
+    margin: -10px 0;
 }
 
 .site-nav a:hover
@@ -1665,9 +1670,21 @@ a.hero-contact-item:hover svg { opacity: 1; }
 
 @media (max-width: 720px)
 {
-    .asistente { right: 12px; bottom: 12px; left: 12px; align-items: stretch; }
+    .asistente { right: 12px; bottom: 12px; left: 12px; align-items: flex-end; }
     .as-panel  { width: 100%; max-height: calc(100vh - 140px); }
-    .as-lanzador { align-self: flex-end; }
+
+    /* Circulo, no barra. Con el texto adentro medía casi el ancho de la
+       pantalla y se comia el primer proyecto del listado. */
+    .as-lanzador-txt { display: none; }
+
+    .as-lanzador
+    {
+        align-self: flex-end;
+        padding: 14px;
+        border-radius: 50%;
+    }
+
+    .as-lanzador svg { width: 20px; height: 20px; }
 }
 
 /* Una captura que linkea a su version completa: el ancla envuelve la imagen y
