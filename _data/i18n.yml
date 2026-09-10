@@ -19,7 +19,7 @@ es:
     # "Sin cajas negras" es la parte que hace el trabajo. Cualquiera dice que
     # integra IA; lo raro es poder decir COMO se controla lo que el modelo
     # propone, y eso es lo que el lead desarrolla y los case studies prueban.
-    headline: "Integro IA en producción *sin cajas negras*."
+    headline: "Integro IA en producción *sin cajas negras.*"
     # El titular dice QUE HACE; esta linea dice en que casillero entra, con las
     # palabras exactas con las que un reclutador busca. Las dos cosas, no una.
     roles: "Full Stack orientado a Backend · Forward Deployed Engineer · Integración de IA"
@@ -100,7 +100,7 @@ en:
     about: About
     github: GitHub
   hero:
-    headline: "I integrate AI in production *with no black boxes*."
+    headline: "I integrate AI in production *with no black boxes.*"
     roles: "Full Stack with a backend focus · Forward Deployed Engineer · AI Integration"
     lead: "The model proposes; deterministic rules decide before anything runs. RAG to bring in real context, guardrails and circuit breakers for what can fail, and the model's quality measured in CI, which blocks the merge if it regresses. Underneath, the same backend as always: APIs, integrations and process automation on Python, .NET and Java."
     metric: "Previously: process automation, from 10 minutes to 5 seconds across ~2,100 monthly transactions."

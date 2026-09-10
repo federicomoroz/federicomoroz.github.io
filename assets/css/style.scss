@@ -57,7 +57,7 @@
     /* Type — la display es serif a proposito: Inter + JetBrains Mono es el par
        que usa todo portfolio dark de dev, y solo con ese par el sitio se lee
        como plantilla. La serif aparece unicamente en h1 y h2. */
-    --font-display: "Instrument Serif", "Times New Roman", Georgia, serif;
+    --font-display: Newsreader, "Times New Roman", Georgia, serif;
     --font-sans: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
     --font-mono: "JetBrains Mono", SFMono-Regular, Consolas, "Liberation Mono", monospace;
 
@@ -161,8 +161,9 @@ h1, h2, h3, h4
 h1, h2
 {
     font-family: var(--font-display);
-    font-weight: 400;
+    font-weight: 500;
     letter-spacing: -0.02em;
+    font-optical-sizing: auto;
 }
 
 h1 { font-size: 2.4rem;  line-height: 1.12; margin: 0 0 0.4em; }
@@ -443,7 +444,7 @@ tbody td code
 
 .hero
 {
-    padding: 16px 0 26px;
+    padding: 28px 0 30px;
     position: relative;
 }
 
@@ -958,14 +959,17 @@ tbody td code
    linea de encabezado arriba, chico, para que la identidad no se pierda sin
    competir con el mensaje. */
 
-.hero-eyebrow
+.hero-nombre
 {
-    margin: 0 0 10px;
-    font-family: var(--font-mono);
-    font-size: 0.82rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--accent);
+    margin: 0 0 18px;
+    font-family: var(--font-sans);
+    /* Escala con la pantalla igual que el titular: fijo en 1.85rem, en movil
+       quedaba en 30px contra 37px del titular y la jerarquia se perdia. */
+    font-size: clamp(1.15rem, 2.4vw, 1.85rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    color: var(--fg);
 }
 
 /* La home es el unico lugar donde el titulo se comporta como cartel: es una
@@ -978,11 +982,14 @@ tbody td code
    otro largo y cae en la misma cantidad de lineas. */
 .hero-home h1
 {
-    font-size: clamp(2.1rem, 6.4vw, 4.6rem);
-    line-height: 1.02;
-    letter-spacing: -0.03em;
-    margin: 0 0 0.32em;
-    max-width: 18ch;
+    font-size: clamp(2.3rem, 8vw, 6.5rem);
+    font-weight: 600;
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+    margin: 0 0 0.34em;
+    /* A esta escala la frase no entra en dos lineas. `balance` reparte las
+       tres parejo en lugar de dejar una linea corta colgando. */
+    text-wrap: balance;
 }
 
 /* El tramo en italica es el que carga la afirmacion: el punto no es que
@@ -991,6 +998,7 @@ tbody td code
 .hero-home h1 em
 {
     font-style: italic;
+    font-weight: 300;
     background: linear-gradient(100deg, var(--grad-magenta), var(--grad-violet) 78%);
     -webkit-background-clip: text;
     background-clip: text;
@@ -1002,7 +1010,7 @@ tbody td code
    sin competir con la serif gigante de arriba. */
 .hero-roles
 {
-    margin: 0 0 14px;
+    margin: 0 0 18px;
     font-size: 1.02rem;
     font-weight: 600;
     line-height: 1.4;
@@ -1014,7 +1022,7 @@ tbody td code
 
 .hero-metric
 {
-    margin: 16px 0 0;
+    margin: 22px 0 0;
     padding-left: 12px;
     border-left: 2px solid var(--accent-line);
     font-size: 0.95rem;
@@ -1027,7 +1035,7 @@ tbody td code
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    margin: 24px 0 0;
+    margin: 30px 0 0;
 }
 
 .hero-actions a

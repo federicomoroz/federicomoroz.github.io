@@ -10,7 +10,7 @@ permalink: /en/
 {% assign visible_tools = site.data.tools | where: "visibility", "public" %}
 
 <section class="hero hero-home">
-  <p class="hero-eyebrow">{{ site.author.name }}</p>
+  <p class="hero-nombre">{{ site.author.name }}</p>
   <h1>{{ t.hero.headline | markdownify | remove: "<p>" | remove: "</p>" }}</h1>
   <p class="hero-roles">{{ t.hero.roles }}</p>
   <p class="lead">{{ t.hero.lead }}</p>
