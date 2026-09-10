@@ -7,9 +7,9 @@
 es:
   site_tagline: "Full Stack orientado a Backend · Forward Deployed Engineer · Integración de IA"
   nav:
-    home: Home
+    home: Inicio
     projects: Proyectos
-    tools: Tools
+    tools: Herramientas
     about: Sobre mí
     github: GitHub
   hero:
@@ -49,7 +49,7 @@ es:
     profile_heading: Perfil
     projects_heading: Proyectos
     projects_empty: "Aún no hay proyectos publicados."
-    tools_heading: Tools
+    tools_heading: Herramientas
     tools_intro_one: "herramienta publicada."
     tools_intro_count: "herramientas y librerías publicadas."
     tools_empty: "Aún no hay herramientas publicadas."
@@ -68,7 +68,7 @@ es:
     capabilities_heading: "Sobre estos proyectos"
     capabilities_note: "Parte del trabajo es privado o está bajo NDA. En vez del repo, en esos casos queda un write-up técnico autocontenido: la decisión de diseño y el resultado, sin exponer código de clientes."
   tools:
-    heading: Tools
+    heading: Herramientas
     lead: "Herramientas y librerías chicas, publicadas como repos independientes."
     install_label: "Instalación"
     empty: "Aún no hay herramientas publicadas."
