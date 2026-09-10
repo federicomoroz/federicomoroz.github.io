@@ -1,6 +1,6 @@
 ---
 title: Home
-description: Portfolio de Federico Palatnik Moroz. Backend, integraciones de APIs y sistemas distribuidos.
+description: Federico Palatnik Moroz — Full Stack orientado a Backend, Forward Deployed Engineer e integración de IA sin cajas negras.
 permalink: /es/
 ---
 
@@ -12,6 +12,7 @@ permalink: /es/
 <section class="hero hero-home">
   <p class="hero-eyebrow">{{ site.author.name }}</p>
   <h1>{{ t.hero.headline | markdownify | remove: "<p>" | remove: "</p>" }}</h1>
+  <p class="hero-roles">{{ t.hero.roles }}</p>
   <p class="lead">{{ t.hero.lead }}</p>
   <p class="hero-metric">{{ t.hero.metric }}</p>
   {% assign cv_file = site.data.cv.cv_pdf[lang] %}

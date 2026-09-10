@@ -5,7 +5,7 @@
 # y sumar la opcion al switch en _includes/header.html.
 
 es:
-  site_tagline: "Backend Developer — APIs, integraciones y sistemas distribuidos"
+  site_tagline: "Full Stack orientado a Backend · Forward Deployed Engineer · Integración de IA"
   nav:
     home: Home
     projects: Proyectos
@@ -20,6 +20,9 @@ es:
     # integra IA; lo raro es poder decir COMO se controla lo que el modelo
     # propone, y eso es lo que el lead desarrolla y los case studies prueban.
     headline: "Integro IA en producción *sin cajas negras*."
+    # El titular dice QUE HACE; esta linea dice en que casillero entra, con las
+    # palabras exactas con las que un reclutador busca. Las dos cosas, no una.
+    roles: "Full Stack orientado a Backend · Forward Deployed Engineer · Integración de IA"
     lead: "El modelo propone; reglas determinísticas deciden antes de que algo se ejecute. RAG para traer contexto real, guardrails y circuit breakers para lo que puede fallar, y la calidad del modelo medida en CI, que bloquea el merge si empeora. Debajo, el backend de siempre: APIs, integraciones y automatización de procesos sobre Python, .NET y Java."
     # El unico numero de negocio medido del perfil, y viene de un puesto, no
     # de un proyecto.
@@ -75,7 +78,7 @@ es:
     notes_changelog: "Cada herramienta mantiene su CHANGELOG en su propio repo."
   about:
     heading: Sobre mí
-    lead: "Backend e integración de IA. Sistemas que siguen funcionando cuando algo se rompe, y modelos que no deciden solos."
+    lead: "Full Stack orientado a Backend, Forward Deployed Engineer e integración de IA. Sistemas que siguen funcionando cuando algo se rompe, y modelos que no deciden solos."
     cv_download: "⬇ Descargar CV (PDF)"
     cv_note: "Mismo contenido que el CV que mando al aplicar, con teléfono y mail."
     profile_heading: Perfil profesional
@@ -89,7 +92,7 @@ es:
     done: terminado
 
 en:
-  site_tagline: "Backend Developer — APIs, integrations and distributed systems"
+  site_tagline: "Full Stack with a backend focus · Forward Deployed Engineer · AI Integration"
   nav:
     home: Home
     projects: Projects
@@ -98,6 +101,7 @@ en:
     github: GitHub
   hero:
     headline: "I integrate AI in production *with no black boxes*."
+    roles: "Full Stack with a backend focus · Forward Deployed Engineer · AI Integration"
     lead: "The model proposes; deterministic rules decide before anything runs. RAG to bring in real context, guardrails and circuit breakers for what can fail, and the model's quality measured in CI, which blocks the merge if it regresses. Underneath, the same backend as always: APIs, integrations and process automation on Python, .NET and Java."
     metric: "Previously: process automation, from 10 minutes to 5 seconds across ~2,100 monthly transactions."
     cta_projects: "See projects"
@@ -153,7 +157,7 @@ en:
     notes_changelog: "Each tool keeps its CHANGELOG in its own repo."
   about:
     heading: About
-    lead: "Backend and AI integration. Systems that keep running when something breaks, and models that do not decide on their own."
+    lead: "Full Stack with a backend focus, Forward Deployed Engineer and AI integration. Systems that keep running when something breaks, and models that do not decide on their own."
     cv_download: "⬇ Download CV (PDF)"
     cv_note: "Same content as the CV I send with an application, phone and email included."
     profile_heading: Professional profile

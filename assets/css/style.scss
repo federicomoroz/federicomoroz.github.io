@@ -997,6 +997,21 @@ tbody td code
     color: transparent;
 }
 
+/* La linea de roles: los rotulos con los que un reclutador filtra. Va debajo
+   del titular y arriba del lead, en un peso alto para que se lea en el barrido
+   sin competir con la serif gigante de arriba. */
+.hero-roles
+{
+    margin: 0 0 14px;
+    font-size: 1.02rem;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--fg);
+    /* Sin max-width y con balance: son tres rotulos separados por puntos y no
+       un parrafo. Acotarlo dejaba "IA" solo en la segunda linea. */
+    text-wrap: balance;
+}
+
 .hero-metric
 {
     margin: 16px 0 0;
