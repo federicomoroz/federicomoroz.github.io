@@ -1,6 +1,6 @@
 ---
 title: Shipping Quote
-description: "Shipping rate quoter built to show a hexagonal architecture circuit running, with every request traced hop by hop."
+description: "Shipping rate quoter with a hexagonal architecture that queries three carriers in parallel and returns the trace of each request, hop by hop."
 permalink: /en/projects/shipping-quote/
 ---
 
@@ -8,7 +8,7 @@ permalink: /en/projects/shipping-quote/
 
 <section class="hero">
   <h1>Shipping Quote <span class="tag active">active</span></h1>
-  <p class="lead">Shipping rate quoter with a <strong>complete hexagonal circuit</strong>: every request is traced hop by hop, from the moment it arrives over HTTP until three carrier adapters return their own quote.</p>
+  <p class="lead">Shipping rate quoter built as a <strong>hexagonal circuit</strong>. Every request is traced hop by hop, from the moment it arrives over HTTP until each of the three carrier adapters returns its quote.</p>
   <div class="chip-row">
     <span class="tag">Python</span><span class="tag">FastAPI</span><span class="tag">SQLAlchemy</span>
     <span class="tag">Alembic</span><span class="tag">httpx</span><span class="tag">pytest</span>
@@ -21,7 +21,7 @@ permalink: /en/projects/shipping-quote/
 
 <div class="callout">
   <p class="callout-title">The design decision</p>
-  <p>Hexagonal architecture is almost always explained with a diagram, and the claim that the code respects it is taken on faith. Here you can watch it: every request emits its own ordered trace —entry, adapter, port, use case, domain, port, adapter, exit— and that trace comes back in the response. The diagram isn't documentation sitting next to the code; it's the code's output.</p>
+  <p>Every request builds its own ordered trace (entry, adapter, port, use case, domain, port, adapter, exit) and returns it in the response. The hexagon diagram is drawn from that trace, so you can check it against what the code actually did on that request.</p>
 </div>
 
 <div class="statline">
@@ -30,20 +30,17 @@ permalink: /en/projects/shipping-quote/
   <div class="stat"><span class="num">~15</span><span class="lbl">lines to add a fourth</span></div>
 </div>
 
-## Why it exists
+## What it does
 
-One use case —quoting a package— running against three adapters inside the same request.
-**In the published version the three carriers are stubs**: a separate FastAPI sub-app
-mimicking the APIs, wired through `ASGITransport` without opening a socket. What stays in
-view is the circuit, which is the point here: the same domain produces three different
-results without ever learning that three of them exist.
-
-That buys something a toy example doesn't: the whole circuit, with real persistence, real
-error handling and a trace you can read.
+There is a single use case, quoting a package, and it runs against three adapters inside the
+same request. **In the published version the three carriers are stubs**: a separate FastAPI
+sub-app that mimics their APIs, wired through `ASGITransport` without opening a socket. The
+same domain produces three different quotes without knowing there are three carriers.
+Persistence and error handling are real.
 
 <figure class="shot">
   <img src="{{ '/assets/img/shipping-quote-circuito.gif' | relative_url }}" alt="Animation of the hexagonal circuit: a request comes in over HTTP, crosses the primary adapter, the port, the use case and the domain, exits through the secondary port into the three carrier adapters and returns with the quotes." loading="lazy" width="1168" height="715">
-  <figcaption>The circuit as travelled by a real request, hop by hop. The sequence comes from the trace the response itself returns: it is the output of the code, not a diagram drawn beside it.</figcaption>
+  <figcaption>The circuit as travelled by a real request, hop by hop. The sequence is taken from the trace the response returns.</figcaption>
 </figure>
 
 ## The circuit
@@ -57,45 +54,43 @@ entry -> adapter -> port -> use case -> domain -> port -> adapter -> exit
 `main.py` is the composition root: it wires everything in the lifespan. The domain
 (`Package`, zones, `FeePolicy`, `Tracer`) imports nothing from the outside.
 
-None of this has to be taken on faith: **the trace comes back inside the response**. A 2.5 kg
-package to postal code 1425 returns eighteen steps —entry, adapter, port, the domain steps,
-the three carrier adapters and the exit— each with its own timing. The same JSON shows the
-volumetric weight rule deciding: 2.5 kg actual against 4.8 kg effective.
+**The trace comes back inside the response.** A 2.5 kg package to postal code 1425 returns
+eighteen steps, each with its own timing: entry, adapter, port, the domain steps, the three
+carrier adapters and exit. The same JSON shows the volumetric weight rule being applied:
+2.5 kg actual against 4.8 kg effective.
 
-## Decisions that mattered
+## Design decisions
 
-**Money in `Decimal`, not `float`.** The service fee calculation works in `Decimal` and
-rounds with an explicit `ROUND_HALF_UP`, because Python's built-in `round()` uses banker's
-rounding, which for money produces results that surprise people. One test pins exactly that
-difference: `test_apply_service_fee_rounds_half_up_not_banker`. It was technical debt paid
-off, not something that was right from the start.
+**Money is kept in `Decimal`, never in `float`.** The service fee is calculated in `Decimal`
+and rounded with an explicit `ROUND_HALF_UP`. Python's built-in `round()` uses banker's
+rounding, which gives unexpected results on money amounts. The test
+`test_apply_service_fee_rounds_half_up_not_banker` pins that difference. The explicit
+rounding came in as a technical debt payoff.
 
-**The three carriers are one class, not three.** `HttpCarrierAdapter` is configured by
-composition —an endpoint plus two mapping functions— instead of repeating the same
-try/except/timeout three times. That is why adding a fourth carrier is a file of about
-fifteen lines rather than a whole class.
+**One class for all three carriers.** `HttpCarrierAdapter` is configured by composition,
+with an endpoint and two mapping functions, and the try/except/timeout is written once.
+Adding a fourth carrier is a file of about fifteen lines.
 
 **One carrier fails on purpose.** The Correo Argentino mock returns an error roughly 15% of
-the time. The use case runs all three through `asyncio.gather` and answers with two quotes
-out of three without falling over. That is the difference between demonstrating that you
-call three services and demonstrating what happens when one of them goes down.
+the time. The use case runs all three through `asyncio.gather`, and when one fails it still
+answers with the other two quotes.
 
-**Tracing through `Tracer`, not an event bus.** A trace has a single consumer and a strict
-order, so it is passed by reference through the layers. A pub/sub bus would have been using
-the pattern for its own sake: here it adds indirection and buys nothing.
+**Tracing goes through a `Tracer`.** A trace has a single consumer and a strict order, so the
+`Tracer` is passed by reference through the layers. A pub/sub event bus with a single
+consumer would only add indirection.
 
-**A primary port for a single implementation.** `ShippingQuotePort` is over-engineering by
-YAGNI, and it is deliberate: without that port the driving side of the hexagon stays
-implicit, and the circuit can no longer be traced end to end. It is written down in the ABC's docstring
-so nobody reads it as an oversight.
+**A primary port for a single implementation.** By YAGNI, `ShippingQuotePort` is
+unnecessary. It stays because without it the driving side of the hexagon is implicit and the
+circuit can no longer be traced end to end. The ABC's docstring says so, so nobody reads it
+as an oversight.
 
 **Effective weight is `max(actual weight, length × width × height / 5000)`**, the standard
-volumetric weight formula. The domain carries a real business rule, not a decorative `if`.
+volumetric weight formula.
 
-## Deliberately out of scope
+## Out of scope
 
-No authentication, no rate limiting, no manual carrier selection — all three are always
-quoted. The goal is the architecture, not a finished product.
+There is no authentication and no rate limiting, and the carrier can't be chosen: all three
+are always quoted.
 
 The Alembic migrations are deliberately kept apart from the `create_all()` at startup:
 hooking them into the lifespan would have made the tests migrate the real database instead

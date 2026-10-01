@@ -15,7 +15,7 @@
 <figure class="diagrama">
   <div class="diagrama-scroll">
     <svg viewBox="0 0 1040 268" role="img"
-         aria-label="{% if es %}Sobre 96 casos de prueba, el modelo propuso diecinueve veces mover plata en un caso que necesitaba una persona. Las once reglas frenaron las diecinueve: ninguna llego a ejecutarse.{% else %}Across 96 test cases, the model proposed nineteen times to move money on a case that needed a person. The eleven rules stopped all nineteen: none of them ever executed.{% endif %}">
+         aria-label="{% if es %}En 96 casos de prueba hubo diecinueve propuestas de mover plata en casos que necesitaban una persona. Las once reglas frenaron las diecinueve y las pasaron a una persona.{% else %}Across 96 test cases there were nineteen proposals to move money on cases that needed a person. The eleven rules stopped all nineteen and handed them to a person.{% endif %}">
 
       <!-- La corriente entra al muro y termina ahi. Del otro lado no hay linea. -->
       <line class="diag-corriente" x1="286" y1="132" x2="556" y2="132" />
@@ -24,10 +24,10 @@
       <text class="diag-modelo-tx" x="150" y="150" text-anchor="middle"
             font-size="88" font-weight="700">19</text>
       <text class="diag-titulo diag-modelo-tx" x="150" y="184" text-anchor="middle">
-        {% if es %}veces quiso mover plata{% else %}times it tried to move money{% endif %}
+        {% if es %}propuestas de mover plata{% else %}proposals to move money{% endif %}
       </text>
       <text class="diag-nota" x="150" y="204" text-anchor="middle">
-        {% if es %}en un caso que necesitaba una persona{% else %}on a case that needed a person{% endif %}
+        {% if es %}en casos que necesitaban una persona{% else %}on cases that needed a person{% endif %}
       </text>
       <text class="diag-nota" x="150" y="224" text-anchor="middle">
         {% if es %}sobre 96 pruebas{% else %}across 96 test runs{% endif %}
@@ -52,28 +52,24 @@
 
       <!-- Del otro lado no llega nada -->
       <text class="diag-regla-tx" x="820" y="150" text-anchor="middle"
-            font-size="88" font-weight="700">0</text>
+            font-size="88" font-weight="700">19</text>
       <text class="diag-titulo diag-regla-tx" x="820" y="184" text-anchor="middle">
-        {% if es %}veces lo consiguió{% else %}times it got through{% endif %}
+        {% if es %}frenadas por las reglas{% else %}stopped by the rules{% endif %}
       </text>
       <text class="diag-nota" x="820" y="204" text-anchor="middle">
-        {% if es %}las 19 pasaron a una persona{% else %}all 19 went to a person instead{% endif %}
+        {% if es %}y pasadas a una persona{% else %}and handed to a person{% endif %}
       </text>
     </svg>
   </div>
   <figcaption>
     {% if es %}
-      Un modelo chico corriendo en una placa de video común propone cosas que no
-      corresponden. Eso se da por sentado: el trabajo no es que no las proponga, es que no
-      lleguen a ejecutarse. Las reglas estrictas cubren reintegro y reenvío, que mueven
-      plata y mercadería; pedirle una foto al cliente no las necesita, porque una pregunta
-      siempre se puede deshacer.
+      Las reglas estrictas cubren reintegro y reenvío, que mueven plata y mercadería.
+      Pedirle una foto al cliente no las necesita, porque una pregunta siempre se puede
+      deshacer.
     {% else %}
-      A small model running on an ordinary graphics card proposes things it should not.
-      That is taken as given: the job is not to stop it proposing them, it is to stop them
-      executing. The strict rules cover refunds and replacements, which move money and
-      goods; asking the customer for a photo does not need them, because a question can
-      always be taken back.
+      The strict rules cover refunds and replacements, which move money and goods. Asking
+      the customer for a photo does not need them, because a question can always be taken
+      back.
     {% endif %}
   </figcaption>
 </figure>

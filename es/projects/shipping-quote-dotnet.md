@@ -1,6 +1,6 @@
 ---
 title: Shipping Quote — .NET
-description: "El mismo cotizador de envíos, portado a ASP.NET Core. Lo interesante no fue reescribirlo: fue lo que el port dejó a la vista."
+description: "El mismo cotizador de envíos, portado a ASP.NET Core sobre los mismos puertos y casos de uso. El port encontró dos bugs que el original nunca había mostrado."
 permalink: /es/projects/shipping-quote-dotnet/
 ---
 
@@ -8,7 +8,7 @@ permalink: /es/projects/shipping-quote-dotnet/
 
 <section class="hero">
   <h1>Shipping Quote — .NET <span class="tag active">activo</span></h1>
-  <p class="lead">El mismo cotizador de envíos con <strong>arquitectura hexagonal</strong> que existe en Python, portado a <strong>ASP.NET Core</strong>. Lo interesante no fue reescribirlo: fue que el port <strong>encontró dos bugs</strong> que el original nunca había mostrado.</p>
+  <p class="lead">El mismo cotizador de envíos con <strong>arquitectura hexagonal</strong> que existe en Python, portado a <strong>ASP.NET Core</strong>. El port <strong>encontró dos bugs</strong> que el original nunca había mostrado.</p>
   <div class="chip-row">
     <span class="tag">C#</span><span class="tag">.NET 8</span><span class="tag">ASP.NET Core</span>
     <span class="tag">EF Core</span><span class="tag">MySQL</span><span class="tag">Testcontainers</span>
@@ -23,7 +23,7 @@ permalink: /es/projects/shipping-quote-dotnet/
 
 <div class="callout">
   <p class="callout-title">La decisión de diseño</p>
-  <p>Portar un sistema a otro stack es la forma más barata de descubrir qué partes eran arquitectura y qué partes eran costumbre. Lo que sobrevivió al cambio de lenguaje —los puertos, el pipeline, la política de precio— era diseño. Lo que hubo que rehacer eran decisiones que en Python parecían neutrales y en .NET no lo eran.</p>
+  <p>Al portar el sistema a otro stack se ve qué partes eran arquitectura y cuáles eran costumbre. Los puertos, el pipeline y la política de precio pasaron intactos al nuevo lenguaje. Lo que hubo que rehacer fueron decisiones que en Python parecían neutrales y en .NET no lo eran.</p>
 </div>
 
 <div class="statline">
@@ -32,12 +32,11 @@ permalink: /es/projects/shipping-quote-dotnet/
   <div class="stat"><span class="num">2</span><span class="lbl">bugs que encontró el port</span></div>
 </div>
 
-## Concurrencia, medida y no afirmada
+## Concurrencia medida con un test
 
-Los tres transportistas se consultan en paralelo con `Task.WhenAll`: el request tarda lo
-que el más lento, no la suma de los tres. Eso es fácil de escribir y fácil de romper sin
-darse cuenta —alguien mete un `await` dentro de un `foreach` y sigue compilando, sigue
-pasando los tests, y el servicio triplica su latencia en silencio—.
+Los tres transportistas se consultan en paralelo con `Task.WhenAll`, así que el request
+tarda lo que tarda el más lento. Es fácil romperlo sin darse cuenta: un `await` dentro de
+un `foreach` compila, pasa los tests y triplica en silencio la latencia del servicio.
 
 Por eso hay un test que lo **mide**:
 
@@ -46,24 +45,23 @@ Por eso hay un test que lo **mide**:
 latencias 50 / 150 / 400   →  399 ms      la suma sería 600
 ```
 
-El test falla si pasa de 700ms. No verifica que el código diga `Task.WhenAll`: verifica
-que el reloj se comporte como si lo dijera.
+El test falla si pasa de 700ms. Lo que controla es el tiempo de reloj del request.
 
-Alrededor de eso, lo que hace que sea verdad y no casualidad:
+Para que eso se cumpla en todo el servicio:
 
 - **`async`/`await` de punta a punta.** Ni un `.Result` ni un `.Wait()` en todo el repo:
   nada bloquea un hilo del pool esperando I/O.
-- **`Task.Delay`, nunca `Thread.Sleep`.** Esperar sin ocupar un hilo es la diferencia
-  entre aguantar mil requests concurrentes y quedarse sin pool.
+- **`Task.Delay`, nunca `Thread.Sleep`.** La espera no ocupa un hilo, y con mil requests
+  concurrentes eso decide si el pool alcanza o se agota.
 - **`CancellationToken` enhebrado hasta el adaptador.** Si el cliente corta, se cortan las
   llamadas en vuelo. Hay un test con un transportista de 30 segundos que corta en 67ms.
-- **`CreateLinkedTokenSource` para el timeout del contrato**, que así no pisa la
-  cancelación del request entrante: respeta las dos.
+- **`CreateLinkedTokenSource` para el timeout del contrato.** Así el timeout no pisa la
+  cancelación del request entrante y se respetan las dos.
 - **Cada request con su propio `TraceRecorder`.** Un test lanza 40 requests concurrentes y
-  verifica que ninguna traza se mezcle con otra. Es el que probaría que hay estado mutable
-  compartido, si lo hubiera.
+  verifica que ninguna traza se mezcle con otra. Si hubiera estado mutable compartido, ese
+  test lo detectaría.
 
-## El primer bug: la base de datos equivocada
+## Primer bug: SQLite y las escrituras concurrentes
 
 El port arrancó con SQLite, igual que el original. El test de veinte cotizaciones
 concurrentes falló:
@@ -72,12 +70,11 @@ concurrentes falló:
 SqliteException : SQLite Error 5: 'database is locked'
 ```
 
-SQLite **serializa las escrituras**. Es decir: un servicio construido para mostrar trabajo
-concurrente se trababa justo en el único punto donde escribe. El primer arreglo fue un
-`busy_timeout`, que hace que la segunda escritura espere en vez de fallar —y que es
-convertir un error en latencia, no resolver nada—.
+SQLite **serializa las escrituras**, y el servicio se trababa en el único punto donde
+escribe. El primer arreglo fue un `busy_timeout`: la segunda escritura espera en vez de
+fallar, lo que sólo cambia el error por latencia.
 
-La base pasó a **MySQL**, y ahí lo que antes era un parche se volvió diseño:
+La base pasó a **MySQL**:
 
 | Con SQLite | Con MySQL |
 |---|---|
@@ -87,47 +84,44 @@ La base pasó a **MySQL**, y ahí lo que antes era un parche se volvió diseño:
 | `EnsureCreated` | migraciones de EF Core |
 | — | `EnableRetryOnFailure` ante deadlocks |
 
-El `datetime(6)` no es exquisitez: sin los microsegundos, MySQL trunca a segundos y dos
-cotizaciones del mismo segundo dejan de poder ordenarse entre sí.
+Sin `datetime(6)`, MySQL trunca a segundos y dos cotizaciones del mismo segundo ya no se
+pueden ordenar entre sí.
 
-## El segundo bug: uno que sólo se ve con la base real
+## Segundo bug: sólo aparece contra el motor real
 
-Los tests de integración levantan un **MySQL 8.0 de verdad**, efímero, en un contenedor
-que vive lo que dura la corrida. No una base falsa en memoria.
-
-Esa decisión se pagó sola. La primera corrida contra el motor real tiró:
+Los tests de integración levantan un **MySQL 8.0 real** en un contenedor efímero que vive
+lo que dura la corrida. La primera corrida contra el motor real tiró:
 
 ```
 SQLite does not support expressions of type 'DateTimeOffset' in ORDER BY clauses
 ```
 
 El endpoint de historial ordenaba por fecha, y el tipo `DateTimeOffset` no se puede
-ordenar del lado del servidor. Es un error de **runtime**, no de compilación: el código
-compilaba perfecto y se hubiera caído en producción, en el primer request al historial.
+ordenar del lado del servidor. El error es de **runtime**: el código compilaba y se habría
+caído en producción con el primer request al historial.
 
-Un doble en memoria lo habría tapado. Los dos bugs más caros del proyecto aparecieron
-porque del otro lado había un motor de verdad.
+Un doble en memoria lo habría tapado. Los dos bugs de esta página aparecieron corriendo
+contra un motor real.
 
 ## La regla de negocio no sabe que existe HTTP
 
 Que un bulto de más de 30 kg no se cotice es una regla de negocio. Que eso se comunique
-como un `422` es una decisión de transporte. Son dos cosas distintas y viven en dos
-lugares distintos: el dominio tira su excepción, y un **middleware** la traduce a HTTP.
+como un `422` es una decisión de transporte. Por eso viven en lugares distintos: el
+dominio tira su excepción y un **middleware** la traduce a HTTP.
 
 ```csharp
 catch (Exception exc) when (exc is PackageTooHeavyException or InvalidPostalCodeException)
 ```
 
-El controller no tiene un solo `try/catch`. Uno nuevo hereda el mapeo sin escribir nada.
-Es Chain of Responsibility, que es exactamente lo que el pipeline de ASP.NET Core es por
-dentro: cada middleware decide si maneja el request o se lo pasa al siguiente.
+El controller no tiene ningún `try/catch`, y un controller nuevo hereda el mapeo sin
+escribir nada. El patrón es Chain of Responsibility, el mismo que usa por dentro el pipeline
+de ASP.NET Core: cada middleware decide si maneja el request o se lo pasa al siguiente.
 
-## Lo que no cambió: el hexágono
+## El hexágono, igual que en Python
 
-La arquitectura hexagonal sobrevivió entera al cambio de lenguaje, que es la prueba de que
-era diseño y no una costumbre de Python. Cuatro proyectos, con las dependencias apuntando
-siempre hacia adentro, y reglas que el compilador hace cumplir: el dominio no puede
-importar ASP.NET porque no lo referencia.
+La arquitectura hexagonal pasó entera al nuevo lenguaje. Son cuatro proyectos con las
+dependencias apuntando siempre hacia adentro, y el compilador hace cumplir los límites: el
+dominio no puede importar ASP.NET porque no lo referencia.
 
 ```
 ShippingQuote.Domain           sin dependencias
@@ -143,19 +137,18 @@ El caso de uso recibe un `IEnumerable<ICarrierPort>` y no sabe cuántos transpor
 quiénes son, ni que hablan HTTP. Sumar un cuarto es una entrada en el catálogo y una línea
 en el composition root.
 
-Y los tres transportistas son tres **instancias** de la misma clase, no tres subclases:
-cada uno aporta sólo datos —su endpoint y dos funciones de traducción—, mientras el
-timeout, el manejo de errores y la traza viven una sola vez. Composición sobre herencia,
-que es lo único que evita tres clases casi idénticas.
+Los tres transportistas son tres **instancias** de la misma clase. Cada uno aporta sólo
+datos: su endpoint y dos funciones de traducción. El timeout, el manejo de errores y la
+traza están escritos una sola vez. Con composición en vez de herencia se evitan tres clases
+casi idénticas.
 
-## Honestidad sobre el alcance
+## Alcance
 
 Los tres transportistas son **simulados**, igual que en la versión Python. Acá se montan
 como un `HttpMessageHandler` propio: el `HttpClient` hace un POST real, con serialización,
-status codes y deserialización reales, pero nunca sale a la red. El adaptador que se
-testea es el mismo binario que correría en producción; lo único que se cambiaría es ese
-último eslabón.
+status codes y deserialización reales, pero la llamada nunca sale a la red. El adaptador
+que se testea es el mismo binario que correría en producción, y lo único que habría que
+cambiar es ese último eslabón.
 
-El valor no está en haber integrado a un transportista real. Está en que el mismo dominio
-produzca tres resultados distintos sin enterarse de que existen tres, y en que uno de
-ellos pueda caerse sin llevarse la respuesta puesta.
+El mismo dominio produce tres resultados distintos sin saber que hay tres transportistas, y
+si uno se cae, la respuesta sale igual.

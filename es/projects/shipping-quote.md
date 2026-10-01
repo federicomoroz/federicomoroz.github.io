@@ -1,6 +1,6 @@
 ---
 title: Shipping Quote
-description: "Cotizador de envíos construido para mostrar un circuito de arquitectura hexagonal funcionando, con la traza de cada request visible hop por hop."
+description: "Cotizador de envíos con arquitectura hexagonal que consulta a tres transportistas en paralelo y devuelve la traza de cada request, salto por salto."
 permalink: /es/projects/shipping-quote/
 ---
 
@@ -8,7 +8,7 @@ permalink: /es/projects/shipping-quote/
 
 <section class="hero">
   <h1>Shipping Quote <span class="tag active">activo</span></h1>
-  <p class="lead">Cotizador de envíos con un <strong>circuito hexagonal completo</strong>: cada request queda trazado hop por hop, desde que entra por HTTP hasta que tres adaptadores de transportista devuelven su propia cotización.</p>
+  <p class="lead">Cotizador de envíos armado como un <strong>circuito hexagonal</strong>. Cada request queda trazado hop por hop, desde que entra por HTTP hasta que los tres adaptadores de transportista devuelven cada uno su cotización.</p>
   <div class="chip-row">
     <span class="tag">Python</span><span class="tag">FastAPI</span><span class="tag">SQLAlchemy</span>
     <span class="tag">Alembic</span><span class="tag">httpx</span><span class="tag">pytest</span>
@@ -21,7 +21,7 @@ permalink: /es/projects/shipping-quote/
 
 <div class="callout">
   <p class="callout-title">La decisión de diseño</p>
-  <p>La arquitectura hexagonal casi siempre se explica con un diagrama y se afirma que el código lo respeta. Acá se puede mirar: cada request emite su propia traza ordenada —entrada, adaptador, puerto, caso de uso, dominio, puerto, adaptador, salida— y esa traza vuelve en la respuesta. El diagrama no es documentación al lado del código: es la salida del código.</p>
+  <p>Cada request arma su propia traza ordenada (entrada, adaptador, puerto, caso de uso, dominio, puerto, adaptador, salida) y la devuelve en la respuesta. El diagrama del hexágono sale de esa traza, así que se puede comparar con lo que el código hizo en ese request.</p>
 </div>
 
 <div class="statline">
@@ -30,20 +30,17 @@ permalink: /es/projects/shipping-quote/
   <div class="stat"><span class="num">~15</span><span class="lbl">líneas para sumar un cuarto</span></div>
 </div>
 
-## Por qué existe
+## Qué hace
 
-Un caso de uso —cotizar un paquete— corriendo contra tres adaptadores en el mismo request.
-**En la versión publicada los tres transportistas son stubs**: un sub-app de FastAPI aparte
-que imita las APIs, conectado por `ASGITransport` sin abrir un socket. Lo que queda a la
-vista es el circuito, que es lo que importa acá: el mismo dominio produce tres resultados
-distintos sin enterarse de que existen tres.
-
-Eso permite algo que un ejemplo de juguete no da: el circuito completo, con persistencia
-real, manejo de errores real y una traza que se puede leer.
+Hay un solo caso de uso, cotizar un paquete, y corre contra tres adaptadores en el mismo
+request. **En la versión publicada los tres transportistas son stubs**: un sub-app de FastAPI
+aparte que imita sus APIs, conectado por `ASGITransport` sin abrir un socket. El mismo
+dominio produce tres cotizaciones distintas sin saber que hay tres transportistas. La
+persistencia y el manejo de errores son reales.
 
 <figure class="shot">
   <img src="{{ '/assets/img/shipping-quote-circuito.gif' | relative_url }}" alt="Animación del circuito hexagonal: un request entra por HTTP, atraviesa el adaptador primario, el puerto, el caso de uso y el dominio, sale por el puerto secundario hacia los tres adaptadores de transportista y vuelve con las cotizaciones." loading="lazy" width="1168" height="715">
-  <figcaption>El circuito recorrido por un request real, hop por hop. La secuencia sale de la traza que devuelve la propia respuesta: es la salida del código, no un diagrama dibujado al lado.</figcaption>
+  <figcaption>El circuito que recorre un request real, hop por hop. La secuencia está tomada de la traza que devuelve la respuesta.</figcaption>
 </figure>
 
 ## El circuito
@@ -57,45 +54,43 @@ entrada -> adaptador -> puerto -> caso de uso -> dominio -> puerto -> adaptador 
 El `main.py` es el composition root: arma todo en el lifespan. El dominio (`Package`, zonas,
 `FeePolicy`, `Tracer`) no importa nada de afuera.
 
-Esto no hay que creerlo: **la traza vuelve dentro de la respuesta**. Un paquete de 2,5 kg a
-CP 1425 devuelve dieciocho pasos — entrada, adaptador, puerto, los pasos de dominio, los tres
-adaptadores de carrier y la salida— con el tiempo de cada uno. En el mismo JSON se ve la
-regla de peso volumétrico decidiendo: 2,5 kg reales contra 4,8 kg efectivos.
+**La traza vuelve dentro de la respuesta.** Un paquete de 2,5 kg a CP 1425 devuelve
+dieciocho pasos con el tiempo de cada uno: entrada, adaptador, puerto, los pasos de dominio,
+los tres adaptadores de carrier y salida. En el mismo JSON aparece la regla de peso
+volumétrico aplicada: 2,5 kg reales contra 4,8 kg efectivos.
 
-## Decisiones que importaron
+## Decisiones de diseño
 
-**Plata en `Decimal`, no en `float`.** El cálculo de la comisión opera en `Decimal` y
-redondea con `ROUND_HALF_UP` explícito, porque el `round()` nativo de Python usa banker's
-rounding y para dinero da resultados que sorprenden. Hay un test que fija exactamente esa
-diferencia: `test_apply_service_fee_rounds_half_up_not_banker`. Fue deuda técnica saldada,
-no algo que estuvo bien desde el principio.
+**La plata va en `Decimal`, nunca en `float`.** La comisión se calcula en `Decimal` y se
+redondea con `ROUND_HALF_UP` explícito. El `round()` nativo de Python usa banker's rounding,
+y con montos de dinero eso da resultados inesperados. El test
+`test_apply_service_fee_rounds_half_up_not_banker` fija esa diferencia. El redondeo
+explícito entró como pago de deuda técnica.
 
-**Los tres transportistas son una clase, no tres.** `HttpCarrierAdapter` se configura por
-composición —endpoint más dos funciones de mapeo— en vez de repetir el mismo
-try/except/timeout tres veces. Por eso sumar un cuarto transportista es un archivo de unas
-quince líneas y no una clase entera.
+**Una sola clase para los tres transportistas.** `HttpCarrierAdapter` se configura por
+composición, con un endpoint y dos funciones de mapeo, y el try/except/timeout está escrito
+una sola vez. Sumar un cuarto transportista es un archivo de unas quince líneas.
 
 **Un transportista falla a propósito.** El mock de Correo Argentino devuelve error cerca del
-15% de las veces. El caso de uso corre los tres con `asyncio.gather` y responde con dos
-cotizaciones de tres sin romperse. Es la diferencia entre demostrar que se llama a tres
-servicios y demostrar qué pasa cuando uno se cae.
+15% de las veces. El caso de uso corre los tres con `asyncio.gather`, y cuando uno falla
+responde igual con las otras dos cotizaciones.
 
-**Traza con `Tracer`, no con un bus de eventos.** Una traza tiene un solo consumidor y un
-orden estricto, así que se pasa por referencia a través de las capas. Un pub/sub habría sido
-usar el patrón porque sí: acá no aporta nada y agrega indirección.
+**La traza pasa por un `Tracer`.** Una traza tiene un solo consumidor y un orden estricto,
+así que el `Tracer` se pasa por referencia a través de las capas. Un bus de eventos pub/sub,
+con un solo consumidor, sólo agregaría indirección.
 
-**Un puerto primario para una sola implementación.** `ShippingQuotePort` es over-engineering
-según YAGNI, y está a propósito: sin ese puerto el lado de entrada del hexágono queda
-implícito, y el circuito deja de poder trazarse de punta a punta. Está anotado en el docstring del ABC
-para que nadie lo lea como un descuido.
+**Un puerto primario para una sola implementación.** Según YAGNI, `ShippingQuotePort` sobra.
+Está igual, porque sin ese puerto el lado de entrada del hexágono queda implícito y el
+circuito ya no se puede trazar de punta a punta. El docstring del ABC lo aclara para que no
+se lea como un descuido.
 
 **El peso efectivo es `max(peso real, largo × ancho × alto / 5000)`**, la fórmula estándar de
-peso volumétrico. El dominio tiene una regla de negocio de verdad, no un `if` de adorno.
+peso volumétrico.
 
-## Fuera de alcance, a propósito
+## Fuera de alcance
 
-Sin autenticación, sin rate limiting y sin elegir transportista a mano: siempre se cotizan
-los tres. El objetivo es la arquitectura, no un producto completo.
+No tiene autenticación ni rate limiting, y el transportista no se elige: siempre se cotizan
+los tres.
 
 Las migraciones con Alembic están deliberadamente separadas del `create_all()` del arranque:
 engancharlas al lifespan habría hecho que los tests migraran la base real en vez de la de

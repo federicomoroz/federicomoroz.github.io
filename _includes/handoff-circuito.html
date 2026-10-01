@@ -92,21 +92,21 @@
       <text class="diag-sub" x="907" y="256" text-anchor="middle">{% if es %}cuando los datos no alcanzan{% else %}when the facts fall short{% endif %}</text>
 
       <text class="diag-nota" x="907" y="292" text-anchor="middle">
-        {% if es %}o cuando el monto es alto, o el cliente ya reclamó tres veces{% else %}or the amount is high, or the customer has claimed three times{% endif %}
+        {% if es %}<tspan x="907">o cuando el monto es alto,</tspan><tspan x="907" dy="16">o el cliente ya reclamó tres veces</tspan>{% else %}<tspan x="907">or the amount is high,</tspan><tspan x="907" dy="16">or the customer has claimed three times</tspan>{% endif %}
       </text>
     </svg>
   </div>
   <figcaption>
     {% if es %}
-      El modelo elige qué hacer; las once reglas deciden si eso llega a ejecutarse. Las que
-      cuidan la plata —reintegro y reenvío— son estrictas; pedirle una foto al cliente no
-      cuesta nada y no las necesita. En 96 casos de prueba el modelo quiso mover plata sin
-      respaldo suficiente 19 veces, y no lo consiguió ninguna.
+      El modelo elige qué hacer y las once reglas deciden si eso se ejecuta. Las que cuidan
+      la plata, reintegro y reenvío, son estrictas. Pedirle una foto al cliente no cuesta nada
+      y no las necesita. En 96 casos de prueba, las reglas frenaron las 19 propuestas de mover
+      plata sin respaldo suficiente.
     {% else %}
-      The model picks what to do; the eleven rules decide whether that ever executes. The
-      ones guarding money —refunds and replacements— are strict; asking the customer for a
-      photo costs nothing and does not need them. Across 96 test cases the model tried to
-      move money without enough backing 19 times, and got through none of them.
+      The model picks what to do and the eleven rules decide whether it executes. The ones
+      guarding money, refunds and replacements, are strict. Asking the customer for a photo
+      costs nothing and does not need them. Across 96 test cases, the rules stopped all 19
+      proposals to move money without enough backing.
     {% endif %}
   </figcaption>
 </figure>

@@ -8,7 +8,7 @@ permalink: /en/projects/order-outbox-service/
 
 <section class="hero">
   <h1>Order Outbox Service <span class="tag active">active</span></h1>
-  <p class="lead">Two Java and Spring Boot microservices solving a concrete problem: <strong>what happens to your events when the message broker goes down</strong>. Here the answer is that none are lost, and the system recovers on its own once the broker returns.</p>
+  <p class="lead">Two Java and Spring Boot microservices. When the message broker goes down, <strong>events wait in the database and none are lost</strong>. When the broker returns, the system recovers on its own.</p>
   <div class="chip-row">
     <span class="tag">Java 21</span><span class="tag">Spring Boot</span><span class="tag">Kafka</span>
     <span class="tag">PostgreSQL</span><span class="tag">Testcontainers</span><span class="tag">ArchUnit</span>
@@ -26,7 +26,7 @@ permalink: /en/projects/order-outbox-service/
 
 <figure class="shot">
   <img src="{{ '/assets/img/order-outbox-circuito.gif' | relative_url }}" alt="Five-step animation: the order and its event are written in a single Postgres commit; Kafka goes down and the API still returns 201; the relay retries with growing intervals from 2 to 64 seconds; Kafka comes back and the event publishes itself; the consumer dedupes and exactly one notification remains." loading="lazy" width="1200" height="750">
-  <figcaption>The full circuit under real failure. The timings shown — the 2-to-64-second backoff, the recovery at 06:22:20 — come from a run measured against the running system, not from a simulation.</figcaption>
+  <figcaption>The full circuit, with a real broker outage. The timings shown (the 2-to-64-second backoff, the recovery at 06:22:20) come from a run measured against the live system.</figcaption>
 </figure>
 
 <div class="statline">
@@ -37,29 +37,29 @@ permalink: /en/projects/order-outbox-service/
 
 ## How it is solved
 
-The pattern is called the **transactional outbox**, and it has three parts:
+The pattern is the **transactional outbox**, built from three parts:
 
-1. **A single commit.** The order and its event are written in the same Postgres transaction, across two tables. Kafka takes no part in the HTTP request. If the commit succeeds, both exist; if it fails, neither does.
+1. **A single commit.** The order and its event are written in the same Postgres transaction, across two tables. Kafka takes no part in the HTTP request. If the commit succeeds, both exist. If it fails, neither does.
 2. **A separate relay.** A scheduled process reads pending events and publishes them. If the broker does not answer, it retries later, spacing attempts further apart so it does not hammer a service that is already struggling.
-3. **An idempotent consumer.** Retries will duplicate messages — that is unavoidable with *at-least-once* delivery — so the other side keeps a deduplication table with a unique key. A second identical message is discarded before it has any effect.
+3. **An idempotent consumer.** With *at-least-once* delivery, retries will duplicate messages. So the consuming service keeps a deduplication table with a unique key, and a second identical message is discarded before it has any effect.
 
-The third part is the one most often forgotten. Without it, every retry is another notification sent to the customer.
+Without that table, every retry would reach the customer as a repeated notification.
 
 ## What the animation shows
 
-With the broker deliberately switched off, the API keeps accepting orders and returning `201`, because it never needed Kafka for that. The event waits in its table while the relay retries at 2, 4, 8, 16, 32 and 64 seconds. Once the fast retries are exhausted the row is flagged as degraded — but **not abandoned**: the relay keeps picking it up indefinitely.
+With the broker deliberately switched off, the API keeps accepting orders and returning `201`, because it never needed Kafka for that. The event waits in its table while the relay retries at 2, 4, 8, 16, 32 and 64 seconds. Once the fast retries are exhausted, the row is flagged as degraded and **the relay keeps picking it up indefinitely**.
 
-When the broker returns, the event publishes itself. No repair scripts, no manual reprocessing, no ticket. The final state of that run was 15 notifications for 15 orders: no duplicates and no losses.
+When the broker returns, the event publishes itself, with no repair scripts or manual reprocessing. That run ended with 15 notifications for 15 orders, with no duplicates and no losses.
 
-## A real bug, and how it was closed
+## The service will not start with mismatched deadlines
 
-Manual verification turned up something unplanned: rows marked as failed whose event **had** in fact been delivered. The cause was two deadlines contradicting each other — the code waited 5 seconds for confirmation, while the Kafka client kept retrying underneath for 120 seconds, a default nobody had configured.
+Manual verification turned up rows marked as failed whose event **had** in fact been delivered. The code waited 5 seconds for confirmation, while the Kafka client kept retrying underneath for 120 seconds, its default value, which had not been configured.
 
-The fix was not just correcting the numbers. The service now **refuses to start** if those two deadlines drift apart, with a message explaining why. The bug cannot be reintroduced by accident.
+Besides aligning the two values, the service now **refuses to start** if those deadlines drift apart, and prints a message explaining why. That keeps the mismatch from coming back by accident.
 
-## Architecture rules as tests
+## Architecture rules in ArchUnit
 
-The domain and application layers import nothing from Spring, JPA or Hibernate. That is not a team agreement or a note in the README: it is ten **ArchUnit** rules — five per service — that break the build if anyone crosses them. The same idea as a linter, applied to the shape of the system.
+The domain and application layers import nothing from Spring, JPA or Hibernate. Ten **ArchUnit** rules (five per service) enforce this and break the build if the code crosses them.
 
 ## The dashboard
 
@@ -70,6 +70,6 @@ The repository includes a React panel showing the circuit live: orders coming in
   <figcaption>The same identifier shows up in all three columns: that is the event crossing from one service to the other. The rows reading "6 intentos" and "+176,45 s" are the ones that waited out a Kafka outage and published themselves once it came back.</figcaption>
 </figure>
 
-## Out of scope, on purpose
+## Out of scope
 
-There is no authentication, no real notification delivery and no public deployment — the stack is two databases, Kafka and two services, which do not fit comfortably in a free tier. The goal was the delivery guarantee, not a finished product.
+The system has no authentication and no real notification delivery. There is no public deployment either: the stack is two databases, Kafka and two services, and it does not fit comfortably in a free tier. The scope was limited to the delivery guarantee.

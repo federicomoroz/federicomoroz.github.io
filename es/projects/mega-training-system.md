@@ -1,6 +1,6 @@
 ---
 title: Mega Training System
-description: "Generador de planes de entrenamiento sobre la API de Claude, en producción en un cliente. Arquitectura de plugins y control de costo por diseño."
+description: "Generador de planes de entrenamiento con la API de Claude, usado por una cadena importante de gimnasios en Argentina y por usuarios particulares. Arquitectura de plugins y control de costo."
 permalink: /es/projects/mega-training-system/
 ---
 
@@ -8,7 +8,7 @@ permalink: /es/projects/mega-training-system/
 
 <section class="hero">
   <h1>Mega Training System <span class="tag active">activo</span></h1>
-  <p class="lead">Generador de planes de entrenamiento sobre la <strong>API de Claude</strong>. Nació como herramienta para un instructor de indoor cycling y hoy lo usa <strong>un cliente</strong> en su operación diaria.</p>
+  <p class="lead">Generador de planes de entrenamiento sobre la <strong>API de Claude</strong>. Nació como herramienta para un instructor de indoor cycling y hoy lo usan <strong>una cadena importante de gimnasios en Argentina y usuarios particulares</strong>.</p>
   <div class="chip-row">
     <span class="tag">Python</span><span class="tag">Flask</span><span class="tag">Claude</span>
     <span class="tag">SSE</span><span class="tag">PostgreSQL</span><span class="tag">Docker</span><span class="tag">pytest</span>
@@ -20,7 +20,7 @@ permalink: /es/projects/mega-training-system/
 
 <div class="callout">
   <p class="callout-title">La decisión de diseño</p>
-  <p>La arquitectura no se sostiene por convención: se verifica. Alrededor de 670 tests leen el <strong>AST</strong> del código y fallan si una capa importa a otra que no le corresponde, si una ruta habla directo con la base o si un servicio se salta su puerto. Un refactor que rompe la separación de capas no llega a mergear.</p>
+  <p>Las reglas de arquitectura se verifican con tests. Alrededor de 670 leen el <strong>AST</strong> del código y fallan si una capa importa a otra que no le corresponde, si una ruta habla directo con la base o si un servicio se salta su puerto. Un refactor que rompe la separación de capas no llega a mergear.</p>
 </div>
 
 <div class="statline">
@@ -31,24 +31,23 @@ permalink: /es/projects/mega-training-system/
 
 ## El problema
 
-Armar una clase de indoor cycling en el formato del cliente es trabajo repetitivo con reglas
+Armar una clase de indoor cycling en el formato de la cadena es trabajo repetitivo con reglas
 duras: cinco fases, 3360 segundos exactos, cadencia entre 60 y 110 RPM, BPM igual al doble
-de la cadencia. Un LLM resuelve bien el borrador, pero al meterlo en el medio aparecen dos
+de la cadencia. Un LLM arma bien el borrador, pero al ponerlo en el medio aparecen dos
 problemas que antes no existían: **el modelo devuelve estructuras que no siempre respetan
 las reglas**, y **cada generación cuesta plata**.
 
-El sistema está construido alrededor de esos dos problemas, no alrededor del prompt.
+El sistema está construido alrededor de esos dos problemas.
 
-Después llegó un tercero: cuando el cliente lo adoptó, hizo falta una segunda disciplina
-—musculación— con su propia metodología, su propio catálogo y su propio formato de salida.
-De ahí sale la arquitectura de plugins: la segunda disciplina no podía costar reescribir la
-primera.
+Después llegó un tercero. Cuando la cadena lo adoptó hizo falta una segunda disciplina,
+musculación, con metodología, catálogo y formato de salida propios. De ahí sale la
+arquitectura de plugins: sumar musculación no tenía que obligar a reescribir indoor cycling.
 
 ## El musicalizador
 
-Una clase no es solo la estructura: es la estructura **con la música encima**. El editor de
-audio es un mini DAW en el navegador — timeline por fases, tracks arrastrables sobre cada
-bloque, crossfades y render final a un solo archivo.
+Cada clase lleva **la música encima de la estructura**. Para eso hay un editor de audio en el
+navegador, un mini DAW con timeline por fases, tracks que se arrastran sobre cada bloque,
+crossfades y un render final a un solo archivo.
 
 <figure class="shot">
   <img src="{{ '/assets/img/mts-musicalizador.jpg' | relative_url }}" alt="Editor de audio: timeline con las fases de la clase, la pista de musicalización con su forma de onda, los controles de fade y la librería de tracks con BPM e intensidad." loading="lazy" width="1600" height="1000">
@@ -57,29 +56,28 @@ bloque, crossfades y render final a un solo archivo.
 
 ## El plan de entrenamiento
 
-La otra disciplina genera planes de musculación, y es donde la arquitectura de plugins deja
-de ser una idea: el mismo core, otro agent, otro formato de salida.
+La otra disciplina genera planes de musculación. Corre sobre el mismo core que indoor
+cycling, con otro agent y otro formato de salida.
 
 <figure class="shot">
   <img src="{{ '/assets/img/mts-plan.jpg' | relative_url }}" alt="Plan de hipertrofia de doce semanas: tres mesociclos, cuatro días por semana y los ejercicios con series, repeticiones, descanso y RPE." loading="lazy" width="1600" height="1150">
-  <figcaption>Doce semanas en tres mesociclos —acumulación, intensificación, pico y deload— con cada ejercicio y sus series, repeticiones, descanso y RPE objetivo.</figcaption>
+  <figcaption>Doce semanas en tres mesociclos (acumulación, intensificación, pico y deload), con cada ejercicio y sus series, repeticiones, descanso y RPE objetivo.</figcaption>
 </figure>
 
-Lo que muestra la captura y no se ve en ningún diagrama: **la restricción del socio llega
-hasta el ejercicio**. Una lesión declarada en el perfil no queda como una nota al pie —baja
-al plan y decide qué movimientos se evitan y con qué se reemplazan, ejercicio por ejercicio.
-Es la diferencia entre un generador de rutinas y algo que un entrenador puede firmar.
+En la captura se ve algo que los diagramas no muestran: **la restricción del socio llega
+hasta el ejercicio**. Una lesión declarada en el perfil baja al plan y decide qué movimientos
+se evitan y con qué se reemplazan, ejercicio por ejercicio.
 
 ## Arquitectura
 
 Cuatro capas, con el registro de disciplinas cruzándolas por arriba:
 
-- **Presentación (HTTP / SSE)** — blueprints por dominio, hook de auth y rate limiting.
-- **Aplicación** — orquestador de generación, idempotencia y store de resultados. El
-  orquestador no importa Flask: se puede ejercitar sin levantar el servidor.
-- **Servicios** — la lógica de cada disciplina. El servicio de musculación recibe un puerto
-  de dos métodos, no el repositorio entero.
-- **Infraestructura** — cliente de Claude detrás del circuit breaker, repositorios,
+- **Presentación (HTTP / SSE):** blueprints por dominio, hook de auth y rate limiting.
+- **Aplicación:** orquestador de generación, idempotencia y store de resultados. El
+  orquestador no importa Flask, así que se puede ejercitar sin levantar el servidor.
+- **Servicios:** la lógica de cada disciplina. El servicio de musculación recibe un puerto
+  de dos métodos y no ve el resto del repositorio.
+- **Infraestructura:** cliente de Claude detrás del circuit breaker, repositorios,
   filesystem y base de conocimiento.
 
 Los adaptadores entran por puertos (`ClassStoragePort`, `KnowledgeBasePort`, `UserRepoPort`),
@@ -100,29 +98,29 @@ SSE y threading, el schema de SQLite, el sistema de disciplinas y las rutas de l
 
 ## Decisiones que importaron
 
-**El LLM se trata como una dependencia que falla.** Las llamadas pasan por un circuit
-breaker con los tres estados (`CLOSED` / `OPEN` / `HALF_OPEN`). El detalle que importa está
-en `HALF_OPEN`: una bandera de sonda en vuelo serializa el reintento, para que al abrirse el
-circuito no salgan N pedidos simultáneos a probar si el servicio volvió.
+**Las llamadas al LLM pasan por un circuit breaker.** Tiene los tres estados (`CLOSED` /
+`OPEN` / `HALF_OPEN`). En `HALF_OPEN`, una bandera de sonda en vuelo serializa el reintento:
+cuando el circuito se abre, sale un solo pedido a probar si el servicio volvió, en lugar de
+N simultáneos.
 
-**El costo es una dimensión de diseño, no un efecto secundario.** Cuatro mecanismos
-independientes atacan lo mismo: el system prompt va como bloque cacheado, así las lecturas
-salen una fracción del precio; el trabajo que no necesita respuesta inmediata va por la
-Batch API; una `Idempotency-Key` con el hash del perfil evita volver a generar lo mismo
-dentro de la ventana; y el modelo se elige según la complejidad del pedido en vez de usar
-siempre el más caro.
+**Cuatro mecanismos independientes bajan el costo.** El system prompt va como bloque
+cacheado, así las lecturas salen una fracción del precio. El trabajo que no necesita
+respuesta inmediata va por la Batch API. Una `Idempotency-Key` con el hash del perfil evita
+volver a generar lo mismo dentro de la ventana. Y el modelo se elige según la complejidad
+del pedido, en vez de usar siempre el más caro.
 
-**La salida estructurada no se pide, se fuerza.** La generación usa `tool_choice="any"`: el
-modelo devuelve una herramienta, nunca texto libre que después haya que parsear. Encima de
-eso, las invariantes del dominio viven en validadores Pydantic v2, y cuando el modelo
-devuelve duraciones que no cierran hay una rutina de reparación que las ajusta en vez de
-tirar la generación entera a la basura.
+**El modelo responde siempre con una llamada a herramienta.** La generación usa
+`tool_choice="any"`, así que la salida llega estructurada y no hay texto libre que parsear.
+Las invariantes del dominio viven en validadores Pydantic v2. Cuando el modelo devuelve
+duraciones que no cierran, una rutina de reparación las ajusta y la generación se aprovecha
+igual.
 
-**Una disciplina nueva no toca el core.** El registro descubre los plugins con `pkgutil`;
-sumar una disciplina es un `plugin.py` y su agent, sin abrir `app.py`.
+**Una disciplina nueva no toca el core.** El registro descubre los plugins con `pkgutil`.
+Sumar una disciplina es un `plugin.py` y su agent, sin abrir `app.py`.
 
-**SSE y threading, no asyncio.** Flask es sincrónico. La generación devuelve un `task_id` y
-el cliente se engancha a un stream, con un `threading.Event` por tarea en vez de polling.
+**Streaming con SSE y threading, sin asyncio.** Flask es sincrónico. La generación devuelve
+un `task_id`, el cliente se engancha a un stream y cada tarea tiene su `threading.Event`, así
+que no hace falta polling.
 
 <!--
   TODO(Federico): dos cosas que solo podés contar vos y que le agregarían mucho a esta
