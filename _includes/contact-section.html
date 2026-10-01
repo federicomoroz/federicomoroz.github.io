@@ -26,6 +26,7 @@
   <a class="btn-plain" href="mailto:{{ site.author.email }}?subject={{ include.t.contact.f_subject | uri_escape }}">
     {{ include.t.contact.email_btn }}
   </a>
+  <a class="btn-plain" href="tel:{{ site.author.phone_href }}">{{ site.author.phone }}</a>
 </div>
 
 {% if site.contact.form_endpoint and site.contact.form_endpoint != "" %}

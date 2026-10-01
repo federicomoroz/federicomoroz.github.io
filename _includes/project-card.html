@@ -35,14 +35,18 @@
   {% if cover_url != "" %}<a class="pcard-cover" href="{{ cover_url }}"{% unless include.proj.case_study %} target="_blank" rel="noopener"{% endunless %}>{% else %}<div class="pcard-cover">{% endif %}
     {% if include.proj.cover %}
       {% comment %} width/height evitan el salto de layout mientras carga. {% endcomment %}
-      <img src="{{ '/assets/img/covers/' | append: include.proj.cover | relative_url }}"
+      <img class="still" src="{{ '/assets/img/covers/' | append: include.proj.cover | relative_url }}"
            alt="{{ include.proj.cover_alt }}" width="720" height="405" loading="lazy" decoding="async">
+      {% comment %} The live layer: the project running. A diagram GIF plays as is;
+         a tall screenshot scrolls through the app. Shown on hover, or while on
+         screen on touch devices. {% endcomment %}
+      {% if include.proj.live %}<span class="live {{ include.proj.live.kind }}" aria-hidden="true"><img src="{{ '/assets/img/' | append: include.proj.live.src | relative_url }}" alt="" loading="lazy" decoding="async"></span>{% endif %}
     {% else %}
       <span class="pcard-generada v{{ variante }}" aria-hidden="true"></span>
     {% endif %}
-    {% if include.proj.status == "active" %}<span class="pcard-estado activo">{{ include.t.status.active }}</span>
-    {% elsif include.proj.status == "paused" %}<span class="pcard-estado pausado">{{ include.t.status.paused }}</span>
-    {% elsif include.proj.status == "done" %}<span class="pcard-estado hecho">{{ include.t.status.done }}</span>{% endif %}
+    {% if include.proj.status == "active" %}<span class="pcard-estado activo"><i></i>{{ include.t.status.active }}</span>
+    {% elsif include.proj.status == "paused" %}<span class="pcard-estado pausado"><i></i>{{ include.t.status.paused }}</span>
+    {% elsif include.proj.status == "done" %}<span class="pcard-estado hecho"><i></i>{{ include.t.status.done }}</span>{% endif %}
   {% if cover_url != "" %}</a>{% else %}</div>{% endif %}
 
   <div class="pcard-body">
@@ -51,11 +55,16 @@
       {% if gh.archived %}<span class="tag">{{ include.t.projects.archived }}</span>{% endif %}
     </h3>
 
-    <p class="pcard-desc">{{ include.proj.short[include.lang] | markdownify | remove: "<p>" | remove: "</p>" }}</p>
+    {% comment %} `card` is the short text for the grid; `short` stays long because
+       the assistant answers with it. {% endcomment %}
+    {% assign desc = include.proj.card[include.lang] | default: include.proj.short[include.lang] %}
+    <p class="pcard-desc">{{ desc | markdownify | remove: "<p>" | remove: "</p>" }}</p>
 
-    <div class="pcard-tech">
-      {% for tech in include.proj.tech %}<span class="tag">{{ tech }}</span>{% endfor %}
-    </div>
+    {% if include.proj.reading %}
+    <div class="reading"><span class="num">{{ include.proj.reading.num[include.lang] }}</span><span class="what">{{ include.proj.reading.what[include.lang] }}</span></div>
+    {% endif %}
+
+    <p class="stackline">{{ include.proj.tech | join: ", " }}</p>
 
     <p class="pcard-links">
       {% if include.proj.case_study %}<a class="cs-link" href="{{ detail_url | relative_url }}">{{ include.t.projects.read_case_study }}</a>{% endif %}

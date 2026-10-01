@@ -1,0 +1,136 @@
+{% comment %}
+  El lab del hero: casos reales del agente de contracargos corridos por el
+  esquema. Parametro: lang. Datos: _data/lab.yml (de donde sale cada numero
+  esta documentado ahi).
+
+  Hay DOS esquemas con la misma logica: horizontal para pantallas anchas y
+  vertical para celular. assets/js/lab.js anima el que este visible. Los ids
+  llevan prefijo (lab-h-, lab-v-) para que no choquen.
+{% endcomment %}
+{% assign L = site.data.lab[include.lang] %}
+
+<section class="lab" aria-labelledby="lab-title">
+  <div class="lab-head">
+    <div>
+      <h2 id="lab-title">{{ L.title }}</h2>
+      <p>{{ L.intro }}</p>
+    </div>
+    <div class="cases" role="group" aria-label="{{ L.cases_label }}">
+      {% for c in L.cases %}<button type="button" class="case" data-case="{{ c.id }}" aria-pressed="false">{{ c.label }}</button>{% endfor %}
+    </div>
+  </div>
+
+  <div class="board">
+    {% comment %} ===== Horizontal ===== {% endcomment %}
+    <svg class="sch sch-h" data-prefix="lab-h-" viewBox="0 40 1180 228" role="img" aria-labelledby="lab-h-title">
+      <title id="lab-h-title">{{ L.svg_title }}</title>
+      <defs>
+        <filter id="lab-glow" x="-200%" y="-200%" width="500%" height="500%">
+          <feGaussianBlur stdDeviation="3.4" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+
+      <path class="trace" d="M 60 150 L 110 150"/>
+      <path class="trace" d="M 270 150 L 320 150"/>
+      <path class="trace" d="M 480 150 L 530 150"/>
+      <path class="trace" d="M 690 150 L 740 150"/>
+      <path class="trace" id="lab-h-t-approve" d="M 900 150 L 960 150 L 960 70 L 1006 70"/>
+      <path class="trace" id="lab-h-t-human" d="M 960 150 L 1006 150"/>
+      <path class="trace" id="lab-h-t-reject" d="M 960 150 L 960 230 L 1006 230"/>
+
+      <rect class="part" x="16" y="120" width="44" height="60" rx="3"/>
+      <circle class="pad" cx="38" cy="136" r="5"/><circle class="pad" cx="38" cy="150" r="5"/><circle class="pad" cx="38" cy="164" r="5"/>
+      <text class="ref" x="16" y="110">J1</text>
+      <text class="label" x="0" y="214">{{ L.input }}</text>
+
+      {% assign ids = "case,rag,model,rules" | split: "," %}
+      {% assign refs = "U1,U2,U3,K1" | split: "," %}
+      {% for id in ids %}
+        {% assign st = L.stages[id] %}
+        {% assign x = forloop.index0 | times: 210 | plus: 110 %}
+        {% assign tx = x | plus: 16 %}
+        <g class="stage" id="lab-h-s-{{ id }}">
+          {% if id == "rules" %}
+          <rect class="part" x="{{ x }}" y="95" width="160" height="110" rx="4"/>
+          <text class="ref" x="{{ x }}" y="86">{{ refs[forloop.index0] }}</text>
+          <text class="label" x="{{ tx }}" y="130">{{ st.title }}</text>
+          <text class="sub" x="{{ tx }}" y="151">{{ st.sub1 }}</text>
+          <g class="relays">{% for k in (0..10) %}{% assign rx = k | times: 12 | plus: x | plus: 20 %}<line x1="{{ rx }}" y1="170" x2="{{ rx }}" y2="190"/>{% endfor %}</g>
+          {% else %}
+          <rect class="part" x="{{ x }}" y="105" width="160" height="90" rx="4"/>
+          <text class="ref" x="{{ x }}" y="96">{{ refs[forloop.index0] }}</text>
+          <text class="label" x="{{ tx }}" y="140">{{ st.title }}</text>
+          <text class="sub" x="{{ tx }}" y="161">{{ st.sub1 }}</text>
+          <text class="sub" x="{{ tx }}" y="178">{{ st.sub2 }}</text>
+          {% endif %}
+        </g>
+      {% endfor %}
+
+      <circle class="pad" cx="960" cy="150" r="4"/>
+      <g class="out" id="lab-h-o-approve"><circle class="led" cx="1014" cy="70" r="8"/><text class="out-label" x="1032" y="75">{{ L.outputs.approve }}</text></g>
+      <g class="out" id="lab-h-o-human"><circle class="led" cx="1014" cy="150" r="8"/><text class="out-label" x="1032" y="155">{{ L.outputs.human }}</text></g>
+      <g class="out" id="lab-h-o-reject"><circle class="led" cx="1014" cy="230" r="8"/><text class="out-label" x="1032" y="235">{{ L.outputs.reject }}</text></g>
+
+      <circle class="signal" r="6" cx="38" cy="150" opacity="0"/>
+    </svg>
+
+    {% comment %} ===== Vertical, for phones ===== {% endcomment %}
+    <svg class="sch sch-v" data-prefix="lab-v-" viewBox="0 0 360 640" role="img" aria-labelledby="lab-v-title">
+      <title id="lab-v-title">{{ L.svg_title }}</title>
+
+      <path class="trace" d="M 180 60 L 180 90"/>
+      <path class="trace" d="M 180 166 L 180 196"/>
+      <path class="trace" d="M 180 272 L 180 302"/>
+      <path class="trace" d="M 180 378 L 180 408"/>
+      <path class="trace" id="lab-v-t-approve" d="M 180 500 L 180 536 L 60 536 L 60 568"/>
+      <path class="trace" id="lab-v-t-human" d="M 180 536 L 180 568"/>
+      <path class="trace" id="lab-v-t-reject" d="M 180 536 L 300 536 L 300 568"/>
+
+      <rect class="part" x="150" y="14" width="60" height="46" rx="3"/>
+      <circle class="pad" cx="166" cy="37" r="5"/><circle class="pad" cx="180" cy="37" r="5"/><circle class="pad" cx="194" cy="37" r="5"/>
+      <text class="label" x="222" y="43">{{ L.input }}</text>
+
+      {% for id in ids %}
+        {% assign st = L.stages[id] %}
+        {% assign y = forloop.index0 | times: 106 | plus: 90 %}
+        {% assign t1 = y | plus: 30 %}{% assign t2 = y | plus: 51 %}{% assign t3 = y | plus: 67 %}
+        <g class="stage" id="lab-v-s-{{ id }}">
+          {% if id == "rules" %}
+          <rect class="part" x="28" y="{{ y }}" width="304" height="92" rx="4"/>
+          <text class="label" x="42" y="{{ t1 }}">{{ st.title }}</text>
+          <text class="sub" x="42" y="{{ t2 }}">{{ st.sub1 }}</text>
+          {% assign ly1 = y | plus: 62 %}{% assign ly2 = y | plus: 80 %}
+          <g class="relays">{% for k in (0..10) %}{% assign rx = k | times: 12 | plus: 42 %}<line x1="{{ rx }}" y1="{{ ly1 }}" x2="{{ rx }}" y2="{{ ly2 }}"/>{% endfor %}</g>
+          {% else %}
+          <rect class="part" x="28" y="{{ y }}" width="304" height="76" rx="4"/>
+          <text class="label" x="42" y="{{ t1 }}">{{ st.title }}</text>
+          <text class="sub" x="42" y="{{ t2 }}">{{ st.sub1 }} {{ st.sub2 }}</text>
+          {% endif %}
+        </g>
+      {% endfor %}
+
+      <circle class="pad" cx="180" cy="536" r="4"/>
+      <g class="out" id="lab-v-o-approve"><circle class="led" cx="60" cy="578" r="8"/><text class="out-label" x="60" y="610" text-anchor="middle">{{ L.outputs_short.approve }}</text></g>
+      <g class="out" id="lab-v-o-human"><circle class="led" cx="180" cy="578" r="8"/><text class="out-label" x="180" y="610" text-anchor="middle">{{ L.outputs_short.human }}</text></g>
+      <g class="out" id="lab-v-o-reject"><circle class="led" cx="300" cy="578" r="8"/><text class="out-label" x="300" y="610" text-anchor="middle">{{ L.outputs_short.reject }}</text></g>
+
+      <circle class="signal" r="6" cx="180" cy="37" opacity="0"/>
+    </svg>
+
+    <ol class="readout" aria-live="polite">
+      <li class="idle">{{ L.idle }}</li>
+    </ol>
+  </div>
+</section>
+
+<script>
+window.__LAB__ = {
+  stages: { {% for id in ids %}{{ id | jsonify }}: {{ L.stages[id].title | jsonify }}{% unless forloop.last %}, {% endunless %}{% endfor %} },
+  outputs: {{ L.outputs | jsonify }},
+  cases: {
+{% for c in L.cases %}    {{ c.id | jsonify }}: { "out": {{ c.out | jsonify }}, "fail": {{ c.fail | default: "" | jsonify }}, "steps": {{ c.steps | jsonify }}, "end": {{ c.end | jsonify }} }{% unless forloop.last %},{% endunless %}
+{% endfor %}  }
+};
+</script>
+<script src="{{ '/assets/js/lab.js' | relative_url }}" defer></script>

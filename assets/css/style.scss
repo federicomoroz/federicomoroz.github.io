@@ -5,65 +5,64 @@
 /* =============================================================================
  * Federico Palatnik Moroz — hoja de estilos del portfolio.
  *
- * Tema OSCURO, comprometido: no hay variante clara. La referencia visual
- * (design/FedericoMoroz-Pages-referencia.pdf en el repo padre) es dark, con
- * un mesh gradient magenta -> violeta -> indigo sobre negro, textura de puntos
- * y arcos finos luminosos.
+ * Tema "esquematico" (oct 2026): una placa de circuito oscura. Cobre para la
+ * estructura (pistas, filetes, pads), ambar de valvula para lo activo y la
+ * senal, LEDs para los estados. Reemplaza al tema con mesh gradient magenta,
+ * que se leia como plantilla generada.
  *
- * PALETA: todo el color vive en el bloque `:root`. Ninguna regla mas abajo
- * hardcodea un color. Los stops del gradiente estan muestreados del PDF.
- *
- * El fondo decorativo es CSS puro (radial-gradients + textura). A proposito:
- * el sitio no depende de ninguna imagen, pesa lo mismo y escala a cualquier
- * pantalla sin assets extra.
+ * PALETA: todo el color vive en el bloque `:root`. Los componentes propios del
+ * tema estan al final, en la seccion "Esquematico".
  * ========================================================================== */
 
 :root
 {
-    /* Gradient stops, sampled from the reference PDF */
-    --grad-magenta:  #ee00a2;
-    --grad-crimson:  #a00047;
-    --grad-purple:   #8b008d;
-    --grad-violet:   #540080;
-    --grad-indigo:   #250072;
-    --grad-blue:     #000154;
+    /* Kept so older rules that still name them resolve; nothing new uses them. */
+    --grad-magenta:  #c07a45;
+    --grad-crimson:  #c07a45;
+    --grad-purple:   #c07a45;
+    --grad-violet:   #ffb648;
+    --grad-indigo:   #ffb648;
+    --grad-blue:     #ffb648;
 
-    /* Surfaces — near-black with a trace of violet, never pure #000:
-       pure black against light text vibrates and tires the eye. */
-    --bg:            #07060b;
-    --bg-soft:       #0f0d16;
-    --bg-raised:     #14111e;
-    --bg-code:       #100e19;
-    --border:        #221d33;
-    --border-strong: #342c4d;
+    /* The board: graphite with a trace of blue */
+    --bg:            #171c22;
+    --bg-soft:       #1f252d;
+    --bg-raised:     #262d36;
+    --bg-code:       #1b2128;
+    --border:        #313944;
+    --border-strong: #4a5461;
 
-    /* Text */
-    --fg:            #ece9f3;
-    --fg-muted:      #a49cba;
-    --fg-faint:      #8c84a6;
+    /* Ink: warm off-white, like silkscreen */
+    --fg:            #ebe6dc;
+    --fg-muted:      #a3abb5;
+    --fg-faint:      #848d98;
 
-    /* Accents — the link magenta is lifted off the raw #ee00a2 so body-size
-       text clears 4.5:1 against --bg. The raw stop stays for the gradients. */
-    --accent:        #ff42b4;
-    --accent-hover:  #ff86d0;
-    --accent-soft:   rgba(238, 0, 162, 0.10);
-    --accent-line:   rgba(238, 0, 162, 0.35);
+    /* Accent: valve glow. Links, the primary action, the signal. */
+    --accent:        #ffb648;
+    --accent-hover:  #ffc66e;
+    --accent-soft:   rgba(255, 182, 72, 0.10);
+    --accent-line:   rgba(192, 122, 69, 0.55);
+    --on-accent:     #1d1408;
 
-    /* Status */
-    --status-active: #35d69b;
+    /* Structure */
+    --copper:        #c07a45;
+    --copper-dim:    #6e4a31;
+    --stop:          #ec6a5e;
+
+    /* Status LEDs */
+    --status-active: #6fd08c;
     --status-paused: #e0a33c;
-    --status-done:   #8f88a5;
+    --status-done:   #8f98a3;
 
-    /* Type — la display es serif a proposito: Inter + JetBrains Mono es el par
-       que usa todo portfolio dark de dev, y solo con ese par el sitio se lee
-       como plantilla. La serif aparece unicamente en h1 y h2. */
-    --font-display: Newsreader, "Times New Roman", Georgia, serif;
-    --font-sans: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    /* One family, several widths: expanded for names and headings, normal
+       for reading, condensed for labels. Mono only for code. */
+    --font-display: "Archivo", system-ui, sans-serif;
+    --font-sans: "Archivo", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
     --font-mono: "JetBrains Mono", SFMono-Regular, Consolas, "Liberation Mono", monospace;
 
     /* Layout */
-    --radius: 10px;
-    --container: 920px;
+    --radius: 8px;
+    --container: 1180px;
 
     color-scheme: dark;
 }
@@ -93,43 +92,6 @@ body
     position: relative;
     min-height: 100vh;
     overflow-x: hidden;
-}
-
-/* Mesh gradient: four soft radial glows behind the top of the page. This is the
-   signature of the reference.
-
-   Absolute, not fixed, on purpose: the glow belongs to the hero. Fixed, it
-   follows the scroll and ends up competing with the cards and the body text
-   further down. */
-body::before
-{
-    content: "";
-    position: absolute;
-    inset: 0 -6vw auto;
-    height: 108vh;
-    z-index: -2;
-    pointer-events: none;
-    background:
-        radial-gradient(44vw 46vh at  8% 10%, color-mix(in srgb, var(--grad-magenta) 62%, transparent), transparent 68%),
-        radial-gradient(50vw 52vh at 82% 14%, color-mix(in srgb, var(--grad-violet) 70%, transparent),  transparent 70%),
-        radial-gradient(46vw 44vh at 46% 30%, color-mix(in srgb, var(--grad-indigo) 66%, transparent),  transparent 68%),
-        radial-gradient(32vw 34vh at 94% 40%, color-mix(in srgb, var(--grad-crimson) 46%, transparent), transparent 70%);
-    filter: blur(34px);
-    opacity: 0.72;
-    -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 40%, transparent 88%);
-    mask-image: linear-gradient(to bottom, #000 0%, #000 40%, transparent 88%);
-}
-
-/* Dot texture, over the gradient and under the content. */
-body::after
-{
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
-    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
-    background-size: 3px 3px;
 }
 
 a
@@ -255,7 +217,9 @@ tbody td:first-child
 {
     color: var(--fg);
     font-weight: 500;
-    white-space: nowrap;
+    /* Short labels (an engine, a method) stay on one line on their own; a
+       long sentence in this column has to wrap or the table leaves the page. */
+    min-width: 9ch;
 }
 
 tbody td
@@ -1046,24 +1010,12 @@ tbody td code
         grid-template-columns: 1fr;
         gap: 0;
     }
-
-    body::before
-    {
-        filter: blur(24px);
-        opacity: 0.6;
-    }
 }
 
 /* Respect the user's motion and contrast preferences: the decorative layers
    are the first thing to go. */
 @media (prefers-reduced-transparency: reduce)
 {
-    body::before,
-    body::after
-    {
-        display: none;
-    }
-
     .site-header
     {
         background: var(--bg);
@@ -1202,7 +1154,7 @@ tbody td code
 {
     background: var(--accent);
     border-color: var(--accent);
-    color: #0b0510;
+    color: var(--on-accent);
     font-weight: 600;
 }
 
@@ -1410,7 +1362,7 @@ a.hero-contact-item:hover svg { opacity: 1; }
     border-radius: var(--radius);
     border: 1px solid var(--accent);
     background: var(--accent);
-    color: #0b0510;
+    color: var(--on-accent);
     font-family: var(--font-sans);
     font-size: 0.95rem;
     font-weight: 600;
@@ -1461,7 +1413,7 @@ a.hero-contact-item:hover svg { opacity: 1; }
     border-radius: 999px;
     border: 1px solid var(--accent);
     background: var(--accent);
-    color: #0b0510;
+    color: var(--on-accent);
     font-family: var(--font-sans);
     font-size: 0.9rem;
     font-weight: 600;
@@ -1655,7 +1607,7 @@ a.hero-contact-item:hover svg { opacity: 1; }
     border: 0;
     border-radius: 10px;
     background: var(--accent);
-    color: #0b0510;
+    color: var(--on-accent);
     cursor: pointer;
     display: grid;
     place-items: center;
@@ -1792,3 +1744,537 @@ a.hero-contact-item:hover svg { opacity: 1; }
 
     .diag-atajo { opacity: 0.5; }
 }
+
+/* =============================================================================
+ * Esquematico — los componentes propios del tema.
+ *
+ * Va al final a proposito: pisa a las reglas de arriba que todavia describen
+ * el tema anterior, sin tener que reescribirlas una por una.
+ * ========================================================================== */
+
+/* === Type =================================================================== */
+
+h1, h2
+{
+    font-family: var(--font-display);
+    font-weight: 750;
+    font-variation-settings: "wdth" 112;
+    letter-spacing: -0.01em;
+}
+
+/* The old gradient-on-text treatments read as template; plain ink now. */
+.accent,
+.hero-home h1 em
+{
+    background: none;
+    -webkit-background-clip: border-box;
+    background-clip: border-box;
+    color: inherit;
+}
+
+.stat .num
+{
+    background: none;
+    -webkit-background-clip: border-box;
+    background-clip: border-box;
+    color: var(--accent);
+    font-family: var(--font-display);
+    font-variation-settings: "wdth" 112;
+}
+
+a { text-underline-offset: 3px; }
+
+/* === Reading width ========================================================== */
+
+/* The container is wide for the grids; running prose is not. Paragraphs and
+   lists placed straight in the page keep a readable line length. */
+.site-main .container > p,
+.site-main .container > ul,
+.site-main .container > ol,
+.site-main .container > blockquote,
+.site-main .container > h2,
+.site-main .container > h3,
+.site-main .container > .hero .lead,
+.site-main .container > .profile-block,
+.site-main .container > .way-of-working
+{
+    max-width: 78ch;
+}
+
+.skill-group-title
+{
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 0.95rem;
+    font-weight: 650;
+    color: var(--fg);
+}
+
+/* === Header ================================================================= */
+
+.brand.brand-mark
+{
+    font-weight: 800;
+    font-variation-settings: "wdth" 120;
+    letter-spacing: 0.04em;
+    padding: 3px 9px;
+    border: 1.5px solid var(--copper);
+    border-radius: 5px;
+}
+.brand.brand-mark:hover { border-color: var(--accent); }
+
+.site-nav { align-items: center; }
+
+/* The assistant lives in the navigation: always reachable, never on top of
+   the content. The floating launcher stays in the markup as a fallback. */
+.ask
+{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 11px;
+    border-radius: 6px;
+    border: 1px solid var(--copper-dim);
+    background: transparent;
+    color: var(--fg);
+    font: 600 0.88rem var(--font-sans);
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s;
+}
+.ask:hover { border-color: var(--accent); color: var(--accent); }
+.ask i
+{
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 7px 2px rgba(255, 182, 72, 0.55);
+}
+
+.asistente .as-lanzador { display: none; }
+
+/* === Section headings: a copper rule that ends in a pad ===================== */
+
+.section-heading
+{
+    align-items: center;
+    gap: 18px;
+    border-bottom: 0;
+    margin-top: 4.2rem;
+    margin-bottom: 1.4rem;
+}
+.section-heading h2 { margin: 0; font-size: 2rem; }
+.section-heading::after
+{
+    content: "";
+    order: 1;
+    flex: 1;
+    height: 12px;
+    background:
+        radial-gradient(circle at calc(100% - 6px) 50%, var(--bg) 0 3px, var(--copper) 3.5px 5.5px, transparent 6px),
+        linear-gradient(var(--copper-dim), var(--copper-dim)) left center / calc(100% - 11px) 2px no-repeat;
+}
+.section-action { order: 2; }
+
+/* === Home intro ============================================================= */
+
+.intro
+{
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 440px);
+    gap: 40px;
+    align-items: end;
+    padding: 12px 0 26px;
+}
+
+.hero-name
+{
+    margin: 0;
+    font-size: clamp(2.4rem, 5vw, 3.9rem);
+    line-height: 1;
+    font-weight: 800;
+    font-variation-settings: "wdth" 118;
+    letter-spacing: -0.02em;
+}
+
+.claim
+{
+    margin: 18px 0 0;
+    font-size: 1.4rem;
+    line-height: 1.3;
+    font-weight: 500;
+}
+
+.roles
+{
+    margin: 10px 0 0;
+    font-size: 0.95rem;
+    color: var(--fg-muted);
+    font-variation-settings: "wdth" 88;
+}
+.roles span + span::before { content: "/"; color: var(--copper); margin: 0 10px; }
+
+.intro-side .hero-actions { margin: 0; justify-content: flex-end; }
+.intro-side .hero-contact { justify-content: flex-end; margin-top: 16px; font-family: var(--font-sans); font-size: 0.92rem; }
+.hero-contact-item { color: var(--fg-muted); }
+
+.hero-actions a { border-radius: 6px; }
+
+/* === Lab ==================================================================== */
+
+.lab-head
+{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    justify-content: space-between;
+    gap: 16px 32px;
+    margin-bottom: 16px;
+}
+.lab-head h2 { margin: 0; font-size: 1.35rem; font-variation-settings: "wdth" 110; }
+.lab-head p { margin: 2px 0 0; color: var(--fg-muted); }
+
+.cases { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.case
+{
+    font: 600 0.9rem var(--font-sans);
+    color: var(--fg);
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 14px;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s, color 0.15s;
+}
+.case:hover { border-color: var(--copper); }
+.case[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+
+.board
+{
+    position: relative;
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 24px 18px;
+}
+
+/* Mounting holes: the panel reads as a board without a texture behind it. */
+.board::before,
+.board::after
+{
+    content: "";
+    position: absolute;
+    top: 10px;
+    width: 9px; height: 9px;
+    border: 1.5px solid var(--copper-dim);
+    border-radius: 50%;
+}
+.board::before { left: 10px; }
+.board::after  { right: 10px; }
+
+.sch { display: block; width: 100%; height: auto; }
+.sch-v { display: none; max-width: 360px; margin: 0 auto; }
+
+.sch .trace     { fill: none; stroke: var(--copper); stroke-width: 2; stroke-linejoin: round; transition: stroke 0.3s; }
+.sch .trace.hot { stroke: var(--accent); }
+.sch .pad       { fill: var(--bg); stroke: var(--copper); stroke-width: 2; }
+.sch .part      { fill: var(--bg-raised); stroke: #4a5461; stroke-width: 1.2; transition: stroke 0.3s, fill 0.3s; }
+.sch .ref       { fill: var(--fg-faint); font: 600 12.5px var(--font-sans); letter-spacing: 0.04em; }
+.sch .label     { fill: var(--fg); font: 650 18px var(--font-sans); transition: fill 0.3s; }
+.sch .sub       { fill: var(--fg-muted); font: 400 13.5px var(--font-sans); }
+.sch .out-label { fill: var(--fg-muted); font: 600 16px var(--font-sans); transition: fill 0.3s; }
+.sch .relays line { stroke: #5b6673; stroke-width: 2; stroke-linecap: round; transition: stroke 0.3s; }
+.sch .led       { fill: #3b4450; transition: fill 0.3s; }
+.sch .signal    { fill: var(--accent); filter: url(#lab-glow); }
+
+.stage.lit .part    { stroke: var(--accent); fill: #2c2a24; }
+.stage.lit .label   { fill: var(--accent); }
+.stage.lit .relays line { stroke: var(--accent); }
+.stage.fault .part  { stroke: var(--stop); fill: #2e2224; }
+.stage.fault .label { fill: var(--stop); }
+
+.out.on .out-label        { fill: var(--fg); }
+.out.on.approve .led      { fill: var(--status-active); filter: url(#lab-glow); }
+.out.on.human .led        { fill: var(--accent); filter: url(#lab-glow); }
+.out.on.reject .led       { fill: var(--stop); filter: url(#lab-glow); }
+
+.readout
+{
+    list-style: none;
+    margin: 10px 0 0;
+    padding: 14px 0 0;
+    border-top: 1px solid var(--border);
+    display: grid;
+    align-content: start;
+    gap: 6px;
+    min-height: 186px;
+}
+.readout li
+{
+    display: grid;
+    grid-template-columns: 170px minmax(0, 1fr);
+    gap: 16px;
+    font-size: 0.97rem;
+    color: var(--fg-muted);
+    animation: lab-appear 0.35s ease both;
+}
+.readout li b         { color: var(--fg); font-weight: 650; }
+.readout li.idle      { display: block; }
+.readout li.bad b     { color: var(--stop); }
+.readout li.result    { margin-top: 4px; padding-top: 10px; border-top: 1px dashed var(--border); color: var(--fg); }
+.readout li.result.reject b  { color: var(--stop); }
+.readout li.result.human b   { color: var(--accent); }
+.readout li.result.approve b { color: var(--status-active); }
+
+@keyframes lab-appear { from { opacity: 0; transform: translateY(4px); } }
+
+/* === Project cards ========================================================== */
+
+@property --sweep
+{
+    syntax: "<angle>";
+    inherits: false;
+    initial-value: 0deg;
+}
+
+.project-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px; }
+
+.pcard
+{
+    position: relative;
+    border-radius: 10px;
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.2s ease, box-shadow 0.3s ease;
+}
+
+/* On hover a pulse of current runs around the card's edge, the same amber as
+   the signal in the hero. */
+.pcard::after
+{
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 10px;
+    padding: 1.5px;
+    background: conic-gradient(from var(--sweep), transparent 0deg 250deg, var(--copper) 300deg, var(--accent) 345deg, transparent 360deg);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    pointer-events: none;
+    z-index: 3;
+}
+
+.pcard:hover
+{
+    transform: translateY(-8px);
+    border-color: var(--copper-dim);
+    box-shadow: 0 26px 50px -24px rgba(0, 0, 0, 0.9);
+}
+.pcard:hover::after { opacity: 1; animation: pcard-sweep 1.8s linear infinite; }
+@keyframes pcard-sweep { to { --sweep: 360deg; } }
+
+.pcard-cover img { object-position: top left; }
+.pcard-cover .still { filter: brightness(0.9); transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.4s ease; }
+.pcard:hover .pcard-cover .still { transform: scale(1.05); filter: brightness(1.04); }
+
+/* The live layer: the project running. */
+.pcard-cover .live
+{
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    background: var(--bg);
+}
+.pcard:hover .pcard-cover .live,
+.pcard.playing .pcard-cover .live { opacity: 1; }
+.pcard-cover .live img { width: 100%; height: 100%; display: block; }
+.pcard-cover .live.diagram img { object-fit: contain; }
+.pcard-cover .live.scroll img  { object-fit: cover; object-position: center 0%; }
+.pcard:hover .pcard-cover .live.scroll img,
+.pcard.playing .pcard-cover .live.scroll img { animation: pcard-scroll 7s ease-in-out infinite alternate; }
+@keyframes pcard-scroll
+{
+    0%, 8%    { object-position: center 0%; }
+    92%, 100% { object-position: center 100%; }
+}
+
+/* Status as an LED on the board. */
+.pcard-estado
+{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 11px 4px 9px;
+    background: rgba(23, 28, 34, 0.86);
+    border: 1px solid var(--border);
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0;
+    color: var(--fg);
+    z-index: 2;
+}
+.pcard-estado.activo,
+.pcard-estado.pausado,
+.pcard-estado.hecho { color: var(--fg); }
+.pcard-estado i { width: 8px; height: 8px; border-radius: 50%; background: #3b4450; transition: background 0.3s ease, box-shadow 0.3s ease; }
+.pcard.on .pcard-estado.activo i  { background: var(--status-active); box-shadow: 0 0 6px 1px rgba(111, 208, 140, 0.7); }
+.pcard.on .pcard-estado.pausado i { background: var(--status-paused); box-shadow: 0 0 6px 1px rgba(224, 163, 60, 0.6); }
+.pcard.on .pcard-estado.hecho i   { background: var(--status-done); }
+.pcard:hover .pcard-estado.activo i { animation: pcard-led 0.9s ease-in-out infinite; }
+@keyframes pcard-led { 50% { box-shadow: 0 0 12px 4px rgba(111, 208, 140, 0.85); } }
+
+.pcard-body { padding: 20px 22px 18px; }
+.pcard-body h3 { font-size: 1.35rem; font-weight: 700; font-variation-settings: "wdth" 108; margin-bottom: 8px; }
+.pcard-desc { font-size: 0.97rem; color: var(--fg-muted); margin-bottom: 14px; }
+
+/* The measured number instead of a row of tags. */
+.reading
+{
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin: 0 0 14px;
+    padding: 12px 14px;
+    border-left: 2px solid var(--copper);
+    background: rgba(192, 122, 69, 0.06);
+    border-radius: 0 6px 6px 0;
+}
+.reading .num
+{
+    font-size: 1.6rem;
+    font-weight: 750;
+    font-variation-settings: "wdth" 112;
+    color: var(--accent);
+    white-space: nowrap;
+    line-height: 1.1;
+}
+.reading .what { color: var(--fg); font-size: 0.95rem; line-height: 1.4; }
+
+.stackline { margin: 0 0 16px; color: var(--fg-faint); font-size: 0.88rem; font-variation-settings: "wdth" 90; }
+
+.pcard-links { font-size: 0.92rem; }
+.repo-facts { font-family: var(--font-sans); font-size: 0.85rem; margin-left: auto; }
+
+/* === Journey ================================================================ */
+
+.journey
+{
+    display: grid;
+    grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+    gap: 48px;
+    align-items: start;
+}
+
+.portrait
+{
+    margin: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: #2a2f35;
+}
+.portrait img { display: block; width: 100%; height: auto; }
+
+.journey-text > p { margin: 0 0 16px; color: var(--fg-muted); max-width: 62ch; }
+.journey-text > p.journey-intro { color: var(--fg); font-size: 1.2rem; line-height: 1.45; }
+
+.timeline { list-style: none; margin: 24px 0 0; padding: 0 0 0 26px; position: relative; }
+.timeline::before
+{
+    content: ""; position: absolute; left: 6px; top: 8px; bottom: 8px;
+    width: 2px; background: var(--copper-dim);
+}
+.timeline li
+{
+    position: relative;
+    display: grid;
+    grid-template-columns: 104px minmax(0, 1fr);
+    gap: 14px;
+    margin: 0 0 14px;
+}
+.timeline li::before
+{
+    content: ""; position: absolute; left: -26px; top: 7px;
+    width: 10px; height: 10px; border-radius: 50%;
+    border: 2px solid var(--copper); background: var(--bg);
+}
+.timeline li.now::before { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 8px rgba(255, 182, 72, 0.6); }
+.timeline .yr { color: var(--copper); font-weight: 700; white-space: nowrap; padding-top: 1px; }
+.timeline b { display: block; font-weight: 650; color: var(--fg); margin-bottom: 2px; }
+.timeline .what { display: block; color: var(--fg-muted); font-size: 0.97rem; }
+.journey-detail .timeline li { margin-bottom: 22px; }
+
+.more { display: inline-block; margin-top: 6px; font-weight: 600; }
+
+/* === Contact ================================================================ */
+
+/* Field labels in sentence case: tracked-out capitals read as template. */
+.field > span
+{
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--fg-muted);
+}
+
+.btn-wpp
+{
+    background: var(--accent);
+    color: var(--on-accent);
+}
+.btn-wpp:hover { background: var(--accent-hover); color: var(--on-accent); }
+
+/* === Case study diagrams ==================================================== */
+
+/* The model gets a cool color so it never reads as the amber of the rules. */
+.diag-modelo    { stroke: #8ab4f8; }
+.diag-modelo-tx { fill: #8ab4f8; }
+
+/* === Responsive ============================================================= */
+
+@media (max-width: 900px)
+{
+    .intro { grid-template-columns: minmax(0, 1fr); gap: 22px; align-items: start; }
+    .intro-side .hero-actions,
+    .intro-side .hero-contact { justify-content: flex-start; }
+    .project-grid { grid-template-columns: minmax(0, 1fr); }
+    .journey { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+    .portrait { max-width: 340px; }
+    .readout li { grid-template-columns: minmax(0, 1fr); gap: 0; }
+    .readout { min-height: 0; }
+    .timeline li { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+}
+
+@media (max-width: 700px)
+{
+    /* A sticky header with the nav wrapped in three rows ate a quarter of a
+       phone screen: on phones it scrolls away with the page. */
+    .site-header { position: static; }
+    .header-inner { gap: 10px; padding-top: 12px; padding-bottom: 12px; }
+    .site-nav { gap: 4px 14px; font-size: 0.9rem; }
+    .sch-h { display: none; }
+    .sch-v { display: block; }
+    .board { padding: 14px 14px 16px; }
+    .section-heading h2 { font-size: 1.6rem; }
+}
+
+@media (prefers-reduced-motion: reduce)
+{
+    .readout li { animation: none; }
+    .pcard, .pcard-cover .still { transition: none; }
+    .pcard:hover::after,
+    .pcard:hover .pcard-estado i { animation: none; }
+    .pcard-cover .live { display: none; }
+}
+
+/* === Early projects: a compact list, below the grid ========================= */
+
+.early-list { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 14px; max-width: 78ch; }
+.early-list li { display: grid; gap: 2px; padding-left: 16px; border-left: 2px solid var(--copper-dim); }
+.early-list b { font-weight: 650; }
+.early-list span { color: var(--fg-muted); font-size: 0.95rem; }
+.early-list small { color: var(--fg-faint); font-size: 0.85rem; }

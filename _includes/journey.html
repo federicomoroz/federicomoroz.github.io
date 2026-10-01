@@ -1,0 +1,12 @@
+{% comment %}
+  Experiencia laboral como linea de tiempo. Parametros: lang, detail (true en
+  Sobre mi: usa el texto largo). Datos: _data/journey.yml.
+{% endcomment %}
+<ol class="timeline">
+  {% for j in site.data.journey %}
+  <li{% if j.now %} class="now"{% endif %}>
+    <span class="yr">{% if include.lang == 'en' %}{{ j.years_en }}{% else %}{{ j.years }}{% endif %}</span>
+    <div><b>{{ j.title[include.lang] }}</b><span class="what">{% if include.detail %}{{ j.long[include.lang] }}{% else %}{{ j.short[include.lang] }}{% endif %}</span></div>
+  </li>
+  {% endfor %}
+</ol>

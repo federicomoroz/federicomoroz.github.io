@@ -16,10 +16,13 @@
 
 <header class="site-header">
   <div class="container header-inner">
-    <a class="brand" href="{{ home_url | relative_url }}">
-      <span class="brand-mark">◆</span>
-      <span class="brand-name">{{ site.author.name }}</span>
-    </a>
+    {% comment %} On the home the name is the hero; repeating it here would put
+       it twice in a row, so the header carries the initials. {% endcomment %}
+    {% if page.url == home_url %}
+    <a class="brand brand-mark" href="{{ home_url | relative_url }}" aria-label="{{ site.author.name }}">FPM</a>
+    {% else %}
+    <a class="brand" href="{{ home_url | relative_url }}">{{ site.author.name }}</a>
+    {% endif %}
     <nav class="site-nav">
       <a href="{{ home_url | relative_url }}">{{ t.nav.home }}</a>
       <a href="{{ projects_url | relative_url }}">{{ t.nav.projects }}</a>
@@ -27,6 +30,7 @@
       <a href="{{ about_url | relative_url }}">{{ t.nav.about }}</a>
       <a href="https://github.com/{{ site.author.github }}" target="_blank" rel="noopener">{{ t.nav.github }} ↗</a>
       {% if site.author.linkedin %}<a href="{{ site.author.linkedin }}" target="_blank" rel="noopener">LinkedIn ↗</a>{% endif %}
+      <button type="button" class="ask" data-ask aria-controls="as-panel"><i aria-hidden="true"></i>{{ site.data.asistente.ui[lang].boton }}</button>
       <span class="lang-switch">
         {% if lang == 'es' %}
           <span class="lang-current">ES</span>

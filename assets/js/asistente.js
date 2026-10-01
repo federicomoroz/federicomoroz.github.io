@@ -229,6 +229,10 @@
     var btnAbrir   = raiz.querySelector('.as-lanzador');
     var btnCerrar  = raiz.querySelector('.as-cerrar');
     var sugs       = raiz.querySelector('.as-sugerencias');
+    // The launcher now lives in the site navigation ([data-ask]); the floating
+    // one stays in the markup as a fallback and is hidden by CSS.
+    var lanzadores = [btnAbrir].concat(Array.prototype.slice.call(document.querySelectorAll('[data-ask]')));
+    var origen     = btnAbrir;
 
     function mensaje(quien, html, conContacto)
     {
@@ -248,11 +252,16 @@
         if (sugs) { sugs.hidden = true; }
     }
 
+    function marcar(abierto)
+    {
+        lanzadores.forEach(function (b) { b.setAttribute('aria-expanded', abierto ? 'true' : 'false'); });
+    }
+
     function abrir()
     {
         panel.hidden = false;
         raiz.classList.add('abierto');
-        btnAbrir.setAttribute('aria-expanded', 'true');
+        marcar(true);
         input.focus();
     }
 
@@ -260,11 +269,18 @@
     {
         panel.hidden = true;
         raiz.classList.remove('abierto');
-        btnAbrir.setAttribute('aria-expanded', 'false');
-        btnAbrir.focus();
+        marcar(false);
+        origen.focus();
     }
 
-    btnAbrir.addEventListener('click', function () { panel.hidden ? abrir() : cerrar(); });
+    lanzadores.forEach(function (b)
+    {
+        b.addEventListener('click', function ()
+        {
+            origen = b;
+            panel.hidden ? abrir() : cerrar();
+        });
+    });
     btnCerrar.addEventListener('click', cerrar);
 
     document.addEventListener('keydown', function (e)

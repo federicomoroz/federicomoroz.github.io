@@ -5,7 +5,7 @@
 # y sumar la opcion al switch en _includes/header.html.
 
 es:
-  site_tagline: "Full Stack orientado a Backend · Forward Deployed Engineer · Integración de IA"
+  site_tagline: "AI Engineer · Backend e integraciones · Forward Deployed Engineer"
   nav:
     home: Inicio
     projects: Proyectos
@@ -19,20 +19,21 @@ es:
     # "Sin cajas negras" es la parte que hace el trabajo. Cualquiera dice que
     # integra IA; lo raro es poder decir COMO se controla lo que el modelo
     # propone, y eso es lo que el lead desarrolla y los case studies prueban.
-    headline: "Integro IA en producción *sin cajas negras.*"
+    headline: "Integro IA en producción sin cajas negras."
     # El titular dice QUE HACE; esta linea dice en que casillero entra, con las
     # palabras exactas con las que un reclutador busca. Las dos cosas, no una.
-    roles: "Full Stack orientado a Backend · Forward Deployed Engineer · Integración de IA"
-    lead: "El modelo propone; reglas determinísticas deciden antes de que algo se ejecute. RAG para traer contexto real, guardrails y circuit breakers para lo que puede fallar, y la calidad del modelo medida en CI, que bloquea el merge si empeora. Debajo, el backend de siempre: APIs, integraciones y automatización de procesos sobre Python, .NET y Java."
+    roles: "AI Engineer · Backend e integraciones · Forward Deployed Engineer"
+    roles_list: ["AI Engineer", "Backend e integraciones", "Forward Deployed Engineer"]
+    lead: "Trabajo con IA de forma determinística: código escrito a mano y llamadas puntuales al modelo, para tener control de todo el flujo. El modelo propone y las reglas deciden antes de que se ejecute nada. Abajo está el backend de siempre, con APIs, integraciones y automatización en Python, .NET y Java."
     # El unico numero de negocio medido del perfil, y viene de un puesto, no
     # de un proyecto.
-    metric: "Antes: automatización de procesos, de 10 minutos a 5 segundos sobre ~2.100 transacciones mensuales."
+    metric: "Desde 2010 escribo y mantengo los sistemas de pedidos, remitos y logística de una fábrica de cartón corrugado. Arrancaron en Excel y los fui rehaciendo con cada lenguaje que aprendí. En un e-commerce internacional bajé un proceso de 10 minutos a 5 segundos, sobre unas 2.100 transacciones por mes."
     cta_projects: "Ver proyectos"
     cta_cv: "Descargar CV"
     location: "Buenos Aires, Argentina · Remoto"
   contact:
     heading: "Contacto"
-    lead: "Busco posiciones backend, remoto o híbrido en Buenos Aires. Si tenés una búsqueda abierta o una idea que necesita quien la construya, escribime."
+    lead: "Busco un equipo donde construir sistemas con IA que se puedan auditar, como AI Engineer, backend o Forward Deployed Engineer. Remoto o híbrido en Buenos Aires."
     wpp: "Escribirme por WhatsApp"
     wpp_prefill: "Hola Federico, te escribo por tu portfolio."
     email_btn: "Mandarme un mail"
@@ -53,18 +54,25 @@ es:
     tools_intro_one: "herramienta publicada."
     tools_intro_count: "herramientas y librerías publicadas."
     tools_empty: "Aún no hay herramientas publicadas."
-    view_all: "Ver todos →"
+    journey_heading: "Mi recorrido"
+    journey_intro: "Desarrollo backend, integraciones y sistemas con IA. Trabajo freelance desde 2022, y en Del Mundo a Tus Manos diseñé y mantuve la plataforma operativa de un e-commerce internacional."
+    journey_origin: "Escribo sistemas que usa una operación real desde 2010. Antes tuve un negocio de importación donde, además de vender, reparaba los equipos: de ahí me quedó la costumbre de abrir las cosas para entender por qué fallan."
+    journey_more: "El recorrido completo, en Sobre mí"
+    portrait_alt: "Federico Palatnik Moroz"
+    view_all: "Ver todos"
   projects:
     heading: Proyectos
     lead_with_items: "Proyectos propios y de equipo, con write-ups técnicos autocontenidos."
     lead_empty: "Aún no hay proyectos publicados."
-    read_case_study: "Leer case study →"
+    read_case_study: "Leer case study"
     back: "← Volver a proyectos"
     demo: "Demo en vivo ↗"
     repo: "Repo ↗"
     repo_private: "repo privado"
     updated: "actualizado"
     archived: "archivado"
+    early_heading: "Primeros proyectos"
+    early_note: "De cuando empecé a programar. Siguen públicos en GitHub."
     capabilities_heading: "Sobre estos proyectos"
     capabilities_note: "Parte del trabajo es privado o está bajo NDA. En vez del repo, en esos casos queda un write-up técnico autocontenido: la decisión de diseño y el resultado, sin exponer código de clientes."
   tools:
@@ -78,9 +86,9 @@ es:
     notes_changelog: "Cada herramienta mantiene su CHANGELOG en su propio repo."
   about:
     heading: Sobre mí
-    lead: "Full Stack orientado a Backend, Forward Deployed Engineer e integración de IA. Sistemas que siguen funcionando cuando algo se rompe, y modelos que no deciden solos."
+    lead: "Desarrollo backend, integraciones y sistemas con IA. Acá está mi recorrido completo y las herramientas que uso."
+    journey_heading: Recorrido
     cv_download: "⬇ Descargar CV (PDF)"
-    cv_note: "Mismo contenido que el CV que mando al aplicar, con teléfono y mail."
     profile_heading: Perfil profesional
     skills_heading: Habilidades técnicas
     way_of_working_heading: Cómo trabajo
@@ -92,7 +100,7 @@ es:
     done: terminado
 
 en:
-  site_tagline: "Full Stack with a backend focus · Forward Deployed Engineer · AI Integration"
+  site_tagline: "AI Engineer · Backend and integrations · Forward Deployed Engineer"
   nav:
     home: Home
     projects: Projects
@@ -100,16 +108,17 @@ en:
     about: About
     github: GitHub
   hero:
-    headline: "I integrate AI in production *with no black boxes.*"
-    roles: "Full Stack with a backend focus · Forward Deployed Engineer · AI Integration"
-    lead: "The model proposes; deterministic rules decide before anything runs. RAG to bring in real context, guardrails and circuit breakers for what can fail, and the model's quality measured in CI, which blocks the merge if it regresses. Underneath, the same backend as always: APIs, integrations and process automation on Python, .NET and Java."
-    metric: "Previously: process automation, from 10 minutes to 5 seconds across ~2,100 monthly transactions."
+    headline: "I integrate AI in production with no black boxes."
+    roles: "AI Engineer · Backend and integrations · Forward Deployed Engineer"
+    roles_list: ["AI Engineer", "Backend and integrations", "Forward Deployed Engineer"]
+    lead: "I work with AI deterministically: hand-written code and narrow calls to the model, so the whole flow stays under control. The model proposes and rules decide before anything runs. Underneath is the usual backend work, APIs, integrations and automation in Python, .NET and Java."
+    metric: "Since 2010 I have written and maintained the order, delivery-note and logistics systems of a corrugated cardboard factory. They started in Excel and I rebuilt them with each language I learned. At an international e-commerce business I took a 10-minute process down to 5 seconds, across about 2,100 transactions a month."
     cta_projects: "See projects"
     cta_cv: "Download CV"
     location: "Buenos Aires, Argentina · Remote"
   contact:
     heading: "Contact"
-    lead: "I'm looking for backend roles, remote or hybrid in Buenos Aires. If you have an open search, or an idea that needs someone to build it, get in touch."
+    lead: "I'm looking for a team where I can build AI systems that can be audited, as an AI Engineer, backend engineer or Forward Deployed Engineer. Remote, or hybrid in Buenos Aires."
     wpp: "Message me on WhatsApp"
     wpp_prefill: "Hi Federico, I'm writing about your portfolio."
     email_btn: "Send me an email"
@@ -132,18 +141,25 @@ en:
     tools_intro_one: "published tool."
     tools_intro_count: "published tools and libraries."
     tools_empty: "No published tools yet."
-    view_all: "View all →"
+    journey_heading: "My path"
+    journey_intro: "I build backends, integrations and AI systems. I have worked freelance since 2022, and at Del Mundo a Tus Manos I designed and maintained the operations platform of an international e-commerce business."
+    journey_origin: "I have written systems that a real operation runs on since 2010. Before that I ran an import business where, besides selling, I repaired the equipment: that is where I picked up the habit of opening things up to see why they fail."
+    journey_more: "The full path, on the About page"
+    portrait_alt: "Federico Palatnik Moroz"
+    view_all: "View all"
   projects:
     heading: Projects
     lead_with_items: "Personal and team projects, with self-contained technical write-ups."
     lead_empty: "No published projects yet."
-    read_case_study: "Read case study →"
+    read_case_study: "Read case study"
     back: "← Back to projects"
     demo: "Live demo ↗"
     repo: "Repo ↗"
     repo_private: "private repo"
     updated: "updated"
     archived: "archived"
+    early_heading: "Early projects"
+    early_note: "From when I started programming. They are still public on GitHub."
     capabilities_heading: "About these projects"
     capabilities_note: "Some of the work is private or under NDA. In those cases what's public is a self-contained technical write-up: the design decision and the outcome, without exposing client code."
   tools:
@@ -157,9 +173,9 @@ en:
     notes_changelog: "Each tool keeps its CHANGELOG in its own repo."
   about:
     heading: About
-    lead: "Full Stack with a backend focus, Forward Deployed Engineer and AI integration. Systems that keep running when something breaks, and models that do not decide on their own."
+    lead: "I build backends, integrations and AI systems. Here is my full path and the tools I use."
+    journey_heading: Path
     cv_download: "⬇ Download CV (PDF)"
-    cv_note: "Same content as the CV I send with an application, phone and email included."
     profile_heading: Professional profile
     skills_heading: Technical skills
     way_of_working_heading: How I work

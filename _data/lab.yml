@@ -1,0 +1,132 @@
+# El lab del hero: casos reales del agente de contracargos corridos por el
+# esquema.
+#
+# DE DONDE SALE CADA DATO (no inventar nada aca):
+#   - Las reglas de la etapa "El codigo decide" son las de
+#     ciri-api-aux-sourcecode/api/app/domain/decision.py: un BLOCKER de una
+#     politica habilitada rechaza solo; cualquier FAIL va a un analista; sin
+#     veredictos falla cerrado y va a un analista; todo PASS/WARNING aprueba.
+#   - Montos, scores, paises, politicas y puntajes del juez salen de
+#     data/informes_demo/analisis_TXN-000{51,42,89}.json del mismo repo.
+#   - El caso "caida" es el camino de `decidir()` con la lista de veredictos
+#     vacia, no una transaccion del dataset.
+#
+# `out` es approve | human | reject. `fail` marca la etapa que se pone roja.
+
+es:
+  title: "Probá un caso real"
+  intro: "Así decide el agente de contracargos. Elegí un caso y seguí la señal."
+  cases_label: "Casos"
+  idle: "Elegí un caso de arriba para ver cómo lo resuelve."
+  svg_title: "Entra un contracargo, se reúne el caso, se buscan políticas y precedentes, el modelo evalúa las políticas y el código decide: aprobar, pasar a un analista o rechazar."
+  input: "Contracargo"
+  stages:
+    case:  { title: "Reúne el caso",    sub1: "transacción, logs",      sub2: "e historial del cliente" }
+    rag:   { title: "Busca contexto",   sub1: "políticas y precedentes", sub2: "en Qdrant (RAG)" }
+    model: { title: "Modelo evalúa",    sub1: "cada política aplicable", sub2: "y propone un veredicto" }
+    rules: { title: "El código decide", sub1: "reglas fijas, sin modelo", sub2: "" }
+  outputs:
+    approve: "Aprueba"
+    human: "Pasa a un analista"
+    reject: "Rechaza solo"
+  outputs_short:
+    approve: "Aprueba"
+    human: "Analista"
+    reject: "Rechaza"
+  cases:
+    - id: cripto
+      label: "Pago en cripto"
+      out: reject
+      steps:
+        case:  "TXN-00051: USD 2.095,90 en Airbnb, pagado en cripto desde Colombia. Score de fraude 8."
+        rag:   "Recupera las 17 políticas y los precedentes con el mismo motivo de reclamo."
+        model: "Propone BLOCKER en POL-EXC-003, porque un pago en cripto es irreversible, y FAIL en tres políticas más."
+        rules: "Hay un BLOCKER de una política habilitada para bloquear: se rechaza sin pasar por un analista."
+      end: "El modelo redacta el informe con la justificación y un juez lo puntúa: 8,6 sobre 10."
+    - id: fraude
+      label: "Score de fraude bajo"
+      out: human
+      steps:
+        case:  "TXN-00042: USD 2.055,76 en Airbnb con Visa crédito desde Brasil. Score de fraude 4."
+        rag:   "Recupera las 17 políticas y casos parecidos, uno de ellos con 41 días en escalación."
+        model: "Propone FAIL en POL-FRD-001 por el score bajo, en POL-CB-004 por el comercio suspendido y en POL-CB-003."
+        rules: "Tres violaciones y ningún BLOCKER. Ninguna regla permite cerrarlo solo, así que va a un analista."
+      end: "El analista recibe el caso armado, con el motivo escrito. El juez puntuó el informe con 8,7."
+    - id: reincidente
+      label: "Cliente reincidente"
+      out: human
+      steps:
+        case:  "TXN-00089: USD 889,02 en Booking con Visa débito desde Estados Unidos. Score de fraude 8."
+        rag:   "Recupera las 17 políticas y un precedente del mismo comercio por el mismo monto."
+        model: "Propone cuatro FAIL. Uno es POL-CB-005: sería el cuarto contracargo del mismo cliente."
+        rules: "Cuatro violaciones sin BLOCKER: va a un analista con las cuatro políticas señaladas."
+      end: "El informe cita el precedente del mismo comercio. El juez lo puntuó con 8,7."
+    - id: caida
+      label: "Se cae la base de políticas"
+      out: human
+      fail: rag
+      steps:
+        case:  "Entra un contracargo cualquiera. La base de políticas no responde."
+        rag:   "Qdrant no contesta: no se recupera ninguna política."
+        model: "Sin políticas no hay nada que evaluar. Cero veredictos."
+        rules: "Sin veredictos no hay evidencia, y el sistema falla cerrado: no aprueba nada solo."
+      end: "«Ninguna política falló» y «no se pudo evaluar ninguna» no son lo mismo, y el código no las confunde."
+
+en:
+  title: "Try a real case"
+  intro: "This is how the chargeback agent decides. Pick a case and follow the signal."
+  cases_label: "Cases"
+  idle: "Pick a case above to see how it gets resolved."
+  svg_title: "A chargeback comes in, the case is gathered, policies and precedents are retrieved, the model evaluates the policies and the code decides: approve, hand to an analyst, or reject."
+  input: "Chargeback"
+  stages:
+    case:  { title: "Gathers the case",  sub1: "transaction, logs",       sub2: "and customer history" }
+    rag:   { title: "Finds context",     sub1: "policies and precedents", sub2: "in Qdrant (RAG)" }
+    model: { title: "Model evaluates",   sub1: "each applicable policy",  sub2: "and proposes a verdict" }
+    rules: { title: "The code decides",  sub1: "fixed rules, no model",   sub2: "" }
+  outputs:
+    approve: "Approves"
+    human: "Goes to an analyst"
+    reject: "Rejects on its own"
+  outputs_short:
+    approve: "Approves"
+    human: "Analyst"
+    reject: "Rejects"
+  cases:
+    - id: cripto
+      label: "Crypto payment"
+      out: reject
+      steps:
+        case:  "TXN-00051: USD 2,095.90 at Airbnb, paid in crypto from Colombia. Fraud score 8."
+        rag:   "Retrieves the 17 policies and the precedents with the same claim reason."
+        model: "Proposes BLOCKER on POL-EXC-003, because a crypto payment is irreversible, and FAIL on three more policies."
+        rules: "There is a BLOCKER from a policy allowed to block: it is rejected without going to an analyst."
+      end: "The model writes the report with its justification and a judge scores it: 8.6 out of 10."
+    - id: fraude
+      label: "Low fraud score"
+      out: human
+      steps:
+        case:  "TXN-00042: USD 2,055.76 at Airbnb with a Visa credit card from Brazil. Fraud score 4."
+        rag:   "Retrieves the 17 policies and similar cases, one of them 41 days in escalation."
+        model: "Proposes FAIL on POL-FRD-001 for the low score, on POL-CB-004 for the suspended merchant, and on POL-CB-003."
+        rules: "Three violations and no BLOCKER. No rule lets it close on its own, so it goes to an analyst."
+      end: "The analyst gets the case already assembled, with the reason written down. The judge scored the report 8.7."
+    - id: reincidente
+      label: "Repeat customer"
+      out: human
+      steps:
+        case:  "TXN-00089: USD 889.02 at Booking with a Visa debit card from the United States. Fraud score 8."
+        rag:   "Retrieves the 17 policies and a precedent from the same merchant for the same amount."
+        model: "Proposes four FAILs. One is POL-CB-005: it would be the same customer's fourth chargeback."
+        rules: "Four violations, no BLOCKER: it goes to an analyst with the four policies flagged."
+      end: "The report cites the precedent from the same merchant. The judge scored it 8.7."
+    - id: caida
+      label: "The policy store goes down"
+      out: human
+      fail: rag
+      steps:
+        case:  "Any chargeback comes in. The policy store does not respond."
+        rag:   "Qdrant does not answer: no policy is retrieved."
+        model: "With no policies there is nothing to evaluate. Zero verdicts."
+        rules: "No verdicts means no evidence, and the system fails closed: it approves nothing on its own."
+      end: "“No policy failed” and “no policy could be evaluated” are not the same thing, and the code keeps them apart."

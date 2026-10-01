@@ -1,0 +1,71 @@
+# Experiencia laboral, de lo mas reciente a lo mas viejo. Es la misma que el
+# CV (MyProfile/CV/ATS3); si cambia alla, cambia aca.
+#
+#   short -> una linea, para la home
+#   long  -> el detalle, para Sobre mi
+#   now   -> el puesto sigue activo (el punto de la linea de tiempo se enciende)
+#
+# REGLAS: la empresa de carton corrugado no se nombra ni se menciona el
+# parentesco. La formacion es autodidacta: Da Vinci no es un hito aca.
+
+- years: "2022 – hoy"
+  years_en: "2022 – now"
+  now: true
+  title:
+    es: "Desarrollador backend, freelance"
+    en: "Backend developer, freelance"
+  short:
+    es: "APIs, integraciones y automatización a medida para clientes, de punta a punta."
+    en: "Custom APIs, integrations and automation for clients, end to end."
+  long:
+    es: "Desarrollo a medida para clientes: APIs y servicios backend, integraciones con transportistas y plataformas de venta, y automatización de procesos. Relevo el problema con quien va a usar el sistema, lo construyo y lo dejo operando."
+    en: "Custom development for clients: backend APIs and services, carrier and marketplace integrations, and process automation. I scope the problem with the people who will use the system, build it, and leave it running."
+
+- years: "2024 – 2026"
+  years_en: "2024 – 2026"
+  title:
+    es: "Desarrollador backend e ingeniero de automatización en Del Mundo a Tus Manos"
+    en: "Backend developer and automation engineer at Del Mundo a Tus Manos"
+  short:
+    es: "La plataforma operativa de un e-commerce internacional. Un proceso de 10 minutos pasó a 5 segundos."
+    en: "The operations platform of an international e-commerce business. A 10-minute process went down to 5 seconds."
+  long:
+    es: "Diseñé y mantuve la plataforma operativa de un e-commerce internacional, junto al equipo que la usaba todos los días: 11 tablas, unos 115.000 registros, 48 automatizaciones e integraciones con Amazon, Mercado Libre, Tienda Nube y el organismo fiscal a través de n8n. Un proceso de 10 minutos pasó a 5 segundos, sobre unas 2.100 transacciones por mes."
+    en: "I designed and maintained the operations platform of an international e-commerce business, alongside the team that used it every day: 11 tables, about 115,000 records, 48 automations, and integrations with Amazon, Mercado Libre, Tienda Nube and the tax authority through n8n. A 10-minute process went down to 5 seconds, across about 2,100 transactions a month."
+
+- years: "2021 – 2024"
+  years_en: "2021 – 2024"
+  title:
+    es: "Desarrollador de sistemas y herramientas en C# y C++, freelance"
+    en: "C# and C++ systems and tooling developer, freelance"
+  short:
+    es: "Sistemas y plugins internos en C# y C++, y clases de programación con code review."
+    en: "Internal systems and plugins in C# and C++, and programming lessons with code review."
+  long:
+    es: "Sistemas, componentes y plugins internos para equipos de desarrollo, en C# sobre Unity y en C++ sobre Unreal. En paralelo, clases de programación uno a uno con code review del código de cada estudiante."
+    en: "Internal systems, components and plugins for development teams, in C# on Unity and C++ on Unreal. Alongside, one-to-one programming lessons with code review of each student's code."
+
+- years: "2010 – hoy"
+  years_en: "2010 – now"
+  now: true
+  title:
+    es: "Sistemas y automatización en una empresa de cartón corrugado"
+    en: "Systems and automation at a corrugated cardboard company"
+  short:
+    es: "Pedidos, remitos y logística de una empresa de cartón corrugado, rehechos con cada stack nuevo."
+    en: "Orders, delivery notes and logistics for a corrugated cardboard company, rebuilt with each new stack."
+  long:
+    es: "Escribo y mantengo los sistemas de pedidos, remitos y logística de una empresa de fabricación y venta de cartón corrugado. Empezó en Excel y lo fui rehaciendo con cada stack nuevo, sin frenar la operación."
+    en: "I write and maintain the order, delivery-note and logistics systems of a company that makes and sells corrugated cardboard. It started in Excel and I rebuilt it with each new stack, without stopping the operation."
+
+- years: "2006 – 2017"
+  years_en: "2006 – 2017"
+  title:
+    es: "Titular de un negocio propio de importación"
+    en: "Owner of an import business"
+  short:
+    es: "Importación de instrumentos musicales, con la administración armada en Excel. También reparaba lo que vendía."
+    en: "Importing musical instruments, with the administration built in Excel. I also repaired what I sold."
+  long:
+    es: "Instrumentos musicales, de punta a punta: proveedores del exterior, importación, stock y venta. La administración la armé yo en Excel, con costeo de importación, márgenes y riesgo y libros contables. También reparaba lo que vendía: componentes y transformadores de amplificadores valvulares, y pedales de guitarra que armaba desde cero."
+    en: "Musical instruments, end to end: overseas suppliers, importing, stock and sales. I built the administration myself in Excel, with import costing, margins and risk, and the accounting books. I also repaired what I sold: components and transformers in tube amplifiers, and guitar pedals I built from scratch."

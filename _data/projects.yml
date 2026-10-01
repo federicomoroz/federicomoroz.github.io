@@ -19,6 +19,14 @@
 #                      puede preguntar si un archivo existe, y un src roto es
 #                      peor que no tener portada.
 #   cover_alt       -> texto alternativo de esa imagen. Obligatorio si hay cover.
+#   early           -> true: proyecto de cuando arrancaba. Sale en una lista
+#                      compacta al final de /projects/, no en la grilla.
+#   card.{es,en}    -> texto corto para la tarjeta (si falta, usa `short`, que
+#                      tambien es lo que contesta el asistente).
+#   reading         -> el numero medido que define al proyecto: num + what.
+#   live            -> vista previa animada en la tarjeta: src en assets/img/,
+#                      kind = diagram (GIF que se ve entero) | scroll (captura
+#                      alta que se recorre).
 #
 # REGLA: no inventar metricas. Si no hay un numero real medido, se describe
 # cualitativamente. Los numeros de abajo salen del README publico de GitHub.
@@ -30,8 +38,17 @@
   cover_alt: "Panel del agente de contracargos, con el caso y su resolución propuesta"
   name: "Agente de investigación de contracargos"
   short:
-    es: "Ante un contracargo, reúne la transacción, sus logs, las políticas que aplican, qué se resolvió en casos parecidos y el historial del cliente; propone una resolución justificada y se autoevalúa con un juez LLM. Los casos de riesgo alto frenan y esperan a un analista. Orquestado en n8n sobre una API FastAPI con RAG en Qdrant."
-    en: "Given a chargeback, it gathers the transaction, its logs, the applicable policies, how similar cases were resolved and the customer's history; proposes a justified resolution and grades itself with an LLM judge. High-risk cases stop and wait for a human analyst. Orchestrated in n8n over a FastAPI service with RAG on Qdrant."
+    es: "Ante un contracargo, reúne la transacción, sus logs, las políticas que aplican, qué se resolvió en casos parecidos y el historial del cliente. Con eso propone una resolución justificada, y un juez LLM la evalúa. Los casos de riesgo alto frenan y esperan a un analista. Orquestado en n8n sobre una API FastAPI con RAG en Qdrant."
+    en: "Given a chargeback, it gathers the transaction, its logs, the applicable policies, how similar cases were resolved and the customer's history. From that it proposes a justified resolution, which an LLM judge then grades. High-risk cases stop and wait for a human analyst. Orchestrated in n8n over a FastAPI service with RAG on Qdrant."
+  card:
+    es: "Ante un contracargo, reúne la transacción, sus logs, las políticas que aplican y los casos parecidos, y propone una resolución justificada. Los casos de riesgo alto esperan a un analista."
+    en: "Given a chargeback, it gathers the transaction, its logs, the applicable policies and similar cases, and proposes a justified resolution. High-risk cases wait for an analyst."
+  reading:
+    num: { es: "17", en: "17" }
+    what:
+      es: "políticas evaluadas en cada caso, y la decisión la toma el código, no el modelo"
+      en: "policies evaluated on every case, and the code makes the decision, not the model"
+  live: { src: ciri-panel.jpg, kind: scroll }
   status: active
   listed: true
   case_study: true
@@ -53,8 +70,17 @@
   cover_alt: "Plan de entrenamiento generado por Mega Training System"
   name: Mega Training System
   short:
-    es: "Generador de planes de entrenamiento sobre la API de Claude. Nació como herramienta para un instructor de indoor cycling y hoy lo usa un cliente en su operación diaria. Arquitectura de plugins: sumar una disciplina es un `plugin.py` y su agent, sin tocar el core. Streaming SSE, catálogo de ejercicios inyectado como knowledge base y Batch API para bajar el costo a la mitad."
-    en: "Training plan generator built on the Claude API. It started as a tool for one indoor cycling instructor and is now used by a client in daily operation. Plugin architecture: adding a discipline is a `plugin.py` plus its agent, with no changes to the core. SSE streaming, an exercise catalogue injected as a knowledge base, and the Batch API to halve the cost."
+    es: "Genera clases de indoor cycling y planes de musculación con la API de Claude. Lo usan una cadena importante de gimnasios en Argentina y usuarios particulares. Cada plan sale del perfil del socio, y una restricción física llega hasta el ejercicio puntual. Sumar una disciplina es un `plugin.py` y su agent, sin tocar el core. Streaming por SSE y Batch API para bajar el costo a la mitad."
+    en: "Generates indoor cycling classes and strength plans with the Claude API. It is used by a major gym chain in Argentina and by individual users. Each plan is built from the member's profile, and a physical restriction carries down to the specific exercise. Adding a discipline is a `plugin.py` plus its agent, with no changes to the core. SSE streaming, and the Batch API to halve the cost."
+  card:
+    es: "Genera clases de indoor cycling y planes de musculación con la API de Claude, a partir del perfil de cada socio. Lo usan una cadena importante de gimnasios en Argentina y usuarios particulares."
+    en: "Generates indoor cycling classes and strength plans with the Claude API, from each member's profile. It is used by a major gym chain in Argentina and by individual users."
+  reading:
+    num: { es: "95%", en: "95%" }
+    what:
+      es: "de similitud con un plan ya generado alcanza para reusarlo sin llamar al modelo"
+      en: "similarity with an existing plan is enough to reuse it without calling the model"
+  live: { src: mts-plan.jpg, kind: scroll }
   status: active
   listed: true
   case_study: true
@@ -76,6 +102,15 @@
   short:
     es: "Un mayorista mandaba el catálogo por FTP una vez por día y el stock quedaba viejo antes del mediodía. Acá el ERP publica y los revendedores bajan el catálogo por WebSocket, con confirmación por lote, y quedan en la misma conexión recibiendo los cambios. La persistencia está detrás de puertos: los mismos 26 casos corren contra MySQL, PostgreSQL, SQLite y un proveedor en memoria, y ya encontraron tres divergencias entre motores. Un benchmark propio refutó la justificación del primer ADR y el documento quedó corregido."
     en: "A wholesaler was sending its catalogue over FTP once a day, and stock was stale by noon. Here the ERP publishes and resellers pull the catalogue over a WebSocket, batch by batch with acknowledgements, then stay on that connection receiving changes. Persistence sits behind ports: the same 26 cases run against MySQL, PostgreSQL, SQLite and an in-memory provider, and they have already caught three engine divergences. A benchmark refuted the reasoning in the first ADR, and the document was corrected rather than quietly dropped."
+  card:
+    es: "Un mayorista mandaba el catálogo por FTP una vez por día. Ahora el ERP publica y los revendedores reciben cada cambio por WebSocket, sobre cuatro motores de base verificados por la misma suite."
+    en: "A wholesaler used to send its catalogue over FTP once a day. Now the ERP publishes and resellers receive every change over WebSocket, on four database engines verified by the same suite."
+  reading:
+    num: { es: "1 en vez de 96", en: "1 instead of 96" }
+    what:
+      es: "autorizaciones para bajar 48.000 artículos, contra HTTP paginado"
+      en: "authorizations to pull 48,000 items, against paginated HTTP"
+  live: { src: nexo-circuit.gif, kind: diagram }
   status: active
   listed: true
   case_study: true
@@ -101,8 +136,17 @@
   cover_alt: "Dashboard de Order Outbox Service con la cola de eventos"
   name: Order Outbox Service
   short:
-    es: "Dos microservicios en Java y Spring Boot que resuelven el dual write: el pedido y su evento se escriben en un mismo commit de Postgres, y un relay aparte los publica a Kafka reintentando con backoff. Si el broker está caído el pedido igual entra, y el evento se publica solo cuando vuelve. El consumidor deduplica por event_id, así el reintento no duplica efectos. Las reglas hexagonales no son un acuerdo: son diez tests de ArchUnit que fallan el build."
-    en: "Two Java and Spring Boot microservices solving the dual write problem: the order and its event are written in a single Postgres commit, and a separate relay publishes them to Kafka with exponential backoff. If the broker is down the order still succeeds, and the event publishes itself once it returns. The consumer dedupes by event_id, so a retry never duplicates effects. The hexagonal rules are not a convention: they are ten ArchUnit tests that fail the build."
+    es: "Dos microservicios en Java y Spring Boot que resuelven el dual write: el pedido y su evento se escriben en un mismo commit de Postgres, y un relay aparte los publica a Kafka reintentando con backoff. Si el broker está caído el pedido igual entra, y el evento se publica solo cuando vuelve. El consumidor deduplica por event_id, así el reintento no duplica efectos. Diez tests de ArchUnit hacen cumplir las reglas hexagonales y fallan el build si alguien las rompe."
+    en: "Two Java and Spring Boot microservices solving the dual write problem: the order and its event are written in a single Postgres commit, and a separate relay publishes them to Kafka with exponential backoff. If the broker is down the order still succeeds, and the event publishes itself once it returns. The consumer dedupes by event_id, so a retry never duplicates effects. Ten ArchUnit tests enforce the hexagonal rules and fail the build if anyone breaks them."
+  card:
+    es: "Dos microservicios en Java y Spring Boot que guardan un pedido y le avisan a otro servicio por Kafka, sin perder ni duplicar el evento."
+    en: "Two Java and Spring Boot microservices that save an order and notify another service over Kafka, without losing or duplicating the event."
+  reading:
+    num: { es: "1 commit", en: "1 commit" }
+    what:
+      es: "guarda el pedido y su evento juntos: con Kafka caído el pedido entra igual y el evento sale cuando vuelve"
+      en: "saves the order and its event together: with Kafka down the order still goes in and the event goes out when it returns"
+  live: { src: order-outbox-circuito.gif, kind: diagram }
   status: active
   listed: true
   case_study: true
@@ -125,6 +169,14 @@
   short:
     es: "Un cliente escribe «me llegó roto». Para contestarle hay que mirar el pedido, el envío, cuántas veces reclamó antes y qué anotó el depósito, y recién ahí decidir si se le manda otro, se le devuelve la plata, se le pide una foto o lo mira una persona. handoff hace esas cuatro consultas contra un sistema que contesta mal a propósito, y decide en dos segundos: en ocho de cada diez casos la decisión es la que correspondía, y cuando los datos no alcanzan el reclamo llega a una persona ya armado. Once reglas revisan cada propuesta antes de que ocurra, así que ninguna devolución sale sin respaldo."
     en: "A customer writes «it arrived broken». To answer them someone has to look at the order, the shipment, how many times that customer claimed before and what the warehouse wrote down, and only then decide between a replacement, a refund, asking for a photo, or handing it to a person. handoff does those four reads against a system built to answer badly, and decides in two seconds: in eight cases out of ten the decision is the right one, and when the facts fall short the claim reaches a person already assembled. Eleven rules review every proposal before it happens, so no refund ever goes out without backing."
+  card:
+    es: "Ante un reclamo, hace las cuatro consultas que hacen falta contra un ERP que contesta mal y propone qué hacer. Once reglas revisan la propuesta antes de que ocurra."
+    en: "Given a claim, it makes the four reads it takes against an ERP that answers badly and proposes what to do. Eleven rules check the proposal before it happens."
+  reading:
+    num: { es: "83%", en: "83%" }
+    what:
+      es: "de acción correcta en 96 corridas, con once reglas revisando cada propuesta"
+      en: "correct action over 96 runs, with eleven rules checking every proposal"
   status: active
   listed: true
   case_study: true
@@ -167,6 +219,15 @@
   short:
     es: "Cotizador de envíos construido para mostrar un circuito hexagonal funcionando, no dibujado: cada request queda trazado hop por hop, de HTTP al dominio y de vuelta por tres adaptadores de transportista. El caso de uso no sabe que existen tres. Uno falla a propósito y la respuesta igual devuelve las otras dos."
     en: "Shipping rate quoter built to show a hexagonal circuit running rather than drawn: every request is traced hop by hop, from HTTP into the domain and back out through three carrier adapters. The use case does not know there are three. One fails on purpose and the response still returns the other two."
+  card:
+    es: "Cotiza un envío con tres transportistas simulados en paralelo, sobre arquitectura hexagonal, y devuelve la traza de cada request de HTTP al dominio y de vuelta. Si un transportista falla, la respuesta igual trae los otros dos."
+    en: "Quotes a shipment against three simulated carriers in parallel, on a hexagonal architecture, and returns the trace of each request from HTTP into the domain and back. If one carrier fails, the response still brings the other two."
+  reading:
+    num: { es: "306 ms", en: "306 ms" }
+    what:
+      es: "para cotizar con tres transportistas en paralelo; en fila serían 900"
+      en: "to quote three carriers in parallel; one after another it would be 900"
+  live: { src: shipping-quote-circuito.gif, kind: diagram }
   status: active
   listed: true
   case_study: true
@@ -186,8 +247,11 @@
   cover_alt: "Swagger de la API .NET de Shipping Quote con los endpoints de cotización e historial"
   name: "Shipping Quote — .NET"
   short:
-    es: "Un port, no una pieza nueva: el mismo cotizador de envíos que existe en Python, reescrito en ASP.NET Core para ver qué partes eran arquitectura y cuáles eran costumbre. Los tres transportistas se consultan con `Task.WhenAll` y hay un test que mide el reloj —306 ms donde en fila serían 900— así que falla si alguien lo convierte en un `foreach`. Corre sobre MySQL, no SQLite, porque SQLite serializa las escrituras."
-    en: "A port, not a new piece: the same shipping quoter that exists in Python, rewritten in ASP.NET Core to see which parts were architecture and which were habit. The three carriers are queried with `Task.WhenAll`, and a test measures the clock —306 ms where sequential would be 900— so it fails if anyone turns it into a `foreach`. It runs on MySQL rather than SQLite, because SQLite serializes writes."
+    es: "El mismo cotizador de envíos que existe en Python, reescrito en ASP.NET Core para ver qué partes eran arquitectura y cuáles eran costumbre. Los tres transportistas se consultan con `Task.WhenAll` y un test mide el reloj (306 ms, donde en fila serían 900), así que falla si alguien lo convierte en un `foreach`. Corre sobre MySQL, no SQLite, porque SQLite serializa las escrituras."
+    en: "The same shipping quoter that exists in Python, rewritten in ASP.NET Core to see which parts were architecture and which were habit. The three carriers are queried with `Task.WhenAll`, and a test measures the clock (306 ms, where sequential would be 900), so it fails if anyone turns it into a `foreach`. It runs on MySQL rather than SQLite, because SQLite serializes writes."
+  card:
+    es: "El mismo cotizador, portado a ASP.NET Core sobre los mismos puertos y casos de uso. Los tres transportistas se consultan con `Task.WhenAll`, y un test falla si alguien vuelve a consultarlos en fila."
+    en: "The same quoter, ported to ASP.NET Core over the same ports and use cases. The three carriers are queried with `Task.WhenAll`, and a test fails if anyone goes back to querying them one after another."
   status: active
   listed: true
   case_study: true
@@ -209,7 +273,7 @@
   name: Rate Guardian
   short:
     es: "API gateway con rate limiting de ventana deslizante (sorted sets de Redis), circuit breaker respaldado en Redis, proxy HTTP transparente y dashboard de terminal en tiempo real. El gateway nunca importa el logger: el logging va por un bus pub/sub."
-    en: "API gateway with sliding-window rate limiting (Redis sorted sets), Redis-backed circuit breaker, transparent HTTP proxy and a real-time terminal dashboard. The gateway never imports the logger — logging goes through a pub/sub bus."
+    en: "API gateway with sliding-window rate limiting (Redis sorted sets), Redis-backed circuit breaker, transparent HTTP proxy and a real-time terminal dashboard. The gateway never imports the logger; logging goes through a pub/sub bus."
   status: active
   listed: true
   case_study: false
@@ -250,6 +314,7 @@
   short:
     es: "Servicio backend que recibe, persiste y expone eventos de webhook de cualquier origen. Incluye un tester HTTP para disparar requests salientes desde el browser. MVC + Repository, con separación estricta de capas."
     en: "Backend service that receives, stores and exposes webhook events from any source. Includes a built-in HTTP tester to fire outbound requests from the browser. MVC + Repository, strict layer separation."
+  early: true
   status: done
   listed: true
   case_study: false
@@ -270,6 +335,7 @@
   short:
     es: "Servicio agendado que consulta cotizaciones USD/ARS, persiste el histórico, dispara alertas por email al cruzar umbrales y manda reportes periódicos. Configurable por completo vía variables de entorno."
     en: "Scheduled service that fetches USD/ARS exchange rates, persists history, fires email alerts on threshold breaches and sends periodic reports. Fully configurable through environment variables."
+  early: true
   status: done
   listed: true
   case_study: false
@@ -289,6 +355,7 @@
   short:
     es: "Motor de combate por turnos para un RPG 2D. Capa de datos en ScriptableObjects con clonado en runtime (Flyweight), esqueleto de ejecución de skills en 4 fases (Template Method), estrategias de movimiento intercambiables, pool genérico por reflection y pipeline de modificadores de daño (Chain of Responsibility)."
     en: "Turn-based combat engine for a 2D RPG. ScriptableObject data layer with runtime cloning (Flyweight), 4-phase skill execution skeleton (Template Method), pluggable movement strategies, a generic object pool auto-discovered via reflection and a damage modifier pipeline (Chain of Responsibility)."
+  early: true
   status: done
   listed: true
   case_study: false

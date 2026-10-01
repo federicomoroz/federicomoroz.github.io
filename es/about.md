@@ -9,15 +9,22 @@ permalink: /es/about/
 {% assign lang = page.lang %}
 
 <section class="hero">
-  <h1><span class="accent">{{ t.about.heading }}</span></h1>
+  <h1>{{ t.about.heading }}</h1>
   <p class="lead">{{ t.about.lead }}</p>
   {% assign cv_file = cv.cv_pdf[lang] %}
   {% if cv_file and cv_file != "" %}
   <div class="hero-actions">
     <a class="primary" href="{{ '/cv/' | append: cv_file | relative_url }}" download>{{ t.about.cv_download }}</a>
   </div>
-  <p class="cv-note">{{ t.about.cv_note }}</p>
   {% endif %}
+</section>
+
+<h2>{{ t.about.journey_heading }}</h2>
+<section class="journey journey-detail">
+  <figure class="portrait"><img src="{{ '/assets/img/portrait.webp' | relative_url }}" alt="{{ site.author.name }}" width="896" height="1088" loading="lazy" decoding="async"></figure>
+  <div class="journey-text">
+    {% include journey.html lang=lang detail=true %}
+  </div>
 </section>
 
 <h2>{{ t.about.profile_heading }}</h2>

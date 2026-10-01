@@ -1,30 +1,30 @@
 ---
 title: Home
-description: Federico Palatnik Moroz — Full Stack with a backend focus, Forward Deployed Engineer and AI integration with no black boxes.
+description: "Federico Palatnik Moroz: AI Engineer, backend and integrations, Forward Deployed Engineer. AI systems where the model proposes and the code decides."
 permalink: /en/
 ---
 
 {% assign t = site.data.i18n[page.lang] %}
 {% assign lang = page.lang %}
-{% assign visible_projects = site.data.projects | where: "listed", true %}
-{% assign visible_tools = site.data.tools | where: "visibility", "public" %}
+{% assign visible_projects = site.data.projects | where: "listed", true | where_exp: "p", "p.early != true" %}
+{% assign cv_file = site.data.cv.cv_pdf[lang] %}
 
-<section class="hero hero-home">
-  <p class="hero-nombre">{{ site.author.name }}</p>
-  <h1>{{ t.hero.headline | markdownify | remove: "<p>" | remove: "</p>" }}</h1>
-  <p class="hero-roles">{{ t.hero.roles }}</p>
-  <p class="lead">{{ t.hero.lead }}</p>
-  <p class="hero-metric">{{ t.hero.metric }}</p>
-  {% assign cv_file = site.data.cv.cv_pdf[lang] %}
-  <div class="hero-actions">
-    <a class="primary" href="{{ '/' | append: lang | append: '/projects/' | relative_url }}">{{ t.hero.cta_projects }}</a>
-    {% if cv_file and cv_file != "" %}<a href="{{ '/cv/' | append: cv_file | relative_url }}" download>{{ t.hero.cta_cv }}</a>{% endif %}
-    <a href="{{ '/' | append: lang | append: '/about/' | relative_url }}">{{ t.nav.about }}</a>
+<section class="intro">
+  <div>
+    <h1 class="hero-name">{{ site.author.name }}</h1>
+    <p class="claim">{{ t.hero.headline }}</p>
+    <p class="roles">{% for r in t.hero.roles_list %}<span>{{ r }}</span>{% endfor %}</p>
   </div>
-  {% include hero-contact.html t=t %}
+  <div class="intro-side">
+    <div class="hero-actions">
+      <a class="primary" href="{{ '/' | append: lang | append: '/projects/' | relative_url }}">{{ t.hero.cta_projects }}</a>
+      {% if cv_file and cv_file != "" %}<a href="{{ '/cv/' | append: cv_file | relative_url }}" download>{{ t.hero.cta_cv }}</a>{% endif %}
+    </div>
+    {% include hero-contact.html t=t %}
+  </div>
 </section>
 
-<hr>
+{% include lab.html lang=lang %}
 
 <div class="section-heading">
   <h2>{{ t.home.projects_heading }}</h2>
@@ -42,32 +42,17 @@ permalink: /en/
 {% endif %}
 
 <div class="section-heading">
-  <h2>{{ t.home.tools_heading }}</h2>
-  {% if visible_tools.size > 3 %}<a class="section-action" href="{{ '/' | append: lang | append: '/tools/' | relative_url }}">{{ t.home.view_all }}</a>{% endif %}
+  <h2>{{ t.home.journey_heading }}</h2>
 </div>
 
-{% if visible_tools.size > 0 %}
-<p class="muted">{{ visible_tools.size }} {% if visible_tools.size == 1 %}{{ t.home.tools_intro_one }}{% else %}{{ t.home.tools_intro_count }}{% endif %}</p>
+<section class="journey">
+  <figure class="portrait"><img src="{{ '/assets/img/portrait.webp' | relative_url }}" alt="{{ t.home.portrait_alt }}" width="896" height="1088" loading="lazy" decoding="async"></figure>
+  <div class="journey-text">
+    <p class="journey-intro">{{ t.home.journey_intro }}</p>
+    <p>{{ t.home.journey_origin }}</p>
+    {% include journey.html lang=lang %}
+    <a class="more" href="{{ '/' | append: lang | append: '/about/' | relative_url }}">{{ t.home.journey_more }}</a>
+  </div>
+</section>
 
-<div class="cards">
-  {% for tool in visible_tools limit:3 %}
-  <article class="card">
-    <div class="card-header">
-      <a class="card-title" href="{{ tool.repo }}" target="_blank" rel="noopener">{{ tool.name }}</a>
-      {% if tool.version %}<span class="card-version">v{{ tool.version }}</span>{% endif %}
-    </div>
-    <div class="card-id">{{ tool.kind }}</div>
-    <p class="card-desc">{{ tool.description[lang] | markdownify | strip_html | truncate: 160 }}</p>
-    <div class="card-meta">
-      {% for tech in tool.tech %}<span>{{ tech }}</span>{% endfor %}
-    </div>
-  </article>
-  {% endfor %}
-</div>
-{% else %}
-<p class="muted">{{ t.home.tools_empty }}</p>
-{% endif %}
-
-<hr>
-
-{% include contact-section.html t=t lang='en' %}
+{% include contact-section.html t=t lang=lang %}
