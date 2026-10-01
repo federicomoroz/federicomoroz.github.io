@@ -88,19 +88,22 @@ can no longer be ordered against each other.
 
 ## Second bug: it only shows up against the real engine
 
-The integration tests spin up a **real MySQL 8.0** in an ephemeral container that lives for
-the length of the run. The first run against the real engine threw:
+The first version stored the history in SQLite, and the integration tests ran against that
+real engine instead of an in-memory double. The first run threw:
 
 ```
 SQLite does not support expressions of type 'DateTimeOffset' in ORDER BY clauses
 ```
 
-The history endpoint ordered by date, and `DateTimeOffset` can't be ordered server-side.
-The error happens at **runtime**: the code compiled cleanly and would have crashed in
-production on the first request to the history endpoint.
+The history endpoint ordered by date, and SQLite can't order a `DateTimeOffset`
+server-side. The error happens at **runtime**: the code compiled cleanly and would have
+crashed in production on the first request to the history endpoint. Since then the adapter
+stores the date in UTC and converts it back to `DateTimeOffset` on read, so the domain keeps
+speaking in instants with an offset and the database only sees a `datetime`.
 
 An in-memory double would have hidden it. Both bugs on this page showed up when running
-against a real engine.
+against a real engine, which is why today's integration tests spin up a **real MySQL 8.0**
+in an ephemeral container that lives for the length of the run.
 
 ## The business rule doesn't know HTTP exists
 

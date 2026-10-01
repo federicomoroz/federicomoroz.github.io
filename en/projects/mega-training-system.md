@@ -62,7 +62,7 @@ cycling, with a different agent and a different output format.
 
 <figure class="shot">
   <img src="{{ '/assets/img/mts-plan.jpg' | relative_url }}" alt="A twelve-week hypertrophy plan: three mesocycles, four days a week, and the exercises with sets, reps, rest and RPE." loading="lazy" width="1600" height="1150">
-  <figcaption>Twelve weeks across three mesocycles (accumulation, intensification, peak and deload), with every exercise and its sets, reps, rest and target RPE.</figcaption>
+  <figcaption>Twelve weeks across three mesocycles (accumulation, intensification, and peak with deload), with every exercise and its sets, reps, rest and target RPE.</figcaption>
 </figure>
 
 The capture shows something the diagrams don't: **the member's restriction reaches the
@@ -88,7 +88,8 @@ the services are tested with no filesystem and no database.
 
 The full architecture is documented as a single self-contained HTML page with nine generated
 diagrams: the overview, the modules, the domain models, the SSE and threading flow, the
-SQLite schema, the discipline system and the API routes.
+SQLite schema, the discipline system, the API routes, resilience and startup, and an
+architecture assessment.
 
 <div class="cards">
   <article class="card">
@@ -120,9 +121,3 @@ adjusts them and the generation is still used.
 **Streaming with SSE and threading, no asyncio.** Flask is synchronous. Generation returns a
 `task_id`, the client attaches to a stream, and each task has its own `threading.Event`, so
 there is no polling.
-
-<!--
-  TODO(Federico): same two items as the Spanish page — how it reached the client, and a real
-  production incident with its root cause. Both would add more than the pattern list above,
-  and neither can be written without you.
--->

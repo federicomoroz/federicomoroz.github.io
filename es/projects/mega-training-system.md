@@ -61,7 +61,7 @@ cycling, con otro agent y otro formato de salida.
 
 <figure class="shot">
   <img src="{{ '/assets/img/mts-plan.jpg' | relative_url }}" alt="Plan de hipertrofia de doce semanas: tres mesociclos, cuatro días por semana y los ejercicios con series, repeticiones, descanso y RPE." loading="lazy" width="1600" height="1150">
-  <figcaption>Doce semanas en tres mesociclos (acumulación, intensificación, pico y deload), con cada ejercicio y sus series, repeticiones, descanso y RPE objetivo.</figcaption>
+  <figcaption>Doce semanas en tres mesociclos (acumulación, intensificación, y pico con deload), con cada ejercicio y sus series, repeticiones, descanso y RPE objetivo.</figcaption>
 </figure>
 
 En la captura se ve algo que los diagramas no muestran: **la restricción del socio llega
@@ -87,7 +87,8 @@ así que los servicios se testean sin filesystem ni base de datos.
 
 La arquitectura completa está documentada como un solo HTML autocontenido con nueve
 diagramas generados: la visión general, los módulos, los modelos de dominio, el flujo de
-SSE y threading, el schema de SQLite, el sistema de disciplinas y las rutas de la API.
+SSE y threading, el schema de SQLite, el sistema de disciplinas, las rutas de la API, la
+resiliencia y el arranque, y una evaluación de la arquitectura.
 
 <div class="cards">
   <article class="card">
@@ -121,13 +122,3 @@ Sumar una disciplina es un `plugin.py` y su agent, sin abrir `app.py`.
 **Streaming con SSE y threading, sin asyncio.** Flask es sincrónico. La generación devuelve
 un `task_id`, el cliente se engancha a un stream y cada tarea tiene su `threading.Event`, así
 que no hace falta polling.
-
-<!--
-  TODO(Federico): dos cosas que solo podés contar vos y que le agregarían mucho a esta
-  página. No las escribo yo porque serían inventadas.
-
-  1. Cómo llegó al cliente: si fue freelance, un favor que escaló, o parte de un trabajo.
-     Eso decide si esto se cuenta como experiencia laboral o como proyecto.
-  2. Qué se rompió en producción y cómo lo arreglaste. Un incidente real con su causa raíz
-     vale más que toda la lista de patterns de arriba.
--->

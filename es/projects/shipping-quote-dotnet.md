@@ -89,19 +89,22 @@ pueden ordenar entre sí.
 
 ## Segundo bug: sólo aparece contra el motor real
 
-Los tests de integración levantan un **MySQL 8.0 real** en un contenedor efímero que vive
-lo que dura la corrida. La primera corrida contra el motor real tiró:
+La primera versión guardaba el historial en SQLite, y los tests de integración corrían
+contra ese motor real en lugar de un doble en memoria. La primera corrida tiró:
 
 ```
 SQLite does not support expressions of type 'DateTimeOffset' in ORDER BY clauses
 ```
 
-El endpoint de historial ordenaba por fecha, y el tipo `DateTimeOffset` no se puede
-ordenar del lado del servidor. El error es de **runtime**: el código compilaba y se habría
-caído en producción con el primer request al historial.
+El endpoint de historial ordenaba por fecha, y SQLite no puede ordenar un `DateTimeOffset`
+del lado del servidor. El error es de **runtime**: el código compilaba y se habría caído en
+producción con el primer request al historial. Desde entonces el adaptador guarda la fecha
+en UTC y la convierte a `DateTimeOffset` al leer, así el dominio sigue hablando en instantes
+con offset y la base solo ve un `datetime`.
 
 Un doble en memoria lo habría tapado. Los dos bugs de esta página aparecieron corriendo
-contra un motor real.
+contra un motor real, y por eso los tests de integración de hoy levantan un **MySQL 8.0
+real** en un contenedor efímero que vive lo que dura la corrida.
 
 ## La regla de negocio no sabe que existe HTTP
 
