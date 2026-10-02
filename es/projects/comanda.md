@@ -23,7 +23,7 @@ permalink: /es/projects/comanda/
 
 <div class="callout">
   <p class="callout-title">Sobre los datos</p>
-  <p>Es un MVP para presentarle a un restaurante. La carta inicial sale de la carta online pública de una parrilla real; todo lo demás (bebidas, mesas, personal, insumos, costos y datos fiscales) es simulado, y la facturación usa un ARCA simulado, así que los comprobantes salen como «sin validez fiscal». El código es privado; la documentación, las capturas y los diagramas son públicos.</p>
+  <p>La carta inicial sale de la carta online pública de una parrilla real; todo lo demás (bebidas, mesas, personal, insumos, costos y datos fiscales) es simulado, y la facturación usa un ARCA simulado, así que los comprobantes salen como «sin validez fiscal». El código es privado; la documentación, las capturas y los diagramas son públicos.</p>
 </div>
 
 <figure class="shot">
