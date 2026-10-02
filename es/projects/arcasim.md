@@ -16,6 +16,7 @@ permalink: /es/projects/arcasim/
   </div>
   <p class="row-links">
     <a href="https://github.com/federicomoroz/arcasim" target="_blank" rel="noopener">Repo ↗</a>
+    <a href="https://github.com/federicomoroz/arcasim/blob/main/docs/api.md" target="_blank" rel="noopener">Referencia de la API ↗</a>
     <a href="https://github.com/federicomoroz/arcasim/tree/main/docs/arca" target="_blank" rel="noopener">El estudio de la API de ARCA ↗</a>
   </p>
 </section>
@@ -33,7 +34,7 @@ permalink: /es/projects/arcasim/
 <div class="statline">
   <div class="stat"><span class="num">22</span><span class="lbl">operaciones de WSFEv1, con el WSDL oficial de ARCA</span></div>
   <div class="stat"><span class="num">byte a byte</span><span class="lbl">igual a una respuesta real de ARCA, salvo el número de CAE</span></div>
-  <div class="stat"><span class="num">64</span><span class="lbl">tests, con el cliente generado del WSDL oficial y PostgreSQL real</span></div>
+  <div class="stat"><span class="num">72</span><span class="lbl">tests, con el cliente generado del WSDL oficial y PostgreSQL real</span></div>
 </div>
 
 ## Para qué sirve
@@ -41,6 +42,16 @@ permalink: /es/projects/arcasim/
 Facturar en Argentina pasa por ARCA: cada factura necesita su CAE, y para pedirlo la aplicación firma un pedido con un certificado digital, obtiene un ticket de acceso y recién ahí llama al servicio de factura electrónica. Probar eso contra ARCA exige tramitar un certificado de prueba con clave fiscal, y aun así no se puede provocar lo que más importa probar: que ARCA no responda, que rechace con un código concreto o que la respuesta se pierda después de otorgar el CAE.
 
 La salida habitual es un simulador escrito dentro de cada aplicación, que devuelve un CAE inventado y nunca se parece del todo al protocolo real. ArcaSim hace lo contrario: **la aplicación usa desde el primer día el mismo cliente con el que va a facturar en producción**, y del otro lado responde un servicio que habla exactamente como ARCA.
+
+## Solo con los endpoints
+
+ArcaSim se usa como se usa ARCA: con dos URL y un certificado. No hay que cargar nada antes. Acepta cualquier certificado que tenga el CUIT en el DN, ya sea el que WSASS emitió para homologación o uno autofirmado con openssl, y el contribuyente y el punto de venta se crean la primera vez que se usan. Por eso funciona desde cualquier lenguaje y con cualquier cliente de ARCA: el repositorio trae un ejemplo que pide un CAE solo con openssl y curl, y una [referencia completa](https://github.com/federicomoroz/arcasim/blob/main/docs/api.md) de las operaciones, los errores y los escenarios de prueba.
+
+```bash
+docker run -d -p 7080:8080 -v arcasim-data:/data ghcr.io/federicomoroz/arcasim
+```
+
+Quien necesite reproducir los errores de registro de ARCA (certificado no autorizado, punto de venta que no es de web services) lo pasa a modo estricto.
 
 ## Cambiar ArcaSim por ARCA
 
@@ -67,6 +78,15 @@ ARCA no es idempotente: si la respuesta a un pedido de CAE se pierde y la aplica
 
 Desde el panel también se tira el servicio, se le agrega una demora, se rechaza el próximo comprobante con el código que se elija y se mueve el reloj: vencer el ticket, salirse del rango de fechas permitido o cruzar el 01/12/2026, cuando la condición frente al IVA del receptor pasa a ser obligatoria.
 
+## Saturación y cuellos de botella
+
+<figure class="shot">
+  <img src="{{ '/assets/img/arcasim-trafico.jpg' | relative_url }}" alt="La sección de tráfico del panel: dos medidores de saturación, uno por servicio. El de WSFEv1 marca 58,3 %: de 12 pedidos en el último minuto, 7 rechazados, con 805 ms de promedio y 1.281 ms de p95, con dos atendidos a la vez, 400 ms cada uno y tres lugares en la cola." loading="lazy" width="1245" height="384">
+  <figcaption>Doce pedidos al mismo tiempo, con dos atendidos a la vez y tres lugares en la cola: cinco salen, siete reciben 503, y el medidor lo marca.</figcaption>
+</figure>
+
+A fin de mes ARCA se pone lenta y a veces no atiende. ArcaSim lo reproduce sobre sus mismas URL, con un límite de pedidos por minuto, una capacidad (cuántos atiende a la vez y cuánto tarda cada uno) y una cola. Lo que no entra recibe HTTP 503, como un balanceador saturado, y el cliente tiene que reintentar. El medidor, portado del de [Rate Guardian]({{ '/es/tools/#rate-guardian' | relative_url }}), marca qué parte de los pedidos del último minuto quedó afuera, y un registro en vivo muestra cada ticket, cada CAE y cada rechazo.
+
 ## Igual que ARCA, verificado
 
 | Nivel | Qué coincide | Cómo se verifica |
@@ -91,13 +111,14 @@ Desde el panel también se tira el servicio, se le agrega una demora, se rechaza
 - **Una capa SOAP propia en lugar de CoreWCF.** ARCA tiene tres dialectos distintos: ASMX de .NET en WSFEv1, Apache Axis en WSAA y Java en el padrón, cada uno con sus rarezas, y un framework genérico las normaliza. WSFEv1 lee y escribe con `XmlSerializer`, el mismo serializador que usa ASMX: acepta los elementos en cualquier orden, ignora los desconocidos y responde con el mismo formato.
 - **Reglas como datos.** Cada validación es una regla con el código que lleva al pedir un CAE y el que lleva al informar un comprobante de contingencia, donde muchas observan en lugar de rechazar. Si rechaza u observa, y el texto, salen de la tabla del manual, extraída del estudio a un archivo de datos.
 - **Perfiles.** El ambiente (homologación o producción) cambia los textos del encabezado y la ventana del ticket; la versión del manual (4.7 o 4.8) sigue por defecto la fecha del reloj de ArcaSim.
+- **Un bus de eventos entre las partes.** El control de tráfico, WSAA y WSFEv1 publican lo que pasa: pedido atendido o rechazado, ticket emitido, comprobante autorizado o rechazado. El medidor y el registro en vivo solo escuchan; nadie sabe que existen. La API de administración son controllers MVC, uno por recurso.
 - **Almacenamiento detrás de puertos.** En memoria para los tests de una aplicación, que arranca en milisegundos, o PostgreSQL para un equipo o una CI. La misma suite de contrato corre contra los dos.
 - **Claves que sobreviven a un reinicio.** La autoridad certificante propia y la clave que firma los tickets se guardan en disco: una aplicación guarda su ticket 12 horas y no tiene por qué perderlo si ArcaSim se reinicia.
 
 Antes de escribir código se estudió la API pública de ARCA completa: WSAA, WSFEv1 y sus 496 validaciones, el catálogo de servicios y la normativa vigente, con los WSDL oficiales y respuestas reales. Está en el repositorio, en [`docs/arca/`](https://github.com/federicomoroz/arcasim/tree/main/docs/arca).
 
 ```bash
-dotnet run --project src/ArcaSim.Api     # en memoria, panel en /arcasim/
-docker compose up -d                     # con PostgreSQL
+docker run -d -p 7080:8080 ghcr.io/federicomoroz/arcasim   # la imagen publicada, en memoria
+docker compose up -d                                       # desde el repositorio, con PostgreSQL
 dotnet test
 ```
