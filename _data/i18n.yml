@@ -73,8 +73,6 @@ es:
     docs: "Documentación ↗"
     updated: "actualizado"
     archived: "archivado"
-    early_heading: "Primeros proyectos"
-    early_note: "De cuando empecé a programar. Siguen públicos en GitHub."
     capabilities_heading: "Sobre estos proyectos"
     capabilities_note: "Parte del trabajo es privado o está bajo NDA. En vez del repo, en esos casos queda un write-up técnico autocontenido: la decisión de diseño y el resultado, sin exponer código de clientes."
   services:
@@ -168,8 +166,6 @@ en:
     docs: "Docs ↗"
     updated: "updated"
     archived: "archived"
-    early_heading: "Early projects"
-    early_note: "From when I started programming. They are still public on GitHub."
     capabilities_heading: "About these projects"
     capabilities_note: "Some of the work is private or under NDA. In those cases what's public is a self-contained technical write-up: the design decision and the outcome, without exposing client code."
   services:

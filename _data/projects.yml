@@ -19,8 +19,6 @@
 #                      puede preguntar si un archivo existe, y un src roto es
 #                      peor que no tener portada.
 #   cover_alt       -> texto alternativo de esa imagen. Obligatorio si hay cover.
-#   early           -> true: proyecto de cuando arrancaba. Sale en una lista
-#                      compacta al final de /projects/, no en la grilla.
 #   card.{es,en}    -> texto corto para la tarjeta (si falta, usa `short`, que
 #                      tambien es lo que contesta el asistente).
 #   reading         -> el numero medido que define al proyecto: num + what.
@@ -378,7 +376,9 @@
   short:
     es: "Servicio agendado que consulta cotizaciones USD/ARS, persiste el histórico, dispara alertas por email al cruzar umbrales y manda reportes periódicos. Configurable por completo vía variables de entorno."
     en: "Scheduled service that fetches USD/ARS exchange rates, persists history, fires email alerts on threshold breaches and sends periodic reports. Fully configurable through environment variables."
-  early: true
+  card:
+    es: "Sigue el dólar en Argentina: guarda el histórico de cotizaciones, avisa por mail cuando cruza el valor que elegiste y manda reportes periódicos."
+    en: "Tracks the Argentine dollar: keeps the rate history, emails you when it crosses the value you chose and sends periodic reports."
   status: done
   listed: true
   case_study: false
@@ -398,7 +398,9 @@
   short:
     es: "Motor de combate por turnos para un RPG 2D. Capa de datos en ScriptableObjects con clonado en runtime (Flyweight), esqueleto de ejecución de skills en 4 fases (Template Method), estrategias de movimiento intercambiables, pool genérico por reflection y pipeline de modificadores de daño (Chain of Responsibility)."
     en: "Turn-based combat engine for a 2D RPG. ScriptableObject data layer with runtime cloning (Flyweight), 4-phase skill execution skeleton (Template Method), pluggable movement strategies, a generic object pool auto-discovered via reflection and a damage modifier pipeline (Chain of Responsibility)."
-  early: true
+  card:
+    es: "Motor de combate por turnos para un RPG 2D en Unity. Cada habilidad, estrategia de movimiento y modificador de daño es una pieza aparte: se suman sin tocar el motor."
+    en: "Turn-based combat engine for a 2D RPG in Unity. Each skill, movement strategy and damage modifier is a separate piece: new ones plug in without touching the engine."
   status: done
   listed: true
   case_study: false
