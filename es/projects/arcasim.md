@@ -85,7 +85,7 @@ Desde el panel también se tira el servicio, se le agrega una demora, se rechaza
   <figcaption>Doce pedidos al mismo tiempo, con dos atendidos a la vez y tres lugares en la cola: cinco salen, siete reciben 503, y el medidor lo marca.</figcaption>
 </figure>
 
-A fin de mes ARCA se pone lenta y a veces no atiende. ArcaSim lo reproduce sobre sus mismas URL, con un límite de pedidos por minuto, una capacidad (cuántos atiende a la vez y cuánto tarda cada uno) y una cola. Lo que no entra recibe HTTP 503, como un balanceador saturado, y el cliente tiene que reintentar. El medidor, portado del de [Rate Guardian]({{ '/es/tools/#rate-guardian' | relative_url }}), marca qué parte de los pedidos del último minuto quedó afuera, y un registro en vivo muestra cada ticket, cada CAE y cada rechazo.
+Un servicio saturado tarda o deja de atender. ArcaSim lo reproduce sobre sus mismas URL, con un límite de pedidos por minuto, una capacidad (cuántos atiende a la vez y cuánto tarda cada uno) y una cola. Lo que no entra recibe HTTP 503, como un balanceador saturado, y el cliente tiene que reintentar. El medidor, portado del de [Rate Guardian]({{ '/es/tools/#rate-guardian' | relative_url }}), marca qué parte de los pedidos del último minuto quedó afuera, y un registro en vivo muestra cada ticket, cada CAE y cada rechazo.
 
 ## Igual que ARCA, verificado
 

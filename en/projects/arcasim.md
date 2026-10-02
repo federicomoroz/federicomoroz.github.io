@@ -85,7 +85,7 @@ The panel also takes the service down, adds a delay, rejects the next voucher wi
   <figcaption>Twelve requests at once, with two served at a time and three places in the queue: five go through, seven get a 503, and the meter shows it. The panel is in Spanish.</figcaption>
 </figure>
 
-At the end of the month ARCA gets slow and sometimes does not answer. ArcaSim reproduces it on its same URLs, with a requests-per-minute limit, a capacity (how many it serves at once and how long each takes) and a queue. What does not fit gets HTTP 503, like a saturated load balancer, and the client has to retry. The meter, ported from [Rate Guardian]({{ '/en/tools/#rate-guardian' | relative_url }})'s, shows which share of the last minute's requests was turned away, and a live log shows every ticket, every CAE and every rejection.
+A saturated service slows down or stops answering. ArcaSim reproduces that on its same URLs, with a requests-per-minute limit, a capacity (how many it serves at once and how long each takes) and a queue. What does not fit gets HTTP 503, like a saturated load balancer, and the client has to retry. The meter, ported from [Rate Guardian]({{ '/en/tools/#rate-guardian' | relative_url }})'s, shows which share of the last minute's requests was turned away, and a live log shows every ticket, every CAE and every rejection.
 
 ## The same as ARCA, checked
 
