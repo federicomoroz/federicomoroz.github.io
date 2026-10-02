@@ -215,18 +215,3 @@ What changed along the way, and why. The detail for each point is in its ADR.
 | Testing OIDC against a real provider found that `ForbidAsync` redirected instead of returning 403, and that the role was never matched. | The whole flow is verified now, and the claim name became configuration. ([ADR 0011](https://github.com/federicomoroz/nexo/blob/main/docs/adr/0011-identidad-del-panel-interno.md)) |
 | The first load test gave 0 of 40 connections. | The server never completed the close handshake when the client closed first. Two of the repo's clients were masking it with a `try/catch`. |
 | The propagation measurement reported 227 ms, and that number was read as "the cost of dispatching to forty". | With the full curve (1, 5, 10, 20 and 40 connections), the latency does not move: the cost is in the write path and the fan-out is nearly free. A single point cannot separate fixed cost from what scales. |
-
-## What it does not do
-
-- **It is not integrated with a real provider of the distributor's.** There is
-  OIDC verified against Keycloak; there is no tenant registered.
-- **The measurements are from localhost.** Elsewhere you can expect the same
-  shape of curve, but not the same milliseconds.
-- **There is no deployed demo.** There is a deployment descriptor, but nothing
-  is running.
-- **It runs as a single instance.** The quota is shared now, but the journal and
-  the change signal are per process: with two instances, a change published on
-  one does not wake the connections on the other.
-
-Each of these limitations is documented in the ADRs, next to the alternative
-that was rejected.

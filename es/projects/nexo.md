@@ -217,18 +217,3 @@ Lo que cambió en el camino y por qué. El detalle de cada punto está en su ADR
 | Probar el OIDC contra un proveedor real encontró que `ForbidAsync` redirigía en vez de devolver 403, y que el rol nunca se encontraba. | El flujo completo pasó a estar verificado, y el nombre del claim a ser configuración. ([ADR 0011](https://github.com/federicomoroz/nexo/blob/main/docs/adr/0011-identidad-del-panel-interno.md)) |
 | La primera prueba de carga daba 0 de 40 conexiones. | El servidor no completaba el apretón de manos de cierre cuando cerraba el cliente. Dos clientes del repo lo tapaban con un `try/catch`. |
 | La medición de propagación daba 227 ms, y ese número se leía como «el costo de despachar a cuarenta». | Con la curva completa (1, 5, 10, 20 y 40 conexiones), la latencia no se mueve: el costo está en el camino de escritura y el reparto sale casi gratis. Con un solo punto no se puede separar el costo fijo del que escala. |
-
-## Lo que no hace
-
-- **No está integrado con un proveedor de identidad real del distribuidor.** Hay
-  OIDC verificado contra Keycloak; no hay un tenant dado de alta.
-- **Las mediciones son de localhost.** Afuera se puede esperar la misma forma de
-  curva, pero no los mismos milisegundos.
-- **No hay demo desplegada.** Está el descriptor de despliegue, pero no hay nada
-  corriendo.
-- **Corre en una sola instancia.** El cupo ya se comparte, pero el diario y el
-  despertador de cambios son de proceso: con dos instancias, un cambio publicado
-  en una no despierta a las conexiones de la otra.
-
-Cada una de estas limitaciones está documentada en los ADR, junto a la
-alternativa que se descartó.
