@@ -39,5 +39,19 @@
       "arquitectura.html": "docs/architecture/index.html",
       "arquitectura_en.html": "docs/architecture/index_en.html"
     }
+  },
+  "comanda": {
+    "repo": "federicomoroz/comanda-docs",
+    "branch": "main",
+    "archivos": {
+      "arquitectura.html": "docs/diagrams/arquitectura.html",
+      "arquitectura_en.html": "docs/diagrams/arquitectura_en.html",
+      "circuito.html": "docs/diagrams/circuito.html",
+      "circuito_en.html": "docs/diagrams/circuito_en.html",
+      "facturacion.html": "docs/diagrams/facturacion.html",
+      "facturacion_en.html": "docs/diagrams/facturacion_en.html",
+      "instalacion.html": "docs/diagrams/instalacion.html",
+      "instalacion_en.html": "docs/diagrams/instalacion_en.html"
+    }
   }
 }

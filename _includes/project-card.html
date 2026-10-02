@@ -71,6 +71,8 @@
       {% if include.proj.demo %}<a href="{{ include.proj.demo }}" target="_blank" rel="noopener">{{ include.t.projects.demo }}</a>{% endif %}
       {% if include.proj.repo_visibility == "public" and include.proj.repo %}<a href="{{ include.proj.repo }}" target="_blank" rel="noopener">{{ include.t.projects.repo }}</a>
       {% else %}<span class="muted">{{ include.t.projects.repo_private }}</span>{% endif %}
+      {% comment %} A private repo can still have public docs: a repo of its own with the README and the diagrams. {% endcomment %}
+      {% if include.proj.docs %}<a href="{{ include.proj.docs }}" target="_blank" rel="noopener">{{ include.t.projects.docs }}</a>{% endif %}
       {% if gh %}<span class="repo-facts">{{ include.t.projects.updated }} {{ gh.pushed_at | date: "%m/%Y" }}{% if gh.stars > 0 %} · ★ {{ gh.stars }}{% endif %}</span>{% endif %}
     </p>
   </div>

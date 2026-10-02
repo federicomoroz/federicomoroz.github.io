@@ -1033,7 +1033,8 @@ tbody td code
     margin: 24px 0 28px;
 }
 
-.shot img
+.shot img,
+.shot video
 {
     display: block;
     width: 100%;
@@ -1041,6 +1042,20 @@ tbody td code
     border: 1px solid var(--border-strong);
     border-radius: var(--radius);
     box-shadow: 0 18px 44px rgba(0, 0, 0, 0.5);
+}
+
+/* Two screens side by side, such as a tablet next to a desktop screen. */
+.shot-pair
+{
+    display: grid;
+    grid-template-columns: 0.62fr 1fr;
+    gap: 16px;
+    align-items: start;
+}
+
+@media (max-width: 720px)
+{
+    .shot-pair { grid-template-columns: 1fr; }
 }
 
 .shot figcaption

@@ -15,6 +15,10 @@ cargan mermaid y font-awesome por CDN, asi que necesitan conexion.
 No son diagramas, pero viven aca porque son el mismo tipo de artefacto -HTML autocontenido que
 se sirve tal cual- y salen del mismo repo.
 
+`comanda/` tiene los cuatro diagramas de Comanda, en español y en inglés, copiados de
+`docs/diagrams/` de su repo de documentación (`comanda-docs`, público; el código es privado).
+Son SVG con animaciones CSS, autocontenidos.
+
 Los cinco diagramas son del agente de investigación de contracargos,
 copiados de `docs/diagrams/` de su repo.
 
