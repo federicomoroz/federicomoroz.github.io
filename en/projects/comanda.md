@@ -8,7 +8,7 @@ permalink: /en/projects/comanda/
 
 <section class="hero">
   <h1>Comanda <span class="tag active">active</span></h1>
-  <p class="lead">Waiters take orders on a tablet, every kitchen station gets its own items on screen and on paper, and the register charges and invoices. It all runs on a computer at the restaurant, so <strong>if the internet goes down, the floor keeps working</strong>.</p>
+  <p class="lead"><strong>Restaurant management system.</strong> Waiters take orders on a tablet, every kitchen station gets its own items on screen and on paper, and the register charges and invoices. It all runs on a computer at the restaurant, so <strong>if the internet goes down, the floor keeps working</strong>.</p>
   <div class="chip-row">
     <span class="tag">C#</span><span class="tag">.NET 8</span><span class="tag">ASP.NET Core MVC</span>
     <span class="tag">SignalR</span><span class="tag">EF Core</span><span class="tag">React</span>

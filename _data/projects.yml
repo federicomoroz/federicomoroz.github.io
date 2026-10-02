@@ -105,8 +105,8 @@
     es: "Gestión gastronómica para un restaurante. Los mozos toman pedidos en una tablet, cada estación de cocina recibe lo suyo en pantalla y en papel, la caja cobra en partes y factura con CAE y QR, el stock se descuenta por receta y el dueño recibe avisos por Telegram. Corre en una PC del local, así que sin internet el salón sigue funcionando. La facturación es un servicio aparte con su propia base y su cola: si ARCA o el propio servicio se caen, las facturas esperan en un outbox y salen solas. .NET 8, React y PostgreSQL, con 173 tests que levantan los dos servicios contra bases reales."
     en: "Restaurant management. Waiters take orders on a tablet, every kitchen station gets its own items on screen and on paper, the register splits payments and invoices with CAE and QR, stock is deducted by recipe and the owner gets Telegram alerts. It runs on a computer at the restaurant, so the floor keeps working without internet. Invoicing is a separate service with its own database and queue: if ARCA or the service itself goes down, invoices wait in an outbox and go out on their own. .NET 8, React and PostgreSQL, with 173 tests that start both services against real databases."
   card:
-    es: "Los mozos toman pedidos en una tablet, cada estación de cocina recibe lo suyo en pantalla y en papel, y la caja cobra y factura. Corre en una PC del local: sin internet, el salón sigue."
-    en: "Waiters take orders on a tablet, each kitchen station gets its own items on screen and on paper, and the register charges and invoices. It runs on a computer at the restaurant: without internet, the floor carries on."
+    es: "Sistema de gestión gastronómica: pedidos desde tablets, comandas por estación de cocina, caja con factura electrónica, stock por receta y avisos al dueño. Funciona sin internet."
+    en: "Restaurant management system: tables and orders from tablets, kitchen tickets per station, a register with electronic invoicing, stock by recipe and owner alerts. It runs on site and works without internet."
   reading:
     num: { es: "14 s", en: "14 s" }
     what:

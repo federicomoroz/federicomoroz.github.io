@@ -8,7 +8,7 @@ permalink: /es/projects/comanda/
 
 <section class="hero">
   <h1>Comanda <span class="tag active">activo</span></h1>
-  <p class="lead">Los mozos toman los pedidos en una tablet, cada estación de la cocina recibe lo suyo en pantalla y en papel, y la caja cobra y factura. Todo corre en una computadora del restaurante, así que <strong>si se corta internet, el salón sigue funcionando</strong>.</p>
+  <p class="lead"><strong>Sistema de gestión gastronómica para restaurantes.</strong> Los mozos toman los pedidos en una tablet, cada estación de la cocina recibe lo suyo en pantalla y en papel, y la caja cobra y factura. Todo corre en una computadora del restaurante, así que <strong>si se corta internet, el salón sigue funcionando</strong>.</p>
   <div class="chip-row">
     <span class="tag">C#</span><span class="tag">.NET 8</span><span class="tag">ASP.NET Core MVC</span>
     <span class="tag">SignalR</span><span class="tag">EF Core</span><span class="tag">React</span>
