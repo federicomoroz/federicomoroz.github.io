@@ -5,13 +5,32 @@
 # y el script no toca.
 #
 # usuario: federicomoroz
-# generado: 2026-10-02T01:15:42+00:00
+# generado: 2026-10-02T13:57:16+00:00
 
 user: "federicomoroz"
-generated_at: "2026-10-02T01:15:42+00:00"
-count: 14
+generated_at: "2026-10-02T13:57:16+00:00"
+count: 15
 
 repos:
+  - name: "arcasim"
+    full_name: "federicomoroz/arcasim"
+    url: "https://github.com/federicomoroz/arcasim"
+    description: "Los web services de ARCA (WSAA + WSFEv1) para desarrollar y probar sin ARCA: mismos WSDL, mismos errores, fallas a pedido. .NET 8."
+    language: "C#"
+    homepage: "https://federicomoroz.github.io/es/projects/arcasim/"
+    stars: 0
+    forks: 0
+    archived: false
+    is_fork: false
+    pushed_at: "2026-10-02T13:55:43Z"
+    created_at: "2026-10-02T13:36:57Z"
+    topics:
+      - "afip"
+      - "arca"
+      - "dotnet"
+      - "factura-electronica"
+      - "simulator"
+      - "soap"
   - name: "comanda-docs"
     full_name: "federicomoroz/comanda-docs"
     url: "https://github.com/federicomoroz/comanda-docs"
@@ -22,7 +41,7 @@ repos:
     forks: 0
     archived: false
     is_fork: false
-    pushed_at: "2026-10-02T01:15:30Z"
+    pushed_at: "2026-10-02T13:53:06Z"
     created_at: "2026-10-02T00:52:34Z"
     topics:
       - "aspnet-core"
