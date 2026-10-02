@@ -2168,6 +2168,8 @@ a { text-underline-offset: 3px; }
 .reading .what { color: var(--fg); font-size: 0.95rem; line-height: 1.4; }
 
 .stackline { margin: 0 0 16px; color: var(--fg-faint); font-size: 0.88rem; font-variation-settings: "wdth" 90; }
+.used-by { margin: -8px 0 16px; color: var(--fg-muted); font-size: 0.88rem; }
+.used-by a { color: var(--accent); }
 
 .pcard-links { font-size: 0.92rem; }
 .repo-facts { font-family: var(--font-sans); font-size: 0.85rem; margin-left: auto; }

@@ -1,11 +1,12 @@
 ---
-title: Tools
-description: Herramientas y librerias publicadas como repos independientes.
+title: Servicios y herramientas
+description: Servicios que se enchufan a otros sistemas (notificaciones, colas, gateways, webhooks) y herramientas chicas publicadas como repos independientes.
 permalink: /es/tools/
 ---
 
 {% assign t = site.data.i18n[page.lang] %}
 {% assign lang = page.lang %}
+{% assign services = site.data.projects | where: "listed", true | where: "group", "service" %}
 {% assign visible_tools = site.data.tools | where: "visibility", "public" %}
 
 <section class="hero">
@@ -13,7 +14,28 @@ permalink: /es/tools/
   <p class="lead">{{ t.tools.lead }}</p>
 </section>
 
+{% comment %}
+  Services are entries of _data/projects.yml with `group: service`: they get the
+  same card as the projects (cover, live preview, links), because they are the
+  same kind of work, only smaller and meant to be plugged into something else.
+{% endcomment %}
+{% if services.size > 0 %}
+<div class="section-heading">
+  <h2>{{ t.services.heading }}</h2>
+</div>
+<p class="muted">{{ t.services.lead }}</p>
+<div class="project-grid">
+  {% for proj in services %}
+    {% include project-card.html proj=proj lang=lang t=t i=forloop.index0 %}
+  {% endfor %}
+</div>
+{% endif %}
+
+<div class="section-heading">
+  <h2>{{ t.tools.tools_heading }}</h2>
+</div>
 {% if visible_tools.size > 0 %}
+<p class="muted">{{ t.tools.tools_lead }}</p>
 <div class="cards">
   {% for tool in visible_tools %}
   <article class="card">
@@ -35,13 +57,6 @@ permalink: /es/tools/
   </article>
   {% endfor %}
 </div>
-
-<h2>{{ t.tools.notes_heading }}</h2>
-<ul>
-  <li>{{ t.tools.notes_semver }}</li>
-  <li>{{ t.tools.notes_changelog }}</li>
-</ul>
 {% else %}
 <p class="muted">{{ t.tools.empty }}</p>
-<p class="muted">{{ t.tools.empty_long }}</p>
 {% endif %}

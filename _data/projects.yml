@@ -24,6 +24,11 @@
 #   card.{es,en}    -> texto corto para la tarjeta (si falta, usa `short`, que
 #                      tambien es lo que contesta el asistente).
 #   reading         -> el numero medido que define al proyecto: num + what.
+#   group           -> OPCIONAL. `service`: una pieza que se enchufa a otros sistemas
+#                      (notificaciones, colas, gateways). Sale en /tools/ ("Servicios y
+#                      herramientas") y no en /projects/.
+#   used_by         -> OPCIONAL, lista de ids de proyectos que usan este servicio. La
+#                      tarjeta lo muestra como "Lo usa: ...".
 #   docs            -> OPCIONAL: repo publico con la documentacion de un proyecto de
 #                      codigo privado. La tarjeta lo linkea junto a "repo privado".
 #   live            -> vista previa animada en la tarjeta: src en assets/img/,
@@ -226,6 +231,7 @@
     - GitHub Actions
 
 - id: task-queue
+  group: service
   cover: task-queue.webp
   cover_alt: "Panel de Task Queue con la cola y los workers"
   name: Task Queue
@@ -302,6 +308,7 @@
     - Docker
 
 - id: rate-guardian
+  group: service
   cover: rate-guardian.webp
   cover_alt: "Dashboard de Rate Guardian: medidor de saturación de la API, stats y requests bloqueados por el circuit breaker"
   name: Rate Guardian
@@ -322,6 +329,8 @@
     - httpx
 
 - id: notify-router
+  used_by: [comanda]
+  group: service
   cover: notify-router.webp
   cover_alt: "Dashboard de Notify Router con eventos entrantes y despachos multi-canal exitosos"
   name: Notify Router
@@ -342,13 +351,13 @@
     - APScheduler
 
 - id: webhook-logger
+  group: service
   cover: webhook-logger.webp
   cover_alt: "Consola de Webhook Logger con el log de eventos"
   name: Webhook Logger
   short:
     es: "Servicio backend que recibe, persiste y expone eventos de webhook de cualquier origen. Incluye un tester HTTP para disparar requests salientes desde el browser. MVC + Repository, con separación estricta de capas."
     en: "Backend service that receives, stores and exposes webhook events from any source. Includes a built-in HTTP tester to fire outbound requests from the browser. MVC + Repository, strict layer separation."
-  early: true
   status: done
   listed: true
   case_study: false

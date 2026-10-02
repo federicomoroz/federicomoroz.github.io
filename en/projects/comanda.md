@@ -98,6 +98,21 @@ Charging a tab deducts stock, closes the table and adds to the shift. **Either a
 
 The whole system installs with Docker Compose on a computer at the restaurant, and tablets, screens and printers connect over the local Wi‑Fi. Both databases back themselves up: on start if the last backup is over a day old, then once a day, to an external disk or a cloud-synced folder. Restoring takes one command, and it backs up the current state first in case the wrong folder was picked.
 
+## My own services it uses
+
+<div class="cards">
+  <article class="card">
+    <div class="card-header"><a class="card-title" href="{{ '/en/tools/#notify-router' | relative_url }}">notify-router</a></div>
+    <div class="card-desc"><p>The owner's alerts. Comanda saves every alert in its outbox and sends it to notify-router, which decides who gets it and through which channel (Telegram, email, Slack or webhook). Each alert carries an idempotency key, so a repeated one is never sent twice.</p></div>
+    <p class="row-links"><a href="https://github.com/federicomoroz/notify-router" target="_blank" rel="noopener">Repo ↗</a> <a href="{{ '/en/tools/#notify-router' | relative_url }}">Page</a></p>
+  </article>
+  <article class="card">
+    <div class="card-header"><a class="card-title" href="{{ '/en/tools/#webhook-logger' | relative_url }}">webhook-logger</a></div>
+    <div class="card-desc"><p>A receiver that stores everything sent to it. It was the destination channel for testing the alerts end to end: with each link cut on purpose, every alert arrived exactly once.</p></div>
+    <p class="row-links"><a href="https://github.com/federicomoroz/webhook-logger" target="_blank" rel="noopener">Repo ↗</a> <a href="https://webhook-logger-9paz.onrender.com" target="_blank" rel="noopener">Live demo ↗</a> <a href="{{ '/en/tools/#webhook-logger' | relative_url }}">Page</a></p>
+  </article>
+</div>
+
 ## For engineers
 
 <figure class="shot">

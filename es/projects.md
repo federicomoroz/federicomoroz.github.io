@@ -6,7 +6,8 @@ permalink: /es/projects/
 
 {% assign t = site.data.i18n[page.lang] %}
 {% assign lang = page.lang %}
-{% assign visible_projects = site.data.projects | where: "listed", true %}
+{% comment %} Services (notify-router, task-queue...) live in /tools/, next to the tools. {% endcomment %}
+{% assign visible_projects = site.data.projects | where: "listed", true | where_exp: "p", "p.group != 'service'" %}
 
 <section class="hero">
   <h1>{{ t.projects.heading }}</h1>

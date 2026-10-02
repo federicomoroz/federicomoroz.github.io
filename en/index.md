@@ -6,7 +6,8 @@ permalink: /en/
 
 {% assign t = site.data.i18n[page.lang] %}
 {% assign lang = page.lang %}
-{% assign visible_projects = site.data.projects | where: "listed", true | where_exp: "p", "p.early != true" %}
+{% assign visible_projects = site.data.projects | where: "listed", true | where_exp: "p", "p.early != true" | where_exp: "p", "p.group != 'service'" %}
+{% assign services = site.data.projects | where: "listed", true | where: "group", "service" %}
 {% assign cv_file = site.data.cv.cv_pdf[lang] %}
 
 <section class="intro">
@@ -39,6 +40,19 @@ permalink: /en/
 </div>
 {% else %}
 <p class="muted">{{ t.home.projects_empty }}</p>
+{% endif %}
+
+{% if services.size > 0 %}
+<div class="section-heading">
+  <h2>{{ t.home.services_heading }}</h2>
+  <a class="section-action" href="{{ '/' | append: lang | append: '/tools/' | relative_url }}">{{ t.home.view_all }}</a>
+</div>
+<p class="muted">{{ t.services.lead }}</p>
+<div class="project-grid">
+  {% for proj in services limit:4 %}
+    {% include project-card.html proj=proj lang=lang t=t i=forloop.index0 %}
+  {% endfor %}
+</div>
 {% endif %}
 
 <div class="section-heading">

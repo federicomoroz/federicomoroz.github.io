@@ -9,7 +9,7 @@ es:
   nav:
     home: Inicio
     projects: Proyectos
-    tools: Herramientas
+    tools: Servicios y herramientas
     about: Sobre mí
     github: GitHub
   hero:
@@ -50,6 +50,7 @@ es:
     profile_heading: Perfil
     projects_heading: Proyectos
     projects_empty: "Aún no hay proyectos publicados."
+    services_heading: "Servicios y herramientas"
     tools_heading: Herramientas
     tools_intro_one: "herramienta publicada."
     tools_intro_count: "herramientas y librerías publicadas."
@@ -76,9 +77,15 @@ es:
     early_note: "De cuando empecé a programar. Siguen públicos en GitHub."
     capabilities_heading: "Sobre estos proyectos"
     capabilities_note: "Parte del trabajo es privado o está bajo NDA. En vez del repo, en esos casos queda un write-up técnico autocontenido: la decisión de diseño y el resultado, sin exponer código de clientes."
+  services:
+    heading: Servicios
+    lead: "Piezas que resuelven un problema puntual y se enchufan a un sistema más grande: avisos por varios canales, una cola de tareas, un gateway que limita el uso de una API, un receptor de webhooks. Cada una corre sola, con su API y su panel."
+    used_by: "Lo usa:"
   tools:
-    heading: Herramientas
-    lead: "Herramientas y librerías chicas, publicadas como repos independientes."
+    heading: Servicios y herramientas
+    tools_heading: Herramientas
+    tools_lead: "Herramientas chicas, publicadas como repos independientes."
+    lead: "Servicios que se enchufan a otros sistemas, y herramientas chicas para el día a día."
     install_label: "Instalación"
     empty: "Aún no hay herramientas publicadas."
     empty_long: "Cuando una herramienta se estabilice y se publique, aparece listada acá."
@@ -105,7 +112,7 @@ en:
   nav:
     home: Home
     projects: Projects
-    tools: Tools
+    tools: Services & tools
     about: About
     github: GitHub
   hero:
@@ -138,6 +145,7 @@ en:
     profile_link: "See full profile →"
     projects_heading: Projects
     projects_empty: "No published projects yet."
+    services_heading: "Services & tools"
     tools_heading: Tools
     tools_intro_one: "published tool."
     tools_intro_count: "published tools and libraries."
@@ -164,9 +172,15 @@ en:
     early_note: "From when I started programming. They are still public on GitHub."
     capabilities_heading: "About these projects"
     capabilities_note: "Some of the work is private or under NDA. In those cases what's public is a self-contained technical write-up: the design decision and the outcome, without exposing client code."
+  services:
+    heading: Services
+    lead: "Pieces that solve one problem and plug into a larger system: alerts across channels, a task queue, a gateway that rate-limits an API, a webhook receiver. Each one runs on its own, with its own API and dashboard."
+    used_by: "Used by:"
   tools:
-    heading: Tools
-    lead: "Small tools and libraries, shipped as standalone repos."
+    heading: Services & tools
+    tools_heading: Tools
+    tools_lead: "Small tools, shipped as standalone repos."
+    lead: "Services that plug into other systems, and small tools for everyday work."
     install_label: "Install"
     empty: "No published tools yet."
     empty_long: "Once a tool stabilizes and ships, it shows up here."

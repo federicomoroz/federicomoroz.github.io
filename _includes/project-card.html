@@ -31,7 +31,7 @@
 
 {% assign variante = include.i | default: 0 | modulo: 5 %}
 
-<article class="pcard">
+<article class="pcard" id="{{ include.proj.id }}">
   {% if cover_url != "" %}<a class="pcard-cover" href="{{ cover_url }}"{% unless include.proj.case_study %} target="_blank" rel="noopener"{% endunless %}>{% else %}<div class="pcard-cover">{% endif %}
     {% if include.proj.cover %}
       {% comment %} width/height evitan el salto de layout mientras carga. {% endcomment %}
@@ -65,6 +65,13 @@
     {% endif %}
 
     <p class="stackline">{{ include.proj.tech | join: ", " }}</p>
+
+    {% comment %} Services name the projects that use them, with a link to each one. {% endcomment %}
+    {% if include.proj.used_by %}
+    <p class="used-by">{{ include.t.services.used_by }}
+      {% for uid in include.proj.used_by %}{% assign user = site.data.projects | where: "id", uid | first %}<a href="{{ '/' | append: include.lang | append: '/projects/' | append: uid | append: '/' | relative_url }}">{{ user.name }}</a>{% unless forloop.last %}, {% endunless %}{% endfor %}
+    </p>
+    {% endif %}
 
     <p class="pcard-links">
       {% if include.proj.case_study %}<a class="cs-link" href="{{ detail_url | relative_url }}">{{ include.t.projects.read_case_study }}</a>{% endif %}

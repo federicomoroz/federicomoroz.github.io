@@ -98,6 +98,21 @@ Cobrar una cuenta descuenta el stock, cierra la mesa y suma al turno. **O pasa t
 
 El sistema completo se instala con Docker Compose en una PC del restaurante, y tablets, pantallas e impresoras se conectan por el Wi‑Fi del local. Las dos bases se respaldan solas: al arrancar, si el último respaldo tiene más de un día, y después una vez por día, en un disco externo o en una carpeta que sincroniza la nube. Restaurar es un comando, y antes de restaurar se respalda el estado actual por si se eligió la carpeta equivocada.
 
+## Servicios propios que usa
+
+<div class="cards">
+  <article class="card">
+    <div class="card-header"><a class="card-title" href="{{ '/es/tools/#notify-router' | relative_url }}">notify-router</a></div>
+    <div class="card-desc"><p>Los avisos al dueño. Comanda guarda cada aviso en su outbox y se lo manda a notify-router, que decide a quién y por qué canal (Telegram, mail, Slack o webhook). Cada aviso viaja con una clave de idempotencia, así que uno repetido no se envía dos veces.</p></div>
+    <p class="row-links"><a href="https://github.com/federicomoroz/notify-router" target="_blank" rel="noopener">Repo ↗</a> <a href="{{ '/es/tools/#notify-router' | relative_url }}">Página</a></p>
+  </article>
+  <article class="card">
+    <div class="card-header"><a class="card-title" href="{{ '/es/tools/#webhook-logger' | relative_url }}">webhook-logger</a></div>
+    <div class="card-desc"><p>Un receptor que guarda todo lo que le llega. Hizo de canal de destino para probar los avisos de punta a punta: con cada eslabón cortado a propósito, cada aviso llegó una sola vez.</p></div>
+    <p class="row-links"><a href="https://github.com/federicomoroz/webhook-logger" target="_blank" rel="noopener">Repo ↗</a> <a href="https://webhook-logger-9paz.onrender.com" target="_blank" rel="noopener">Demo en vivo ↗</a> <a href="{{ '/es/tools/#webhook-logger' | relative_url }}">Página</a></p>
+  </article>
+</div>
+
 ## Para técnicos
 
 <figure class="shot">
