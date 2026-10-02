@@ -1,0 +1,103 @@
+---
+title: ArcaSim
+description: "ARCA's web services, for developing and testing without ARCA: the same WSDL files, the same errors with their real texts, and failures on demand. Going to production changes two addresses and the certificate."
+permalink: /en/projects/arcasim/
+---
+
+<p class="crumbs"><a href="{{ '/en/tools/' | relative_url }}">{{ site.data.i18n[page.lang].services.back }}</a></p>
+
+<section class="hero">
+  <h1>ArcaSim <span class="tag active">active</span></h1>
+  <p class="lead"><strong>ARCA's web services, for developing and testing without ARCA,</strong> Argentina's tax authority. An application that invoices uses its real ARCA client against ArcaSim during development, in its tests and in demos. Going to production <strong>changes two addresses and the certificate, not the code</strong>.</p>
+  <div class="chip-row">
+    <span class="tag">C#</span><span class="tag">.NET 8</span><span class="tag">ASP.NET Core</span>
+    <span class="tag">SOAP</span><span class="tag">PostgreSQL</span><span class="tag">Docker</span>
+    <span class="tag">xUnit</span><span class="tag">Testcontainers</span>
+  </div>
+  <p class="row-links">
+    <a href="https://github.com/federicomoroz/arcasim" target="_blank" rel="noopener">Repo ↗</a>
+    <a href="https://github.com/federicomoroz/arcasim/tree/main/docs/arca" target="_blank" rel="noopener">The study of ARCA's API (Spanish) ↗</a>
+  </p>
+</section>
+
+<div class="callout">
+  <p class="callout-title">About ARCA</p>
+  <p>ArcaSim is not related to ARCA. The taxpayers are fictitious, the CAEs it grants have no tax validity and its access tickets only work against ArcaSim. What does come from ARCA are the WSDL files, the error codes and the texts, taken from its public documentation and from real responses. The panel is in Spanish.</p>
+</div>
+
+<figure class="shot">
+  <img src="{{ '/assets/img/arcasim-panel.jpg' | relative_url }}" alt="ArcaSim's panel: environment, manual version and clock; fictitious taxpayers with their points of sale; certificates and authorizations; failures on demand; exchange rates, and the table of issued vouchers with their CAE." loading="lazy" width="1425" height="1443">
+  <figcaption>The panel. What WSASS does at ARCA (certificates and authorizations), ArcaSim does here, and it also moves the clock and causes failures.</figcaption>
+</figure>
+
+<div class="statline">
+  <div class="stat"><span class="num">22</span><span class="lbl">WSFEv1 operations, with ARCA's official WSDL</span></div>
+  <div class="stat"><span class="num">byte for byte</span><span class="lbl">the same as a real ARCA response, except the CAE number</span></div>
+  <div class="stat"><span class="num">64</span><span class="lbl">tests, with the client generated from the official WSDL and real PostgreSQL</span></div>
+</div>
+
+## What it is for
+
+Invoicing in Argentina goes through ARCA: every invoice needs its authorization code (CAE), and to get it an application signs a request with a digital certificate, gets an access ticket and only then calls the electronic invoicing service. Testing that against ARCA takes a test certificate obtained with the company's tax credentials, and even then the things most worth testing cannot be caused: ARCA not answering, rejecting with a specific code, or the answer getting lost after the CAE was granted.
+
+The usual way out is a simulator written inside each application, which returns a made-up CAE and never quite matches the real protocol. ArcaSim does the opposite: **the application uses, from day one, the same client it will invoice with in production**, and on the other side answers a service that speaks exactly like ARCA.
+
+## Swapping ArcaSim for ARCA
+
+<figure class="shot">
+  <a href="{{ '/diagramas/arcasim/modulo_en.html' | relative_url }}"><img src="{{ '/assets/img/arcasim-modulo-en.gif' | relative_url }}" alt="Five-step animation: the application signs the request and gets its access ticket from ArcaSim; it asks for the CAE of an invoice B; the panel causes failures; the clock expires the ticket or crosses 01/12/2026; for production, the same calls go to ARCA by changing two addresses and the certificate." loading="lazy" width="1200" height="750"></a>
+  <figcaption>Nothing changes on the application's side: the client, the calls and the error handling are the same against ArcaSim and against ARCA.</figcaption>
+</figure>
+
+ArcaSim reproduces the two services an invoicing application needs:
+
+- **WSAA**, which hands out the access ticket. It checks the signed request in ARCA's order, returns the ticket in its exact format with a 12-hour life, and answers with the same errors, including the window that refuses a new ticket while the previous one is still valid.
+- **WSFEv1**, electronic invoicing, with its 22 operations: the CAE for one voucher or a batch, the last number authorized, looking up an issued voucher, the parameter tables and the CAEA contingency regime. The manual's validations answer with the code and the text ARCA answers with, missing accents and double spaces included.
+
+The repository also ships **Arca.Client**, the client applications use. It knows nothing about ArcaSim: it signs the request, keeps the ticket until it expires, builds the vouchers and tells a rejection, which gets fixed and sent again, from a failure worth retrying.
+
+## The answer that gets lost
+
+<figure class="shot">
+  <a href="{{ '/diagramas/arcasim/recuperacion_en.html' | relative_url }}"><img src="{{ '/assets/img/arcasim-recuperacion-en.gif' | relative_url }}" alt="Six-step animation: the client asks for the last number and requests the CAE of 42; ARCA grants and stores it but the connection drops; a blind resend would get 10016; the client looks up 42 with FECompConsultar and recovers the CAE without duplicating anything." loading="lazy" width="1200" height="750"></a>
+  <figcaption>The procedure ARCA's manual prescribes for communication errors, caused on demand from the panel.</figcaption>
+</figure>
+
+ARCA is not idempotent: if the answer to a CAE request gets lost and the application sends the same voucher again, ARCA rejects it because that number is already issued. Against the real ARCA this is almost impossible to cause. **ArcaSim causes it on demand**: it grants the CAE, stores it and drops the connection before answering. Arca.Client handles it as the manual says, looking the voucher up before retrying.
+
+The panel also takes the service down, adds a delay, rejects the next voucher with a chosen code and moves the clock: expire the ticket, leave the allowed date range or cross 01/12/2026, when the receiver's VAT condition becomes mandatory.
+
+## The same as ARCA, checked
+
+| Level | What matches | How it is checked |
+|---|---|---|
+| Contract | Paths, ARCA's WSDL files, operations, namespaces, SOAP 1.1 and 1.2 | The client `dotnet-svcutil` generates from ARCA's WSDL, untouched, asks ArcaSim for a CAE over SOAP 1.1 and 1.2 |
+| Bytes | One line with the `FEHeaderInfo` header, an empty `<CAE />`, amounts without trailing zeros, the literal `NULL` for empty dates; Apache Axis faults in WSAA | An approved CAE and a rejected resend match recorded ARCA responses byte for byte, except the CAE number |
+| Errors | The manual's codes, and the real texts where they are known | A coverage table generated from the code |
+| Behavior | Numbering per CUIT, point of sale and type; a batch stops at the first rejection; 12-hour ticket | Scenario tests |
+
+## Used by
+
+<div class="cards">
+  <article class="card">
+    <div class="card-header"><a class="card-title" href="{{ '/en/projects/comanda/' | relative_url }}">Comanda</a></div>
+    <div class="card-desc"><p>Comanda's billing service gets its CAEs with Arca.Client. In homologación mode it talks to ArcaSim, and its tests walk the real path: CAE granted, a rejection by ARCA with its reason at the register, and ARCA down with the invoice waiting in the queue.</p></div>
+    <p class="row-links"><a href="{{ '/en/projects/comanda/' | relative_url }}">Case study</a></p>
+  </article>
+</div>
+
+## For engineers
+
+- **Its own SOAP layer instead of CoreWCF.** ARCA has three different dialects: .NET ASMX in WSFEv1, Apache Axis in WSAA and Java in the taxpayer registry, each with its quirks, and a generic framework would smooth them out. WSFEv1 reads and writes through `XmlSerializer`, the serializer ASMX itself uses: it accepts elements in any order, ignores unknown ones and answers in the same format.
+- **Rules as data.** Each validation is a rule carrying its code when asking for a CAE and its code when reporting a contingency voucher, where many observe instead of rejecting. Whether it rejects or observes, and its text, come from the manual's table, extracted from the study into a data file.
+- **Profiles.** The environment (homologación or production) changes the header texts and the ticket window; the manual version (4.7 or 4.8) follows ArcaSim's clock by default.
+- **Storage behind ports.** In memory for an application's tests, starting in milliseconds, or PostgreSQL for a team or a CI. The same contract suite runs against both.
+- **Keys that survive a restart.** ArcaSim's own certification authority and the ticket-signing key live on disk: an application keeps its ticket for 12 hours and has no reason to lose it when ArcaSim restarts.
+
+Before any code, the whole public ARCA API was studied: WSAA, WSFEv1 and its 496 validations, the service catalog and the regulations in force, with the official WSDL files and real responses. It is in the repository, in [`docs/arca/`](https://github.com/federicomoroz/arcasim/tree/main/docs/arca) (Spanish).
+
+```bash
+dotnet run --project src/ArcaSim.Api     # in memory, panel at /arcasim/
+docker compose up -d                     # with PostgreSQL
+dotnet test
+```

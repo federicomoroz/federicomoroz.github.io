@@ -77,7 +77,7 @@ es:
     capabilities_note: "Parte del trabajo es privado o está bajo NDA. En vez del repo, en esos casos queda un write-up técnico autocontenido: la decisión de diseño y el resultado, sin exponer código de clientes."
   services:
     heading: Servicios
-    lead: "Piezas que trabajan para otros sistemas y no para un usuario final: distribuir el catálogo de un mayorista a sus revendedores, atender reclamos de soporte contra un ERP, cotizar envíos, publicar eventos sin perder ninguno, avisar por varios canales, encolar tareas, limitar el uso de una API. Cada una corre sola, con su API."
+    lead: "Piezas que trabajan para otros sistemas y no para un usuario final: distribuir el catálogo de un mayorista a sus revendedores, hacer de ARCA para facturar en desarrollo, atender reclamos de soporte contra un ERP, cotizar envíos, publicar eventos sin perder ninguno, avisar por varios canales, encolar tareas, limitar el uso de una API. Cada una corre sola, con su API."
     back: "← Volver a servicios y herramientas"
     used_by: "Lo usa:"
   tools:
@@ -171,7 +171,7 @@ en:
     capabilities_note: "Some of the work is private or under NDA. In those cases what's public is a self-contained technical write-up: the design decision and the outcome, without exposing client code."
   services:
     heading: Services
-    lead: "Pieces that work for other systems rather than for an end user: distributing a wholesaler's catalogue to its resellers, handling support claims against an ERP, quoting shipments, publishing events without losing any, alerting across channels, queuing tasks, rate-limiting an API. Each one runs on its own, with its own API."
+    lead: "Pieces that work for other systems rather than for an end user: distributing a wholesaler's catalogue to its resellers, standing in for ARCA to invoice in development, handling support claims against an ERP, quoting shipments, publishing events without losing any, alerting across channels, queuing tasks, rate-limiting an API. Each one runs on its own, with its own API."
     back: "← Back to services & tools"
     used_by: "Used by:"
   tools:

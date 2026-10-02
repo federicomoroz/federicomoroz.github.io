@@ -53,5 +53,15 @@
       "instalacion.html": "docs/diagrams/instalacion.html",
       "instalacion_en.html": "docs/diagrams/instalacion_en.html"
     }
+  },
+  "arcasim": {
+    "repo": "federicomoroz/arcasim",
+    "branch": "main",
+    "archivos": {
+      "modulo.html": "docs/diagrams/modulo.html",
+      "modulo_en.html": "docs/diagrams/modulo_en.html",
+      "recuperacion.html": "docs/diagrams/recuperacion.html",
+      "recuperacion_en.html": "docs/diagrams/recuperacion_en.html"
+    }
   }
 }

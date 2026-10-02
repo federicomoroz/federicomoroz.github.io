@@ -23,7 +23,7 @@ permalink: /es/projects/comanda/
 
 <div class="callout">
   <p class="callout-title">Sobre los datos</p>
-  <p>Las mesas, el personal, los insumos, los costos y los datos fiscales que se ven son de prueba, y la facturación usa un ARCA simulado, así que los comprobantes salen como «sin validez fiscal». El código es privado; la documentación, las capturas y los diagramas son públicos.</p>
+  <p>Las mesas, el personal, los insumos, los costos y los datos fiscales que se ven son de prueba, y las facturas que se ven las autorizó un ARCA simulado, así que salen como «sin validez fiscal». El código es privado; la documentación, las capturas y los diagramas son públicos.</p>
 </div>
 
 <figure class="shot">
@@ -34,7 +34,7 @@ permalink: /es/projects/comanda/
 </figure>
 
 <div class="statline">
-  <div class="stat"><span class="num">173</span><span class="lbl">tests, con los dos servicios sobre bases reales</span></div>
+  <div class="stat"><span class="num">176</span><span class="lbl">tests, con los dos servicios sobre bases reales</span></div>
   <div class="stat"><span class="num">14<small>s</small></span><span class="lbl">para que una factura que esperaba salga sola, cuando vuelve Facturación</span></div>
   <div class="stat"><span class="num">0</span><span class="lbl">facturas perdidas con Facturación o ARCA caídas</span></div>
 </div>
@@ -58,7 +58,7 @@ permalink: /es/projects/comanda/
 
 <figure class="shot">
   <img src="{{ '/assets/img/comanda-factura.jpg' | relative_url }}" alt="La caja con una factura B autorizada: datos del emisor, ítems, IVA contenido, CAE y el QR de ARCA, marcada como comprobante simulado." loading="lazy" width="1440" height="900">
-  <figcaption>Factura B con CAE y el QR en el formato de ARCA. En esta versión el CAE viene de un simulador, y el comprobante lo dice dos veces.</figcaption>
+  <figcaption>Factura B con CAE y el QR en el formato de ARCA. El CAE de la captura viene de un simulador, y el comprobante lo dice dos veces.</figcaption>
 </figure>
 
 **El dueño** configura todo desde la pantalla, sin tocar código: la carta, los precios, las opciones de cada plato, las estaciones, las mesas, el personal y sus permisos, los medios de pago y los datos fiscales. Cada plato tiene su receta: al cobrar se descuentan los insumos y la administración muestra cuánto deja cada plato y cuáles quedaron por debajo del margen objetivo. Por Telegram, mail o Slack se entera de un insumo que llega al mínimo, de una caja que cierra con diferencia o de una anulación grande.
@@ -101,6 +101,11 @@ El sistema completo se instala con Docker Compose en una PC del restaurante, y t
 ## Servicios propios que usa
 
 <div class="cards">
+  <article class="card">
+    <div class="card-header"><a class="card-title" href="{{ '/es/projects/arcasim/' | relative_url }}">ArcaSim</a></div>
+    <div class="card-desc"><p>Los web services de ARCA para desarrollar y probar. Facturación pide los CAE con el cliente real de ARCA, que en homologación habla con ArcaSim; para producción cambian la dirección y el certificado. Los tests de Facturación recorren con él el camino real: CAE otorgado, rechazo de ARCA y ARCA caída.</p></div>
+    <p class="row-links"><a href="https://github.com/federicomoroz/arcasim" target="_blank" rel="noopener">Repo ↗</a> <a href="{{ '/es/projects/arcasim/' | relative_url }}">Página</a></p>
+  </article>
   <article class="card">
     <div class="card-header"><a class="card-title" href="{{ '/es/tools/#notify-router' | relative_url }}">notify-router</a></div>
     <div class="card-desc"><p>Los avisos al dueño. Comanda guarda cada aviso en su outbox y se lo manda a notify-router, que decide a quién y por qué canal (Telegram, mail, Slack o webhook). Cada aviso viaja con una clave de idempotencia, así que uno repetido no se envía dos veces.</p></div>
@@ -156,4 +161,4 @@ Las decisiones que sostienen el resto:
 - **Sesiones validadas en cada pedido.** Login por PIN con bloqueo por intentos, cookie de sesión y roles; desactivar a alguien corta su acceso al instante.
 - **Una mudanza de datos sin ventanas.** Las facturas que el servidor emitía antes de que existiera Facturación pasaron al servicio nuevo con una migración que, en una sola transacción, convierte cada fila en un mensaje del outbox y borra las tablas viejas. Facturación las importa con su número y su CAE originales. La migración tiene un test que la corre sobre una base con datos.
 
-Los 173 tests corren contra PostgreSQL real con Testcontainers, y los de Comanda levantan también el servicio de Facturación en memoria, con su propia base, hablándose por HTTP. Además, el sistema completo se probó de punta a punta con las imágenes de producción: Facturación caída, ARCA caída, el servidor caído mientras Facturación autoriza, el servidor arrancando sin Facturación, un reinicio completo y una restauración de respaldo.
+Los 176 tests corren contra PostgreSQL real con Testcontainers, y los de Comanda levantan también el servicio de Facturación en memoria, con su propia base, hablándose por HTTP. Además, el sistema completo se probó de punta a punta con las imágenes de producción: Facturación caída, ARCA caída, el servidor caído mientras Facturación autoriza, el servidor arrancando sin Facturación, un reinicio completo y una restauración de respaldo.

@@ -106,8 +106,8 @@
   cover_alt: "La pantalla de cocina de Comanda con las comandas de cada mesa, en verde, amarillo y rojo según la demora"
   name: Comanda
   short:
-    es: "Gestión gastronómica para un restaurante. Los mozos toman pedidos en una tablet, cada estación de cocina recibe lo suyo en pantalla y en papel, la caja cobra en partes y factura con CAE y QR, el stock se descuenta por receta y el dueño recibe avisos por Telegram. Corre en una PC del local, así que sin internet el salón sigue funcionando. La facturación es un servicio aparte con su propia base y su cola: si ARCA o el propio servicio se caen, las facturas esperan en un outbox y salen solas. .NET 8, React y PostgreSQL, con 173 tests que levantan los dos servicios contra bases reales."
-    en: "Restaurant management. Waiters take orders on a tablet, every kitchen station gets its own items on screen and on paper, the register splits payments and invoices with CAE and QR, stock is deducted by recipe and the owner gets Telegram alerts. It runs on a computer at the restaurant, so the floor keeps working without internet. Invoicing is a separate service with its own database and queue: if ARCA or the service itself goes down, invoices wait in an outbox and go out on their own. .NET 8, React and PostgreSQL, with 173 tests that start both services against real databases."
+    es: "Gestión gastronómica para un restaurante. Los mozos toman pedidos en una tablet, cada estación de cocina recibe lo suyo en pantalla y en papel, la caja cobra en partes y factura con CAE y QR, el stock se descuenta por receta y el dueño recibe avisos por Telegram. Corre en una PC del local, así que sin internet el salón sigue funcionando. La facturación es un servicio aparte con su propia base y su cola: si ARCA o el propio servicio se caen, las facturas esperan en un outbox y salen solas. .NET 8, React y PostgreSQL, con 176 tests que levantan los dos servicios contra bases reales."
+    en: "Restaurant management. Waiters take orders on a tablet, every kitchen station gets its own items on screen and on paper, the register splits payments and invoices with CAE and QR, stock is deducted by recipe and the owner gets Telegram alerts. It runs on a computer at the restaurant, so the floor keeps working without internet. Invoicing is a separate service with its own database and queue: if ARCA or the service itself goes down, invoices wait in an outbox and go out on their own. .NET 8, React and PostgreSQL, with 176 tests that start both services against real databases."
   card:
     es: "Sistema de gestión gastronómica: pedidos desde tablets, comandas por estación de cocina, caja con factura electrónica, stock por receta y avisos al dueño. Funciona sin internet."
     en: "Restaurant management system: tables and orders from tablets, kitchen tickets per station, a register with electronic invoicing, stock by recipe and owner alerts. It runs on site and works without internet."
@@ -169,6 +169,39 @@
     - Testcontainers
     - xUnit
     - Docker
+
+- id: arcasim
+  used_by: [comanda]
+  group: service
+  cover: arcasim.webp
+  cover_alt: "Panel de ArcaSim con los contribuyentes ficticios, los certificados, las fallas a pedido y los comprobantes emitidos"
+  name: ArcaSim
+  short:
+    es: "Los web services de ARCA para desarrollar y probar sin ARCA. Una aplicación que factura usa su cliente real (WSAA para el ticket de acceso, WSFEv1 para el CAE) contra ArcaSim, y para pasar a producción se cambian dos direcciones y el certificado. Responde con los WSDL oficiales y con los errores y textos reales: un CAE aprobado coincide byte a byte con una respuesta grabada de ARCA, salvo el número. Desde su panel se tira el servicio, se fuerza un rechazo o se corta la respuesta después de otorgar el CAE. .NET 8 con una capa SOAP propia, 64 tests."
+    en: "ARCA's web services, for developing and testing without ARCA, Argentina's tax authority. An application that invoices uses its real client (WSAA for the access ticket, WSFEv1 for the CAE) against ArcaSim, and going to production means changing two addresses and the certificate. It answers with the official WSDL files and the real errors and texts: an approved CAE matches a recorded ARCA response byte for byte, except the number. Its panel takes the service down, forces a rejection or drops the answer after granting the CAE. .NET 8 with its own SOAP layer, 64 tests."
+  card:
+    es: "Los web services de ARCA para desarrollar y probar: mismo protocolo, mismos errores y fallas a pedido. Para pasar a producción se cambian dos direcciones y el certificado, no el código."
+    en: "ARCA's web services for development and testing: same protocol, same errors and failures on demand. Going to production changes two addresses and the certificate, not the code."
+  reading:
+    num: { es: "byte a byte", en: "byte for byte" }
+    what:
+      es: "igual a una respuesta real de ARCA, salvo el número de CAE"
+      en: "the same as a real ARCA response, except the CAE number"
+  live: { src: arcasim-modulo.gif, kind: diagram }
+  status: active
+  listed: true
+  case_study: true
+  repo: https://github.com/federicomoroz/arcasim
+  repo_visibility: public
+  tech:
+    - "C#"
+    - .NET 8
+    - ASP.NET Core
+    - SOAP
+    - PostgreSQL
+    - Docker
+    - xUnit
+    - Testcontainers
 
 - id: order-outbox-service
   group: service

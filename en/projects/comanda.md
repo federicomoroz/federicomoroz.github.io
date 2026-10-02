@@ -23,7 +23,7 @@ permalink: /en/projects/comanda/
 
 <div class="callout">
   <p class="callout-title">About the data</p>
-  <p>The tables, staff, ingredients, costs and tax data on screen are test data, and invoicing runs against a simulated ARCA, the Argentine tax authority, so invoices print as "not valid for tax purposes". The app is in Spanish. The code is private; the docs, screenshots and diagrams are public.</p>
+  <p>The tables, staff, ingredients, costs and tax data on screen are test data, and the invoices shown were authorized by a simulated ARCA, the Argentine tax authority, so they print as "not valid for tax purposes". The app is in Spanish. The code is private; the docs, screenshots and diagrams are public.</p>
 </div>
 
 <figure class="shot">
@@ -34,7 +34,7 @@ permalink: /en/projects/comanda/
 </figure>
 
 <div class="statline">
-  <div class="stat"><span class="num">173</span><span class="lbl">tests, both services on real databases</span></div>
+  <div class="stat"><span class="num">176</span><span class="lbl">tests, both services on real databases</span></div>
   <div class="stat"><span class="num">14<small>s</small></span><span class="lbl">for a waiting invoice to go out on its own once billing is back</span></div>
   <div class="stat"><span class="num">0</span><span class="lbl">invoices lost with billing or ARCA down</span></div>
 </div>
@@ -58,7 +58,7 @@ permalink: /en/projects/comanda/
 
 <figure class="shot">
   <img src="{{ '/assets/img/comanda-factura.jpg' | relative_url }}" alt="The register with an authorized invoice B: issuer data, items, VAT included, CAE and ARCA's QR, marked as a simulated invoice." loading="lazy" width="1440" height="900">
-  <figcaption>Invoice B with CAE and a QR in ARCA's format. In this version the CAE comes from a simulator, and the invoice says so twice.</figcaption>
+  <figcaption>Invoice B with CAE and a QR in ARCA's format. The CAE in the screenshot comes from a simulator, and the invoice says so twice.</figcaption>
 </figure>
 
 **The owner** configures everything on screen, with no code: the menu, prices, each dish's options, stations, tables, staff and their permissions, payment methods and tax data. Every dish has a recipe: charging a tab deducts the ingredients, and the admin shows what each dish earns and which ones fell below the target margin. By Telegram, email or Slack they hear about an ingredient reaching its minimum, a shift closing short or a large void.
@@ -101,6 +101,11 @@ The whole system installs with Docker Compose on a computer at the restaurant, a
 ## My own services it uses
 
 <div class="cards">
+  <article class="card">
+    <div class="card-header"><a class="card-title" href="{{ '/en/projects/arcasim/' | relative_url }}">ArcaSim</a></div>
+    <div class="card-desc"><p>ARCA's web services for development and testing. Billing gets its CAEs with ARCA's real client, which talks to ArcaSim in homologación; production changes the address and the certificate. Billing's tests walk the real path with it: CAE granted, rejection by ARCA and ARCA down.</p></div>
+    <p class="row-links"><a href="https://github.com/federicomoroz/arcasim" target="_blank" rel="noopener">Repo ↗</a> <a href="{{ '/en/projects/arcasim/' | relative_url }}">Page</a></p>
+  </article>
   <article class="card">
     <div class="card-header"><a class="card-title" href="{{ '/en/tools/#notify-router' | relative_url }}">notify-router</a></div>
     <div class="card-desc"><p>The owner's alerts. Comanda saves every alert in its outbox and sends it to notify-router, which decides who gets it and through which channel (Telegram, email, Slack or webhook). Each alert carries an idempotency key, so a repeated one is never sent twice.</p></div>
@@ -156,4 +161,4 @@ The decisions the rest stands on:
 - **Sessions checked on every request.** PIN login with lockout, a session cookie and roles; deactivating someone cuts their access at once.
 - **A data move without gaps.** Invoices the server issued before billing existed moved to the new service with a migration that, in one transaction, turns every row into an outbox message and drops the old tables. Billing imports them with their original number and CAE. The migration has a test that runs it on a database with data.
 
-The 173 tests run against real PostgreSQL with Testcontainers, and Comanda's also start the billing service in memory, with its own database, talking over HTTP. The whole system was also tested end to end with the production images: billing down, ARCA down, the server down while billing authorizes, the server starting without billing, a full restart and a backup restore.
+The 176 tests run against real PostgreSQL with Testcontainers, and Comanda's also start the billing service in memory, with its own database, talking over HTTP. The whole system was also tested end to end with the production images: billing down, ARCA down, the server down while billing authorizes, the server starting without billing, a full restart and a backup restore.
