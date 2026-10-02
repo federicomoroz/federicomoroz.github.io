@@ -23,7 +23,7 @@ permalink: /en/projects/comanda/
 
 <div class="callout">
   <p class="callout-title">About the data</p>
-  <p>The starting menu comes from the public online menu of a real grill; everything else (drinks, tables, staff, ingredients, costs and tax data) is simulated, and invoicing runs against a simulated ARCA, the Argentine tax authority, so invoices print as "not valid for tax purposes". The app is in Spanish. The code is private; the docs, screenshots and diagrams are public.</p>
+  <p>The tables, staff, ingredients, costs and tax data on screen are test data, and invoicing runs against a simulated ARCA, the Argentine tax authority, so invoices print as "not valid for tax purposes". The app is in Spanish. The code is private; the docs, screenshots and diagrams are public.</p>
 </div>
 
 <figure class="shot">
