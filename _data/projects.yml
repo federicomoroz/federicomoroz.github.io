@@ -22,9 +22,10 @@
 #   card.{es,en}    -> texto corto para la tarjeta (si falta, usa `short`, que
 #                      tambien es lo que contesta el asistente).
 #   reading         -> el numero medido que define al proyecto: num + what.
-#   group           -> OPCIONAL. `service`: una pieza que se enchufa a otros sistemas
-#                      (notificaciones, colas, gateways). Sale en /tools/ ("Servicios y
-#                      herramientas") y no en /projects/.
+#   group           -> OPCIONAL. `service`: una pieza para usar en otros sistemas
+#                      (notificaciones, colas, gateways, un patron de mensajeria). Sale en
+#                      /tools/ ("Servicios y herramientas") y no en /projects/, que es
+#                      para apps completas para el usuario final.
 #   used_by         -> OPCIONAL, lista de ids de proyectos que usan este servicio. La
 #                      tarjeta lo muestra como "Lo usa: ...".
 #   docs            -> OPCIONAL: repo publico con la documentacion de un proyecto de
@@ -169,6 +170,7 @@
     - Docker
 
 - id: order-outbox-service
+  group: service
   cover: order-outbox-service.webp
   cover_alt: "Dashboard de Order Outbox Service con la cola de eventos"
   name: Order Outbox Service
