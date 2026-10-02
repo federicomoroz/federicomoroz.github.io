@@ -142,9 +142,3 @@ The decisions the rest stands on:
 - **A data move without gaps.** Invoices the server issued before billing existed moved to the new service with a migration that, in one transaction, turns every row into an outbox message and drops the old tables. Billing imports them with their original number and CAE. The migration has a test that runs it on a database with data.
 
 The 173 tests run against real PostgreSQL with Testcontainers, and Comanda's also start the billing service in memory, with its own database, talking over HTTP. The whole system was also tested end to end with the production images: billing down, ARCA down, the server down while billing authorizes, the server starting without billing, a full restart and a backup restore.
-
-## What it does not do
-
-- **It does not invoice against real ARCA yet.** That needs the restaurant's digital certificate. It goes behind a single interface (WSAA + WSFEv1) and is tested against ARCA's test environment; invoice types, VAT per rate, numbering, the queue, CAE and QR are already in place.
-- **It does not handle several restaurants on one installation.** Each restaurant has its own server and database. A cloud service for many restaurants is a product decision, with data split per restaurant and a syncing agent so it does not depend on the internet.
-- **It has not been tested with a restaurant's hardware.** Printing was tested against a simulated TCP printer; it still needs a run with real tablets, screens and a thermal printer.

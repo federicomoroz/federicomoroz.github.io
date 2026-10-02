@@ -142,9 +142,3 @@ Las decisiones que sostienen el resto:
 - **Una mudanza de datos sin ventanas.** Las facturas que el servidor emitía antes de que existiera Facturación pasaron al servicio nuevo con una migración que, en una sola transacción, convierte cada fila en un mensaje del outbox y borra las tablas viejas. Facturación las importa con su número y su CAE originales. La migración tiene un test que la corre sobre una base con datos.
 
 Los 173 tests corren contra PostgreSQL real con Testcontainers, y los de Comanda levantan también el servicio de Facturación en memoria, con su propia base, hablándose por HTTP. Además, el sistema completo se probó de punta a punta con las imágenes de producción: Facturación caída, ARCA caída, el servidor caído mientras Facturación autoriza, el servidor arrancando sin Facturación, un reinicio completo y una restauración de respaldo.
-
-## Lo que no hace
-
-- **No factura todavía contra ARCA real.** Hace falta el certificado digital del local. Se implementa detrás de una sola interfaz (WSAA + WSFEv1) y se prueba en el entorno de homologación de ARCA; los tipos de comprobante, el IVA por alícuota, la numeración, la cola, el CAE y el QR ya están hechos.
-- **No maneja varios locales en una instalación.** Cada local tiene su servidor y su base. Un servicio en la nube para muchos locales es una decisión de producto, con datos separados por local y un agente que sincronice para no depender de internet.
-- **No se probó con el hardware de un restaurante.** Las impresoras se probaron contra una impresora simulada por TCP; falta una prueba con las tablets, las pantallas y una térmica reales.
