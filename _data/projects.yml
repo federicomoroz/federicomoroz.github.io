@@ -376,6 +376,7 @@
     - Pydantic v2
 
 - id: dollar-tracker
+  group: service
   cover: dollar-tracker.webp
   cover_alt: "Panel de Dollar Tracker con las cotizaciones del dólar y las alertas de precio configuradas"
   name: Dollar Tracker
