@@ -4,7 +4,7 @@ description: "Cola de tareas en FastAPI y Redis: la API acepta el trabajo y resp
 permalink: /es/projects/task-queue/
 ---
 
-<p class="crumbs"><a href="{{ '/es/projects/' | relative_url }}">← Volver a proyectos</a></p>
+<p class="crumbs"><a href="{{ '/es/tools/' | relative_url }}">{{ site.data.i18n[page.lang].services.back }}</a></p>
 
 <section class="hero">
   <h1>Task Queue <span class="tag active">activo</span></h1>

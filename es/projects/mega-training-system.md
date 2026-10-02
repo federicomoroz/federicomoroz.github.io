@@ -4,7 +4,7 @@ description: "Generador de planes de entrenamiento con la API de Claude, usado p
 permalink: /es/projects/mega-training-system/
 ---
 
-<p class="crumbs"><a href="{{ '/es/projects/' | relative_url }}">← Volver a proyectos</a></p>
+<p class="crumbs"><a href="{{ '/es/projects/' | relative_url }}">{{ site.data.i18n[page.lang].projects.back }}</a></p>
 
 <section class="hero">
   <h1>Mega Training System <span class="tag active">activo</span></h1>

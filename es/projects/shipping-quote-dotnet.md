@@ -4,7 +4,7 @@ description: "El mismo cotizador de envíos, portado a ASP.NET Core sobre los mi
 permalink: /es/projects/shipping-quote-dotnet/
 ---
 
-<p class="crumbs"><a href="{{ '/es/projects/' | relative_url }}">← Volver a proyectos</a></p>
+<p class="crumbs"><a href="{{ '/es/tools/' | relative_url }}">{{ site.data.i18n[page.lang].services.back }}</a></p>
 
 <section class="hero">
   <h1>Shipping Quote — .NET <span class="tag active">activo</span></h1>

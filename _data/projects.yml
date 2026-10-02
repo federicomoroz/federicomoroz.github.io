@@ -24,8 +24,8 @@
 #   reading         -> el numero medido que define al proyecto: num + what.
 #   group           -> OPCIONAL. `service`: una pieza para usar en otros sistemas
 #                      (notificaciones, colas, gateways, un patron de mensajeria). Sale en
-#                      /tools/ ("Servicios y herramientas") y no en /projects/, que es
-#                      para apps completas para el usuario final.
+#                      /tools/ ("Servicios y herramientas") y no en /projects/
+#                      ("Aplicaciones"), que es para apps completas para el usuario final.
 #   used_by         -> OPCIONAL, lista de ids de proyectos que usan este servicio. La
 #                      tarjeta lo muestra como "Lo usa: ...".
 #   docs            -> OPCIONAL: repo publico con la documentacion de un proyecto de
@@ -134,6 +134,7 @@
     - Testcontainers
 
 - id: nexo
+  group: service
   cover: nexo.webp
   cover_alt: "Panel de Nexo mostrando los motores de base y su estado"
   name: Nexo
@@ -202,6 +203,7 @@
     - Docker
 
 - id: handoff
+  group: service
   cover: handoff.webp
   cover_alt: "Diagrama del circuito de handoff: el modelo propone y once reglas deciden, con 19 intentos de mover plata frenados"
   name: handoff
@@ -253,6 +255,7 @@
     - APScheduler
 
 - id: shipping-quote
+  group: service
   cover: shipping-quote.webp
   cover_alt: "Cotizador de envíos mostrando la traza del circuito"
   name: Shipping Quote
@@ -283,6 +286,7 @@
     - pytest
 
 - id: shipping-quote-dotnet
+  group: service
   cover: shipping-quote-dotnet.webp
   cover_alt: "Swagger de la API .NET de Shipping Quote con los endpoints de cotización e historial"
   name: "Shipping Quote — .NET"

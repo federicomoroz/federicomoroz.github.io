@@ -4,7 +4,7 @@ description: "Un mayorista mandaba el catálogo por FTP una vez por día. Acá e
 permalink: /es/projects/nexo/
 ---
 
-<p class="crumbs"><a href="{{ '/es/projects/' | relative_url }}">← Volver a proyectos</a></p>
+<p class="crumbs"><a href="{{ '/es/tools/' | relative_url }}">{{ site.data.i18n[page.lang].services.back }}</a></p>
 
 <section class="hero">
   <h1>Nexo <span class="tag active">activo</span></h1>

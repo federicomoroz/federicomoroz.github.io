@@ -4,7 +4,7 @@ description: "Two Java and Spring Boot microservices that guarantee no event is 
 permalink: /en/projects/order-outbox-service/
 ---
 
-<p class="crumbs"><a href="{{ '/en/projects/' | relative_url }}">← Back to projects</a></p>
+<p class="crumbs"><a href="{{ '/en/tools/' | relative_url }}">{{ site.data.i18n[page.lang].services.back }}</a></p>
 
 <section class="hero">
   <h1>Order Outbox Service <span class="tag active">active</span></h1>

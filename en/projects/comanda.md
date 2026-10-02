@@ -4,7 +4,7 @@ description: "Restaurant management: orders on a tablet, a kitchen screen and pr
 permalink: /en/projects/comanda/
 ---
 
-<p class="crumbs"><a href="{{ '/en/projects/' | relative_url }}">← Back to projects</a></p>
+<p class="crumbs"><a href="{{ '/en/projects/' | relative_url }}">{{ site.data.i18n[page.lang].projects.back }}</a></p>
 
 <section class="hero">
   <h1>Comanda <span class="tag active">active</span></h1>

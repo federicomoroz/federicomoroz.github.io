@@ -4,7 +4,7 @@ description: "Agente que investiga contracargos: reúne el caso completo, propon
 permalink: /es/projects/agente-contracargos/
 ---
 
-<p class="crumbs"><a href="{{ '/es/projects/' | relative_url }}">← Volver a proyectos</a></p>
+<p class="crumbs"><a href="{{ '/es/projects/' | relative_url }}">{{ site.data.i18n[page.lang].projects.back }}</a></p>
 
 <section class="hero">
   <h1>Agente de investigación de contracargos <span class="tag active">activo</span></h1>

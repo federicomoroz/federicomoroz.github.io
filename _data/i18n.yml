@@ -8,7 +8,7 @@ es:
   site_tagline: "AI Engineer · Backend e integraciones · Forward Deployed Engineer"
   nav:
     home: Inicio
-    projects: Proyectos
+    projects: Aplicaciones
     tools: Servicios y herramientas
     about: Sobre mí
     github: GitHub
@@ -28,7 +28,7 @@ es:
     # El unico numero de negocio medido del perfil, y viene de un puesto, no
     # de un proyecto.
     metric: "Desde 2010 escribo y mantengo los sistemas de pedidos, remitos y logística de una fábrica de cartón corrugado. Arrancaron en Excel y los fui rehaciendo con cada lenguaje que aprendí. En un e-commerce internacional bajé un proceso de 10 minutos a 5 segundos, sobre unas 2.100 transacciones por mes."
-    cta_projects: "Ver proyectos"
+    cta_projects: "Ver aplicaciones"
     cta_cv: "Descargar CV"
     location: "Buenos Aires, Argentina · Remoto"
   contact:
@@ -48,8 +48,8 @@ es:
     thanks_back: "Volver al inicio"
   home:
     profile_heading: Perfil
-    projects_heading: Proyectos
-    projects_empty: "Aún no hay proyectos publicados."
+    projects_heading: Aplicaciones
+    projects_empty: "Aún no hay aplicaciones publicadas."
     services_heading: "Servicios y herramientas"
     tools_heading: Herramientas
     tools_intro_one: "herramienta publicada."
@@ -62,22 +62,23 @@ es:
     portrait_alt: "Federico Palatnik Moroz"
     view_all: "Ver todos"
   projects:
-    heading: Proyectos
-    lead_with_items: "Proyectos propios y de equipo, con write-ups técnicos autocontenidos."
-    lead_empty: "Aún no hay proyectos publicados."
+    heading: Aplicaciones
+    lead_with_items: "Apps completas para la gente que las usa, cada una con su write-up técnico."
+    lead_empty: "Aún no hay aplicaciones publicadas."
     read_case_study: "Leer case study"
-    back: "← Volver a proyectos"
+    back: "← Volver a aplicaciones"
     demo: "Demo en vivo ↗"
     repo: "Repo ↗"
     repo_private: "repo privado"
     docs: "Documentación ↗"
     updated: "actualizado"
     archived: "archivado"
-    capabilities_heading: "Sobre estos proyectos"
+    capabilities_heading: "Sobre estas aplicaciones"
     capabilities_note: "Parte del trabajo es privado o está bajo NDA. En vez del repo, en esos casos queda un write-up técnico autocontenido: la decisión de diseño y el resultado, sin exponer código de clientes."
   services:
     heading: Servicios
-    lead: "Piezas que resuelven un problema puntual y se enchufan a un sistema más grande: avisos por varios canales, una cola de tareas, un gateway que limita el uso de una API, un receptor de webhooks. Cada una corre sola, con su API y su panel."
+    lead: "Piezas que trabajan para otros sistemas y no para un usuario final: distribuir el catálogo de un mayorista a sus revendedores, atender reclamos de soporte contra un ERP, cotizar envíos, publicar eventos sin perder ninguno, avisar por varios canales, encolar tareas, limitar el uso de una API. Cada una corre sola, con su API."
+    back: "← Volver a servicios y herramientas"
     used_by: "Lo usa:"
   tools:
     heading: Servicios y herramientas
@@ -109,7 +110,7 @@ en:
   site_tagline: "AI Engineer · Backend and integrations · Forward Deployed Engineer"
   nav:
     home: Home
-    projects: Projects
+    projects: Applications
     tools: Services & tools
     about: About
     github: GitHub
@@ -119,7 +120,7 @@ en:
     roles_list: ["AI Engineer", "Backend and integrations", "Forward Deployed Engineer"]
     lead: "I work with AI deterministically: hand-written code and narrow calls to the model, so the whole flow stays under control. The model proposes and rules decide before anything runs. Underneath is the usual backend work, APIs, integrations and automation in Python, .NET and Java."
     metric: "Since 2010 I have written and maintained the order, delivery-note and logistics systems of a corrugated cardboard factory. They started in Excel and I rebuilt them with each language I learned. At an international e-commerce business I took a 10-minute process down to 5 seconds, across about 2,100 transactions a month."
-    cta_projects: "See projects"
+    cta_projects: "See applications"
     cta_cv: "Download CV"
     location: "Buenos Aires, Argentina · Remote"
   contact:
@@ -141,8 +142,8 @@ en:
     profile_heading: Profile
     profile_short: "Backend developer focused on APIs, integrations and distributed systems. Layered architecture, explicit contracts between components, and tests that verify behavior."
     profile_link: "See full profile →"
-    projects_heading: Projects
-    projects_empty: "No published projects yet."
+    projects_heading: Applications
+    projects_empty: "No published applications yet."
     services_heading: "Services & tools"
     tools_heading: Tools
     tools_intro_one: "published tool."
@@ -155,22 +156,23 @@ en:
     portrait_alt: "Federico Palatnik Moroz"
     view_all: "View all"
   projects:
-    heading: Projects
-    lead_with_items: "Personal and team projects, with self-contained technical write-ups."
-    lead_empty: "No published projects yet."
+    heading: Applications
+    lead_with_items: "Complete apps for the people who use them, each with its technical write-up."
+    lead_empty: "No published applications yet."
     read_case_study: "Read case study"
-    back: "← Back to projects"
+    back: "← Back to applications"
     demo: "Live demo ↗"
     repo: "Repo ↗"
     repo_private: "private repo"
     docs: "Docs ↗"
     updated: "updated"
     archived: "archived"
-    capabilities_heading: "About these projects"
+    capabilities_heading: "About these applications"
     capabilities_note: "Some of the work is private or under NDA. In those cases what's public is a self-contained technical write-up: the design decision and the outcome, without exposing client code."
   services:
     heading: Services
-    lead: "Pieces that solve one problem and plug into a larger system: alerts across channels, a task queue, a gateway that rate-limits an API, a webhook receiver. Each one runs on its own, with its own API and dashboard."
+    lead: "Pieces that work for other systems rather than for an end user: distributing a wholesaler's catalogue to its resellers, handling support claims against an ERP, quoting shipments, publishing events without losing any, alerting across channels, queuing tasks, rate-limiting an API. Each one runs on its own, with its own API."
+    back: "← Back to services & tools"
     used_by: "Used by:"
   tools:
     heading: Services & tools

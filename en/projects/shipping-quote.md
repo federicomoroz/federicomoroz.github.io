@@ -4,7 +4,7 @@ description: "Shipping rate quoter with a hexagonal architecture that queries th
 permalink: /en/projects/shipping-quote/
 ---
 
-<p class="crumbs"><a href="{{ '/en/projects/' | relative_url }}">← Back to projects</a></p>
+<p class="crumbs"><a href="{{ '/en/tools/' | relative_url }}">{{ site.data.i18n[page.lang].services.back }}</a></p>
 
 <section class="hero">
   <h1>Shipping Quote <span class="tag active">active</span></h1>

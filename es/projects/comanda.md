@@ -4,7 +4,7 @@ description: "Gestión gastronómica para un restaurante: pedidos en tablet, coc
 permalink: /es/projects/comanda/
 ---
 
-<p class="crumbs"><a href="{{ '/es/projects/' | relative_url }}">← Volver a proyectos</a></p>
+<p class="crumbs"><a href="{{ '/es/projects/' | relative_url }}">{{ site.data.i18n[page.lang].projects.back }}</a></p>
 
 <section class="hero">
   <h1>Comanda <span class="tag active">activo</span></h1>

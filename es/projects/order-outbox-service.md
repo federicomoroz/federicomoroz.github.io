@@ -4,7 +4,7 @@ description: "Dos microservicios en Java y Spring Boot que garantizan que ningú
 permalink: /es/projects/order-outbox-service/
 ---
 
-<p class="crumbs"><a href="{{ '/es/projects/' | relative_url }}">← Volver a proyectos</a></p>
+<p class="crumbs"><a href="{{ '/es/tools/' | relative_url }}">{{ site.data.i18n[page.lang].services.back }}</a></p>
 
 <section class="hero">
   <h1>Order Outbox Service <span class="tag active">activo</span></h1>

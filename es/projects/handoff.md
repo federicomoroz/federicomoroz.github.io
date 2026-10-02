@@ -4,7 +4,7 @@ description: "Un cliente reclama que su pedido llegó roto. handoff hace las cua
 permalink: /es/projects/handoff/
 ---
 
-<p class="crumbs"><a href="{{ '/es/projects/' | relative_url }}">← Volver a proyectos</a></p>
+<p class="crumbs"><a href="{{ '/es/tools/' | relative_url }}">{{ site.data.i18n[page.lang].services.back }}</a></p>
 
 <section class="hero">
   <h1>handoff <span class="tag active">activo</span></h1>

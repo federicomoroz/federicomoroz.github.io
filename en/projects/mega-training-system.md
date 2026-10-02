@@ -4,7 +4,7 @@ description: "Training plan generator on the Claude API, used by a major gym cha
 permalink: /en/projects/mega-training-system/
 ---
 
-<p class="crumbs"><a href="{{ '/en/projects/' | relative_url }}">← Back to projects</a></p>
+<p class="crumbs"><a href="{{ '/en/projects/' | relative_url }}">{{ site.data.i18n[page.lang].projects.back }}</a></p>
 
 <section class="hero">
   <h1>Mega Training System <span class="tag active">active</span></h1>

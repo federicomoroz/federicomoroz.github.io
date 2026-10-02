@@ -4,7 +4,7 @@ description: "An agent that investigates chargebacks: assembles the full case, p
 permalink: /en/projects/agente-contracargos/
 ---
 
-<p class="crumbs"><a href="{{ '/en/projects/' | relative_url }}">← Back to projects</a></p>
+<p class="crumbs"><a href="{{ '/en/projects/' | relative_url }}">{{ site.data.i18n[page.lang].projects.back }}</a></p>
 
 <section class="hero">
   <h1>Chargeback investigation agent <span class="tag active">active</span></h1>

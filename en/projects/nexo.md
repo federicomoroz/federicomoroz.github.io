@@ -4,7 +4,7 @@ description: "A wholesaler was sending its catalogue over FTP once a day. Here t
 permalink: /en/projects/nexo/
 ---
 
-<p class="crumbs"><a href="{{ '/en/projects/' | relative_url }}">← Back to projects</a></p>
+<p class="crumbs"><a href="{{ '/en/tools/' | relative_url }}">{{ site.data.i18n[page.lang].services.back }}</a></p>
 
 <section class="hero">
   <h1>Nexo <span class="tag active">active</span></h1>

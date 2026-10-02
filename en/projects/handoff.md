@@ -4,7 +4,7 @@ description: "A customer says their order arrived broken. handoff makes the four
 permalink: /en/projects/handoff/
 ---
 
-<p class="crumbs"><a href="{{ '/en/projects/' | relative_url }}">← Back to projects</a></p>
+<p class="crumbs"><a href="{{ '/en/tools/' | relative_url }}">{{ site.data.i18n[page.lang].services.back }}</a></p>
 
 <section class="hero">
   <h1>handoff <span class="tag active">active</span></h1>

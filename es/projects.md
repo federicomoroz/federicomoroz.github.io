@@ -1,6 +1,6 @@
 ---
-title: Proyectos
-description: Proyectos propios y de equipo, con write-ups tecnicos.
+title: Aplicaciones
+description: Apps completas para la gente que las usa, cada una con su write-up técnico.
 permalink: /es/projects/
 ---
 
