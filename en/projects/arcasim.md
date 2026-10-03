@@ -1,6 +1,6 @@
 ---
 title: ArcaSim
-description: "ARCA's web services, for developing and testing without ARCA: the same WSDL files, the same errors with their real texts, and failures on demand. Going to production changes two addresses and the certificate."
+description: "ARCA's web services, for developing and testing without ARCA: 52 of the 53 current ones, with their WSDL files, their errors with the real texts and their rules, and failures on demand. Going to production changes two addresses and the certificate."
 permalink: /en/projects/arcasim/
 ---
 
@@ -32,9 +32,9 @@ permalink: /en/projects/arcasim/
 </figure>
 
 <div class="statline">
-  <div class="stat"><span class="num">22</span><span class="lbl">WSFEv1 operations, with ARCA's official WSDL</span></div>
+  <div class="stat"><span class="num">52</span><span class="lbl">of ARCA's 53 current web services, with their official WSDL files</span></div>
   <div class="stat"><span class="num">byte for byte</span><span class="lbl">the same as a real ARCA response, except the CAE number</span></div>
-  <div class="stat"><span class="num">72</span><span class="lbl">tests, with the client generated from the official WSDL and real PostgreSQL</span></div>
+  <div class="stat"><span class="num">499</span><span class="lbl">tests, with the client generated from the official WSDL, every service against its WSDL and real PostgreSQL</span></div>
 </div>
 
 ## What it is for
@@ -60,12 +60,26 @@ Whoever needs to reproduce ARCA's registration errors (an unauthorized certifica
   <figcaption>Nothing changes on the application's side: the client, the calls and the error handling are the same against ArcaSim and against ARCA.</figcaption>
 </figure>
 
-ArcaSim reproduces the two services an invoicing application needs:
+To invoice, an application needs two services:
 
 - **WSAA**, which hands out the access ticket. It checks the signed request in ARCA's order, returns the ticket in its exact format with a 12-hour life, and answers with the same errors, including the window that refuses a new ticket while the previous one is still valid.
 - **WSFEv1**, electronic invoicing, with its 22 operations: the CAE for one voucher or a batch, the last number authorized, looking up an issued voucher, the parameter tables and the CAEA contingency regime. The manual's validations answer with the code and the text ARCA answers with, missing accents and double spaces included.
 
 The repository also ships **Arca.Client**, the client applications use. It knows nothing about ArcaSim: it signs the request, keeps the ticket until it expires, builds the vouchers and tells a rejection, which gets fixed and sent again, from a failure worth retrying.
+
+## Not just electronic invoicing
+
+ARCA has more than fifty web services, and a company rarely uses WSFEv1 alone: an exporter asks for its CAEs through WSFEXv1, a grain elevator issues waybills through WSCPE and settles through WSLPG, a bank checks debts through SUD, a bonded warehouse reports its movements to customs. **ArcaSim answers 52 of the 53 current services**; the missing one has no published contract.
+
+Each one on its path, with its official WSDL and in its server's dialect: .NET ASMX, Apache Axis2, CXF, JAX-WS or Spring-WS. They refuse a ticket with their own codes and texts, and they do not return sample data: they apply their manual's rules over what ArcaSim keeps.
+
+- **Invoicing**: invoices with items, export invoices, fiscal bonds, tourism and surety insurance, with their numbering, their CAE or CAEA and their validations. What any of them authorizes can be verified through WSCDC, as at ARCA.
+- **MiPyME e-credit invoices**: the account between issuer and receiver (accept, reject, cancel, adjust) and, on top of it, the collective deposit agents and the open circulation system.
+- **Agriculture**: the waybill end to end (authorize, arrival, unloading, diversion, cancellation), the settlements for grain, livestock, milk, tobacco and sugar cane, the tobacco regime and the delivery notes for flour, meat and sugar.
+- **Government agencies**: the Ventanilla Electrónica inbox, supplier debts, fake invoices, gambling, withholding certificates, tax returns, car transfers and VEP payments, the only REST one.
+- **Customs**: ten DIA services, from seals and bonded warehouses to duty-free shops.
+
+The registries ARCA fills outside its web services, such as debts, fake invoices or customs declarations, start with fictitious data, and are replaced through the admin API before a test.
 
 ## The answer that gets lost
 
@@ -95,6 +109,7 @@ A saturated service slows down or stops answering. ArcaSim reproduces that on it
 | Bytes | One line with the `FEHeaderInfo` header, an empty `<CAE />`, amounts without trailing zeros, the literal `NULL` for empty dates; Apache Axis faults in WSAA | An approved CAE and a rejected resend match recorded ARCA responses byte for byte, except the CAE number |
 | Errors | The manual's codes, and the real texts where they are known | A coverage table generated from the code |
 | Behavior | Numbering per CUIT, point of sale and type; a batch stops at the first rejection; 12-hour ticket | Scenario tests |
+| The other services | Every answer valid against ARCA's WSDL; the refused ticket with each service's codes and texts | A test per operation of every service, plus each one's main flows |
 
 ## Used by
 
@@ -108,14 +123,15 @@ A saturated service slows down or stops answering. ArcaSim reproduces that on it
 
 ## For engineers
 
-- **Its own SOAP layer instead of CoreWCF.** ARCA has three different dialects: .NET ASMX in WSFEv1, Apache Axis in WSAA and Java in the taxpayer registry, each with its quirks, and a generic framework would smooth them out. WSFEv1 reads and writes through `XmlSerializer`, the serializer ASMX itself uses: it accepts elements in any order, ignores unknown ones and answers in the same format.
+- **Its own SOAP layer instead of CoreWCF.** ARCA's services run on six different servers: .NET ASMX, Apache Axis and Axis2, CXF, JAX-WS and Spring-WS, each with its quirks, and a generic framework would smooth them out. WSFEv1 reads and writes through `XmlSerializer`, the serializer ASMX itself uses: it accepts elements in any order, ignores unknown ones and answers in the same format.
+- **An engine that reads ARCA's WSDL files.** Beyond WSAA and WSFEv1, no service has a hand-written contract: the engine reads the official WSDL and XSD files, checks the ticket and answers in the service's dialect. A catalog says how each one refuses a ticket and which fixed values it sends; a service's rules are a class that registers itself, and its state goes to a document store, in memory or in PostgreSQL.
 - **Rules as data.** Each validation is a rule carrying its code when asking for a CAE and its code when reporting a contingency voucher, where many observe instead of rejecting. Whether it rejects or observes, and its text, come from the manual's table, extracted from the study into a data file.
 - **Profiles.** The environment (homologación or production) changes the header texts and the ticket window; the manual version (4.7 or 4.8) follows ArcaSim's clock by default.
 - **An event bus between the parts.** The traffic gate, WSAA and WSFEv1 publish what happens: request served or refused, ticket issued, voucher authorized or rejected. The meter and the live log only listen; nobody knows they exist. The admin API is MVC controllers, one per resource.
 - **Storage behind ports.** In memory for an application's tests, starting in milliseconds, or PostgreSQL for a team or a CI. The same contract suite runs against both.
 - **Keys that survive a restart.** ArcaSim's own certification authority and the ticket-signing key live on disk: an application keeps its ticket for 12 hours and has no reason to lose it when ArcaSim restarts.
 
-Before any code, the whole public ARCA API was studied: WSAA, WSFEv1 and its 496 validations, the service catalog and the regulations in force, with the official WSDL files and real responses. It is in the repository, in [`docs/arca/`](https://github.com/federicomoroz/arcasim/tree/main/docs/arca) (Spanish).
+Before any code, the whole public ARCA API was studied: WSAA, WSFEv1 and its 496 validations, every other service with its codes, the catalog and the regulations in force, with the official WSDL files and real responses. It is in the repository, in [`docs/arca/`](https://github.com/federicomoroz/arcasim/tree/main/docs/arca) (Spanish).
 
 ```bash
 docker run -d -p 7080:8080 ghcr.io/federicomoroz/arcasim   # the published image, in memory
