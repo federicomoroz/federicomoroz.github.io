@@ -97,6 +97,32 @@ Entrada nueva en `_data/tools.yml`. Arranca en `visibility: private` (no aparece
 esté para mostrar, `visibility: public`. El campo `install` es el snippet que la gente copia
 y pega, tal cual.
 
+## Agregar un artículo
+
+Un artículo son tres piezas: una entrada en `_data/articles.yml` y dos páginas,
+`es/articles/<id>.md` y `en/articles/<id>.md`.
+
+1. La entrada lleva lo que comparten los dos idiomas:
+   - `id` — el slug de las dos páginas. Va igual en las dos para que el selector ES · EN
+     lleve de una a la otra.
+   - `date` — la fecha de publicación. El listado y el inicio ordenan por ella, el más
+     nuevo primero.
+   - `listed: true` — lo muestra. `false` lo oculta sin borrar nada.
+   - `cover` — portada de 720x405 en `assets/img/covers/`. Mejor sin texto, así sirve en
+     los dos idiomas.
+   - `cover_alt.{es,en}`, `tags`, y `reading` si hay un número medido para destacar.
+2. Cada página lleva `layout: article`, `article: <id>`, `title`, `description` y su
+   `permalink`. El `title` y la `description` son los que muestran la tarjeta y el
+   encabezado del artículo: no se repiten en el YAML. `image` es lo que muestra el link
+   cuando se comparte: un PNG en `assets/img/articles/<id>/`, porque no todas las redes
+   leen WebP.
+3. El cuerpo es Markdown. Las piezas de los case studies sirven igual: `statline` para
+   los números, `figure class="shot"` para las imágenes, tablas y bloques de código.
+   Las imágenes de un artículo van en `assets/img/articles/<id>/`.
+
+Con el primer artículo listado aparece el link "Artículos" en el menú y la sección en el
+inicio, con los dos más nuevos. El tiempo de lectura se calcula solo.
+
 ## Actualizar el perfil de /about/
 
 Se edita `_data/cv.yml`. **No se escribe a mano desde cero**: la fuente de verdad es el store

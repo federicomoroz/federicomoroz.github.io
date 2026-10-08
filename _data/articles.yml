@@ -1,0 +1,27 @@
+# Artículos del sitio, el más nuevo arriba. Cada entrada tiene dos páginas,
+# es/articles/<id>.md y en/articles/<id>.md, con `layout: article`.
+#
+# Acá va solo lo que comparten los dos idiomas. El título y el resumen de cada
+# idioma están en el front matter de su página (`title` y `description`), así la
+# tarjeta, el <title> y el encabezado del artículo salen del mismo lugar.
+#
+#   id        slug de las dos páginas: /es/articles/<id>/ y /en/articles/<id>/
+#   date      fecha de publicación
+#   listed    false lo saca del listado y del inicio sin borrar nada
+#   cover     portada 720x405 en assets/img/covers/
+#   reading   el número medido que la tarjeta destaca, como en los proyectos
+#   tags      etiquetas, en el idioma de la herramienta
+
+- id: indexing-dates
+  date: 2026-10-08
+  listed: true
+  cover: indexing-dates.webp
+  cover_alt:
+    es: "Dos consultas por fecha: con DATE(created_at) tarda 59 ms; con un rango sobre created_at, 1 ms."
+    en: "Two date queries: with DATE(created_at) it takes 59 ms; with a range on created_at, 1 ms."
+  reading:
+    num: { es: "31×", en: "31×" }
+    what:
+      es: "más rápido el reporte de un día, con un índice en la fecha"
+      en: "faster one-day report, with an index on the date"
+  tags: [PostgreSQL, SQL, EXPLAIN ANALYZE, BRIN]

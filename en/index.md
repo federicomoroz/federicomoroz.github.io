@@ -8,6 +8,7 @@ permalink: /en/
 {% assign lang = page.lang %}
 {% assign visible_projects = site.data.projects | where: "listed", true | where_exp: "p", "p.group != 'service'" %}
 {% assign services = site.data.projects | where: "listed", true | where: "group", "service" %}
+{% assign articles = site.data.articles | where: "listed", true | sort: "date" | reverse %}
 {% assign cv_file = site.data.cv.cv_pdf[lang] %}
 
 <section class="intro">
@@ -51,6 +52,18 @@ permalink: /en/
 <div class="project-grid">
   {% for proj in services limit:4 %}
     {% include project-card.html proj=proj lang=lang t=t i=forloop.index0 %}
+  {% endfor %}
+</div>
+{% endif %}
+
+{% if articles.size > 0 %}
+<div class="section-heading">
+  <h2>{{ t.home.articles_heading }}</h2>
+  <a class="section-action" href="{{ '/' | append: lang | append: '/articles/' | relative_url }}">{{ t.home.view_all }}</a>
+</div>
+<div class="project-grid">
+  {% for a in articles limit:2 %}
+    {% include article-card.html a=a lang=lang t=t %}
   {% endfor %}
 </div>
 {% endif %}

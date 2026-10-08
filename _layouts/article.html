@@ -1,0 +1,28 @@
+---
+layout: default
+---
+{% comment %}
+  One article. The page brings `title`, `description` (the summary under the
+  title and on the card) and `article` (its id in _data/articles.yml, which holds
+  the date and the tags). The body goes straight into the container, like a case
+  study, so it keeps the site's reading width.
+{% endcomment %}
+{% assign lang = page.lang %}
+{% assign t = site.data.i18n[lang] %}
+{% assign a = site.data.articles | where: "id", page.article | first %}
+{% assign articles_url = '/' | append: lang | append: '/articles/' %}
+{% assign words = content | strip_html | number_of_words %}
+{% assign minutes = words | divided_by: 200 | plus: 1 %}
+
+<p class="crumbs"><a href="{{ articles_url | relative_url }}">{{ t.articles.back }}</a></p>
+
+<section class="hero article-hero">
+  <p class="article-meta">{% include date.html date=a.date lang=lang %} · {{ minutes }} {{ t.articles.minutes }}</p>
+  <h1>{{ page.title }}</h1>
+  <p class="lead">{{ page.description }}</p>
+  <div class="chip-row">{% for tag in a.tags %}<span class="tag">{{ tag }}</span>{% endfor %}</div>
+</section>
+
+{{ content }}
+
+<p class="crumbs article-end"><a href="{{ articles_url | relative_url }}">{{ t.articles.back }}</a></p>

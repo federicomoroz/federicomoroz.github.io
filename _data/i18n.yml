@@ -10,6 +10,7 @@ es:
     home: Inicio
     projects: Aplicaciones
     tools: Servicios y herramientas
+    articles: Artículos
     about: Sobre mí
     github: GitHub
   hero:
@@ -51,6 +52,7 @@ es:
     projects_heading: Aplicaciones
     projects_empty: "Aún no hay aplicaciones publicadas."
     services_heading: "Servicios y herramientas"
+    articles_heading: Artículos
     tools_heading: Herramientas
     tools_intro_one: "herramienta publicada."
     tools_intro_count: "herramientas y librerías publicadas."
@@ -101,6 +103,15 @@ es:
     way_of_working_heading: Cómo trabajo
     education_heading: Educación
     languages_heading: Idiomas
+  articles:
+    heading: Artículos
+    lead: "Notas técnicas con los números medidos: qué cambia, cuánto y cómo reproducirlo."
+    read: "Leer artículo"
+    back: "← Volver a artículos"
+    minutes: "min de lectura"
+    empty: "Todavía no hay artículos publicados."
+  # Jekyll's date filter only knows English month names (see _includes/date.html).
+  months: [enero, febrero, marzo, abril, mayo, junio, julio, agosto, septiembre, octubre, noviembre, diciembre]
   status:
     active: activo
     paused: pausado
@@ -112,6 +123,7 @@ en:
     home: Home
     projects: Applications
     tools: Services & tools
+    articles: Articles
     about: About
     github: GitHub
   hero:
@@ -145,6 +157,7 @@ en:
     projects_heading: Applications
     projects_empty: "No published applications yet."
     services_heading: "Services & tools"
+    articles_heading: Articles
     tools_heading: Tools
     tools_intro_one: "published tool."
     tools_intro_count: "published tools and libraries."
@@ -195,6 +208,14 @@ en:
     way_of_working_heading: How I work
     education_heading: Education
     languages_heading: Languages
+  articles:
+    heading: Articles
+    lead: "Technical notes with measured numbers: what changes, by how much and how to reproduce it."
+    read: "Read article"
+    back: "← Back to articles"
+    minutes: "min read"
+    empty: "No articles published yet."
+  months: [January, February, March, April, May, June, July, August, September, October, November, December]
   status:
     active: active
     paused: paused

@@ -1,0 +1,5 @@
+{% comment %}
+  A date in the page's language: "8 de octubre de 2026" or "October 8, 2026".
+  Jekyll's date filter only knows English month names, so they come from i18n.
+  Parameters: date, lang.
+{% endcomment %}{% assign months = site.data.i18n[include.lang].months %}{% assign m = include.date | date: "%-m" | minus: 1 %}{% assign d = include.date | date: "%-d" %}{% assign y = include.date | date: "%Y" %}<time datetime="{{ include.date | date: '%Y-%m-%d' }}">{% if include.lang == 'en' %}{{ months[m] }} {{ d }}, {{ y }}{% else %}{{ d }} de {{ months[m] }} de {{ y }}{% endif %}</time>

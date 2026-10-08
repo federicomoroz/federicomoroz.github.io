@@ -1,0 +1,31 @@
+{% comment %}
+  Article card: the same surface, cover and hover as the project cards, so the
+  articles read as work and not as a list of links.
+
+  Parameters: a (entry of _data/articles.yml), lang, t (i18n block).
+
+  The title and the summary come from the article's own page (its `title` and
+  `description`), found by URL: the card and the page cannot disagree.
+{% endcomment %}
+{% assign article_url = '/' | append: include.lang | append: '/articles/' | append: include.a.id | append: '/' %}
+{% assign apage = site.pages | where: "url", article_url | first %}
+
+<article class="pcard acard" id="{{ include.a.id }}">
+  <a class="pcard-cover" href="{{ article_url | relative_url }}">
+    <img class="still" src="{{ '/assets/img/covers/' | append: include.a.cover | relative_url }}"
+         alt="{{ include.a.cover_alt[include.lang] }}" width="720" height="405" loading="lazy" decoding="async">
+  </a>
+
+  <div class="pcard-body">
+    <p class="acard-meta">{% include date.html date=include.a.date lang=include.lang %}</p>
+    <h3><a href="{{ article_url | relative_url }}">{{ apage.title }}</a></h3>
+    <p class="pcard-desc">{{ apage.description }}</p>
+
+    {% if include.a.reading %}
+    <div class="reading"><span class="num">{{ include.a.reading.num[include.lang] }}</span><span class="what">{{ include.a.reading.what[include.lang] }}</span></div>
+    {% endif %}
+
+    <p class="stackline">{{ include.a.tags | join: ", " }}</p>
+    <p class="pcard-links"><a class="cs-link" href="{{ article_url | relative_url }}">{{ include.t.articles.read }}</a></p>
+  </div>
+</article>

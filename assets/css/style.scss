@@ -2295,3 +2295,35 @@ a { text-underline-offset: 3px; }
 .early-list b { font-weight: 650; }
 .early-list span { color: var(--fg-muted); font-size: 0.95rem; }
 .early-list small { color: var(--fg-faint); font-size: 0.85rem; }
+
+/* === Articles =============================================================== */
+
+/* The date on a card and above an article's title: small, in the instruments' mono,
+   so it reads as a label and not as part of the title. */
+.acard-meta,
+.article-meta
+{
+    margin: 0 0 8px;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+    color: var(--copper);
+}
+
+.article-hero h1 { max-width: 30ch; }
+
+/* Running text keeps the site's reading width; code, tables and figures get a little
+   more, enough for a two-column comparison, and stop there instead of spanning the
+   1180px container. `~` limits this to what follows an article's header. */
+.article-hero ~ .highlighter-rouge,
+.article-hero ~ table,
+.article-hero ~ .shot
+{
+    max-width: 920px;
+}
+
+.article-end { margin-top: 2.6rem; }
+
+/* JetBrains Mono draws >= as a single sign; in an article about SQL the operator
+   is shown as it is typed. */
+.article-hero ~ * code { font-variant-ligatures: none; }
