@@ -34,7 +34,7 @@ permalink: /en/projects/arcasim/
 <div class="statline">
   <div class="stat"><span class="num">52</span><span class="lbl">of ARCA's 53 current web services, with their official WSDL files</span></div>
   <div class="stat"><span class="num">byte for byte</span><span class="lbl">the same as a real ARCA response, except the CAE number</span></div>
-  <div class="stat"><span class="num">499</span><span class="lbl">tests, with the client generated from the official WSDL, every service against its WSDL and real PostgreSQL</span></div>
+  <div class="stat"><span class="num">789</span><span class="lbl">tests, with the client generated from the official WSDL, every service against its WSDL and real PostgreSQL</span></div>
 </div>
 
 ## What it is for
