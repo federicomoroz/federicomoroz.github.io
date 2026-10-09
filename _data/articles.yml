@@ -12,6 +12,15 @@
 #   reading   el número medido que la tarjeta destaca, como en los proyectos
 #   tags      etiquetas, en el idioma de la herramienta
 
+- id: millions-of-rows
+  date: 2026-10-09
+  listed: true
+  cover: millions-of-rows.webp
+  cover_alt:
+    es: "Una tabla de cinco filas al lado de una de millones: en la grande, un índice lleva directo a las cuatro filas que busca la consulta."
+    en: "A five-row table next to one with millions: in the big one, an index goes straight to the four rows the query is after."
+  tags: [PostgreSQL, SQL, EXPLAIN ANALYZE, generate_series]
+
 - id: indexing-dates
   date: 2026-10-08
   listed: true
