@@ -1,0 +1,73 @@
+---
+layout: default
+---
+{% comment %}
+  One page of Fornu's user manual. The page brings `manual` (its id in
+  _data/fornu_manual.yml, or "index" for the contents page), `title` (the
+  browser tab) and `description`. The h1, the lead, who uses it, the list of
+  pages and the previous/next links all come from the data file, so adding a
+  page is one entry there and its two Markdown files.
+
+  The body sits in a column next to the list of pages: running text keeps the
+  site's reading width, figures take the whole column.
+{% endcomment %}
+{% assign lang = page.lang %}
+{% assign t = site.data.i18n[lang].manual %}
+{% assign pages = site.data.fornu_manual %}
+{% assign base = '/' | append: lang | append: '/projects/fornu/' %}
+{% assign manual_url = base | append: 'manual/' %}
+
+{% assign here = nil %}
+{% assign prev = nil %}
+{% assign next = nil %}
+{% for p in pages %}
+  {% if p.id == page.manual %}
+    {% assign here = p %}
+    {% assign before = forloop.index0 | minus: 1 %}
+    {% if before >= 0 %}{% assign prev = pages[before] %}{% endif %}
+    {% assign after = forloop.index %}
+    {% assign next = pages[after] %}
+  {% endif %}
+{% endfor %}
+{% if page.manual == 'index' %}{% assign next = pages.first %}{% endif %}
+
+<p class="crumbs"><a href="{{ base | relative_url }}">{{ t.back }}</a>{% if page.manual != 'index' %} · <a href="{{ manual_url | relative_url }}">{{ t.home }}</a>{% endif %}</p>
+
+<div class="manual">
+  <nav class="manual-nav" aria-label="{{ t.pages }}">
+    <details class="manual-nav-fold" open>
+      <summary>{{ t.pages }}</summary>
+      <ol>
+        <li{% if page.manual == 'index' %} class="here"{% endif %}><a href="{{ manual_url | relative_url }}"{% if page.manual == 'index' %} aria-current="page"{% endif %}>{{ t.home }}</a></li>
+        {% for p in pages %}
+        <li{% if p.id == page.manual %} class="here"{% endif %}><a href="{{ manual_url | append: p.id | append: '/' | relative_url }}"{% if p.id == page.manual %} aria-current="page"{% endif %}>{{ p.title[lang] }}</a></li>
+        {% endfor %}
+      </ol>
+    </details>
+  </nav>
+
+  <article class="manual-body">
+    <header class="manual-head">
+      <p class="manual-kicker">{{ t.name }}</p>
+      <h1>{% if here %}{{ here.title[lang] }}{% else %}{{ page.heading | default: page.title }}{% endif %}</h1>
+      <p class="lead">{% if here %}{{ here.lead[lang] }}{% else %}{{ page.description }}{% endif %}</p>
+      {% if here %}<p class="manual-who"><span>{{ t.who }}:</span> {{ here.who[lang] }}</p>{% endif %}
+    </header>
+
+    {{ content }}
+
+    <nav class="manual-pager" aria-label="{{ t.pages }}">
+      {% if prev %}<a class="prev" href="{{ manual_url | append: prev.id | append: '/' | relative_url }}"><small>{{ t.prev }}</small>{{ prev.title[lang] }}</a>
+      {% elsif here %}<a class="prev" href="{{ manual_url | relative_url }}"><small>{{ t.prev }}</small>{{ t.home }}</a>{% else %}<span></span>{% endif %}
+      {% if next %}<a class="next" href="{{ manual_url | append: next.id | append: '/' | relative_url }}"><small>{{ t.next }}</small>{{ next.title[lang] }}</a>{% endif %}
+    </nav>
+  </article>
+</div>
+
+<script>
+  // On a phone the list of pages starts folded so the page itself comes first.
+  (function () {
+    var fold = document.querySelector('.manual-nav-fold');
+    if (fold && window.matchMedia('(max-width: 900px)').matches) fold.removeAttribute('open');
+  })();
+</script>

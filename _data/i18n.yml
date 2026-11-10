@@ -110,6 +110,15 @@ es:
     back: "← Volver a artículos"
     minutes: "min de lectura"
     empty: "Todavía no hay artículos publicados."
+  # The Fornu user manual (_layouts/manual.html, _data/fornu_manual.yml).
+  manual:
+    name: "Manual de Fornu"
+    back: "← Volver a Fornu"
+    home: "Índice del manual"
+    pages: "Páginas del manual"
+    who: "Quién la usa"
+    prev: "Anterior"
+    next: "Siguiente"
   # Jekyll's date filter only knows English month names (see _includes/date.html).
   months: [enero, febrero, marzo, abril, mayo, junio, julio, agosto, septiembre, octubre, noviembre, diciembre]
   status:
@@ -215,6 +224,14 @@ en:
     back: "← Back to articles"
     minutes: "min read"
     empty: "No articles published yet."
+  manual:
+    name: "Fornu user manual"
+    back: "← Back to Fornu"
+    home: "Manual contents"
+    pages: "Manual pages"
+    who: "Who uses it"
+    prev: "Previous"
+    next: "Next"
   months: [January, February, March, April, May, June, July, August, September, October, November, December]
   status:
     active: active

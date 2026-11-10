@@ -39,6 +39,40 @@
 #
 # ESTADO: seed desde el README publico. Revisar textos y sumar los que falten.
 
+- id: fornu
+  cover: fornu.webp
+  cover_alt: "Fornu en tema oscuro: el salón con sus mesas y una mesa abierta con su ronda en la cocina, y al lado un celular con un pedido listo para entregar"
+  name: Fornu
+  short:
+    es: "Gestión gastronómica por módulos para dark kitchens, restaurantes y locales de comida. Junta en una pantalla los pedidos del salón, del mostrador, del delivery propio y de Rappi y PedidosYa. Los pasa a la cocina por estación, descuenta el stock de cada receta y muestra cuánto deja cada plato en cada canal, después de la comisión y del IVA. Suma salón con mozos y cobro en partes, caja con arqueo a ciegas, compras, personal con fichaje y liquidación, facturación electrónica con ARCA, reportes y un constructor del plano del local. Cada cuenta prende solo los módulos que usa, y los módulos no se conocen entre sí: se hablan por un mediador y un test de arquitectura falla si uno nombra a otro. .NET 8, React y PostgreSQL, con una demo pública y un manual de uso completo."
+    en: "Modular restaurant management for dark kitchens, restaurants and food businesses. It puts the orders from the dining room, the counter, the place's own delivery, and Rappi and PedidosYa on one screen. It hands them to the kitchen by station, takes each recipe out of stock and shows what every dish leaves on every channel, after commission and VAT. It adds a dining room with waiters and split payments, a till with blind cash counts, purchasing, staff with clock-in and payroll, electronic invoicing with ARCA, reports and a floor plan builder. Each account switches on only the modules it uses, and the modules do not know each other: they talk through a mediator, and an architecture test fails if one names another. .NET 8, React and PostgreSQL, with a public demo and a complete user manual."
+  card:
+    es: "Gestión gastronómica para dark kitchens y restaurantes: los pedidos del salón, del mostrador, del delivery y de las plataformas en un tablero, la cocina por estación, el stock por receta, la caja y el margen de cada plato en cada canal."
+    en: "Restaurant management for dark kitchens and restaurants: orders from the dining room, the counter, delivery and the platforms on one board, the kitchen by station, stock by recipe, the till and each dish's margin on each channel."
+  reading:
+    num: { es: "4 canales", en: "4 channels" }
+    what:
+      es: "con el margen de cada plato en cada uno, después de la comisión y del IVA"
+      en: "with each dish's margin on every one, after commission and VAT"
+  status: active
+  listed: true
+  case_study: true
+  repo: https://github.com/federicomoroz/fornu
+  repo_visibility: private
+  docs: https://github.com/federicomoroz/fornu-docs
+  demo: https://fornu.onrender.com
+  tech:
+    - "C#"
+    - .NET 8
+    - ASP.NET Core
+    - EF Core
+    - PostgreSQL
+    - SignalR
+    - React
+    - TypeScript
+    - Docker
+    - Testcontainers
+
 - id: agente-contracargos
   cover: agente-contracargos.webp
   cover_alt: "Panel del agente de contracargos, con el caso y su resolución propuesta"
@@ -171,7 +205,7 @@
     - Docker
 
 - id: arcasim
-  used_by: [comanda]
+  used_by: [fornu, comanda]
   group: service
   cover: arcasim.webp
   cover_alt: "Panel de ArcaSim con los contribuyentes ficticios, los certificados, las fallas a pedido y los comprobantes emitidos"

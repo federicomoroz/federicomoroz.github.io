@@ -1,0 +1,102 @@
+# Manual de usuario de Fornu: sus paginas, en el orden en que se leen.
+#
+# Cada entrada tiene su par de paginas, con el mismo id en los dos idiomas para
+# que el selector ES · EN lleve de una a la otra:
+#   es/projects/fornu/manual/<id>.md   y   en/projects/fornu/manual/<id>.md
+# Las dos llevan `layout: manual` y `manual: <id>`. El layout arma la barra de
+# paginas, el titulo y los links a la anterior y la siguiente con esta lista.
+#
+#   title.{es,en}  -> el nombre de la pagina: el h1 y el link en la barra.
+#   lead.{es,en}   -> una linea con lo que se hace ahi; sale bajo el titulo y en el indice.
+#   who.{es,en}    -> quien la usa, en palabras del local.
+
+- id: empezar
+  title: { es: "Entrar y moverse", en: "Getting in and around" }
+  lead:
+    es: "Cómo se entra, cómo se recorre la pantalla, qué muestra Inicio y cómo se busca cualquier cosa."
+    en: "How to get in, how the screen is laid out, what the home page shows and how to find anything."
+  who: { es: "Todos", en: "Everyone" }
+
+- id: pedidos
+  title: { es: "Pedidos y delivery", en: "Orders and delivery" }
+  lead:
+    es: "El tablero de pedidos, el pedido propio por teléfono, lo agotado, el historial y el efectivo de los mensajeros."
+    en: "The orders board, phone orders, what ran out, the order history and the couriers' cash."
+  who: { es: "Cocina, encargado, caja", en: "Kitchen, manager, cashier" }
+
+- id: cocina-y-reparto
+  title: { es: "En la cocina y en la calle", en: "In the kitchen and on the road" }
+  lead:
+    es: "La tablet de la cocina y el celular de cada uno: vincular el equipo, entrar con PIN, fichar, cargar mermas y producción, y repartir."
+    en: "The kitchen tablet and each person's phone: pairing the device, entering with a PIN, clocking in, logging waste and batches, and delivering."
+  who: { es: "Cocina, mensajeros, todo el equipo", en: "Kitchen, couriers, the whole team" }
+
+- id: salon
+  title: { es: "Salón: mesas, mostrador y cobro", en: "Dining room: tables, counter and payment" }
+  lead:
+    es: "Sentar una mesa, cargar y mandar a la cocina por tiempos, mover y unir mesas, cobrar en partes, el mostrador y el express."
+    en: "Seating a table, loading and sending by course, moving and joining tables, splitting the bill, the counter and the express sale."
+  who: { es: "Mozos, adicionista, caja", en: "Waiters, order desk, cashier" }
+
+- id: espacios
+  title: { es: "Espacios: el plano del local", en: "Spaces: the floor plan" }
+  lead:
+    es: "El constructor: paredes, pisos, aberturas y objetos para dibujar el salón tal como es, y verlo desde arriba o en isométrica."
+    en: "The builder: walls, floors, openings and objects to draw the dining room as it is, seen from above or in isometric view."
+  who: { es: "Dueño, encargado", en: "Owner, manager" }
+
+- id: carta
+  title: { es: "Carta", en: "Menu" }
+  lead:
+    es: "Productos, precios por canal, recetas, adicionales, grupos modificadores y categorías, a mano o desde una planilla."
+    en: "Products, prices per channel, recipes, extras, modifier groups and categories, by hand or from a spreadsheet."
+  who: { es: "Dueño, administración", en: "Owner, back office" }
+
+- id: insumos-y-stock
+  title: { es: "Insumos y stock", en: "Stock items and stock" }
+  lead:
+    es: "Ingredientes, elaboraciones e inventario con su costo; el stock con sus conteos, mermas y producción; y el plan de producción."
+    en: "Ingredients, prepared items and supplies with their cost; stock with its counts, waste and batches; and the production plan."
+  who: { es: "Encargado, cocina, administración", en: "Manager, kitchen, back office" }
+
+- id: compras-y-gastos
+  title: { es: "Compras y gastos", en: "Purchases and expenses" }
+  lead:
+    es: "Las compras de insumos que entran al stock, los proveedores con su saldo, los gastos y cómo se pagan."
+    en: "Stock purchases that go into stock, suppliers and what is owed to them, expenses and how they are paid."
+  who: { es: "Encargado, administración", en: "Manager, back office" }
+
+- id: caja
+  title: { es: "Caja y ventas", en: "Cash and sales" }
+  lead:
+    es: "La lista de ventas con sus filtros, los movimientos de caja y el arqueo, con conteo a ciegas si se elige."
+    en: "The sales list and its filters, cash movements and the cash count, blind if the place wants it."
+  who: { es: "Caja, encargado, dueño", en: "Cashier, manager, owner" }
+
+- id: facturacion
+  title: { es: "Facturación electrónica", en: "Electronic invoicing" }
+  lead:
+    es: "Facturas A, B y C con CAE de ARCA, solas o a mano, sus notas de crédito y el listado para el contador."
+    en: "Type A, B and C invoices with an ARCA CAE, automatic or by hand, their credit notes and the list for the accountant."
+  who: { es: "Caja, dueño", en: "Cashier, owner" }
+
+- id: costos-y-reportes
+  title: { es: "Costos y reportes", en: "Costs and reports" }
+  lead:
+    es: "Qué revisar en precios y recetas, la ficha de costo, el margen en cada canal, las estadísticas, el resumen de ventas y la rentabilidad."
+    en: "What to review in prices and recipes, the cost sheet, the margin on each channel, statistics, the sales summary and profitability."
+  who: { es: "Dueño, administración", en: "Owner, back office" }
+
+- id: personal
+  title: { es: "Personal", en: "Staff" }
+  lead:
+    es: "El equipo con sus roles y permisos, el presentismo, la asistencia, los horarios, la liquidación y los adelantos."
+    en: "The team with its roles and permissions, the attendance sheet, clock-ins, schedules, payroll and advances."
+  who: { es: "Dueño, encargado", en: "Owner, manager" }
+
+- id: ajustes
+  title: { es: "Ajustes", en: "Settings" }
+  lead:
+    es: "Unidades de negocio, dispositivos, estaciones e impresión, medios de pago, descuentos, integraciones, usuarios y la configuración de la cuenta."
+    en: "Business units, devices, stations and printing, payment methods, discounts, integrations, users and the account's configuration."
+  who: { es: "Dueño, administración", en: "Owner, back office" }

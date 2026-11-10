@@ -2327,3 +2327,342 @@ a { text-underline-offset: 3px; }
 /* JetBrains Mono draws >= as a single sign; in an article about SQL the operator
    is shown as it is typed. */
 .article-hero ~ * code { font-variant-ligatures: none; }
+
+/* === Product page (Fornu) =================================================== */
+
+/* A product written for the people who would use it: the hero carries the
+   promise and the two ways in (the demo and asking for an account). */
+.product-kicker,
+.manual-kicker
+{
+    margin: 0 0 10px;
+    font-size: 0.92rem;
+    font-weight: 650;
+    color: var(--copper);
+}
+
+.product-hero h1 { max-width: 22ch; font-size: 2.7rem; }
+.product-hero .lead { max-width: 64ch; font-size: 1.12rem; }
+.product-hero .hero-actions { margin-top: 24px; }
+.product-note { margin: 12px 0 0; font-size: 0.9rem; color: var(--fg-faint); max-width: 70ch; }
+
+/* What it does, in four or six blocks: a heading and two lines each. */
+.benefits
+{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 14px;
+    margin: 22px 0 8px;
+    padding: 0;
+    list-style: none;
+}
+.benefits li
+{
+    border: 1px solid var(--border);
+    border-top: 2px solid var(--copper);
+    border-radius: var(--radius);
+    background: var(--bg-soft);
+    padding: 16px 16px 14px;
+}
+.benefits b { display: block; color: var(--fg); font-weight: 650; margin-bottom: 4px; font-size: 1.02rem; }
+.benefits span { color: var(--fg-muted); font-size: 0.95rem; line-height: 1.55; }
+
+/* Text next to a screenshot. */
+.split
+{
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: 32px;
+    align-items: center;
+    margin: 28px 0;
+}
+.split.flip { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
+.split .shot { margin: 0; }
+.split h3 { font-size: 1.3rem; font-variation-settings: "wdth" 108; margin-bottom: 8px; }
+.split p, .split li { color: var(--fg-muted); }
+.split ul { padding-left: 1.1em; margin: 10px 0 0; }
+.split li { margin: 4px 0; }
+.split li::marker { color: var(--copper); }
+
+/* Phones side by side. */
+.shot-phones
+{
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    align-items: start;
+}
+.shot-phones .shot { margin: 0; }
+.shot.phone img { max-width: 320px; margin: 0 auto; }
+
+/* Who it is for: four kinds of place, each with what it gets. */
+.audience
+{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 14px;
+    margin: 20px 0;
+}
+.audience div
+{
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px;
+    background: var(--bg-soft);
+}
+.audience h3 { font-size: 1.08rem; margin-bottom: 6px; }
+.audience p { margin: 0; color: var(--fg-muted); font-size: 0.95rem; }
+
+/* The closing call to action. */
+.cta-band
+{
+    margin: 48px 0 12px;
+    padding: 26px 28px;
+    border: 1px solid var(--copper-dim);
+    border-left: 3px solid var(--accent);
+    border-radius: var(--radius);
+    background: var(--accent-soft);
+}
+.cta-band h2 { margin: 0 0 8px; font-size: 1.6rem; }
+.cta-band p { margin: 0; color: var(--fg-muted); max-width: 70ch; }
+.cta-band .hero-actions { margin-top: 18px; }
+
+/* === Fornu user manual ======================================================= */
+
+.manual
+{
+    display: grid;
+    grid-template-columns: 230px minmax(0, 1fr);
+    gap: 40px;
+    align-items: start;
+}
+
+.manual-nav
+{
+    position: sticky;
+    top: 84px;
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+    font-size: 0.92rem;
+}
+.manual-nav summary
+{
+    cursor: pointer;
+    font-weight: 650;
+    color: var(--fg);
+    padding: 4px 0 8px;
+    list-style: none;
+}
+.manual-nav summary::-webkit-details-marker { display: none; }
+.manual-nav summary::after { content: " ▾"; color: var(--copper); }
+.manual-nav details:not([open]) summary::after { content: " ▸"; }
+.manual-nav ol { list-style: none; margin: 0; padding: 0; border-left: 2px solid var(--copper-dim); }
+.manual-nav li a
+{
+    display: block;
+    padding: 5px 0 5px 14px;
+    margin-left: -2px;
+    border-left: 2px solid transparent;
+    color: var(--fg-muted);
+    line-height: 1.35;
+}
+.manual-nav li a:hover { color: var(--fg); text-decoration: none; border-left-color: var(--copper); }
+.manual-nav li.here a { color: var(--accent); border-left-color: var(--accent); font-weight: 600; }
+
+.manual-head { padding: 4px 0 18px; border-bottom: 1px solid var(--border); margin-bottom: 8px; }
+.manual-head h1 { font-size: 2.3rem; margin-bottom: 10px; }
+.manual-head .lead { max-width: 70ch; }
+.manual-who { margin: 12px 0 0; font-size: 0.92rem; color: var(--fg-muted); }
+.manual-who span { color: var(--copper); font-weight: 650; }
+
+/* Running text keeps a reading width; figures and tables use the column. */
+.manual-body > p,
+.manual-body > ul,
+.manual-body > ol,
+.manual-body > h2,
+.manual-body > h3,
+.manual-body > h4,
+.manual-body > blockquote,
+.manual-body > .callout,
+.manual-body > .perm
+{
+    max-width: 76ch;
+}
+.manual-body > h2 { margin-top: 2.6rem; padding-top: 0.4rem; scroll-margin-top: 90px; }
+.manual-body > h3 { margin-top: 1.8rem; font-size: 1.15rem; scroll-margin-top: 90px; }
+.manual-body > h4 { margin: 1.3rem 0 0.3rem; font-size: 1rem; }
+.manual-body li { margin: 3px 0; }
+.manual-body li::marker { color: var(--copper); }
+
+/* Steps: numbered in copper circles. */
+.manual-body ol.steps
+{
+    list-style: none;
+    counter-reset: step;
+    padding-left: 0;
+}
+.manual-body ol.steps > li
+{
+    counter-increment: step;
+    position: relative;
+    padding-left: 38px;
+    margin: 8px 0;
+}
+.manual-body ol.steps > li::before
+{
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: 1px;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border: 1.5px solid var(--copper);
+    color: var(--copper);
+    font-size: 0.8rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* The legend under a marked screenshot: its numbers look like the image's. */
+.marks
+{
+    list-style: none;
+    counter-reset: mark;
+    padding: 0;
+    margin: 14px 0 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 8px 22px;
+    font-size: 0.93rem;
+    color: var(--fg-muted);
+}
+.marks li { counter-increment: mark; position: relative; padding-left: 36px; line-height: 1.5; }
+.marks li::before
+{
+    content: counter(mark);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--on-accent);
+    font-size: 0.82rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.marks b { color: var(--fg); }
+
+/* Who can do it: the permission the server asks for, by its name in the app. */
+.perm
+{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 6px 8px;
+    margin: 6px 0 14px;
+    font-size: 0.9rem;
+    color: var(--fg-muted);
+}
+.perm > span:first-child { color: var(--copper); font-weight: 650; margin-right: 2px; }
+.perm .tag { font-size: 0.8rem; }
+
+.callout.tip { border-left-color: var(--status-active); background: rgba(111, 208, 140, 0.06); }
+
+kbd
+{
+    font-family: var(--font-mono);
+    font-size: 0.8em;
+    padding: 1px 6px;
+    border: 1px solid var(--border-strong);
+    border-bottom-width: 2px;
+    border-radius: 4px;
+    background: var(--bg-raised);
+    color: var(--fg);
+    white-space: nowrap;
+}
+
+/* The contents page: one card per page of the manual. */
+.manual-index
+{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 14px;
+    margin: 18px 0 8px;
+    padding: 0;
+    list-style: none;
+    counter-reset: page;
+}
+.manual-index li
+{
+    counter-increment: page;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--bg-soft);
+    padding: 14px 16px;
+}
+.manual-index li::before { content: counter(page, decimal-leading-zero); display: block; color: var(--copper); font-weight: 700; font-size: 0.85rem; }
+.manual-index a { font-weight: 650; font-size: 1.05rem; }
+.manual-index p { margin: 4px 0 0; color: var(--fg-muted); font-size: 0.92rem; line-height: 1.5; }
+.manual-index small { display: block; margin-top: 6px; color: var(--fg-faint); }
+
+.manual-pager
+{
+    display: flex;
+    justify-content: space-between;
+    gap: 14px;
+    margin: 3rem 0 0;
+    padding-top: 18px;
+    border-top: 1px solid var(--border);
+}
+.manual-pager a
+{
+    display: flex;
+    flex-direction: column;
+    max-width: 48%;
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-weight: 600;
+}
+.manual-pager a:hover { border-color: var(--accent); text-decoration: none; }
+.manual-pager a.next { margin-left: auto; text-align: right; }
+.manual-pager small { color: var(--fg-faint); font-weight: 500; }
+
+@media (max-width: 900px)
+{
+    .manual { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+    .manual-nav
+    {
+        position: static;
+        max-height: none;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 8px 14px;
+        background: var(--bg-soft);
+    }
+    .split,
+    .split.flip { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+    .shot-phones { grid-template-columns: minmax(0, 1fr); }
+    .product-hero h1 { font-size: 2.1rem; }
+    .manual-head h1 { font-size: 1.9rem; }
+}
+
+/* A dialog cropped from a screenshot is narrower than the column: it keeps its own size
+   instead of being stretched, so its text stays sharp. Full screens still fill the column. */
+.manual-body .shot img { width: auto; max-width: 100%; }
+.manual-body .shot.phone img { max-width: min(320px, 100%); margin: 0; }
+
+/* The benefit grid is a list placed straight in the page: it takes the full width, not the reading width. */
+.site-main .container > ul.benefits { max-width: none; }
+
+/* A phone next to two wider screens: the phone column is narrower so the three read as a row. */
+.shot-trio { display: grid; grid-template-columns: minmax(0, 0.62fr) minmax(0, 1fr) minmax(0, 1fr); gap: 18px; align-items: start; }
+.shot-trio .shot { margin: 0; }
+@media (max-width: 900px) { .shot-trio { grid-template-columns: minmax(0, 1fr); } .shot-trio .shot:first-child img { max-width: 320px; } }
