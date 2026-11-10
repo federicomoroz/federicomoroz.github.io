@@ -5,11 +5,11 @@
 # y el script no toca.
 #
 # usuario: federicomoroz
-# generado: 2026-10-30T13:02:48+00:00
+# generado: 2026-11-10T21:09:38+00:00
 
 user: "federicomoroz"
-generated_at: "2026-10-30T13:02:48+00:00"
-count: 15
+generated_at: "2026-11-10T21:09:38+00:00"
+count: 14
 
 repos:
   - name: "arcasim"
@@ -31,26 +31,6 @@ repos:
       - "factura-electronica"
       - "simulator"
       - "soap"
-  - name: "comanda-docs"
-    full_name: "federicomoroz/comanda-docs"
-    url: "https://github.com/federicomoroz/comanda-docs"
-    description: "Comanda, gestión gastronómica para un restaurante: documentación pública con capturas, video y diagramas animados. .NET 8, React, PostgreSQL. El código es privado."
-    language: "Python"
-    homepage: "https://federicomoroz.github.io/es/projects/comanda/"
-    stars: 0
-    forks: 0
-    archived: false
-    is_fork: false
-    pushed_at: "2026-10-02T13:53:06Z"
-    created_at: "2026-10-02T00:52:34Z"
-    topics:
-      - "aspnet-core"
-      - "docker"
-      - "dotnet"
-      - "outbox-pattern"
-      - "postgresql"
-      - "react"
-      - "restaurant"
   - name: "notify-router"
     full_name: "federicomoroz/notify-router"
     url: "https://github.com/federicomoroz/notify-router"
