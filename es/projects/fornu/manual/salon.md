@@ -370,7 +370,7 @@ Abajo de las líneas, la cuenta muestra **Productos** (cuando hay cubierto o des
 La precuenta se imprime sola la primera vez. Para otra copia, **Más acciones** (⋯) › **Imprimir la precuenta**. Sin impresora de tickets se abre la impresión del navegador con una hoja que lleva el nombre del local, la mesa y su número, la fecha, quién atendió, los comensales, las líneas, el cubierto, el descuento, el total, el IVA contenido, lo pagado y el saldo, y al pie «No válido como factura.».
 
 <figure class="shot">
-  <img src="{{ '/assets/img/fornu/manual/salon-precuenta.jpg' | relative_url }}" alt="La precuenta impresa de la mesa 4: la cocina, la mesa y su número, la fecha, quién atendió, dos comensales, cada línea con su importe, el cubierto y el total" loading="lazy" width="330" height="300">
+  <img src="{{ '/assets/img/fornu/manual/salon-precuenta.jpg' | relative_url }}" alt="La precuenta impresa de la mesa 4: la cocina, la mesa y su número, la fecha, quién atendió, dos comensales, cada línea con su importe, el cubierto y el total" loading="lazy" width="330" height="320">
   <figcaption>La precuenta que sale por la impresora del navegador.</figcaption>
 </figure>
 

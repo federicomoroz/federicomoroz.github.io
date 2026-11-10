@@ -97,7 +97,7 @@ The buttons change depending on who you are and whether you have clocked in:
 | Clock-in only | **Fichar entrada** (clock in) or **Fichar salida** | Clocks, nothing else. |
 
 <figure class="shot phone">
-  <img src="{{ '/assets/img/fornu/manual/cocina-y-reparto-pin-sin-turno.jpg' | relative_url }}" alt="Lucía's PIN pad, before she clocked in, with the Entrar sin fichar and Fichar y entrar buttons" loading="lazy" width="412" height="915">
+  <img src="{{ '/assets/img/fornu/manual/cocina-y-reparto-pin-sin-turno.jpg' | relative_url }}" alt="Lucía's PIN pad, before she clocked in, with the Entrar sin fichar and Fichar y entrar buttons" loading="lazy" width="390" height="844">
   <ol class="marks">
     <li>Who is signing in. No «En turno desde las…»: she hasn't clocked in yet.</li>
     <li><b>Entrar sin fichar</b>: opens the app without clocking in.</li>

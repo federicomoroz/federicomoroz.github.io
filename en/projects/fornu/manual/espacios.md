@@ -264,11 +264,22 @@ If another device saved the same plan while you were drawing, Fornu says «Otro 
 If you have the place's floor plan as a photo or an image, put it underneath and draw on top.
 
 1. With nothing selected, set the place's real **Ancho (m)** and **Fondo (m)**. The image is stretched over the whole space, so the measurements have to match.
-2. Tap **Calcar un plano** and choose the image. It appears under the drawing, half transparent.
+2. Tap **Calcar un plano** and choose the image. It appears half transparent, over the floor and under the walls and everything else.
 3. Use the **Calco** (tracing) slider to make it lighter or darker.
 4. Draw over it with **Habitación** and **Pared**.
 5. When you are done, tap **Quitar el calco** (remove the tracing) and **Guardar el plano**.
 {: .steps}
+
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/espacios-calco.jpg' | relative_url }}" alt="An empty 10 by 8 metre place with a floor plan traced over it, half transparent: its walls, the door and the names Cocina, Salón and Baño. At the top, the Calco control and the Quitar el calco button, and on the right the space's Ancho and Fondo" loading="lazy" width="1440" height="780">
+  <ol class="marks">
+    <li><b>Ancho (m)</b> and <b>Fondo (m)</b> (width and depth): the place's real size.</li>
+    <li>The traced plan, stretched over the whole space.</li>
+    <li><b>Calco</b>: lighter or darker.</li>
+    <li><b>Quitar el calco</b> (remove the tracing).</li>
+  </ol>
+  <figcaption>A 10 × 8 m plan, ready to draw over.</figcaption>
+</figure>
 
 The tracing stays on this screen only: it is not saved with the plan.
 

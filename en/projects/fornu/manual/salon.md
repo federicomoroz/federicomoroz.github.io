@@ -370,7 +370,7 @@ Below the lines, the bill shows **Productos** (products, when there is a cover o
 The pre-bill (*precuenta*) prints by itself the first time. For another copy, use **Más acciones** (⋯) › **Imprimir la precuenta** (print the pre-bill). Without a receipt printer, the browser's print dialog opens with a sheet carrying the place's name, the table and its number, the date, who served, the guests, the lines, the cover, the discount, the total, the VAT included, what was paid and the balance, and at the foot «No válido como factura.» (not valid as an invoice).
 
 <figure class="shot">
-  <img src="{{ '/assets/img/fornu/manual/salon-precuenta.jpg' | relative_url }}" alt="Table 4's printed pre-bill: the kitchen, the table and its number, the date, who served, two guests, each line with its amount, the cover charge and the total" loading="lazy" width="330" height="300">
+  <img src="{{ '/assets/img/fornu/manual/salon-precuenta.jpg' | relative_url }}" alt="Table 4's printed pre-bill: the kitchen, the table and its number, the date, who served, two guests, each line with its amount, the cover charge and the total" loading="lazy" width="330" height="320">
   <figcaption>The pre-bill printed from the browser.</figcaption>
 </figure>
 

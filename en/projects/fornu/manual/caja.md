@@ -201,7 +201,7 @@ The tab says **Movimientos** and the screen title says **Movimientos de caja** (
   <figcaption>A day with an advance and a wage paid from the drawer, and two movements entered by hand.</figcaption>
 </figure>
 
-Three figures sit at the top. **Efectivo en la caja ahora** is what should be in the drawer right now. **Ingresos del período** and **Egresos del período** (money in and out for the period) add up everything that came in and went out in the chosen dates, whatever the method. The period starts on **Hoy** and can span up to a year.
+Three figures sit at the top. **Efectivo en la caja ahora** is what should be in the drawer right now. If it falls below zero, it says «salió más de lo que entró: falta cargar un ingreso» (more went out than came in: a cash-in is missing), because something was paid from the drawer that was never recorded coming in. **Ingresos del período** and **Egresos del período** (money in and out for the period) add up everything that came in and went out in the chosen dates, whatever the method. The period starts on **Hoy** and can span up to a year.
 
 Each row shows **Cuándo** (when), the **Concepto** (description, with the note and who entered it), the **Medio** (method), the **Origen** and the amount under **Ingreso** or **Egreso**.
 

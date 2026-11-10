@@ -97,7 +97,7 @@ Los botones cambian según quién sos y si ya fichaste:
 | Solo ficha | **Fichar entrada** o **Fichar salida** | Ficha, y nada más. |
 
 <figure class="shot phone">
-  <img src="{{ '/assets/img/fornu/manual/cocina-y-reparto-pin-sin-turno.jpg' | relative_url }}" alt="El teclado del PIN de Lucía, que todavía no fichó, con los botones Entrar sin fichar y Fichar y entrar" loading="lazy" width="412" height="915">
+  <img src="{{ '/assets/img/fornu/manual/cocina-y-reparto-pin-sin-turno.jpg' | relative_url }}" alt="El teclado del PIN de Lucía, que todavía no fichó, con los botones Entrar sin fichar y Fichar y entrar" loading="lazy" width="390" height="844">
   <ol class="marks">
     <li>Quién entra. No dice «En turno desde las…»: todavía no fichó.</li>
     <li><b>Entrar sin fichar</b>: abre la app y no anota la entrada.</li>

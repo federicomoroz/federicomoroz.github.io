@@ -264,11 +264,22 @@ Si otro equipo guardó el mismo plano mientras dibujabas, Fornu avisa «Otro dis
 Si tenés el plano del local en una foto o una imagen, ponelo debajo y dibujá encima.
 
 1. Sin nada elegido, poné el **Ancho (m)** y el **Fondo (m)** reales del lugar. La imagen se estira sobre todo el espacio, así que las medidas tienen que coincidir.
-2. Tocá **Calcar un plano** y elegí la imagen. Aparece debajo del dibujo, a media transparencia.
+2. Tocá **Calcar un plano** y elegí la imagen. Aparece a media transparencia, encima del piso y debajo de las paredes y lo demás.
 3. Con **Calco**, hacela más clara o más oscura.
 4. Dibujá encima con **Habitación** y **Pared**.
 5. Cuando termines, tocá **Quitar el calco** y **Guardar el plano**.
 {: .steps}
+
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/espacios-calco.jpg' | relative_url }}" alt="Un lugar vacío de 10 por 8 metros con el plano de un local calcado encima, a media transparencia: sus paredes, la puerta y los nombres Cocina, Salón y Baño. Arriba, el control Calco y el botón Quitar el calco, y a la derecha el Ancho y el Fondo del espacio" loading="lazy" width="1440" height="780">
+  <ol class="marks">
+    <li><b>Ancho (m)</b> y <b>Fondo (m)</b>: las medidas reales del lugar.</li>
+    <li>El plano calcado, estirado sobre todo el espacio.</li>
+    <li><b>Calco</b>: más claro o más oscuro.</li>
+    <li><b>Quitar el calco</b>.</li>
+  </ol>
+  <figcaption>Un plano de 10 × 8 m, listo para dibujar encima.</figcaption>
+</figure>
 
 El calco queda solo en esta pantalla: no se guarda con el plano.
 

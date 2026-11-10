@@ -201,7 +201,7 @@ La pestaña dice **Movimientos** y el título de la pantalla, **Movimientos de c
   <figcaption>Un día con un adelanto y un sueldo pagados de la caja, y dos movimientos cargados a mano.</figcaption>
 </figure>
 
-Arriba hay tres cifras. **Efectivo en la caja ahora** es lo que debería haber en el cajón en este momento. **Ingresos del período** y **Egresos del período** suman todo lo que entró y salió en las fechas elegidas, sea del medio que sea. El período arranca en **Hoy** y llega hasta un año.
+Arriba hay tres cifras. **Efectivo en la caja ahora** es lo que debería haber en el cajón en este momento. Si da menos de cero, dice «salió más de lo que entró: falta cargar un ingreso», porque se pagó de la caja algo que no estaba anotado como entrada. **Ingresos del período** y **Egresos del período** suman todo lo que entró y salió en las fechas elegidas, sea del medio que sea. El período arranca en **Hoy** y llega hasta un año.
 
 Cada fila dice **Cuándo**, el **Concepto** (con la nota y quién lo cargó), el **Medio**, el **Origen** y el importe en **Ingreso** o **Egreso**.
 
