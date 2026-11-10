@@ -134,6 +134,11 @@ On a phone, or in a narrow window, the screen rearranges itself for your thumb:
 - Dialogs rise from the bottom as a sheet.
 - The top keeps the search button, the theme, the time and your initial.
 
+<figure class="shot phone">
+  <img src="{{ '/assets/img/fornu/manual/empezar-mas-celular.jpg' | relative_url }}" alt="The Más sheet open on a phone: the groups Inicio, Pedidos, Salón, Espacios and Carta, each with its sections as buttons" loading="lazy" width="390" height="844">
+  <figcaption>The <b>Más</b> sheet on a phone: every group with its sections.</figcaption>
+</figure>
+
 ### The clock and «En vivo» {#en-vivo}
 
 On the right of the bar there is a dot and the time, large enough to read from the kitchen. On very wide screens you also see the day, the date and a word next to the dot:
@@ -162,6 +167,16 @@ The choice is kept in this browser, and any other window of the same browser fol
 
 Your initial sits at the top right. On wide screens you also see your name and your kind of user: **Administración** (admin) if you run the account, **Con roles** (with roles) if you sign in with the roles you were given. Tap it to open the menu.
 
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/empezar-usuario.jpg' | relative_url }}" alt="The user menu open at the top right: Administración, Mi cuenta: email y contraseña, and Cerrar sesión" loading="lazy" width="440" height="250">
+  <ol class="marks">
+    <li>Your initial: opens the menu.</li>
+    <li><b>Mi cuenta: email y contraseña</b>.</li>
+    <li><b>Cerrar sesión</b> (sign out).</li>
+  </ol>
+  <figcaption>Your user menu.</figcaption>
+</figure>
+
 <p class="perm"><span>Who can:</span> everyone who signs in with an email. Staff who sign in with a PIN have no Mi cuenta.</p>
 
 To change your email or your password:
@@ -172,6 +187,18 @@ To change your email or your password:
 4. Type your **Contraseña actual** (current password) to confirm it's you.
 5. Tap **Guardar** (save). You'll see «Tus datos quedaron guardados» (your details were saved).
 {: .steps}
+
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/empezar-mi-cuenta.jpg' | relative_url }}" alt="The Mi cuenta panel with the email, a seven-character new password, Repetila and Contraseña actual empty, and at the bottom the notice that the new password needs at least 8 characters" loading="lazy" width="620" height="900">
+  <ol class="marks">
+    <li><b>Email</b>: the one you sign in with.</li>
+    <li><b>Contraseña nueva</b>, and below it <b>Repetila</b>.</li>
+    <li><b>Contraseña actual</b>: needed to save.</li>
+    <li>What is missing, in one line.</li>
+    <li><b>Guardar</b>: turns on when nothing is missing.</li>
+  </ol>
+  <figcaption>Mi cuenta, with a new password that is too short.</figcaption>
+</figure>
 
 While something is missing, the left of the buttons says what: «La contraseña nueva tiene que tener al menos 8 caracteres.» (the new password needs at least 8 characters), «Las contraseñas nuevas no coinciden.» (the new passwords don't match) or «Falta la contraseña actual.» (the current password is missing). A wrong current password shows «La contraseña actual no es correcta.»
 
@@ -189,6 +216,14 @@ Fornu confirms what you did with a short notice, and when something fails it say
 - **If a section doesn't load**, it says «No se pudo cargar: …» (couldn't load) with a **Reintentar** (retry) button.
 - **If a screen breaks**, it says «Algo falló en esta pantalla» (something failed on this screen) and «Lo demás sigue andando. Si vuelve a pasar, recargá la página.» (everything else keeps working, and if it happens again, reload the page), with **Reintentar** and **Recargar la página** (reload the page).
 
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/empezar-deshacer.jpg' | relative_url }}" alt="The notice Doble cheddar pausado, at the bottom left of the menu, with the Deshacer button" loading="lazy" width="760" height="340">
+  <ol class="marks">
+    <li><b>Deshacer</b> (undo): puts everything back.</li>
+  </ol>
+  <figcaption>Pausing a product leaves eight seconds to change your mind.</figcaption>
+</figure>
+
 ## How dialogs behave {#dialogos}
 
 Forms and confirmations open in a dialog over the page. They all work the same way:
@@ -199,6 +234,11 @@ Forms and confirmations open in a dialog over the page. They all work the same w
 - <kbd>Ctrl</kbd>+<kbd>Enter</kbd> presses the main button without reaching for the mouse. On a PC, the dialog's footer reminds you.
 - Confirmations have **Volver** to back out.
 - On a phone they rise from the bottom as a sheet.
+
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/empezar-sin-guardar.jpg' | relative_url }}" alt="The footer of a dialog with the text Hay cambios sin guardar and the Seguir editando and Descartar buttons" loading="lazy" width="620" height="88">
+  <figcaption>Closing a dialog with changes: the footer asks first.</figcaption>
+</figure>
 
 ## Searching with Ctrl+K {#buscar}
 

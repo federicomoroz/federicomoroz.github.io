@@ -15,14 +15,15 @@ This is the list of what deserves a look in costs and prices: an ingredient with
 <p class="perm"><span>Who can:</span> <span class="tag">Costos</span></p>
 
 <figure class="shot">
-  <img src="{{ '/assets/img/fornu/manual/costos-revisar.jpg' | relative_url }}" alt="Para revisar with zero problems, zero warnings and zero reminders, and the message that there is nothing to review" loading="lazy" width="1440" height="400">
+  <img src="{{ '/assets/img/fornu/manual/costos-revisar.jpg' | relative_url }}" alt="Para revisar with one problem and one warning: the Doble cheddar loses 720.35 pesos per unit on Rappi and the Triple bacon sits below the suggested price on Rappi, each with Ficha and Corregir" loading="lazy" width="1440" height="620">
   <ol class="marks">
     <li><b>Problemas</b> (problems): numbers that are wrong or missing.</li>
     <li><b>Avisos</b> (warnings): numbers that are fine but worth a look.</li>
     <li><b>Recordatorios</b> (reminders): old prices and notes.</li>
-    <li>The list. Here it is empty: «Nada para revisar: todos los insumos tienen precio y todos los productos dejan lo que tienen que dejar.» (nothing to review: every item has a price and every product leaves what it should).</li>
+    <li>What is going on, for example «Pierde $ 720,35 por unidad en Rappi» (loses $ 720.35 per unit on Rappi).</li>
+    <li><b>Corregir</b> (fix): opens exactly what needs fixing.</li>
   </ol>
-  <figcaption>The demo with its menu up to date.</figcaption>
+  <figcaption>A price that loses money on Rappi.</figcaption>
 </figure>
 
 The screen's title is **Para revisar** (to review). Tapping a figure filters the list. At the top you also have **Todo** / **Problemas** / **Avisos** / **Recordatorios** and the search box **Buscar producto o insumo…** (search product or item).

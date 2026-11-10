@@ -108,6 +108,18 @@ El pie acompaña todo lo que escribís: con la receta cargada muestra el **Costo
 - **Ganancia sobre el costo**: cuánto deja el precio sugerido por encima de lo que cuesta. Con **Propia** apagado usa la de la cuenta, que se fija en [Ajustes › Configuración]({{ '/es/projects/fornu/manual/ajustes/' | relative_url }}#configuracion). Prendido, ponés una solo para este producto.
 - **Márgenes con estos precios**: una tabla con cada canal, su precio, lo que deja en pesos y en porcentaje, y el **Sugerido**. Cuando un precio queda debajo del sugerido aparece **Usar $ …**, que lo reemplaza por el sugerido redondeado para arriba a $ 10. Sin receta no hay costo, y la tabla pide cargarla.
 
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/carta-ficha-precios.jpg' | relative_url }}" alt="La pestaña Precios del Doble cheddar: Precio base 9.800, Rappi con precio propio de 3.500, PedidosYa con 11.200, Ganancia sobre el costo de la cuenta, y la tabla Márgenes con estos precios con Rappi en rojo y el botón Usar $ 5.950" loading="lazy" width="880" height="900">
+  <ol class="marks">
+    <li><b>Precio base</b>.</li>
+    <li><b>Propio</b>: prendido, la plataforma tiene su propio precio.</li>
+    <li><b>Ganancia sobre el costo</b>.</li>
+    <li><b>Márgenes con estos precios</b>: lo que deja cada canal y el sugerido.</li>
+    <li><b>Usar $ …</b>: pone el sugerido en el canal que queda debajo.</li>
+  </ol>
+  <figcaption>Los precios del Doble cheddar. En Rappi pierde plata.</figcaption>
+</figure>
+
 ### Receta {#ficha-receta}
 
 Los insumos que lleva cada unidad vendida y en qué cantidad. Cada vez que se vende el producto, Fornu descuenta del stock lo que dice la receta.
@@ -119,6 +131,16 @@ Los insumos que lleva cada unidad vendida y en qué cantidad. Cada vez que se ve
 
 Abajo se ve el costo de toda la receta. La ✕ quita una línea. Si un insumo todavía no existe, **+ Nuevo insumo** abre su carga sin salir del producto: elegís si es un ingrediente, una elaboración o un artículo de inventario, y al guardarlo entra a la receta con cantidad 1. Ese botón aparece si tu rol tiene también el permiso **Insumos**.
 
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/carta-ficha-receta.jpg' | relative_url }}" alt="La pestaña Receta del Doble cheddar con cinco insumos, cada uno con su cantidad y lo que cuesta, los botones + Agregar y + Nuevo insumo, y el costo total abajo" loading="lazy" width="880" height="540">
+  <ol class="marks">
+    <li><b>+ Agregar</b>: una línea más.</li>
+    <li><b>+ Nuevo insumo</b>: lo carga sin salir del producto.</li>
+    <li>El costo de toda la receta.</li>
+  </ol>
+  <figcaption>La receta del Doble cheddar.</figcaption>
+</figure>
+
 <div class="callout tip"><p class="callout-title">Consejo</p><p>La caja o la bolsa del producto van en <b>Adicionales</b>, no en la receta. Así el envase puede ser distinto en el delivery y en el salón.</p></div>
 
 ### Adicionales {#ficha-adicionales}
@@ -127,11 +149,24 @@ Lo que lleva cada unidad del producto además de su receta, en todos los canales
 
 Cada línea tiene **Canal** (**Todos**, **Propios**, cada plataforma prendida y **Salón** si la unidad vende en el salón), **Insumo**, **Cantidad** y su **Costo**. **+ Adicional** suma una línea. Lo que llevan todos los productos de la unidad de negocio, o cada pedido entero, se carga una sola vez en los adicionales de la unidad de negocio, en [Ajustes]({{ '/es/projects/fornu/manual/ajustes/' | relative_url }}#unidades).
 
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/carta-ficha-adicionales.jpg' | relative_url }}" alt="La pestaña Adicionales del Doble cheddar, con la explicación, Todavía no lleva nada y el botón + Adicional" loading="lazy" width="880" height="320">
+  <ol class="marks">
+    <li><b>+ Adicional</b>: suma una línea.</li>
+  </ol>
+  <figcaption>Un producto sin adicionales propios. Lo de cada pedido va en la unidad de negocio.</figcaption>
+</figure>
+
 Esta pestaña aparece mientras **Se vende suelto** está prendido.
 
 ### Grupos modificadores {#ficha-grupos}
 
 Tildá los grupos que se ofrecen al pedir este producto, como sus extras o la bebida del combo. Cada tarjeta dice cuántas opciones se eligen, por ejemplo «Opcional, hasta 3». Un grupo que tiene a este mismo producto entre sus opciones aparece apagado. Los grupos se arman en [Grupos modificadores](#modificadores).
+
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/carta-ficha-grupos.jpg' | relative_url }}" alt="La pestaña Grupos modificadores del Doble cheddar con dos grupos tildados: Extras, opcional hasta 3, y Sumale una bebida, opcional hasta 1" loading="lazy" width="880" height="330">
+  <figcaption>Los dos grupos que se ofrecen con el Doble cheddar.</figcaption>
+</figure>
 
 ### Lo que no deja guardar {#ficha-errores}
 
@@ -150,7 +185,7 @@ Todo esto está en el menú **⋯** de cada producto.
 <p class="perm"><span>Quién puede:</span> <span class="tag">Carta</span></p>
 
 - **Duplicar** crea «Doble cheddar (copia)» con la misma receta, los mismos adicionales, precios, ganancia y grupos. La copia nace pausada, para que la revises antes de venderla, y se abre en **Datos** para que le cambies el nombre.
-- **Pausar** saca el producto de la venta. Fornu avisa «Doble cheddar pausado. Publicá la carta para que las plataformas lo vean.» y ofrece **Deshacer** por si fue sin querer.
+- **Pausar** saca el producto de la venta. Fornu avisa «Doble cheddar pausado» y ofrece **Deshacer** por si fue sin querer. Si la cuenta tiene el módulo Delivery por plataformas y la carta cambió, el aviso de arriba de la lista pide publicarla.
 - **Reactivar** lo vuelve a la carta: «Doble cheddar vuelve a la carta».
 
 Los productos no se borran. Pausar los saca de la venta y conserva sus ventas y su historia.
@@ -210,12 +245,22 @@ En pedidos propios cambia el precio base. En una plataforma cambia su precio pro
 
 ### Arreglar un precio que pierde plata {#arreglar-precio}
 
-Cuando un producto pierde plata o queda debajo del sugerido en algún canal, Fornu lo marca en [Costos › Para revisar]({{ '/es/projects/fornu/manual/costos-y-reportes/' | relative_url }}#revisar), y también en el recuadro que aparece después de una compra que movió costos ([Compras y gastos]({{ '/es/projects/fornu/manual/compras-y-gastos/' | relative_url }}#margenes)). Desde los dos lugares, **Revisar precio** abre el producto en **Precios**, listo para corregir:
+Cuando un producto pierde plata o queda debajo del sugerido en algún canal, Fornu lo marca en [Costos › Para revisar]({{ '/es/projects/fornu/manual/costos-y-reportes/' | relative_url }}#revisar), y también en el recuadro que aparece después de una compra que movió costos ([Compras y gastos]({{ '/es/projects/fornu/manual/compras-y-gastos/' | relative_url }}#margenes)). Desde Para revisar con **Corregir**, y desde el recuadro de la compra con **Revisar precio**, el producto se abre en **Precios**, listo para corregir:
 
 - Arriba, un aviso dice qué pasa, por ejemplo «Pierde $ … por unidad en Rappi · $ … debajo del sugerido en Pedidos propios».
 - En la tabla de márgenes se escribe el precio de cada canal ahí mismo, y el margen se recalcula al escribir.
 - Cuando todo queda bien, el aviso cambia a «Con estos precios ningún canal pierde plata ni queda debajo del sugerido. Guardá para dejarlo así.»
 - Al cerrar volvés a la pantalla de donde viniste.
+
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/carta-arreglar-precio.jpg' | relative_url }}" alt="El Doble cheddar abierto desde Para revisar: arriba el aviso Pierde $ 720,35 por unidad en Rappi, y la tabla de márgenes con el precio de cada canal para escribir y el botón Usar $ 5.950 en Rappi" loading="lazy" width="880" height="720">
+  <ol class="marks">
+    <li>El aviso: qué canal pierde y cuánto.</li>
+    <li>El precio de Rappi, que se escribe ahí mismo.</li>
+    <li><b>Usar $ …</b>: el sugerido, redondeado.</li>
+  </ol>
+  <figcaption>Corregir un precio que pierde plata en Rappi.</figcaption>
+</figure>
 
 ## Categorías de la carta {#categorias}
 
@@ -243,9 +288,19 @@ Tocá **Agregar**, o una categoría para cambiarla:
 | **Notas rápidas** | Una por línea, como «Jugoso», «A punto» y «Cocido». Al cargar un producto de esta categoría se tocan en vez de escribirlas. Hasta 12 notas de 40 letras. |
 | **Color** | El de su baldosa y sus productos en el mostrador express. Sin elegir, usa el de la unidad de negocio. |
 
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/carta-categoria.jpg' | relative_url }}" alt="El panel de la categoría Burgers con Nombre, Orden, Va de en Principal, cuatro notas rápidas y el Color" loading="lazy" width="620" height="560">
+  <ol class="marks">
+    <li><b>Va de</b>: cuándo sale en el salón.</li>
+    <li><b>Notas rápidas</b>: una por línea.</li>
+    <li><b>Color</b>.</li>
+  </ol>
+  <figcaption>La categoría Burgers, con cuatro notas rápidas.</figcaption>
+</figure>
+
 Cómo se marchan los tiempos y dónde aparecen las notas rápidas está en [Salón]({{ '/es/projects/fornu/manual/salon/' | relative_url }}#tiempos).
 
-Para borrar una categoría, abrila y tocá **Borrar**. Si todavía tiene productos, Fornu no la borra y pide moverlos a otra categoría o pausarlos antes.
+Para borrar una categoría, abrila y tocá **Borrar**. Si todavía tiene productos, Fornu no la borra: «Burgers tiene productos, también cuentan los pausados: pasalos a otra categoría primero.». Las categorías de la carta no tienen un interruptor para apagarlas.
 
 ## Grupos modificadores {#modificadores}
 

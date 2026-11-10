@@ -53,13 +53,13 @@ Each waiter carries a phone paired to the place, signs in with their PIN and loa
     <figcaption>A waitress's phone, signed in with her PIN.</figcaption>
   </figure>
   <figure class="shot">
-    <img src="{{ '/assets/img/fornu/manual/salon-adicionista.jpg' | relative_url }}" alt="The Venta screen on the dining room's computer: the current user's name at the top right, table 1 in Lucía's name on the left, and that table's bill on the right with Lucía as its waitress." loading="lazy" width="1440" height="650">
+    <img src="{{ '/assets/img/fornu/manual/salon-adicionista.jpg' | relative_url }}" alt="The Venta screen on the dining room's computer: the current user's name at the top right, table 3 just opened in Valentina's name on the left, and that table's bill on the right with Valentina Sosa as the waitress" loading="lazy" width="1440" height="650">
     <ol class="marks">
-      <li><b>Mara · Cambiar de persona</b>: who is using the device. Tap it to let someone else in.</li>
-      <li>Table 1, open in Lucía's name.</li>
+      <li><b>Tomás Romero · Cambiar de persona</b> (switch person): who is using the device. Tap it to let someone else in.</li>
+      <li>Table 3, open in Valentina's name.</li>
       <li>The bill says who serves it. With <b>Asignar quién atiende</b>, the name can be tapped to hand the table to someone else.</li>
     </ol>
-    <figcaption>The dining room computer: Mara loads on Lucía's table.</figcaption>
+    <figcaption>The dining room computer: Tomás loads on Valentina's table.</figcaption>
   </figure>
 </div>
 
@@ -179,10 +179,10 @@ That one tap opens the table in your name and opens its bill alongside, ready to
 **Más opciones…** opens the full dialog, with **Comensales** (guests, 1 to 99) and, for whoever has Asignar quién atiende, **Atiende** (served by): tap the waiter who will serve the table. If you pick nobody, the table stays in your name. Then tap **Abrir la mesa** (open the table).
 
 <figure class="shot">
-  <img src="{{ '/assets/img/fornu/manual/salon-atiende.jpg' | relative_url }}" alt="The Mesa 1 dialog with Comensales at 2, the note La mesa tiene 4 sillas, and Atiende with two buttons, Lucía selected and Mara." loading="lazy" width="620" height="250">
+  <img src="{{ '/assets/img/fornu/manual/salon-atiende.jpg' | relative_url }}" alt="The Mesa 3 dialog with the units Doble Smash and Pizzería, Comensales at 2, the note La mesa tiene 4 sillas, and Atiende with Tomás Romero and Valentina Sosa, selected" loading="lazy" width="620" height="330">
   <ol class="marks">
     <li><b>Comensales</b>, with the table's chairs as a reference.</li>
-    <li><b>Atiende</b>: the order desk opens the table in Lucía's name.</li>
+    <li><b>Atiende</b>: the order desk opens the table in Valentina's name.</li>
   </ol>
   <figcaption>Opening a table for another waitress.</figcaption>
 </figure>
@@ -247,6 +247,18 @@ Each line is saved the moment you add it, so every other device sees it right aw
 </figure>
 
 A product with options (how the meat is cooked, extras) opens a dialog first. Each group says how many to choose («elegí 1», choose 1, «hasta 2», up to 2, «de 1 a 3», 1 to 3) and each option its extra price («+$ 800») or «agotado». At the bottom are **Cantidad** (quantity) and **Aclaración (opcional)** (special request), for example «Sin pepinos» (no pickles). Tap **Agregar · $ …** (add). If a required group is missing, Fornu tells you which one.
+
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/salon-opciones.jpg' | relative_url }}" alt="The Doble cheddar dialog with Extras up to 3, one Extra cheddar chosen, Sumale una bebida up to 1 with the soda chosen, Cantidad 1, the note Sin pepinos and the Agregar · $ 12.800 button" loading="lazy" width="620" height="900">
+  <ol class="marks">
+    <li>A group and how many to choose: «hasta 3» (up to 3). Options that can be ordered more than once have − and +.</li>
+    <li>Another group, «hasta 1»: one tap chooses.</li>
+    <li><b>Cantidad</b> (quantity).</li>
+    <li><b>Aclaración (opcional)</b> (note).</li>
+    <li><b>Agregar · $ …</b> (add), with the price of what was chosen.</li>
+  </ol>
+  <figcaption>A Doble cheddar with extra cheddar and a soda.</figcaption>
+</figure>
 
 ### Courses: Cargando para {#tiempos}
 
@@ -357,6 +369,11 @@ Below the lines, the bill shows **Productos** (products, when there is a cover o
 
 The pre-bill (*precuenta*) prints by itself the first time. For another copy, use **Más acciones** (⋯) › **Imprimir la precuenta** (print the pre-bill). Without a receipt printer, the browser's print dialog opens with a sheet carrying the place's name, the table and its number, the date, who served, the guests, the lines, the cover, the discount, the total, the VAT included, what was paid and the balance, and at the foot «No válido como factura.» (not valid as an invoice).
 
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/salon-precuenta.jpg' | relative_url }}" alt="Table 4's printed pre-bill: the kitchen, the table and its number, the date, who served, two guests, each line with its amount, the cover charge and the total" loading="lazy" width="330" height="300">
+  <figcaption>The pre-bill printed from the browser.</figcaption>
+</figure>
+
 If anything else is loaded afterwards, the table no longer counts as having asked for the bill. If a course is still on hold, Fornu will not mark it: «Hay postre en espera: marchalo o sacalo antes de cobrar.» (dessert is on hold, fire it or remove it before charging).
 
 <figure class="shot">
@@ -374,9 +391,23 @@ If anything else is loaded afterwards, the table no longer counts as having aske
 
 On a phone the bill takes the whole screen, and the arrow at the top goes back to the floor. **Carta** and **Cuenta** are two tabs. While you are on the menu with something loaded, a bar appears at the bottom with «2 sin mandar · $ 25.700» (tap it to see the bill) and a **Mandar** (send) button, so you can send without switching tabs.
 
+<figure class="shot phone">
+  <img src="{{ '/assets/img/fornu/manual/salon-telefono-sin-mandar.jpg' | relative_url }}" alt="Table 9 on a waitress's phone, on the Carta tab, with the bottom bar reading 2 sin mandar · $ 6.500 and the Mandar button" loading="lazy" width="390" height="844">
+  <ol class="marks">
+    <li>What is left to send: tap it to see the bill.</li>
+    <li><b>Mandar</b> (send), without leaving the menu.</li>
+  </ol>
+  <figcaption>The bar for what is left to send, on a phone.</figcaption>
+</figure>
+
 ## On a line or on the whole table {#acciones}
 
 Whatever already went to the kitchen gets voided, discounted or moved, and Fornu always records who did it. Each sent line has its own ⋯ menu, and the table has its own, **Más acciones** (⋯), in the header. A line's menu appears while the table is open, the line is not voided and there are no payments yet.
+
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/salon-menu-mesa.jpg' | relative_url }}" alt="Table 2's Más acciones menu open: Mover la mesa entera, Mover ítems, Unir con otra mesa, Pasarla a otro mozo, Reimprimir la ronda 1, Imprimir la precuenta and Cancelar la mesa" loading="lazy" width="510" height="520">
+  <figcaption>A table's <b>Más acciones</b> (⋯) menu.</figcaption>
+</figure>
 
 An option with a padlock means your role lacks that permission: you can still use it, and Fornu asks for the PIN of someone who has it (see [Borrowing a permission with someone's PIN](#autorizar)).
 
@@ -497,6 +528,11 @@ If the other table is busy, what you move is added to its bill. Sent items keep 
 
 **Más acciones** (⋯) › **Mover la mesa entera** (move the whole table) lists the free tables by section. Tap one and the table moves with everything on it. Fornu says «Mesa 1 → Mesa 2.» with a **Deshacer** button that moves it back.
 
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/salon-mover-mesa.jpg' | relative_url }}" alt="The Mover Mesa 2 panel with the free tables in the Salón and the Vereda, each with its chairs" loading="lazy" width="620" height="420">
+  <figcaption>Free tables, by section. One tap moves the table.</figcaption>
+</figure>
+
 ### Joining with another table
 
 <p class="perm"><span>Who can:</span> <span class="tag">Mover mesas</span></p>
@@ -531,6 +567,11 @@ For the table that gets up and leaves, or one opened by mistake. It also works f
 3. Choose the reason, from the same list as when voiding. If nothing was sent, the reason is optional and it is recorded as «Se levantó sin pedir» (left without ordering).
 4. Tap **Cancelar la mesa**.
 {: .steps}
+
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/salon-cancelar-mesa.jpg' | relative_url }}" alt="The Cancelar Mesa 2 panel with what will happen, the reasons Error de carga, Se arrepintió, Salió mal, Demora, No había and Otro, and the optional note" loading="lazy" width="620" height="420">
+  <figcaption>Cancelling a table asks for the reason.</figcaption>
+</figure>
 
 Stations that had already printed something get their **ANULADO** notice. Fornu says «Mesa cancelada.».
 
@@ -717,6 +758,11 @@ Payments are listed on the bill, for example «Débito · parte 1 de 2 · 12:38 
 3. Without the Deshacer cobros permission, Fornu asks for the PIN of someone who has it.
 {: .steps}
 
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/salon-anular-pago.jpg' | relative_url }}" alt="The Anular el pago confirmation: Débito por $ 15.100 vuelve al saldo de la mesa, with Volver and Anular el pago" loading="lazy" width="500" height="200">
+  <figcaption>A debit payment going back to the balance.</figcaption>
+</figure>
+
 Fornu says «Pago anulado.» (payment voided) and, if it was cash, it leaves the drawer.
 
 ### The paid table
@@ -747,6 +793,11 @@ For take-away or eating at the bar. Each sale opens under a name to call the cus
 4. Tap **Abrir** (open). The sale opens alongside, ready to load.
 {: .steps}
 
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/salon-nueva-venta.jpg' | relative_url }}" alt="The Mostrador o para llevar dialog with the units Doble Smash and Pizzería, the name Lucas and Atiende with Tomás Romero and Valentina Sosa, none chosen" loading="lazy" width="620" height="330">
+  <figcaption>A new sale for Lucas. Without choosing who serves, it stays in your name.</figcaption>
+</figure>
+
 You load it like a table. The differences:
 
 - No guests and no cover charge.
@@ -755,13 +806,13 @@ You load it like a table. The differences:
 - Whoever takes payment also gets **Mandar y cobrar $ …** (send and charge), which sends the round and opens the payment dialog in one tap. A waiter without Cobrar mesas only sees **Mandar a la cocina** and **Pidió la cuenta**.
 
 <figure class="shot">
-  <img src="{{ '/assets/img/fornu/manual/salon-mostrador.jpg' | relative_url }}" alt="The Mostrador tab: 1 venta abierta en el mostrador, the Nueva venta button, the tile of a sale open for 0 minutes at 0 pesos, and its bill alongside with the menu." loading="lazy" width="1440" height="650">
+  <img src="{{ '/assets/img/fornu/manual/salon-mostrador.jpg' | relative_url }}" alt="The Mostrador tab with two open sales, Camila and Lucas, the Nueva venta button and Lucas's bill alongside with the menu" loading="lazy" width="1440" height="650">
   <ol class="marks">
-    <li><b>Nueva venta</b>: opens under a name.</li>
-    <li>The open sale: name, minutes, total and who serves it.</li>
-    <li>Its bill, alongside, just like a table's.</li>
+    <li><b>Nueva venta</b> (new sale): opens with a name.</li>
+    <li>The open sale: name, minutes, total and who serves it. Lucas's has something not sent yet.</li>
+    <li>Its bill, alongside, like a table's.</li>
   </ol>
-  <figcaption>An open sale at the counter.</figcaption>
+  <figcaption>Two open sales at the counter.</figcaption>
 </figure>
 
 <figure class="shot">

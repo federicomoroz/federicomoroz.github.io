@@ -132,6 +132,11 @@ En un celular, o en una ventana angosta, la pantalla se reacomoda para el pulgar
 - Los diálogos suben desde abajo, como una hoja.
 - Arriba quedan la lupa para buscar, el tema, la hora y tu inicial.
 
+<figure class="shot phone">
+  <img src="{{ '/assets/img/fornu/manual/empezar-mas-celular.jpg' | relative_url }}" alt="La hoja de Más abierta en un celular: los grupos Inicio, Pedidos, Salón, Espacios y Carta, cada uno con sus secciones como botones" loading="lazy" width="390" height="844">
+  <figcaption>La hoja de <b>Más</b> en el celular: cada grupo con sus secciones.</figcaption>
+</figure>
+
 ### El reloj y «En vivo» {#en-vivo}
 
 A la derecha de la barra hay un punto y la hora, en grande para leerla desde la cocina. En pantallas muy anchas también se ven el día, la fecha y una palabra al lado del punto:
@@ -160,6 +165,16 @@ La elección queda guardada en este navegador, y otra ventana abierta del mismo 
 
 Arriba a la derecha está tu inicial. En pantallas anchas también se ven tu nombre y tu tipo de usuario: **Administración** si administrás la cuenta, **Con roles** si entrás con los roles que te dieron. Tocala para abrir el menú.
 
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/empezar-usuario.jpg' | relative_url }}" alt="El menú del usuario abierto arriba a la derecha: Administración, Mi cuenta: email y contraseña, y Cerrar sesión" loading="lazy" width="440" height="250">
+  <ol class="marks">
+    <li>Tu inicial: abre el menú.</li>
+    <li><b>Mi cuenta: email y contraseña</b>.</li>
+    <li><b>Cerrar sesión</b>.</li>
+  </ol>
+  <figcaption>El menú de tu usuario.</figcaption>
+</figure>
+
 <p class="perm"><span>Quién puede:</span> todo el que entra con email. El personal que entra con PIN no tiene Mi cuenta.</p>
 
 Para cambiar tu email o tu contraseña:
@@ -170,6 +185,18 @@ Para cambiar tu email o tu contraseña:
 4. Escribí tu **Contraseña actual**, para confirmar que sos vos.
 5. Tocá **Guardar**. Aparece «Tus datos quedaron guardados».
 {: .steps}
+
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/empezar-mi-cuenta.jpg' | relative_url }}" alt="El panel Mi cuenta con el email, una contraseña nueva de siete caracteres, Repetila y Contraseña actual vacíos, y abajo el aviso de que la contraseña nueva tiene que tener al menos 8 caracteres" loading="lazy" width="620" height="900">
+  <ol class="marks">
+    <li><b>Email</b>: con el que entrás.</li>
+    <li><b>Contraseña nueva</b>, y abajo <b>Repetila</b>.</li>
+    <li><b>Contraseña actual</b>: obligatoria para guardar.</li>
+    <li>Lo que falta, dicho en una línea.</li>
+    <li><b>Guardar</b>: se prende cuando no falta nada.</li>
+  </ol>
+  <figcaption>Mi cuenta, con una contraseña nueva demasiado corta.</figcaption>
+</figure>
 
 Mientras falte algo, a la izquierda de los botones dice qué: «La contraseña nueva tiene que tener al menos 8 caracteres.», «Las contraseñas nuevas no coinciden.» o «Falta la contraseña actual.» Si la contraseña actual está mal, dice «La contraseña actual no es correcta.»
 
@@ -187,6 +214,14 @@ Fornu confirma lo que hiciste con un aviso corto, y cuando algo sale mal lo dice
 - **Si una sección no carga**, dice «No se pudo cargar: …» con el botón **Reintentar**.
 - **Si una pantalla se rompe**, dice «Algo falló en esta pantalla» y «Lo demás sigue andando. Si vuelve a pasar, recargá la página.», con **Reintentar** y **Recargar la página**.
 
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/empezar-deshacer.jpg' | relative_url }}" alt="El aviso Doble cheddar pausado, abajo a la izquierda de la carta, con el botón Deshacer" loading="lazy" width="760" height="340">
+  <ol class="marks">
+    <li><b>Deshacer</b>: vuelve todo a como estaba.</li>
+  </ol>
+  <figcaption>Pausar un producto deja ocho segundos para arrepentirse.</figcaption>
+</figure>
+
 ## Cómo se comportan los diálogos {#dialogos}
 
 Los formularios y las confirmaciones se abren en un diálogo encima de la página. Todos funcionan igual:
@@ -197,6 +232,11 @@ Los formularios y las confirmaciones se abren en un diálogo encima de la págin
 - <kbd>Ctrl</kbd>+<kbd>Enter</kbd> aprieta el botón principal, sin ir hasta el mouse. En la PC, el pie del diálogo lo recuerda.
 - Las confirmaciones tienen **Volver** para arrepentirse.
 - En el celular suben desde abajo, como una hoja.
+
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/empezar-sin-guardar.jpg' | relative_url }}" alt="El pie de un diálogo con el texto Hay cambios sin guardar y los botones Seguir editando y Descartar" loading="lazy" width="620" height="88">
+  <figcaption>Cerrar un diálogo con cambios: el pie pregunta antes.</figcaption>
+</figure>
 
 ## Buscar con Ctrl+K {#buscar}
 

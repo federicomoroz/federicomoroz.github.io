@@ -55,7 +55,7 @@ It is the first thing a paired device shows: the list of the kitchen's people. E
 
 <div class="shot-pair">
 <figure class="shot phone">
-  <img src="{{ '/assets/img/fornu/manual/cocina-y-reparto-pin.jpg' | relative_url }}" alt="The PIN pad for Sofía, on shift since 21:18, with the Fichar salida and Entrar buttons" loading="lazy" width="390" height="844">
+  <img src="{{ '/assets/img/fornu/manual/cocina-y-reparto-pin.jpg' | relative_url }}" alt="Martín's PIN pad on his phone, on shift since 18:25, with the Fichar salida and Entrar buttons" loading="lazy" width="390" height="844">
   <ol class="marks">
     <li>Who is signing in and, if on shift, since when.</li>
     <li>The dots and the keypad. <b>Volver</b> (back) returns to the names and ⌫ deletes.</li>
@@ -65,12 +65,12 @@ It is the first thing a paired device shows: the list of the kitchen's people. E
   <figcaption>The PIN pad for someone already on shift.</figcaption>
 </figure>
 <figure class="shot">
-  <img src="{{ '/assets/img/fornu/manual/cocina-y-reparto-nombres.jpg' | relative_url }}" alt="The PIN screen of Cocina de prueba on a tablet, with the names Lucía (Cocina), Martín (Mensajería) and Sofía (Encargado/a), the links Ingresar con email and Desvincular este dispositivo, and the theme switch at the top" loading="lazy" width="930" height="640">
+  <img src="{{ '/assets/img/fornu/manual/cocina-y-reparto-nombres.jpg' | relative_url }}" alt="The PIN screen of Cocina de prueba on the Cocina tablet, with seven names and their roles, three of them on shift, the links Ingresar con email and Desvincular este dispositivo, and the theme switch at the top" loading="lazy" width="900" height="700">
   <ol class="marks">
     <li>The kitchen's name and, below it, the device's.</li>
-    <li>One card per person, with their roles.</li>
+    <li>One card per person, with their roles and, if on shift, since when.</li>
     <li><b>Ingresar con email</b> (sign in with email): for the owner or manager, on the same device.</li>
-    <li><b>Desvincular este dispositivo</b>.</li>
+    <li><b>Desvincular este dispositivo</b> (unpair this device).</li>
     <li>This device's theme.</li>
   </ol>
   <figcaption>The list of names on a tablet.</figcaption>
@@ -95,6 +95,16 @@ The buttons change depending on who you are and whether you have clocked in:
 | Uses the app, not on shift | **Entrar sin fichar** (sign in without clocking in) and **Fichar y entrar** (clock in and sign in) | Clocks in and opens the app, in one tap. |
 | Uses the app, already on shift | **Fichar salida** and **Entrar** | Opens the app. |
 | Clock-in only | **Fichar entrada** (clock in) or **Fichar salida** | Clocks, nothing else. |
+
+<figure class="shot phone">
+  <img src="{{ '/assets/img/fornu/manual/cocina-y-reparto-pin-sin-turno.jpg' | relative_url }}" alt="Lucía's PIN pad, before she clocked in, with the Entrar sin fichar and Fichar y entrar buttons" loading="lazy" width="412" height="915">
+  <ol class="marks">
+    <li>Who is signing in. No «En turno desde las…»: she hasn't clocked in yet.</li>
+    <li><b>Entrar sin fichar</b>: opens the app without clocking in.</li>
+    <li><b>Fichar y entrar</b>: the main one, clocks in and opens the app.</li>
+  </ol>
+  <figcaption>The PIN pad for someone who hasn't clocked in yet.</figcaption>
+</figure>
 
 A wrong PIN shows «PIN incorrecto · quedan 3 intentos.» (wrong PIN, 3 tries left). After five wrong tries in a row, that person is locked for 15 minutes: «PIN incorrecto: Martín queda bloqueado 15 min.» If you forgot your PIN, ask whoever manages the team to set a new one.
 
@@ -130,8 +140,8 @@ At the top of the app there is a box with your shift:
 You can also do it from the PIN screen: your name, your PIN and **Fichar salida**. A card appears there, which closes by itself after 6 seconds or with **Listo** (done).
 
 <figure class="shot phone">
-  <img src="{{ '/assets/img/fornu/manual/cocina-y-reparto-fichado.jpg' | relative_url }}" alt="The card confirming the clock-out: Salida de Sofía: 21:21, Trabajaste 2 min., with the Listo button" loading="lazy" width="390" height="570">
-  <figcaption>The clock-out, with the time worked («Trabajaste 2 min.», you worked 2 min). On clocking in, the card says «¡Buen turno!» (have a good shift).</figcaption>
+  <img src="{{ '/assets/img/fornu/manual/cocina-y-reparto-fichado.jpg' | relative_url }}" alt="The card confirming the clock-out: Salida de Martín: 18:22, Trabajaste 4 min., with the Listo button" loading="lazy" width="390" height="570">
+  <figcaption>The clock-out, with the time worked («Trabajaste 4 min.», you worked 4 min). On clocking in, the card says «¡Buen turno!» (have a good shift).</figcaption>
 </figure>
 
 A few rules:
@@ -149,6 +159,15 @@ On the kitchen tablet, the app stays open on the board all shift. So someone els
 3. Tap the name and have that person type their PIN.
 4. Tap **Fichar entrada** or **Fichar salida**. The card says «Entrada de Rosa: 13:05» and «¡Buen turno!», or the clock-out with the time worked. Tap **Listo**.
 {: .steps}
+
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/cocina-y-reparto-fichar-a-alguien.jpg' | relative_url }}" alt="Fichar entrada o salida open over the tablet's board, with seven names: four on shift, with the time they came in, and three not clocked in" loading="lazy" width="820" height="300">
+  <ol class="marks">
+    <li>Someone who hasn't clocked in: «Sin fichar».</li>
+    <li>Someone on shift: «En turno desde las 18:18».</li>
+  </ol>
+  <figcaption>Fichar entrada o salida, on top of the board.</figcaption>
+</figure>
 
 Nobody signs in or out of the app, and the board underneath keeps chiming with every new order.
 
@@ -173,16 +192,16 @@ Whoever signs in with a PIN only sees the screens for their job, as tabs. The co
   <figcaption>A waitress with a single screen, Venta (sale): no tabs.</figcaption>
 </figure>
 <figure class="shot">
-  <img src="{{ '/assets/img/fornu/manual/cocina-y-reparto-app-tablet.jpg' | relative_url }}" alt="The staff app on a kitchen tablet, on the Pedidos tab, with the shift open, Fichar a alguien, the Pedidos and Merma y producción tabs, the name of who is using it and the board showing only the Barra station" loading="lazy" width="820" height="600">
+  <img src="{{ '/assets/img/fornu/manual/cocina-y-reparto-app-tablet.jpg' | relative_url }}" alt="The staff app on the Cocina tablet, on the Pedidos tab, with Diego Ruiz's shift open, Fichar a alguien, the Pedidos and Merma y producción tabs, his name and the board showing only the Plancha station" loading="lazy" width="820" height="620">
   <ol class="marks">
     <li>The shift: «En turno desde las…».</li>
     <li><b>Fichar a alguien</b>.</li>
     <li>The tabs: <b>Pedidos</b> (orders) and <b>Merma y producción</b> (waste and batches).</li>
     <li>Who is using the app.</li>
-    <li><b>Todo · Barra · Cocina</b> (all, bar, kitchen): what this board shows.</li>
+    <li><b>Todo</b> (all), one button per station and one per brand: what this board shows.</li>
     <li>Another station's lines look faded.</li>
   </ol>
-  <figcaption>The bar's tablet, showing only its own station.</figcaption>
+  <figcaption>The griddle's tablet, showing only its own station.</figcaption>
 </figure>
 </div>
 
@@ -341,6 +360,29 @@ Rappi and PedidosYa orders don't show up here: each platform's own rider picks t
 - **Para retirar** (to pick up). Every own order ready for pickup, for any courier. Each shows «#12 · Doble Smash», the time it was ready, the address, the customer with the total, what to collect and what goes in the bag, so you can check it before leaving. At the bottom, the big **Me lo llevo** (I'll take it) button. With nothing ready, it says «No hay pedidos listos.» (no orders ready).
 - **En camino** (on the way). Only the ones you are carrying: when it left, the address in large type, the customer and phone, what goes in the bag, the **Abrir en el mapa** (open in maps), **Llamar** (call) and **WhatsApp** buttons, the order's note and what to collect (or «Total del pedido: $ …», the order total, when the order doesn't say how it is paid). At the bottom, the big **Entregado** (delivered) button. With nothing on you, it says «No estás llevando nada.» (you're not carrying anything).
 - At the bottom, how many you delivered: «Entregaste 5 pedidos hoy.» (you delivered 5 orders today).
+
+<div class="shot-phones">
+  <figure class="shot phone">
+    <img src="{{ '/assets/img/fornu/manual/cocina-y-reparto-entregas.jpg' | relative_url }}" alt="Mis entregas on Martín's phone: at the top the cash he carries, 13,500 pesos from one order, and below Para retirar with two orders ready, each with its address, the customer, what to collect, what goes in the bag and the Me lo llevo button" loading="lazy" width="390" height="935">
+    <ol class="marks">
+      <li>The cash you carry, to hand over at the end.</li>
+      <li>What to collect. For cash, what they pay with and the change.</li>
+      <li>What goes in the bag.</li>
+      <li><b>Me lo llevo</b>.</li>
+    </ol>
+    <figcaption>Para retirar: two orders ready.</figcaption>
+  </figure>
+  <figure class="shot phone">
+    <img src="{{ '/assets/img/fornu/manual/cocina-y-reparto-en-camino.jpg' | relative_url }}" alt="En camino: order 2 from Pollo Crocante, with the address in large type, the customer and phone, the Abrir en el mapa, Llamar and WhatsApp buttons, what to collect and the Entregado button" loading="lazy" width="390" height="480">
+    <ol class="marks">
+      <li>The address and the customer, with their phone.</li>
+      <li><b>Abrir en el mapa</b>, <b>Llamar</b> and <b>WhatsApp</b>.</li>
+      <li>What to collect.</li>
+      <li><b>Entregado</b>.</li>
+    </ol>
+    <figcaption>En camino: the one Martín is carrying.</figcaption>
+  </figure>
+</div>
 
 What to collect reads the same as in the kitchen:
 

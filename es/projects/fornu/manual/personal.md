@@ -317,6 +317,11 @@ Tocá la fila de la persona. Se abre su detalle día por día: el **Horario**, l
 5. Tocá **Guardar**. Aparece «Turno cargado».
 {: .steps}
 
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/personal-cargar-turno.jpg' | relative_url }}" alt="El panel Cargar turno con Persona en Lucía, el Día, Entrada, Salida, que puede quedar vacía si todavía está trabajando, y la Nota" loading="lazy" width="620" height="470">
+  <figcaption>Cargar un turno que alguien se olvidó de fichar.</figcaption>
+</figure>
+
 ### Corregir o borrar un turno
 
 1. En el detalle de la persona, tocá el horario fichado.
@@ -332,6 +337,11 @@ Para borrarlo, tocá **Borrar** en la misma ventana y confirmá. Un turno no cam
 3. Prendé **Se le paga ese día** si corresponde. Para quien cobra por hora o por día, cuenta como trabajado con las horas de su horario.
 4. Tocá **Justificar**. Aparece «Falta justificada».
 {: .steps}
+
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/personal-justificar.jpg' | relative_url }}" alt="El panel de la falta de Sofía Pérez del martes 10/11 con Por qué no vino en Turno con el médico y Se le paga ese día tildado" loading="lazy" width="620" height="260">
+  <figcaption>Una falta justificada y paga.</figcaption>
+</figure>
 
 Para deshacerla, abrí la justificación y tocá **Quitar justificación**.
 
@@ -431,15 +441,15 @@ Cuando dos o más personas tienen algo para cobrar, aparece **Pagar a todos**, c
 {: .steps}
 
 <figure class="shot">
-  <img src="{{ '/assets/img/fornu/manual/personal-pagar-a-todos.jpg' | relative_url }}" alt="La liquidación con el botón Pagar a todos y, a la derecha, la ventana que lista a cada persona con lo que se le paga, la fecha, el medio en Transferencia y el botón Pagar" loading="lazy" width="1440" height="900">
+  <img src="{{ '/assets/img/fornu/manual/personal-pagar-a-todos.jpg' | relative_url }}" alt="La liquidación de la quincena pasada con el botón Pagar a todos y, a la derecha, el panel que lista a seis personas con lo que ganó cada una y lo que se le paga, el adelanto descontado a Diego, la fecha, el medio en Transferencia y el botón Pagar $ 1.988.322,58" loading="lazy" width="1440" height="900">
   <ol class="marks">
     <li><b>Pagar a todos</b>: aparece con dos o más personas para pagar.</li>
-    <li>Cada persona, lo que ganó y lo que se le entrega.</li>
+    <li>Cada persona, lo que ganó y lo que se le entrega. A Diego se le descuenta un adelanto.</li>
     <li>Un premio o un descuento de alguien se carga pagándole solo a esa persona.</li>
     <li><b>Medio</b>: viene en <b>Transferencia</b>.</li>
     <li><b>Pagar</b>, con el total.</li>
   </ol>
-  <figcaption>El pago de una quincena a dos personas.</figcaption>
+  <figcaption>El pago de una quincena a seis personas.</figcaption>
 </figure>
 
 Si el pago de alguien no se puede hacer, Fornu avisa quién quedó sin pagar y desde quién: «Se pagó a 2 personas; Martín y los que siguen quedaron sin pagar.»
@@ -450,6 +460,11 @@ Si el pago de alguien no se puede hacer, Fornu avisa quién quedó sin pagar y d
 2. Para el papel, tocá **Imprimir recibo**: sale el «Recibo de pago» con el total recibido y lugar para la firma y la aclaración.
 3. Para anularlo, tocá **Anular pago**, escribí **Por qué se anula** y confirmá con **Anular pago**.
 {: .steps}
+
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/personal-recibo.jpg' | relative_url }}" alt="El recibo de pago impreso de Carla Gómez: el período del 16 al 31 de octubre, pagado el 10/11/2026 en efectivo, las horas trabajadas, el total recibido, Recibí de Cocina de prueba la suma de $ 299.250, y las líneas para la firma y la aclaración" loading="lazy" width="1440" height="320">
+  <figcaption>El recibo impreso, con lugar para la firma.</figcaption>
+</figure>
 
 Al anular, se anula su gasto, los adelantos vuelven a quedar por descontar y, si fue en efectivo, la plata vuelve a la caja. El pago anulado sigue en la lista con la marca «anulado».
 
@@ -494,6 +509,11 @@ Es la plata que se le da a alguien antes del día de pago. La liquidación la de
 4. Si querés, dejá una **Nota (opcional)**.
 5. Tocá **Guardar**. Aparece «Adelanto anotado».
 {: .steps}
+
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/personal-adelanto.jpg' | relative_url }}" alt="El panel Nuevo adelanto con Persona en Martín, Cuánto 15000, el Día, Medio en Efectivo con el aviso Sale de la caja, y la Nota" loading="lazy" width="620" height="470">
+  <figcaption>Un adelanto en efectivo, que sale de la caja.</figcaption>
+</figure>
 
 Con la caja cerrada, Fornu pregunta antes de seguir y se puede confirmar con **Pagar igual**.
 

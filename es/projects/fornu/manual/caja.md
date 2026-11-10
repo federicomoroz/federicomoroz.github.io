@@ -69,6 +69,15 @@ Escribí en **Cliente, número o código…**. Encuentra el número exacto del p
 
 Cuando elegís horas aparece **Abiertas** / **Cerradas**. Con **Abiertas** (la de siempre) cuenta la hora en que se abrió la venta. Con **Cerradas**, la hora en que se cobró o se canceló. Sirve para separar, por ejemplo, las mesas que se sentaron antes de las 23 de las que se cobraron después.
 
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/caja-ventas-hora.jpg' | relative_url }}" alt="Ventas de ayer filtradas por Turno Noche, de 20 a 6, con Abiertas o Cerradas en Cerradas, las cifras y la lista" loading="lazy" width="1440" height="614">
+  <ol class="marks">
+    <li><b>Turno</b>: <b>Noche (20 a 6)</b> llena las dos horas.</li>
+    <li><b>Abiertas</b> / <b>Cerradas</b>: qué hora de cada venta cuenta.</li>
+  </ol>
+  <figcaption>La noche de ayer, por la hora en que se cerró cada venta.</figcaption>
+</figure>
+
 Cuando hay algún filtro o una búsqueda aparece **Sacar filtros**, que limpia todo menos el período.
 
 <figure class="shot">
@@ -146,6 +155,14 @@ Las canceladas aparecen más claras. La lista dibuja 200 ventas por vez: para ve
 
 Las flechas no hacen nada mientras estás escribiendo en un campo o con un diálogo abierto.
 
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/caja-ventas-factura.jpg' | relative_url }}" alt="El detalle de un pedido de Pizzería de Rappi con su producto, el cliente, la entrega y la línea Factura con Factura C 00003-00000044 Autorizada" loading="lazy" width="470" height="498">
+  <ol class="marks">
+    <li><b>Factura</b>: el comprobante de la venta y su estado. Un toque lo abre.</li>
+  </ol>
+  <figcaption>Con Facturación, el detalle dice qué factura tiene la venta.</figcaption>
+</figure>
+
 ### Exportar
 
 **Exportar** baja una planilla (un archivo CSV) con la lista que estás viendo: las vendidas o las canceladas, con los filtros puestos y todas las filas, no solo las 200 dibujadas. Se abre bien en Excel en castellano.
@@ -174,13 +191,14 @@ La pestaña dice **Movimientos** y el título de la pantalla, **Movimientos de c
 <p class="perm"><span>Quién puede:</span> <span class="tag">Caja</span></p>
 
 <figure class="shot">
-  <img src="{{ '/assets/img/fornu/manual/caja-movimientos.jpg' | relative_url }}" alt="Movimientos de caja de hoy: 30.000 pesos en la caja según el sistema, un ingreso de 50.000 como saldo inicial del arqueo y un egreso de 20.000 por un adelanto a un empleado" loading="lazy" width="1440" height="560">
+  <img src="{{ '/assets/img/fornu/manual/caja-movimientos.jpg' | relative_url }}" alt="Movimientos de caja de hoy: 27.250 pesos en la caja según el sistema, un adelanto y un sueldo pagados de la caja, un egreso por hielo cargado a mano con su botón Anular, y un ingreso de cambio para la caja" loading="lazy" width="1440" height="690">
   <ol class="marks">
     <li><b>Egreso</b> e <b>Ingreso</b>: cargar plata que sale o que entra.</li>
     <li><b>Efectivo en la caja ahora</b>: lo que debería haber en el cajón según el sistema.</li>
-    <li><b>Origen</b>: de dónde salió cada movimiento.</li>
+    <li><b>Origen</b>: de dónde salió cada movimiento. Este se cargó <b>A mano</b>.</li>
+    <li><b>Anular</b>, solo en lo cargado a mano.</li>
   </ol>
-  <figcaption>Un día que arrancó con 50.000 pesos y un adelanto de 20.000 pagado de la caja.</figcaption>
+  <figcaption>Un día con un adelanto y un sueldo pagados de la caja, y dos movimientos cargados a mano.</figcaption>
 </figure>
 
 Arriba hay tres cifras. **Efectivo en la caja ahora** es lo que debería haber en el cajón en este momento. **Ingresos del período** y **Egresos del período** suman todo lo que entró y salió en las fechas elegidas, sea del medio que sea. El período arranca en **Hoy** y llega hasta un año.
@@ -224,6 +242,11 @@ Si **Guardar** no se prende, el pie del diálogo dice qué falta: «Poné cuánt
 3. Escribí **Por qué se anula**, por ejemplo «Lo cargué dos veces».
 4. Tocá **Anular**. Aparece «Movimiento anulado».
 {: .steps}
+
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/caja-anular-movimiento.jpg' | relative_url }}" alt="El panel ¿Anular «Hielo para la barra»? con el importe, el medio y la fecha, y Por qué se anula escrito" loading="lazy" width="620" height="240">
+  <figcaption>Anular un egreso cargado a mano.</figcaption>
+</figure>
 
 El movimiento sigue en la lista, más claro, con la marca **anulado** y el motivo. Los movimientos nunca se editan: si un importe estaba mal, se anula y se carga de nuevo.
 

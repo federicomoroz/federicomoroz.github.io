@@ -59,7 +59,7 @@ What each person sees and does comes from their roles. Each account builds its r
 
 | Permission | What it allows |
 |---|---|
-| Cocina (kitchen) | Confirming orders, marking them ready, taking orders of your own, and logging waste and batches. |
+| Cocina (kitchen) | Confirming or cancelling orders, marking them ready, taking orders of your own, and logging waste and batches. |
 | Mensajería (courier) | Taking your own orders out from a phone and seeing the cash on hand. |
 | Pedidos (orders) | Seeing the history and detail of orders, and taking in the couriers' cash. |
 | Carta (menu) | Creating and changing products, prices, categories and modifier groups, and publishing the menu. |
@@ -68,7 +68,7 @@ What each person sees and does comes from their roles. Each account builds its r
 | Caja (cash) | Opening and closing the drawer, recording movements and seeing sales. |
 | Ver lo esperado (see expected) | Seeing what the system expects in the drawer before counting it. Without it, the count is blind. |
 | Recontar la caja (recount) | Counting again after a count was confirmed. |
-| Gastos (expenses) | Recording, paying and voiding expenses and purchases. |
+| Gastos (expenses) | Recording, paying and voiding expenses and purchases. Expense categories are set up with the Ajustes permission. |
 | Equipo (team) | Adding staff and their PINs. |
 | Dispositivos (devices) | Pairing tablets and phones and removing them. |
 | Ajustes (settings) | Business units, stations, payment methods, customers and the account's configuration. |

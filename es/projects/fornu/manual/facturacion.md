@@ -38,16 +38,15 @@ Se hace una vez, en Ajustes › Facturación. Lo hace el dueño o quien administ
 <p class="perm"><span>Quién puede:</span> <span class="tag">Configurar la facturación</span></p>
 
 <figure class="shot">
-  <img src="{{ '/assets/img/fornu/manual/facturacion-ajustes.jpg' | relative_url }}" alt="Ajustes, Facturación: el botón Prender la facturación, el aviso de servidor sin conexión con ARCA, los datos fiscales, Identificar al cliente desde 10.000.000 y las casillas de Qué se factura solo" loading="lazy" width="1440" height="838">
+  <img src="{{ '/assets/img/fornu/manual/facturacion-ajustes.jpg' | relative_url }}" alt="Ajustes, Facturación con la facturación prendida: el botón Apagar la facturación, el aviso de que Fornu está conectado a un ARCA de prueba, Facturando desde el 10/11/2026, los datos fiscales completos e Identificar al cliente desde, y las casillas de Qué se factura solo" loading="lazy" width="1440" height="850">
   <ol class="marks">
-    <li><b>Prender la facturación</b>. Guarda además lo que esté escrito en el formulario.</li>
-    <li>El estado de la conexión con ARCA en este servidor. Mientras diga que no está conectado, no se puede facturar.</li>
-    <li>Lo que emite la cuenta según su condición frente al IVA, con el enlace para cambiarla.</li>
-    <li><b>Punto de venta</b>: el que se dio de alta en ARCA para facturar por web service.</li>
-    <li><b>Identificar al cliente desde</b>: el tope de ARCA para facturar sin DNI ni CUIT.</li>
+    <li><b>Apagar la facturación</b>. Con la facturación apagada, en su lugar está <b>Prender la facturación</b>, que guarda además lo que esté escrito en el formulario.</li>
+    <li>El estado de la conexión con ARCA en este servidor. Acá, un ARCA de prueba: las facturas salen con CAE y QR, sin validez fiscal.</li>
+    <li><b>Facturando</b> desde el día en que se prendió.</li>
+    <li>Los datos fiscales, con el <b>Punto de venta</b> y <b>Identificar al cliente desde</b>, el tope de ARCA para facturar sin DNI ni CUIT.</li>
     <li><b>Qué se factura solo</b>: los canales y los medios de pago que se facturan al entregarse.</li>
   </ol>
-  <figcaption>Ajustes › Facturación en una cuenta monotributo, todavía sin datos.</figcaption>
+  <figcaption>Ajustes › Facturación en una cuenta monotributo que ya factura.</figcaption>
 </figure>
 
 ### Cargar los datos fiscales
@@ -125,10 +124,21 @@ Si la última factura fue rechazada o anulada, dice **Facturar de nuevo**. No ap
 
 1. Tocá **Facturar** en la venta. Se abre «Facturar el pedido #N», o «Facturar Mesa 4» si es una mesa.
 2. Elegí a quién: **Consumidor final** (el de siempre), **Con DNI** o **Con CUIT**.
-3. Con DNI o CUIT, escribí el número. Desde el séptimo dígito aparece **Ya se facturó a este número**, con los clientes a los que ya se les facturó con ese número: nombre, CUIT o DNI, condición, domicilio y la última vez. Tocá el que es y se completa todo.
+3. Con DNI o CUIT, escribí el número. Desde el séptimo dígito aparecen debajo los clientes a los que ya se les facturó con ese número: nombre, CUIT o DNI, condición, domicilio y la última vez. Tocá el que es y se completa todo.
 4. Completá el **Nombre**, o la **Razón social** si es con CUIT. Con CUIT, elegí la **Condición frente al IVA**: **Responsable inscripto**, **Monotributista**, **Exento** o **Consumidor final**. Para responsable inscripto y monotributista, la razón social es obligatoria.
 5. Tocá **Facturar $X**.
 {: .steps}
+
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/facturacion-a-mano.jpg' | relative_url }}" alt="El panel Facturar el pedido #6 con Con CUIT elegido, los primeros siete números de un CUIT y debajo el cliente ya facturado Distribuidora Sur S.A., responsable inscripto, con su domicilio y la última vez" loading="lazy" width="620" height="900">
+  <ol class="marks">
+    <li><b>Consumidor final</b>, <b>Con DNI</b> o <b>Con CUIT</b>.</li>
+    <li>El número. Desde el séptimo dígito busca.</li>
+    <li>Un cliente al que ya se le facturó con ese número: un toque completa todo.</li>
+    <li><b>Facturar $ …</b>.</li>
+  </ol>
+  <figcaption>Facturar un pedido a una empresa que ya pidió factura antes.</figcaption>
+</figure>
 
 «La factura se guarda ahora y ARCA la autoriza en unos segundos. Si ARCA no responde, se vuelve a intentar sola.» Mientras tanto la venta dice **Sin facturar (esperando a ARCA)**, y cuando ARCA la autoriza pasa a **Facturada** con su número.
 
@@ -218,6 +228,18 @@ Es el listado de las facturas y notas de crédito emitidas, con su CAE. Sirve pa
 - Cada fila dice **Fecha**, **Comprobante** (por ejemplo **Factura B** 00003-00000012), **Pedido**, **Cliente**, **Neto**, **IVA**, **Total** (las notas de crédito en negativo) y **Estado**.
 - Si en el período hay facturas de prueba, lo avisa: «Las facturas de este período son de prueba: no tienen validez fiscal.»
 
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/facturacion-facturas.jpg' | relative_url }}" alt="Balances, Facturas del mes: el período y el buscador, las cifras Comprobantes 45, Facturado 846.000 pesos, IVA 0 y Esperando o rechazadas 1, y la lista con una factura rechazada, una nota de crédito en negativo, una factura a una empresa y una anulada" loading="lazy" width="1440" height="720">
+  <ol class="marks">
+    <li>El período y el buscador.</li>
+    <li>Las cifras. <b>Esperando o rechazadas</b> deja solo las que tienen un problema.</li>
+    <li>Una factura <b>Rechazada</b>: ARCA no la aceptó.</li>
+    <li>Una nota de crédito, en negativo. Dos filas más abajo está la factura que anuló, <b>Anulada</b>.</li>
+    <li><b>Exportar</b>.</li>
+  </ol>
+  <figcaption>Las facturas del mes, con una rechazada y una anulada con su nota de crédito.</figcaption>
+</figure>
+
 | Estado | Qué quiere decir |
 |---|---|
 | **Autorizada** | Tiene CAE. Es válida. |
@@ -239,12 +261,33 @@ Tocá una fila (o la línea **Factura** del detalle de un pedido). Se abre el co
 | **Corregir** | Anula y factura de nuevo a otro cliente, todo junto. Necesita además **Facturar**. |
 | **Listo** | Cierra. |
 
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/facturacion-factura.jpg' | relative_url }}" alt="Una Factura C abierta: los datos del negocio, la letra C con su código, el número y la fecha, el cliente Distribuidora Sur S.A. responsable inscripto con su CUIT y domicilio, una pizza, el total, el QR y el CAE con su vencimiento, y los botones Anular, Corregir, Imprimir y Listo" loading="lazy" width="880" height="760">
+  <ol class="marks">
+    <li>El <b>CAE</b> y su vencimiento.</li>
+    <li>El QR de ARCA.</li>
+    <li><b>Anular</b>.</li>
+    <li><b>Corregir</b>.</li>
+    <li><b>Imprimir</b>.</li>
+  </ol>
+  <figcaption>Una factura C a un responsable inscripto, autorizada por el ARCA de prueba.</figcaption>
+</figure>
+
 ### Anular una factura con nota de crédito
 
 1. Abrí la factura y tocá **Anular**.
 2. Fornu pregunta «¿Anular la Factura B …?» y avisa: «Se emite una nota de crédito por el total. El pedido queda sin factura y se puede facturar de nuevo.»
 3. Tocá **Anular con nota de crédito**. Aparece «Nota de crédito pedida a ARCA» y se abre la nota de crédito.
 {: .steps}
+
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/facturacion-nota-de-credito.jpg' | relative_url }}" alt="Una Nota de crédito C abierta: dice Anula la Factura C 00003-00000043, con sus dos productos, el total, el QR y su propio CAE" loading="lazy" width="880" height="640">
+  <ol class="marks">
+    <li>Qué factura anula.</li>
+    <li>Su propio CAE.</li>
+  </ol>
+  <figcaption>La nota de crédito, con su CAE.</figcaption>
+</figure>
 
 ### Corregir una factura con el cliente mal
 

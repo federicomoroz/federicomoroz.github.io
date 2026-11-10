@@ -220,13 +220,13 @@ It lives under Pedidos › **Historial** (the page is called **Historial de pedi
 <p class="perm"><span>Who can:</span> <span class="tag">Pedidos</span></p>
 
 <figure class="shot">
-  <img src="{{ '/assets/img/fornu/manual/pedidos-historial.jpg' | relative_url }}" alt="The order history of one day, with the date picker, the filters, the search box, four figures and the list of orders with their status" loading="lazy" width="1440" height="700">
+  <img src="{{ '/assets/img/fornu/manual/pedidos-historial.jpg' | relative_url }}" alt="Historial de pedidos for 9 November: the day, the filters, the search box, 21 orders, 397,900 pesos in sales and 2 cancelled, and the list with each status" loading="lazy" width="1440" height="700">
   <ol class="marks">
     <li>The day: arrows for the previous and next one, or the date.</li>
     <li><b>Todos</b> (all), <b>Entregados</b> (delivered), <b>Cancelados</b> (cancelled) or <b>En curso</b> (in progress).</li>
-    <li>Search by customer, number, product or platform code.</li>
+    <li>Search by customer, number, product or the platform's code.</li>
     <li>The day's orders, sales, average ticket and cancellations.</li>
-    <li><b>Exportar</b> (export): what is on screen, as a spreadsheet.</li>
+    <li><b>Exportar</b> (export): what you see, as a spreadsheet.</li>
   </ol>
 </figure>
 

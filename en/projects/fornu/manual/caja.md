@@ -69,6 +69,15 @@ Type into **Cliente, número o código…** (customer, number or code). It finds
 
 Once you pick hours, **Abiertas** / **Cerradas** (opened / closed) appears. With **Abiertas**, the default, the filter reads the hour the sale was opened. With **Cerradas**, the hour it was paid or cancelled. That separates, for example, the tables seated before 11 pm from the ones paid after it.
 
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/caja-ventas-hora.jpg' | relative_url }}" alt="Yesterday's sales filtered by Turno Noche, from 20 to 6, with Abiertas or Cerradas on Cerradas, the figures and the list" loading="lazy" width="1440" height="614">
+  <ol class="marks">
+    <li><b>Turno</b> (shift): <b>Noche (20 a 6)</b> fills both hours.</li>
+    <li><b>Abiertas</b> / <b>Cerradas</b>: which hour of each sale counts.</li>
+  </ol>
+  <figcaption>Last night, by the hour each sale closed.</figcaption>
+</figure>
+
 Whenever a filter or a search is on, **Sacar filtros** (clear filters) appears. It clears everything except the period.
 
 <figure class="shot">
@@ -146,6 +155,14 @@ Cancelled rows are dimmed. The list draws 200 sales at a time: to see the rest, 
 
 The arrow keys do nothing while you are typing in a field or have a dialog open.
 
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/caja-ventas-factura.jpg' | relative_url }}" alt="The detail of a Pizzería order from Rappi with its product, the customer, the delivery and the Factura line with Factura C 00003-00000044 Autorizada" loading="lazy" width="470" height="498">
+  <ol class="marks">
+    <li><b>Factura</b> (invoice): the sale's voucher and its state. A tap opens it.</li>
+  </ol>
+  <figcaption>With invoicing, the detail says which invoice the sale has.</figcaption>
+</figure>
+
 ### Exporting
 
 **Exportar** downloads a spreadsheet (a CSV file) with the list you are looking at: sold or cancelled, with your filters on and every row, not just the 200 drawn. It opens cleanly in Excel set to Spanish.
@@ -174,13 +191,14 @@ The tab says **Movimientos** and the screen title says **Movimientos de caja** (
 <p class="perm"><span>Who can:</span> <span class="tag">Caja</span></p>
 
 <figure class="shot">
-  <img src="{{ '/assets/img/fornu/manual/caja-movimientos.jpg' | relative_url }}" alt="Today's cash movements: 30,000 pesos in the drawer according to the system, 50,000 in as the opening balance and 20,000 out as an advance to an employee" loading="lazy" width="1440" height="560">
+  <img src="{{ '/assets/img/fornu/manual/caja-movimientos.jpg' | relative_url }}" alt="Today's cash movements: 27,250 pesos in the drawer according to the system, an advance and a wage paid from the drawer, an outflow for ice entered by hand with its Anular button, and an inflow of change for the drawer" loading="lazy" width="1440" height="690">
   <ol class="marks">
-    <li><b>Egreso</b> (money out) and <b>Ingreso</b> (money in): enter cash leaving or coming in.</li>
+    <li><b>Egreso</b> (money out) and <b>Ingreso</b> (money in): record money leaving or coming in.</li>
     <li><b>Efectivo en la caja ahora</b> (cash in the drawer now): what should be there according to the system.</li>
-    <li><b>Origen</b> (source): where each movement came from.</li>
+    <li><b>Origen</b> (source): where each movement came from. This one was entered <b>A mano</b> (by hand).</li>
+    <li><b>Anular</b> (void), only on what was entered by hand.</li>
   </ol>
-  <figcaption>A day that started with 50,000 pesos and paid a 20,000 advance out of the drawer.</figcaption>
+  <figcaption>A day with an advance and a wage paid from the drawer, and two movements entered by hand.</figcaption>
 </figure>
 
 Three figures sit at the top. **Efectivo en la caja ahora** is what should be in the drawer right now. **Ingresos del período** and **Egresos del período** (money in and out for the period) add up everything that came in and went out in the chosen dates, whatever the method. The period starts on **Hoy** and can span up to a year.
@@ -224,6 +242,11 @@ If **Guardar** stays off, the dialog footer says what is missing: «Poné cuánt
 3. Write **Por qué se anula** (why it is voided), for example «Lo cargué dos veces» (I entered it twice).
 4. Tap **Anular**. You get «Movimiento anulado».
 {: .steps}
+
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/caja-anular-movimiento.jpg' | relative_url }}" alt="The ¿Anular «Hielo para la barra»? panel with the amount, the method and the date, and Por qué se anula filled in" loading="lazy" width="620" height="240">
+  <figcaption>Voiding an outflow entered by hand.</figcaption>
+</figure>
 
 The movement stays in the list, dimmed, tagged **anulado** and with the reason. Movements are never edited: if an amount was wrong, void it and enter it again.
 

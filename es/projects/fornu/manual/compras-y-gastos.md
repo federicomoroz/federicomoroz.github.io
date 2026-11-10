@@ -14,7 +14,7 @@ Está en Compras › **Compras de insumos** (la pestaña dice **Compras**) y vie
 
 <p class="perm"><span>Quién puede:</span> <span class="tag">Gastos</span></p>
 
-El rol **Encargado/a** de una cuenta nueva ya lo tiene. El campo **Proveedor** de la compra aparece si el rol tiene también el permiso **Proveedores**.
+El rol **Encargado/a** de una cuenta nueva ya lo tiene. Quien tiene Gastos elige el **Proveedor** de la compra y ve **Cargar lo de la última compra**. Crear un proveedor ahí mismo, con **+ Proveedor nuevo**, pide además el permiso **Proveedores**.
 
 <figure class="shot">
   <img src="{{ '/assets/img/fornu/manual/compras-lista.jpg' | relative_url }}" alt="La lista Compras de insumos del mes, con 1.598.400 pesos en compras y 666.000 a pagar, una compra a un frigorífico a pagar con su botón Pagar y una compra semanal pagada por transferencia." loading="lazy" width="1440" height="838">
@@ -47,7 +47,7 @@ Fornu confirma «Compra cargada: los insumos ya están en el stock».
 <figure class="shot">
   <img src="{{ '/assets/img/fornu/manual/compras-dialogo.jpg' | relative_url }}" alt="Dos partes de una compra de insumos: a la izquierda la fecha, el proveedor, la categoría, la unidad de negocio, el comprobante y los precios con IVA. A la derecha, tres carnes con su cantidad, precio e IVA, los importes y el pago a cuenta corriente." loading="lazy" width="1440" height="728">
   <ol class="marks">
-    <li><b>Proveedor</b>. <b>+ Proveedor nuevo</b> lo crea ahí mismo. Al elegirlo se completa su categoría habitual.</li>
+    <li><b>Proveedor</b>. <b>+ Proveedor nuevo</b> lo crea ahí mismo, con el permiso Proveedores. Al elegirlo se completa su categoría habitual.</li>
     <li><b>Unidad de negocio</b>: <b>Compartido entre todas</b> reparte el gasto entre las marcas según lo que vende cada una. O elegí una sola.</li>
     <li><b>Comprobante</b> y <b>Número</b>.</li>
     <li><b>Precios con IVA</b> o <b>Precios sin IVA</b>: arranca según el comprobante, sin IVA para la factura A.</li>
@@ -90,11 +90,21 @@ Si al proveedor le compraste en los últimos 120 días, al elegirlo aparece **Ca
 
 Cuando una compra cambia el precio de algún insumo, al guardarla aparece un recuadro arriba de la lista, por ejemplo «Cambió el precio de 2 insumos: Harina +12% · …. Toca 5 productos:». Una tabla muestra cada producto afectado con su unidad de negocio, el costo antes y después, y el margen del canal que menos deja, antes y después.
 
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/compras-margenes.jpg' | relative_url }}" alt="El recuadro que aparece después de guardar una compra: Cambió el precio de 1 insumo: Carne picada 80/20 +10%. Toca 2 productos, con el Doble cheddar y el Triple bacon, su costo antes y después, el margen del canal que menos deja y el botón Revisar precio" loading="lazy" width="1440" height="290">
+  <figcaption>La carne picada subió un 10%: el Doble cheddar y el Triple bacon dejan menos.</figcaption>
+</figure>
+
 **Revisar precio** abre ese producto en **Precios**, listo para corregir ([Carta]({{ '/es/projects/fornu/manual/carta/' | relative_url }}#arreglar-precio)). Si ningún producto a la venta usa esos insumos, el recuadro dice «No toca ningún producto a la venta.» Se cierra con la ✕.
 
 ### Repetir una compra {#repetir}
 
 **⋯** › **Repetir compra** abre una compra nueva con el mismo proveedor, la misma categoría, unidad de negocio, comprobante, descripción e insumos, a los precios de hoy. La fecha es hoy, el número queda vacío y el pago es pagado hoy con el mismo medio, o en efectivo si no había. Una nota de crédito se repite como remito, y los insumos desactivados quedan afuera.
+
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/compras-repetir.jpg' | relative_url }}" alt="El panel Repetir compra con la fecha de hoy, el proveedor Distribuidora La Plata, la categoría Insumos, Compartido entre todas, el comprobante Remito y el número vacío, y los insumos más abajo" loading="lazy" width="880" height="900">
+  <figcaption>Repetir la compra de la distribuidora: todo igual, a los precios de hoy.</figcaption>
+</figure>
 
 ### Corregir una compra {#editar}
 
@@ -106,6 +116,11 @@ Tocá la fila. Se puede cambiar todo menos los insumos, incluso si está pagada 
 2. Escribí el **Motivo**. Fornu avisa que los insumos que trajo salen del stock.
 3. Tocá **Anular**.
 {: .steps}
+
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/compras-anular.jpg' | relative_url }}" alt="El panel Anular compra de $ 64.000 con el aviso Los insumos que trajo salen del stock, el Motivo escrito y los botones Volver y Anular" loading="lazy" width="620" height="560">
+  <figcaption>Anular una compra pide el motivo.</figcaption>
+</figure>
 
 La compra sigue en la lista, más clara, cuando prendés **Ver anulados**. El precio de cada insumo vuelve al que tenía antes, salvo que una compra posterior haya puesto otro.
 
@@ -120,14 +135,12 @@ Está en Compras › **Proveedores** y viene con el módulo Proveedores y compra
 Para pagarle desde acá hace falta también el permiso **Gastos**.
 
 <figure class="shot">
-  <img src="{{ '/assets/img/fornu/manual/compras-proveedores.jpg' | relative_url }}" alt="La lista de proveedores con una carnicería y una verdulería, su categoría habitual Insumos y nada a pagar." loading="lazy" width="1440" height="350">
+  <img src="{{ '/assets/img/fornu/manual/compras-proveedores.jpg' | relative_url }}" alt="La lista de proveedores: Distribuidora La Plata con 64.000 pesos a pagar, Frigorífico Don Pedro con 99.000, cada uno con su botón Pagar, y Panificadora del Sur y Verdulería Don Tito al día" loading="lazy" width="1440" height="420">
   <ol class="marks">
     <li><b>Agregar</b>: un proveedor nuevo.</li>
-    <li><b>CUIT</b>: Fornu lo controla al cargarlo.</li>
-    <li><b>Categoría habitual</b>: la que se propone al cargarle un gasto.</li>
-    <li><b>A pagar</b>: lo que se le debe, con <b>Pagar</b> al lado cuando hay algo.</li>
+    <li><b>A pagar</b>: lo que se le debe, con <b>Pagar</b> al lado.</li>
   </ol>
-  <figcaption>Dos proveedores de la demo, al día.</figcaption>
+  <figcaption>Cuatro proveedores, dos con compras a pagar.</figcaption>
 </figure>
 
 | Campo | Para qué sirve |
@@ -142,6 +155,16 @@ Para pagarle desde acá hace falta también el permiso **Gastos**.
 Los proveedores se desactivan en vez de borrarse. Si el CUIT está mal, Fornu avisa por qué: «El CUIT … tiene que tener 11 números.», «El CUIT … no es válido: revisá los números.» o «El CUIT … ya es de …».
 
 **Pagar** abre «Pagarle a …» con todos los comprobantes de ese proveedor tildados. Funciona como [Pagar varios juntos](#pagar-varios).
+
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/compras-pagar-proveedor.jpg' | relative_url }}" alt="El panel Pagarle a Frigorífico Don Pedro con su compra del 10/11/2026 tildada por 99.000 pesos, Medio de pago en Transferencia, la fecha de pago y el botón Pagar $ 99.000" loading="lazy" width="880" height="560">
+  <ol class="marks">
+    <li>Los comprobantes que se pagan, tildados.</li>
+    <li><b>Medio de pago</b>.</li>
+    <li><b>Pagar $ …</b>, con el total de lo tildado.</li>
+  </ol>
+  <figcaption>Pagarle a un proveedor todo lo que se le debe.</figcaption>
+</figure>
 
 El buscador de arriba (<kbd>Ctrl</kbd> + <kbd>K</kbd>) también encuentra proveedores, marcados como «Proveedor», y los abre.
 

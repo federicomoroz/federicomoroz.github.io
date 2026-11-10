@@ -38,16 +38,15 @@ It is done once, in Ajustes › Facturación, by the owner or whoever runs the a
 <p class="perm"><span>Who can:</span> <span class="tag">Configurar la facturación</span></p>
 
 <figure class="shot">
-  <img src="{{ '/assets/img/fornu/manual/facturacion-ajustes.jpg' | relative_url }}" alt="Ajustes, Facturación: the Prender la facturación button, the notice that the server is not connected to ARCA, the tax details, Identificar al cliente desde set to 10,000,000 and the Qué se factura solo checkboxes" loading="lazy" width="1440" height="838">
+  <img src="{{ '/assets/img/fornu/manual/facturacion-ajustes.jpg' | relative_url }}" alt="Ajustes, Facturación with invoicing on: the Apagar la facturación button, the notice that Fornu is connected to a test ARCA, Facturando since 10/11/2026, the tax details filled in, Identificar al cliente desde, and the Qué se factura solo boxes" loading="lazy" width="1440" height="850">
   <ol class="marks">
-    <li><b>Prender la facturación</b> (switch invoicing on). It also saves whatever is typed in the form.</li>
-    <li>The state of this server's connection with ARCA. While it says it is not connected, nothing can be invoiced.</li>
-    <li>What the account issues given its VAT status, with a link to change it.</li>
-    <li><b>Punto de venta</b> (point of sale): the one registered with ARCA for web-service invoicing.</li>
-    <li><b>Identificar al cliente desde</b> (identify the customer from): ARCA's threshold for invoicing without a DNI or CUIT.</li>
+    <li><b>Apagar la facturación</b> (switch invoicing off). With invoicing off, <b>Prender la facturación</b> (switch it on) sits there instead, and also saves whatever is typed in the form.</li>
+    <li>The state of this server's connection with ARCA. Here, a test ARCA: invoices come with a CAE and QR, and have no fiscal validity.</li>
+    <li><b>Facturando</b> (invoicing) since the day it was switched on.</li>
+    <li>The tax details, with the <b>Punto de venta</b> (point of sale) and <b>Identificar al cliente desde</b>, ARCA's threshold for invoicing without a DNI or CUIT.</li>
     <li><b>Qué se factura solo</b> (what is invoiced automatically): the channels and payment methods invoiced on delivery.</li>
   </ol>
-  <figcaption>Ajustes › Facturación on a monotributo account, still empty.</figcaption>
+  <figcaption>Ajustes › Facturación for a monotributo account that is already invoicing.</figcaption>
 </figure>
 
 ### Entering the tax details
@@ -125,10 +124,21 @@ If the last invoice was rejected or voided, it reads **Facturar de nuevo** (invo
 
 1. Tap **Facturar** on the sale. «Facturar el pedido #N» opens, or «Facturar Mesa 4» for a table.
 2. Choose who it is for: **Consumidor final** (final consumer, the default), **Con DNI** (with DNI) or **Con CUIT** (with CUIT).
-3. With a DNI or CUIT, type the number. From the seventh digit on, **Ya se facturó a este número** (already invoiced to this number) lists the customers already invoiced with that number: name, CUIT or DNI, VAT status, address and the last time. Tap the right one and everything fills in.
+3. With a DNI or CUIT, type the number. From the seventh digit on, the customers already invoiced with that number show up below it: name, CUIT or DNI, VAT status, address and the last time. Tap the right one and everything fills in.
 4. Fill in the **Nombre** (name), or the **Razón social** with a CUIT. With a CUIT, choose the **Condición frente al IVA**: **Responsable inscripto**, **Monotributista**, **Exento** (exempt) or **Consumidor final**. For a registered VAT payer or a monotributista, the legal name is required.
 5. Tap **Facturar $X**.
 {: .steps}
+
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/facturacion-a-mano.jpg' | relative_url }}" alt="The Facturar el pedido #6 panel with Con CUIT chosen, the first seven digits of a CUIT and below it the customer already invoiced, Distribuidora Sur S.A., registered for VAT, with its address and the last time" loading="lazy" width="620" height="900">
+  <ol class="marks">
+    <li><b>Consumidor final</b>, <b>Con DNI</b> or <b>Con CUIT</b>.</li>
+    <li>The number. From the seventh digit it searches.</li>
+    <li>A customer already invoiced with that number: one tap fills everything in.</li>
+    <li><b>Facturar $ …</b>.</li>
+  </ol>
+  <figcaption>Invoicing an order to a company that asked for an invoice before.</figcaption>
+</figure>
 
 «La factura se guarda ahora y ARCA la autoriza en unos segundos. Si ARCA no responde, se vuelve a intentar sola.» (the invoice is saved now and ARCA authorizes it in a few seconds, and if ARCA does not answer it retries on its own). Meanwhile the sale reads **Sin facturar (esperando a ARCA)**, and once ARCA authorizes it, it turns into **Facturada** with its number.
 
@@ -218,6 +228,18 @@ This is the list of invoices and credit notes issued, with their CAE. Use it to 
 - Each row shows **Fecha** (date), **Comprobante** (for example **Factura B** 00003-00000012), **Pedido** (order), **Cliente**, **Neto** (net), **IVA**, **Total** (credit notes in negative) and **Estado** (status).
 - If the period holds test invoices, it says so: «Las facturas de este período son de prueba: no tienen validez fiscal.»
 
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/facturacion-facturas.jpg' | relative_url }}" alt="Balances, Facturas for the month: the period and the search box, the figures Comprobantes 45, Facturado 846,000 pesos, IVA 0 and Esperando o rechazadas 1, and the list with a rejected invoice, a credit note in negative, an invoice to a company and a voided one" loading="lazy" width="1440" height="720">
+  <ol class="marks">
+    <li>The period and the search box.</li>
+    <li>The figures. <b>Esperando o rechazadas</b> (waiting or rejected) leaves only the ones with a problem.</li>
+    <li>A <b>Rechazada</b> (rejected) invoice: ARCA did not accept it.</li>
+    <li>A credit note, in negative. Two rows down is the invoice it voided, <b>Anulada</b> (voided).</li>
+    <li><b>Exportar</b> (export).</li>
+  </ol>
+  <figcaption>The month's invoices, with a rejected one and a voided one with its credit note.</figcaption>
+</figure>
+
 | Status | What it means |
 |---|---|
 | **Autorizada** (authorized) | It has a CAE. It is valid. |
@@ -239,12 +261,33 @@ Tap a row (or the **Factura** line of an order's detail). The voucher opens as i
 | **Corregir** (correct) | Voids and re-invoices to another customer, together. It also needs **Facturar**. |
 | **Listo** (done) | Closes it. |
 
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/facturacion-factura.jpg' | relative_url }}" alt="An open Factura C: the business's details, the letter C with its code, the number and date, the customer Distribuidora Sur S.A. registered for VAT with its CUIT and address, a pizza, the total, the QR and the CAE with its due date, and the Anular, Corregir, Imprimir and Listo buttons" loading="lazy" width="880" height="760">
+  <ol class="marks">
+    <li>The <b>CAE</b> and its due date.</li>
+    <li>ARCA's QR code.</li>
+    <li><b>Anular</b> (void).</li>
+    <li><b>Corregir</b> (correct).</li>
+    <li><b>Imprimir</b> (print).</li>
+  </ol>
+  <figcaption>A type C invoice to a registered VAT payer, authorized by the test ARCA.</figcaption>
+</figure>
+
 ### Voiding an invoice with a credit note
 
 1. Open the invoice and tap **Anular**.
 2. Fornu asks «¿Anular la Factura B …?» and warns: «Se emite una nota de crédito por el total. El pedido queda sin factura y se puede facturar de nuevo.» (a credit note is issued for the total, and the order is left without an invoice and can be invoiced again).
 3. Tap **Anular con nota de crédito** (void with a credit note). You get «Nota de crédito pedida a ARCA» and the credit note opens.
 {: .steps}
+
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/facturacion-nota-de-credito.jpg' | relative_url }}" alt="An open Nota de crédito C: it says Anula la Factura C 00003-00000043, with its two products, the total, the QR and its own CAE" loading="lazy" width="880" height="640">
+  <ol class="marks">
+    <li>Which invoice it voids («Anula la Factura…»).</li>
+    <li>Its own CAE.</li>
+  </ol>
+  <figcaption>The credit note, with its CAE.</figcaption>
+</figure>
 
 ### Correcting an invoice issued to the wrong customer
 

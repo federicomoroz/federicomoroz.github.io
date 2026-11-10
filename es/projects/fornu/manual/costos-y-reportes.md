@@ -15,14 +15,15 @@ Es la lista de lo que conviene mirar en costos y precios: un ingrediente sin pre
 <p class="perm"><span>Quién puede:</span> <span class="tag">Costos</span></p>
 
 <figure class="shot">
-  <img src="{{ '/assets/img/fornu/manual/costos-revisar.jpg' | relative_url }}" alt="Para revisar con cero problemas, cero avisos y cero recordatorios, y el mensaje de que no hay nada para revisar" loading="lazy" width="1440" height="400">
+  <img src="{{ '/assets/img/fornu/manual/costos-revisar.jpg' | relative_url }}" alt="Para revisar con un problema y un aviso: el Doble cheddar pierde 720,35 pesos por unidad en Rappi y el Triple bacon queda debajo del sugerido en Rappi, cada uno con Ficha y Corregir" loading="lazy" width="1440" height="620">
   <ol class="marks">
     <li><b>Problemas</b>: números mal o que faltan.</li>
     <li><b>Avisos</b>: números bien, pero para mirar.</li>
     <li><b>Recordatorios</b>: precios viejos y notas.</li>
-    <li>La lista. Acá, vacía: «Nada para revisar: todos los insumos tienen precio y todos los productos dejan lo que tienen que dejar.»</li>
+    <li>Lo que pasa, por ejemplo «Pierde $ 720,35 por unidad en Rappi».</li>
+    <li><b>Corregir</b>: abre justo lo que hay que arreglar.</li>
   </ol>
-  <figcaption>La demo con la carta al día.</figcaption>
+  <figcaption>Un precio que en Rappi pierde plata.</figcaption>
 </figure>
 
 Tocar una cifra filtra la lista. Arriba también están **Todo** / **Problemas** / **Avisos** / **Recordatorios** y el buscador **Buscar producto o insumo…**.

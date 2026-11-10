@@ -222,6 +222,11 @@ Cada habitación cerrada por paredes muestra su superficie en m², y una pared e
 
 Sin nada elegido, **Vaciar el plano** borra el piso, las paredes, las puertas y lo fijo, para empezar de nuevo sobre la grilla. Pregunta antes: «Se saca el piso, las paredes, las puertas y lo fijo: queda la grilla para armarlo de nuevo. Las mesas quedan. Se puede deshacer.».
 
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/espacios-vaciar.jpg' | relative_url }}" alt="La confirmación Vaciar el plano: se saca el piso, las paredes, las puertas y lo fijo, queda la grilla, las mesas quedan y se puede deshacer, con Volver y Vaciar" loading="lazy" width="500" height="240">
+  <figcaption>Antes de vaciar, Fornu pregunta.</figcaption>
+</figure>
+
 ### Lo que no deja guardar
 
 **Guardar el plano** no anda mientras haya un error, y el primero se lee abajo:
@@ -276,6 +281,16 @@ El calco queda solo en esta pantalla: no se guarda con el plano.
 
 La imagen sale con la vista que estás usando: una isométrica con texturas para mostrar el lugar, Basic para una hoja clara con los números de mesa.
 
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/espacios-imagen.jpg' | relative_url }}" alt="La imagen que descarga Imagen: el salón en isométrica con seis mesas de cuatro sobre el piso" loading="lazy" width="1200" height="800">
+  <figcaption>Lo que baja <b>Imagen</b>, en isométrica (achicada).</figcaption>
+</figure>
+
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/espacios-imprimir.jpg' | relative_url }}" alt="La hoja de Imprimir, apaisada: el salón visto de arriba con seis mesas y sus números" loading="lazy" width="1047" height="718">
+  <figcaption>La hoja que sale con <b>Imprimir</b>.</figcaption>
+</figure>
+
 ## Espacios › Lugares {#lugares}
 
 Un lugar guarda el piso, las paredes, las aberturas y lo fijo de un espacio, para armar otros planos encima: un salón alquilado, una quinta, una carpa. Sirve para quien arma eventos en distintos lugares, o para tener el local vacío y probar disposiciones.
@@ -290,6 +305,17 @@ Un lugar guarda el piso, las paredes, las aberturas y lo fijo de un espacio, par
 Si no hay ninguno, dice «Todavía no hay lugares guardados.».
 
 **En Espacios › Lugares** están todos, uno por pestaña con su medida, y el editor completo debajo. **Nuevo lugar** crea «Lugar 1», de 10 × 8 m con piso de cemento alisado («Lugar creado.»). **Borrar el lugar** lo quita, y los espacios armados sobre él no cambian. Sin lugares, la pantalla dice «Todavía no hay lugares. Creá uno, o guardá el plano de un sector como lugar desde su editor.».
+
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/espacios-lugares.jpg' | relative_url }}" alt="Espacios, Lugares con un lugar nuevo de 10 por 8 metros: su pestaña, Nuevo lugar, Borrar el lugar, y el editor debajo con sus herramientas, Lugares, Calcar un plano, Imagen e Imprimir" loading="lazy" width="1440" height="838">
+  <ol class="marks">
+    <li>El lugar, con su medida. Hay una pestaña por lugar.</li>
+    <li><b>Nuevo lugar</b>.</li>
+    <li><b>Borrar el lugar</b>.</li>
+    <li><b>Lugares</b>, en el editor: usar uno como base o guardar el plano como lugar.</li>
+  </ol>
+  <figcaption>Un lugar recién creado: 10 × 8 m de cemento alisado.</figcaption>
+</figure>
 
 ## Espacios › Objetos propios {#objetos}
 
@@ -322,6 +348,11 @@ Si el catálogo no tiene algo que tu local sí, armalo con piezas simples: un ba
 
 Cada objeto queda como una tarjeta con su medida y cuántas piezas tiene, con **Editar** y **Borrar**. Al borrarlo, deja de estar en el catálogo, y un plano que ya lo tiene pide sacarlo la próxima vez que se guarda.
 
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/espacios-objetos.jpg' | relative_url }}" alt="Espacios, Objetos propios con dos tarjetas, Barril y Heladera de bebidas, cada una con su medida, sus piezas y los botones Editar y Borrar" loading="lazy" width="1440" height="340">
+  <figcaption>Dos objetos propios, ya en el catálogo.</figcaption>
+</figure>
+
 ## Espacios › Texturas propias {#texturas}
 
 Fotos del piso, de las paredes o de los azulejos del local, y el logo para un cartel: se suman a los materiales del constructor, para que el plano se parezca al lugar. En la barra dice **Texturas** y el título de la página es **Texturas propias**.
@@ -347,6 +378,11 @@ Fotos del piso, de las paredes o de los azulejos del local, y el logo para un ca
 </figure>
 
 Al borrar una textura, donde estaba puesta queda su color. Sin texturas propias, la pantalla dice «Todavía no hay texturas propias.».
+
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/espacios-texturas.jpg' | relative_url }}" alt="Espacios, Texturas propias con una tarjeta, Baldosa del patio, para pisos y de 40 cm, con el botón Borrar" loading="lazy" width="1440" height="340">
+  <figcaption>Una textura propia, lista en los pinceles.</figcaption>
+</figure>
 
 Además de las propias, el constructor trae estos materiales:
 

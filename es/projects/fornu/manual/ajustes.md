@@ -68,6 +68,11 @@ Los adicionales son lo que llevan las ventas además de la receta, y se descuent
 5. Tocá **Guardar**. Aparece «Adicionales guardados».
 {: .steps}
 
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/ajustes-adicionales.jpg' | relative_url }}" alt="El panel Adicionales de Doble Smash con dos líneas en todos los canales y en cada pedido: una bolsa kraft y un sticker de cierre, cada una con su cantidad y su costo, y el botón + Adicional" loading="lazy" width="880" height="460">
+  <figcaption>Los adicionales de Doble Smash: la bolsa y el sticker de cada pedido.</figcaption>
+</figure>
+
 En los márgenes, lo que va en cada pedido se reparte entre los productos de un pedido promedio del canal. Se ve en [Costos y reportes]({{ '/es/projects/fornu/manual/costos-y-reportes/' | relative_url }}).
 
 ### Las tiendas de Rappi y PedidosYa {#tiendas}
@@ -99,7 +104,18 @@ Son los celulares, tablets y PC donde el personal entra con su PIN, y la PC que 
 
 <p class="perm"><span>Quién puede:</span> <span class="tag">Dispositivos</span></p>
 
-La lista muestra cada **Dispositivo** con el nombre que le pusiste, cuándo se **Vinculó** y su **Último ingreso** con PIN. Los dados de baja dicen «dado de baja».
+La lista muestra cada **Dispositivo** con el nombre que le pusiste, cuándo se vinculó (**Vinculado**) y su **Último ingreso** con PIN. Los dados de baja dicen «dado de baja».
+
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/ajustes-dispositivos.jpg' | relative_url }}" alt="Ajustes, Dispositivos con cuatro equipos: Tablet del salón, Caja, Cocina y Celular de Martín, cada uno con el día en que se vinculó, su último ingreso y el botón Dar de baja" loading="lazy" width="1440" height="470">
+  <ol class="marks">
+    <li><b>Vincular dispositivo</b>.</li>
+    <li>El nombre que le pusiste.</li>
+    <li><b>Último ingreso</b>: la última vez que alguien entró con su PIN.</li>
+    <li><b>Dar de baja</b>.</li>
+  </ol>
+  <figcaption>Los equipos del local: la tablet del salón, la caja, la cocina y el celular de un mensajero.</figcaption>
+</figure>
 
 ### Vincular un celular, una tablet o una PC
 
@@ -109,6 +125,15 @@ La lista muestra cada **Dispositivo** con el nombre que le pusiste, cuándo se *
 4. En el dispositivo, abrí Fornu y tocá **Usar este celular o PC en una cocina, con PIN**.
 5. Escribí el código y tocá **Vincular**. Aparece «Dispositivo vinculado».
 {: .steps}
+
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/ajustes-vincular.jpg' | relative_url }}" alt="El panel Vincular un dispositivo con un código de ocho letras y números, Vale hasta las 18:33 y sirve una sola vez, y la explicación de qué hacer en el celular o la PC" loading="lazy" width="600" height="292">
+  <ol class="marks">
+    <li>El código, para escribir en el equipo.</li>
+    <li>Hasta qué hora vale. Sirve una sola vez.</li>
+  </ol>
+  <figcaption>El código recién generado.</figcaption>
+</figure>
 
 Lo que se ve después en el dispositivo, la lista de nombres y el PIN, está en [En la cocina y en la calle]({{ '/es/projects/fornu/manual/cocina-y-reparto/' | relative_url }}#vincular). Si el código no anda, dice «El código no es válido. Revisalo o generá otro.»
 
@@ -321,6 +346,14 @@ Dice cuándo entró alguien de Fornu a esta cuenta para ayudarte, y qué miró o
 ## Configuración {#configuracion}
 
 Son los datos de la cuenta y su cocina, que son una sola cosa: un solo stock, del que salen todas sus unidades de negocio. Arriba hay tres atajos que bajan a cada parte: **La cocina y la caja**, **Impresión** y **Costos y precios**. Personal tiene otra pestaña que también se llama Configuración: es la [del equipo]({{ '/es/projects/fornu/manual/personal/' | relative_url }}#roles).
+
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/ajustes-configuracion-atajos.jpg' | relative_url }}" alt="El principio de Ajustes, Configuración: los atajos La cocina y la caja, Impresión y Costos y precios, y debajo los primeros campos de la cocina" loading="lazy" width="1440" height="420">
+  <ol class="marks">
+    <li>Los tres atajos: <b>La cocina y la caja</b>, <b>Impresión</b> y <b>Costos y precios</b>.</li>
+  </ol>
+  <figcaption>Arriba de Configuración, los tres atajos.</figcaption>
+</figure>
 
 <p class="perm"><span>Quién puede:</span> <span class="tag">Ajustes</span></p>
 

@@ -68,6 +68,11 @@ Extras are what sales carry besides the recipe, and they come off the stock with
 5. Tap **Guardar**. You see «Adicionales guardados» (extras saved).
 {: .steps}
 
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/ajustes-adicionales.jpg' | relative_url }}" alt="Doble Smash's Adicionales panel with two lines on every channel and every order: a kraft bag and a closing sticker, each with its quantity and cost, and the + Adicional button" loading="lazy" width="880" height="460">
+  <figcaption>Doble Smash's extras: the bag and the sticker on every order.</figcaption>
+</figure>
+
 In the margins, what goes on each order is spread over the products of an average order on that channel. See [Costs and reports]({{ '/en/projects/fornu/manual/costos-y-reportes/' | relative_url }}).
 
 ### Rappi and PedidosYa stores {#tiendas}
@@ -101,6 +106,17 @@ The menu's state is shown to people with the Carta (menu) permission.
 
 The list shows each **Dispositivo** by the name you gave it, when it was **Vinculado** (paired) and its **Último ingreso** (last PIN login). Unpaired ones say «dado de baja» (removed).
 
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/ajustes-dispositivos.jpg' | relative_url }}" alt="Ajustes, Dispositivos with four devices: Tablet del salón, Caja, Cocina and Celular de Martín, each with the day it was paired, its last login and the Dar de baja button" loading="lazy" width="1440" height="470">
+  <ol class="marks">
+    <li><b>Vincular dispositivo</b> (pair device).</li>
+    <li>The name you gave it.</li>
+    <li><b>Último ingreso</b> (last login): the last time someone signed in with their PIN.</li>
+    <li><b>Dar de baja</b> (remove).</li>
+  </ol>
+  <figcaption>The place's devices: the dining room tablet, the till, the kitchen and a courier's phone.</figcaption>
+</figure>
+
 ### Pair a phone, tablet or PC
 
 1. Tap **Vincular dispositivo** (pair device).
@@ -109,6 +125,15 @@ The list shows each **Dispositivo** by the name you gave it, when it was **Vincu
 4. On the device, open Fornu and tap **Usar este celular o PC en una cocina, con PIN** (use this phone or PC in a kitchen, with PIN).
 5. Type the code and tap **Vincular**. You see «Dispositivo vinculado» (device paired).
 {: .steps}
+
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/ajustes-vincular.jpg' | relative_url }}" alt="The Vincular un dispositivo panel with an eight-character code, Vale hasta las 18:33 y sirve una sola vez, and what to do on the phone or PC" loading="lazy" width="600" height="292">
+  <ol class="marks">
+    <li>The code, to type on the device.</li>
+    <li>When it expires. It works only once.</li>
+  </ol>
+  <figcaption>A freshly generated code.</figcaption>
+</figure>
 
 What the device shows afterwards, the list of names and the PIN pad, is in [In the kitchen and on the road]({{ '/en/projects/fornu/manual/cocina-y-reparto/' | relative_url }}#vincular). If the code doesn't work, it says «El código no es válido. Revisalo o generá otro.» (the code is not valid, check it or make another).
 
@@ -321,6 +346,14 @@ The list shows each one's **Clave**, what it **Puede leer** (can read), its **Ú
 ## Configuración {#configuracion}
 
 **Configuración** (configuration) holds the account and its kitchen, which are one and the same: one stock that all its business units draw from. At the top, three shortcuts jump to each part: **La cocina y la caja** (the kitchen and the cash), **Impresión** (printing) and **Costos y precios** (costs and prices). Personal has another tab also called Configuración: that one is [the team's]({{ '/en/projects/fornu/manual/personal/' | relative_url }}#roles).
+
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/ajustes-configuracion-atajos.jpg' | relative_url }}" alt="The top of Ajustes, Configuración: the shortcuts La cocina y la caja, Impresión and Costos y precios, and below them the kitchen's first fields" loading="lazy" width="1440" height="420">
+  <ol class="marks">
+    <li>The three shortcuts: <b>La cocina y la caja</b>, <b>Impresión</b> and <b>Costos y precios</b>.</li>
+  </ol>
+  <figcaption>At the top of Configuración, the three shortcuts.</figcaption>
+</figure>
 
 <p class="perm"><span>Who can:</span> <span class="tag">Ajustes</span></p>
 

@@ -14,7 +14,7 @@ It lives in Compras › **Compras de insumos** (purchases › stock purchases), 
 
 <p class="perm"><span>Who can:</span> <span class="tag">Gastos</span></p>
 
-The **Encargado/a** (manager) role of a new account already has it. The purchase's **Proveedor** (supplier) field shows when the role also has the **Proveedores** permission.
+The **Encargado/a** (manager) role of a new account already has it. Anyone with Gastos picks the purchase's **Proveedor** (supplier) and sees **Cargar lo de la última compra** (load the last purchase). Creating a supplier right there, with **+ Proveedor nuevo**, also takes the **Proveedores** permission.
 
 <figure class="shot">
   <img src="{{ '/assets/img/fornu/manual/compras-lista.jpg' | relative_url }}" alt="The Compras de insumos list for the month, with 1,598,400 pesos in purchases and 666,000 to pay, one purchase from a meat supplier still to pay with its Pagar button and a weekly purchase paid by transfer." loading="lazy" width="1440" height="838">
@@ -47,7 +47,7 @@ Fornu confirms «Compra cargada: los insumos ya están en el stock» (purchase r
 <figure class="shot">
   <img src="{{ '/assets/img/fornu/manual/compras-dialogo.jpg' | relative_url }}" alt="Two parts of a stock purchase: on the left the date, supplier, category, business unit, voucher and prices with VAT. On the right three cuts of meat with their quantity, price and VAT, the amounts and payment on account." loading="lazy" width="1440" height="728">
   <ol class="marks">
-    <li><b>Proveedor</b>. <b>+ Proveedor nuevo</b> (new supplier) creates one right there. Picking a supplier fills in their usual category.</li>
+    <li><b>Proveedor</b>. <b>+ Proveedor nuevo</b> (new supplier) creates one right there, with the Proveedores permission. Picking a supplier fills in their usual category.</li>
     <li><b>Unidad de negocio</b> (business unit): <b>Compartido entre todas</b> (shared by all) splits the cost across the brands by what each one sells. Or pick a single one.</li>
     <li><b>Comprobante</b> and <b>Número</b>.</li>
     <li><b>Precios con IVA</b> or <b>Precios sin IVA</b>: it starts according to the voucher, without VAT for an A invoice.</li>
@@ -90,11 +90,21 @@ If you bought from a supplier in the last 120 days, picking them shows **Cargar 
 
 When a purchase changes an item's price, a box appears above the list after saving, for example «Cambió el precio de 2 insumos: Harina +12% · …. Toca 5 productos:» (2 items changed price, flour up 12%, affecting 5 products). A table shows each affected product with its business unit, its cost before and after, and the margin of the channel that leaves least, before and after.
 
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/compras-margenes.jpg' | relative_url }}" alt="The box that shows after saving a purchase: Cambió el precio de 1 insumo: Carne picada 80/20 +10%. Toca 2 productos, with the Doble cheddar and the Triple bacon, their cost before and after, the margin of the channel that leaves least, and the Revisar precio button" loading="lazy" width="1440" height="290">
+  <figcaption>Ground beef went up 10%: the Doble cheddar and the Triple bacon leave less.</figcaption>
+</figure>
+
 **Revisar precio** (review price) opens that product on **Precios** (prices), ready to fix ([Menu]({{ '/en/projects/fornu/manual/carta/' | relative_url }}#arreglar-precio)). If no product on sale uses those items, the box reads «No toca ningún producto a la venta.» (no product on sale is affected). Close it with the ✕.
 
 ### Repeat a purchase {#repetir}
 
 **⋯** › **Repetir compra** opens a new purchase with the same supplier, category, business unit, voucher, description and items, at today's prices. The date is today, the number is empty and the payment is paid today with the same method, or cash if there was none. A credit note is repeated as a delivery note, and items that were switched off are left out.
+
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/compras-repetir.jpg' | relative_url }}" alt="The Repetir compra panel with today's date, the supplier Distribuidora La Plata, the Insumos category, Compartido entre todas, the Remito voucher with an empty number, and the items further down" loading="lazy" width="880" height="900">
+  <figcaption>Repeating the distributor's purchase: all the same, at today's prices.</figcaption>
+</figure>
 
 ### Correct a purchase {#editar}
 
@@ -106,6 +116,11 @@ Tap the row. You can change everything except the items, including whether it is
 2. Type the **Motivo** (reason). Fornu warns that the items it brought go back out of stock.
 3. Tap **Anular**.
 {: .steps}
+
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/compras-anular.jpg' | relative_url }}" alt="The Anular compra de $ 64.000 panel with the notice Los insumos que trajo salen del stock, the Motivo filled in and the Volver and Anular buttons" loading="lazy" width="620" height="560">
+  <figcaption>Voiding a purchase asks for the reason.</figcaption>
+</figure>
 
 The purchase stays in the list, dimmed, when **Ver anulados** is on. Each item's price goes back to what it was before, unless a later purchase has set another.
 
@@ -120,14 +135,12 @@ It lives in Compras › **Proveedores** (suppliers) and comes with the Suppliers
 Paying them from here also takes the **Gastos** permission.
 
 <figure class="shot">
-  <img src="{{ '/assets/img/fornu/manual/compras-proveedores.jpg' | relative_url }}" alt="The supplier list with a butcher and a greengrocer, both with Insumos as their usual category and nothing to pay." loading="lazy" width="1440" height="350">
+  <img src="{{ '/assets/img/fornu/manual/compras-proveedores.jpg' | relative_url }}" alt="The supplier list: Distribuidora La Plata with 64,000 pesos to pay, Frigorífico Don Pedro with 99,000, each with its Pagar button, and Panificadora del Sur and Verdulería Don Tito up to date" loading="lazy" width="1440" height="420">
   <ol class="marks">
     <li><b>Agregar</b> (add): a new supplier.</li>
-    <li><b>CUIT</b>: Fornu checks it when you enter it.</li>
-    <li><b>Categoría habitual</b> (usual category): suggested when you record an expense for them.</li>
-    <li><b>A pagar</b>: what is owed to them, with <b>Pagar</b> next to it when there is something.</li>
+    <li><b>A pagar</b> (to pay): what is owed, with <b>Pagar</b> (pay) next to it.</li>
   </ol>
-  <figcaption>Two demo suppliers, all paid up.</figcaption>
+  <figcaption>Four suppliers, two with purchases to pay.</figcaption>
 </figure>
 
 | Field | What it is for |
@@ -142,6 +155,16 @@ Paying them from here also takes the **Gastos** permission.
 Suppliers are switched off rather than deleted. If the CUIT is wrong, Fornu says why: «El CUIT … tiene que tener 11 números.» (it needs 11 digits), «El CUIT … no es válido: revisá los números.» (it is not valid) or «El CUIT … ya es de …» (it already belongs to another supplier).
 
 **Pagar** opens «Pagarle a …» (pay …) with all of that supplier's vouchers ticked. It works like [Pay several at once](#pagar-varios).
+
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/compras-pagar-proveedor.jpg' | relative_url }}" alt="The Pagarle a Frigorífico Don Pedro panel with its purchase from 10/11/2026 ticked for 99,000 pesos, Medio de pago on Transferencia, the payment date and the Pagar $ 99.000 button" loading="lazy" width="880" height="560">
+  <ol class="marks">
+    <li>The vouchers being paid, ticked.</li>
+    <li><b>Medio de pago</b> (payment method).</li>
+    <li><b>Pagar $ …</b>, with the total of what is ticked.</li>
+  </ol>
+  <figcaption>Paying a supplier everything that is owed.</figcaption>
+</figure>
 
 The search at the top (<kbd>Ctrl</kbd> + <kbd>K</kbd>) also finds suppliers, tagged «Proveedor», and opens them.
 

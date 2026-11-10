@@ -220,7 +220,7 @@ Está en Pedidos › **Historial** (la página se llama **Historial de pedidos**
 <p class="perm"><span>Quién puede:</span> <span class="tag">Pedidos</span></p>
 
 <figure class="shot">
-  <img src="{{ '/assets/img/fornu/manual/pedidos-historial.jpg' | relative_url }}" alt="Historial de pedidos de un día, con el selector de fecha, los filtros, el buscador, cuatro cifras y la lista de pedidos con su estado" loading="lazy" width="1440" height="700">
+  <img src="{{ '/assets/img/fornu/manual/pedidos-historial.jpg' | relative_url }}" alt="Historial de pedidos del 9 de noviembre: el día, los filtros, el buscador, 21 pedidos, 397.900 pesos en ventas y 2 cancelados, y la lista con su estado" loading="lazy" width="1440" height="700">
   <ol class="marks">
     <li>El día: flechas para el anterior y el siguiente, o la fecha.</li>
     <li><b>Todos</b>, <b>Entregados</b>, <b>Cancelados</b> o <b>En curso</b>.</li>

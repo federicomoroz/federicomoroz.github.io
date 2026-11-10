@@ -108,6 +108,18 @@ The footer keeps up with everything you type. Once there is a recipe it shows th
 - **Ganancia sobre el costo** (markup on cost): how much the suggested price leaves above what the product costs. With **Propia** off it uses the account's markup, set in [Ajustes › Configuración]({{ '/en/projects/fornu/manual/ajustes/' | relative_url }}#configuracion). Switch it on to set one for this product only.
 - **Márgenes con estos precios** (margins at these prices): a table with each channel, its price, what it leaves in pesos and as a percentage, and the **Sugerido** (suggested) price. When a price is below the suggested one, a **Usar $ …** (use) button replaces it with the suggestion rounded up to $ 10. Without a recipe there is no cost, and the table asks you to add one.
 
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/carta-ficha-precios.jpg' | relative_url }}" alt="The Doble cheddar's Precios tab: Precio base 9,800, Rappi with its own price of 3,500, PedidosYa at 11,200, the account's markup on cost, and the Márgenes con estos precios table with Rappi in red and the Usar $ 5.950 button" loading="lazy" width="880" height="900">
+  <ol class="marks">
+    <li><b>Precio base</b> (base price).</li>
+    <li><b>Propio</b> (own): on, the platform has its own price.</li>
+    <li><b>Ganancia sobre el costo</b> (markup on cost).</li>
+    <li><b>Márgenes con estos precios</b>: what each channel leaves, and the suggestion.</li>
+    <li><b>Usar $ …</b> (use $ …): puts the suggested price on the channel that falls short.</li>
+  </ol>
+  <figcaption>The Doble cheddar's prices. It loses money on Rappi.</figcaption>
+</figure>
+
 ### Receta {#ficha-receta}
 
 The stock items each unit sold uses, and how much of each. Every time the product sells, Fornu takes what the recipe says out of stock.
@@ -119,6 +131,16 @@ The stock items each unit sold uses, and how much of each. Every time the produc
 
 The whole recipe's cost shows at the bottom. The ✕ removes a line. If a stock item does not exist yet, **+ Nuevo insumo** (new stock item) opens its form without leaving the product: you choose whether it is an ingredient, a prepared item or a supply, and once saved it joins the recipe with a quantity of 1. That button shows when your role also has the **Insumos** permission.
 
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/carta-ficha-receta.jpg' | relative_url }}" alt="The Doble cheddar's Receta tab with five stock items, each with its quantity and cost, the + Agregar and + Nuevo insumo buttons, and the total cost at the bottom" loading="lazy" width="880" height="540">
+  <ol class="marks">
+    <li><b>+ Agregar</b> (add): one more line.</li>
+    <li><b>+ Nuevo insumo</b> (new stock item): sets it up without leaving the product.</li>
+    <li>The whole recipe's cost.</li>
+  </ol>
+  <figcaption>The Doble cheddar's recipe.</figcaption>
+</figure>
+
 <div class="callout tip"><p class="callout-title">Tip</p><p>The product's box or bag goes in <b>Adicionales</b>, not in the recipe. That way the packaging can differ between delivery and the dining room.</p></div>
 
 ### Adicionales {#ficha-adicionales}
@@ -127,11 +149,24 @@ What each unit of the product carries besides its recipe, on every channel or on
 
 Each line has a **Canal** (channel: **Todos** for all, **Propios**, each platform that is on, and **Salón** if the unit sells in the dining room), an **Insumo** (stock item), a **Cantidad** (quantity) and its **Costo**. **+ Adicional** adds a line. Anything every product of the business unit carries, or that goes once per order, is set up once in the business unit's own extras, in [Settings]({{ '/en/projects/fornu/manual/ajustes/' | relative_url }}#unidades).
 
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/carta-ficha-adicionales.jpg' | relative_url }}" alt="The Doble cheddar's Adicionales tab, with the explanation, Todavía no lleva nada and the + Adicional button" loading="lazy" width="880" height="320">
+  <ol class="marks">
+    <li><b>+ Adicional</b> (add extra): adds a line.</li>
+  </ol>
+  <figcaption>A product with no extras of its own. What goes on every order is set on the business unit.</figcaption>
+</figure>
+
 This tab shows while **Se vende suelto** is on.
 
 ### Grupos modificadores {#ficha-grupos}
 
 Tick the groups offered when this product is ordered, such as its extras or the drink in a combo. Each card says how many options are chosen, for example «Opcional, hasta 3» (optional, up to 3). A group that has this same product among its options is greyed out. Groups are built in [Modifier groups](#modificadores).
+
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/carta-ficha-grupos.jpg' | relative_url }}" alt="The Doble cheddar's Grupos modificadores tab with two groups ticked: Extras, optional up to 3, and Sumale una bebida, optional up to 1" loading="lazy" width="880" height="330">
+  <figcaption>The two groups offered with the Doble cheddar.</figcaption>
+</figure>
 
 ### What blocks saving {#ficha-errores}
 
@@ -150,7 +185,7 @@ All of these are in each product's **⋯** menu.
 <p class="perm"><span>Who can:</span> <span class="tag">Carta</span></p>
 
 - **Duplicar** (duplicate) creates «Doble cheddar (copia)» with the same recipe, extras, prices, markup and groups. The copy starts paused, so you can check it before selling it, and opens on **Datos** so you can rename it.
-- **Pausar** (pause) takes the product off sale. Fornu says «Doble cheddar pausado. Publicá la carta para que las plataformas lo vean.» (paused, publish the menu so the platforms see it) and offers **Deshacer** (undo) in case it was a slip.
+- **Pausar** (pause) takes the product off sale. Fornu says «Doble cheddar pausado» (paused) and offers **Deshacer** (undo) in case it was a slip. If the account has the platforms module and the menu changed, the notice above the list asks to publish it.
 - **Reactivar** (reactivate) puts it back on the menu: «Doble cheddar vuelve a la carta».
 
 Products are never deleted. Pausing takes them off sale and keeps their sales and their history.
@@ -210,12 +245,22 @@ On own orders it changes the base price. On a platform it changes that platform'
 
 ### Fix a price that loses money {#arreglar-precio}
 
-When a product loses money or sits below the suggested price on some channel, Fornu flags it in [Costos › Para revisar]({{ '/en/projects/fornu/manual/costos-y-reportes/' | relative_url }}#revisar) (costs › to review), and also in the box that shows after a purchase that moved costs ([Purchases and expenses]({{ '/en/projects/fornu/manual/compras-y-gastos/' | relative_url }}#margenes)). From either place, **Revisar precio** (review price) opens the product on **Precios**, ready to fix:
+When a product loses money or sits below the suggested price on some channel, Fornu flags it in [Costos › Para revisar]({{ '/en/projects/fornu/manual/costos-y-reportes/' | relative_url }}#revisar) (costs › to review), and also in the box that shows after a purchase that moved costs ([Purchases and expenses]({{ '/en/projects/fornu/manual/compras-y-gastos/' | relative_url }}#margenes)). From Para revisar with **Corregir** (fix), and from the purchase box with **Revisar precio** (review price), the product opens on **Precios**, ready to fix:
 
 - A banner at the top says what is wrong, for example «Pierde $ … por unidad en Rappi · $ … debajo del sugerido en Pedidos propios» (loses $ … per unit on Rappi, $ … below the suggestion on own orders).
 - In the margins table you type each channel's price right there, and the margin updates as you type.
 - Once everything is fine, the banner turns into «Con estos precios ningún canal pierde plata ni queda debajo del sugerido. Guardá para dejarlo así.» (no channel loses money or sits below the suggestion, save to keep it).
 - Closing takes you back to where you came from.
+
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/carta-arreglar-precio.jpg' | relative_url }}" alt="The Doble cheddar opened from Para revisar: at the top the banner Pierde $ 720,35 por unidad en Rappi, and the margins table with each channel's price to type in and the Usar $ 5.950 button on Rappi" loading="lazy" width="880" height="720">
+  <ol class="marks">
+    <li>The banner: which channel loses money and how much.</li>
+    <li>Rappi's price, typed right there.</li>
+    <li><b>Usar $ …</b>: the suggested price, rounded.</li>
+  </ol>
+  <figcaption>Fixing a price that loses money on Rappi.</figcaption>
+</figure>
 
 ## Menu categories {#categorias}
 
@@ -243,9 +288,19 @@ Tap **Agregar**, or a category to change it:
 | **Notas rápidas** (quick notes) | One per line, such as «Jugoso», «A punto» and «Cocido» (rare, medium, well done). When ordering a product of this category, you tap them instead of typing. Up to 12 notes of 40 characters. |
 | **Color** | The color of its tile and its products on the express counter. If none is picked, it uses the business unit's color. |
 
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/carta-categoria.jpg' | relative_url }}" alt="The Burgers category panel with Nombre, Orden, Va de on Principal, four quick notes and the Color" loading="lazy" width="620" height="560">
+  <ol class="marks">
+    <li><b>Va de</b>: when it goes out in the dining room.</li>
+    <li><b>Notas rápidas</b>: one per line.</li>
+    <li><b>Color</b>.</li>
+  </ol>
+  <figcaption>The Burgers category, with four quick notes.</figcaption>
+</figure>
+
 How courses are fired and where quick notes show up is covered in [Dining room]({{ '/en/projects/fornu/manual/salon/' | relative_url }}#tiempos).
 
-To delete a category, open it and tap **Borrar** (delete). If it still has products, Fornu keeps it and asks you to move them to another category or pause them first.
+To delete a category, open it and tap **Borrar** (delete). If it still has products, Fornu keeps it: «Burgers tiene productos, también cuentan los pausados: pasalos a otra categoría primero.» (Burgers has products, paused ones count too: move them to another category first). Menu categories have no on/off switch.
 
 ## Modifier groups {#modificadores}
 

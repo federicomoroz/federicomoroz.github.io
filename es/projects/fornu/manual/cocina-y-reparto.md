@@ -55,7 +55,7 @@ Es lo primero que muestra un equipo vinculado: la lista de las personas de la co
 
 <div class="shot-pair">
 <figure class="shot phone">
-  <img src="{{ '/assets/img/fornu/manual/cocina-y-reparto-pin.jpg' | relative_url }}" alt="El teclado del PIN para Sofía, en turno desde las 21:18, con los botones Fichar salida y Entrar" loading="lazy" width="390" height="844">
+  <img src="{{ '/assets/img/fornu/manual/cocina-y-reparto-pin.jpg' | relative_url }}" alt="El teclado del PIN de Martín en su celular, en turno desde las 18:25, con los botones Fichar salida y Entrar" loading="lazy" width="390" height="844">
   <ol class="marks">
     <li>Quién está entrando y, si está en turno, desde qué hora.</li>
     <li>Los puntos y el teclado. <b>Volver</b> regresa a los nombres y ⌫ borra.</li>
@@ -65,10 +65,10 @@ Es lo primero que muestra un equipo vinculado: la lista de las personas de la co
   <figcaption>El teclado del PIN para alguien que ya está en turno.</figcaption>
 </figure>
 <figure class="shot">
-  <img src="{{ '/assets/img/fornu/manual/cocina-y-reparto-nombres.jpg' | relative_url }}" alt="La pantalla de PIN de la Cocina de prueba en una tablet, con los nombres Lucía (Cocina), Martín (Mensajería) y Sofía (Encargado/a), los enlaces Ingresar con email y Desvincular este dispositivo, y el selector de tema arriba" loading="lazy" width="930" height="640">
+  <img src="{{ '/assets/img/fornu/manual/cocina-y-reparto-nombres.jpg' | relative_url }}" alt="La pantalla de PIN de la Cocina de prueba en la tablet Cocina, con siete nombres y sus roles, tres de ellos en turno, los enlaces Ingresar con email y Desvincular este dispositivo, y el selector de tema arriba" loading="lazy" width="900" height="700">
   <ol class="marks">
     <li>El nombre de la cocina y, debajo, el del dispositivo.</li>
-    <li>Una tarjeta por persona, con sus roles.</li>
+    <li>Una tarjeta por persona, con sus roles y, si está en turno, desde qué hora.</li>
     <li><b>Ingresar con email</b>: para el dueño o el encargado, en el mismo equipo.</li>
     <li><b>Desvincular este dispositivo</b>.</li>
     <li>El tema de este equipo.</li>
@@ -95,6 +95,16 @@ Los botones cambian según quién sos y si ya fichaste:
 | Usa la app y no está en turno | **Entrar sin fichar** y **Fichar y entrar** | Ficha la entrada y abre la app, en un toque. |
 | Usa la app y ya está en turno | **Fichar salida** y **Entrar** | Abre la app. |
 | Solo ficha | **Fichar entrada** o **Fichar salida** | Ficha, y nada más. |
+
+<figure class="shot phone">
+  <img src="{{ '/assets/img/fornu/manual/cocina-y-reparto-pin-sin-turno.jpg' | relative_url }}" alt="El teclado del PIN de Lucía, que todavía no fichó, con los botones Entrar sin fichar y Fichar y entrar" loading="lazy" width="412" height="915">
+  <ol class="marks">
+    <li>Quién entra. No dice «En turno desde las…»: todavía no fichó.</li>
+    <li><b>Entrar sin fichar</b>: abre la app y no anota la entrada.</li>
+    <li><b>Fichar y entrar</b>: el principal, ficha la entrada y abre la app.</li>
+  </ol>
+  <figcaption>El teclado para alguien que todavía no fichó.</figcaption>
+</figure>
 
 Si el PIN está mal, dice «PIN incorrecto · quedan 3 intentos.» Después de cinco intentos fallidos seguidos, la persona queda bloqueada 15 minutos: «PIN incorrecto: Martín queda bloqueado 15 min.» Si te olvidaste el PIN, pedile a quien administra el equipo que te cargue uno nuevo.
 
@@ -130,7 +140,7 @@ Arriba de la app hay un recuadro con tu turno:
 También se puede desde la pantalla de PIN: tu nombre, tu PIN y **Fichar salida**. Ahí aparece una tarjeta que se cierra sola a los 6 segundos, o con **Listo**.
 
 <figure class="shot phone">
-  <img src="{{ '/assets/img/fornu/manual/cocina-y-reparto-fichado.jpg' | relative_url }}" alt="La tarjeta que confirma la salida: Salida de Sofía: 21:21, Trabajaste 2 min., con el botón Listo" loading="lazy" width="390" height="570">
+  <img src="{{ '/assets/img/fornu/manual/cocina-y-reparto-fichado.jpg' | relative_url }}" alt="La tarjeta que confirma la salida: Salida de Martín: 18:22, Trabajaste 4 min., con el botón Listo" loading="lazy" width="390" height="570">
   <figcaption>La salida fichada, con las horas trabajadas. Al entrar, la tarjeta dice «¡Buen turno!».</figcaption>
 </figure>
 
@@ -149,6 +159,15 @@ En la tablet de la cocina, la app queda abierta en el tablero todo el turno. Par
 3. Tocá el nombre y que esa persona escriba su PIN.
 4. Tocá **Fichar entrada** o **Fichar salida**. La tarjeta dice «Entrada de Rosa: 13:05» y «¡Buen turno!», o la salida con lo trabajado. Tocá **Listo**.
 {: .steps}
+
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/cocina-y-reparto-fichar-a-alguien.jpg' | relative_url }}" alt="Fichar entrada o salida abierto sobre el tablero de la tablet, con siete nombres: cuatro en turno, con la hora en que entraron, y tres sin fichar" loading="lazy" width="820" height="300">
+  <ol class="marks">
+    <li>Alguien que todavía no fichó: «Sin fichar».</li>
+    <li>Alguien en turno: «En turno desde las 18:18».</li>
+  </ol>
+  <figcaption>Fichar entrada o salida, encima del tablero.</figcaption>
+</figure>
 
 Nadie entra ni sale de la app, y el tablero de abajo sigue sonando con cada pedido nuevo.
 
@@ -173,16 +192,16 @@ Quien entra con su PIN ve solo las pantallas de su trabajo, como pestañas. El c
   <figcaption>Una moza con una sola pantalla, Venta: no hay pestañas.</figcaption>
 </figure>
 <figure class="shot">
-  <img src="{{ '/assets/img/fornu/manual/cocina-y-reparto-app-tablet.jpg' | relative_url }}" alt="La app del personal en una tablet de cocina, en la pestaña Pedidos, con el turno abierto, Fichar a alguien, las pestañas Pedidos y Merma y producción, el nombre de quien la usa y el tablero mostrando solo la estación Barra" loading="lazy" width="820" height="600">
+  <img src="{{ '/assets/img/fornu/manual/cocina-y-reparto-app-tablet.jpg' | relative_url }}" alt="La app del personal en la tablet Cocina, en la pestaña Pedidos, con el turno de Diego Ruiz abierto, Fichar a alguien, las pestañas Pedidos y Merma y producción, su nombre y el tablero mostrando solo la estación Plancha" loading="lazy" width="820" height="620">
   <ol class="marks">
     <li>El turno: «En turno desde las…».</li>
     <li><b>Fichar a alguien</b>.</li>
     <li>Las pestañas: <b>Pedidos</b> y <b>Merma y producción</b>.</li>
     <li>Quién está usando la app.</li>
-    <li><b>Todo · Barra · Cocina</b>: qué muestra este tablero.</li>
+    <li><b>Todo</b>, un botón por estación y uno por marca: qué muestra este tablero.</li>
     <li>Lo de otra estación se ve apagado.</li>
   </ol>
-  <figcaption>La tablet de la barra, que muestra solo lo de su estación.</figcaption>
+  <figcaption>La tablet de la plancha, que muestra solo lo de su estación.</figcaption>
 </figure>
 </div>
 
@@ -341,6 +360,29 @@ Los pedidos de Rappi y PedidosYa no aparecen acá: los retira el repartidor de c
 - **Para retirar.** Todos los pedidos propios listos para entregar, de cualquier mensajero. Cada uno muestra «#12 · Doble Smash», a qué hora quedó listo, la dirección, el cliente con el total, qué hay que cobrar y lo que va en la bolsa, para revisarla antes de salir. Abajo, el botón grande **Me lo llevo**. Si no hay nada, dice «No hay pedidos listos.»
 - **En camino.** Solo los que llevás vos: a qué hora salió, la dirección en grande, el cliente con su teléfono, lo que va en la bolsa, los botones **Abrir en el mapa**, **Llamar** y **WhatsApp**, la nota del pedido y qué cobrar (o «Total del pedido: $ …» si el pedido no dice cómo paga). Abajo, el botón grande **Entregado**. Si no llevás nada, dice «No estás llevando nada.»
 - Al pie, cuántos entregaste: «Entregaste 5 pedidos hoy.»
+
+<div class="shot-phones">
+  <figure class="shot phone">
+    <img src="{{ '/assets/img/fornu/manual/cocina-y-reparto-entregas.jpg' | relative_url }}" alt="Mis entregas en el celular de Martín: arriba el efectivo que lleva, 13.500 pesos de un pedido, y debajo Para retirar con dos pedidos listos, cada uno con su dirección, el cliente, qué cobrar, lo que va en la bolsa y el botón Me lo llevo" loading="lazy" width="390" height="935">
+    <ol class="marks">
+      <li>Lo que llevás en efectivo, para rendir al terminar.</li>
+      <li>Qué cobrar. En efectivo, con cuánto paga y el vuelto.</li>
+      <li>Lo que va en la bolsa.</li>
+      <li><b>Me lo llevo</b>.</li>
+    </ol>
+    <figcaption>Para retirar: dos pedidos listos.</figcaption>
+  </figure>
+  <figure class="shot phone">
+    <img src="{{ '/assets/img/fornu/manual/cocina-y-reparto-en-camino.jpg' | relative_url }}" alt="En camino: el pedido 2 de Pollo Crocante, con la dirección en grande, el cliente con su teléfono, los botones Abrir en el mapa, Llamar y WhatsApp, qué cobrar y el botón Entregado" loading="lazy" width="390" height="480">
+    <ol class="marks">
+      <li>La dirección y el cliente, con su teléfono.</li>
+      <li><b>Abrir en el mapa</b>, <b>Llamar</b> y <b>WhatsApp</b>.</li>
+      <li>Qué cobrar.</li>
+      <li><b>Entregado</b>.</li>
+    </ol>
+    <figcaption>En camino: el que lleva Martín.</figcaption>
+  </figure>
+</div>
 
 Lo que hay que cobrar se lee igual que en la cocina:
 

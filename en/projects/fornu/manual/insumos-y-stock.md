@@ -72,8 +72,8 @@ The **Estado** column shows the most important warning and how many more there a
 | **Nombre** | Required. |
 | **Categoría** | One of the tab's active categories. |
 | **Unidad** | **Gramos**, **Mililitros** or **Unidades**. Supplies start in units. It is fixed once saved, because stock and recipes are kept in that unit. |
-| **Se compra por** | The pack: box, bag, kg, pack. Needed to save. |
-| **Cuánto trae** | How much each pack holds, in the item's unit. It starts at 1,000 g, or 1 unit. |
+| **Se compra por** | The pack: box, bag, kg, pack. Needed to save: without it, the footer says «Falta cómo se compra (caja, bolsa, kg…).» (how it is bought is missing). |
+| **Cuánto trae** | How much each pack holds, in the item's unit. It starts at 1,000 g, or 1 unit. Also needed to save: without it, the footer says, for example, «Falta cuántos g trae cada bolsa.» (how many grams each bag holds is missing). |
 | **Precio de cada una** | The price of one pack. Underneath, it says what it costs the account. Purchases with a price update it on their own. |
 | **El precio es** | **Con IVA, como en un ticket** (with VAT, as on a receipt) or **Sin IVA, como en una factura A** (without VAT, as on an A invoice). |
 | **IVA** | 21%, 10.5%, 27%, 5%, 2.5% or **Exento (0%)** (exempt). Meat, fruit, vegetables and flour usually carry 10.5%. |
@@ -171,7 +171,7 @@ The **Encargado/a** (manager) role of a new account already has it.
 <figure class="shot">
   <img src="{{ '/assets/img/fornu/manual/insumos-stock.jpg' | relative_url }}" alt="The Stock screen with the stock value, five items at their minimum, five running out within seven days and what is sitting unused, and two prepared items warning that their production was not logged." loading="lazy" width="1440" height="900">
   <ol class="marks">
-    <li>The figures: <b>Valor del stock</b> (stock value), <b>En el mínimo</b> (at minimum), <b>Se acaban en 7 días</b> (run out within 7 days) and <b>Sin uso en 2 semanas</b> (unused for 2 weeks). Tap one to filter the list.</li>
+    <li>The figures: <b>Valor del stock</b> (stock value), <b>En el mínimo</b> (at minimum), <b>Se acaban en 7 días</b> (run out within 7 days) and <b>Sin uso en 2 semanas</b> (unused for 2 weeks, or the account's window). Tap one to filter the list.</li>
     <li><b>Todo</b> (all), <b>Ingredientes</b>, <b>Producción</b> or <b>Inventario</b>. The search box is below.</li>
     <li>«Faltó registrar lo producido» (production not logged): more of a prepared item was sold than was logged as made. <b>Registrar lo usado</b> (log what was used) fixes it.</li>
     <li><b>Alcanza para</b> (lasts): how many days it lasts at the current rate of use.</li>
@@ -185,8 +185,8 @@ The **Encargado/a** (manager) role of a new account already has it.
 |---|---|
 | **Valor del stock** | What everything on hand is worth, at today's cost. |
 | **En el mínimo** | How many items are at or below their minimum. Red if there are any. |
-| **Se acaban en 7 días** | Items that will not last a week at the current rate. Tapping it sorts by what runs out first. |
-| **Sin uso en 2 semanas** | What is sitting idle: its value and how many items. Tapping it sorts by value. |
+| **Se acaban en 7 días** | Items that will not last a week at the current rate: below it says, for example, «al ritmo de las últimas 2 semanas» (at the rate of the last 2 weeks). Tapping it sorts by what runs out first. |
+| **Sin uso en 2 semanas** (or the account's window, such as «Sin uso en 10 días») | What is sitting idle: its value and how many items. Tapping it sorts by value. |
 
 | Column | What it shows |
 |---|---|
@@ -197,7 +197,7 @@ The **Encargado/a** (manager) role of a new account already has it.
 | **Alcanza para** | «N días», «Menos de 1 día», «Más de 60 días», «Sin stock» (out of stock) or «Sin uso reciente» (no recent use). Red under 3 days, amber under 7. |
 | **Valor** (value) | What the stock on hand is worth. |
 
-The list starts with what is short. Tap **Insumo**, **Alcanza para** or **Valor** to sort by it. The rate of use looks at the last few days, two weeks by default. That window is set in [Ajustes › Configuración]({{ '/en/projects/fornu/manual/ajustes/' | relative_url }}#configuracion).
+The list starts with what is short. Tap **Insumo**, **Alcanza para** or **Valor** to sort by it. The rate of use looks at the account's window, set in **El ritmo de consumo mira los últimos (días)** in [Ajustes › Configuración]({{ '/en/projects/fornu/manual/ajustes/' | relative_url }}#configuracion): 14 days unless someone changed it, which the screen shows as «las últimas 2 semanas» (the last 2 weeks).
 
 On the home page, the warnings «N insumos están en el mínimo» and «N insumos se acaban antes de una semana» open this screen already filtered.
 
@@ -214,6 +214,11 @@ To add something that arrived without going through Purchases: a small top-up, s
 5. Tap **Registrar** (log). Fornu confirms «Entrada registrada».
 {: .steps}
 
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/insumos-entrada.jpg' | relative_url }}" alt="The Entrada de mercadería panel for pan de papa: Cantidad 2 bags, Cada bolsa trae 12 u: entran 24 u, the price per bag, whether it includes VAT, the VAT and De dónde vino" loading="lazy" width="620" height="900">
+  <figcaption>Two bags of pan de papa: 24 units come in.</figcaption>
+</figure>
+
 The price you enter updates the item's cost and the margins of everything that uses it, and goes into the price history as **Compra en Stock**.
 
 <div class="callout"><p class="callout-title">Good to know</p><p>A delivery logged here creates no voucher and no debt with the supplier. To record a supplier's delivery note or invoice, use <a href="{{ '/en/projects/fornu/manual/compras-y-gastos/' | relative_url }}#compras">stock purchases</a>.</p></div>
@@ -226,6 +231,11 @@ To log a batch of a prepared item: what was made goes into stock, and the items 
 2. Type the **Cantidad producida** (quantity made), in the item's unit.
 3. Add a note if you like. Tap **Registrar producción** (log production).
 {: .steps}
+
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/insumos-producir.jpg' | relative_url }}" alt="The Producir panel for the house sauce with Cantidad producida at 3000 grams, which reads 3 kg below, and the optional note" loading="lazy" width="620" height="560">
+  <figcaption>A 3 kg batch of sauce.</figcaption>
+</figure>
 
 If the item has no recipe or is switched off, Fornu does not log it and says why.
 
@@ -240,6 +250,11 @@ In the kitchen, cooks log batches and waste from the tablet, with their PIN, wit
 3. Add a note if you like. Tap **Registrar**.
 {: .steps}
 
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/insumos-conteo-uno.jpg' | relative_url }}" alt="The Conteo panel for ground beef with Cantidad contada at 23500 grams and below it El sistema espera 24,1 kg" loading="lazy" width="620" height="560">
+  <figcaption>Counting the ground beef: the system expected 24.1 kg.</figcaption>
+</figure>
+
 If your count matches, Fornu says there is nothing to adjust. If someone counted that item after you, their count stands.
 
 ### Log waste {#merma}
@@ -249,9 +264,19 @@ If your count matches, Fornu says there is nothing to adjust. If someone counted
 3. Tap **Registrar**.
 {: .steps}
 
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/insumos-merma.jpg' | relative_url }}" alt="The Merma panel for ground beef with 500 grams lost and the reason Se pasó de fecha" loading="lazy" width="620" height="560">
+  <figcaption>Half a kilo of ground beef past its date.</figcaption>
+</figure>
+
 ### See an item's history {#historial}
 
 **⋯** › **Historial** shows every movement of the item: when, what it was (**Compra** purchase, **Ajuste por conteo** count adjustment, **Merma** waste, **Usado en producción** used in production, **Producción** production or **Pedido** order, with the price where there is one), the quantity added or taken out, who did it and the note. History is kept one item at a time.
+
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/insumos-historial.jpg' | relative_url }}" alt="Ground beef's history: a purchase of 10 kg at 9,900 pesos, and below it what each order and table used, with who did it" loading="lazy" width="880" height="392">
+  <figcaption>Ground beef's history: the purchase and what each sale used.</figcaption>
+</figure>
 
 ### On a phone and on the shop's device {#stock-celular}
 
@@ -294,11 +319,21 @@ A count sets stock to what is really there. It is worth doing at closing time, o
 5. Tap **Guardar conteo**. If anything differs, Fornu asks «¿Ajustar N insumos a lo contado?» (adjust N items to the count?) and explains that stock becomes what you typed and the difference is kept in each item's history. Tap **Guardar conteo** again.
 {: .steps}
 
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/insumos-ajustar.jpg' | relative_url }}" alt="The confirmation ¿Ajustar 4 insumos a lo contado?, explaining that the stock becomes what was typed and the difference stays in the history, with Volver and Guardar conteo" loading="lazy" width="500" height="220">
+  <figcaption>Before saving, Fornu asks.</figcaption>
+</figure>
+
 Fornu confirms, for example, «Conteo guardado: 3 ajustes, 9 sin cambios» (3 adjusted, 9 unchanged). The list holds only active items, grouped by category, and can be filtered by group or searched. While a number cannot be read, the footer counts it and saving stays blocked.
 
 Anything that moved after you counted an item, such as an order or a delivery, is added on top of your count. If someone else counted the same item after you, their count stands, and Fornu says so when saving.
 
 <div class="callout tip"><p class="callout-title">Tip</p><p>The count is kept on the device as you type. If the phone locks or the tab closes, tapping <b>Contar stock</b> again shows «Hay un conteo sin guardar de las 18:40: 12 insumos contados.» (an unsaved count from 18:40, 12 items counted), with <b>Seguir ese conteo</b> (continue that count) or <b>Empezar de cero</b> (start over). A count more than two days old can no longer be saved: count again.</p></div>
+
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/insumos-conteo-sin-guardar.jpg' | relative_url }}" alt="The stock count open with the notice Hay un conteo sin guardar de las 18:54: 4 insumos contados, and the Seguir ese conteo and Empezar de cero buttons" loading="lazy" width="880" height="320">
+  <figcaption>A count that was left unsaved.</figcaption>
+</figure>
 
 ## Plan production {#planificar}
 
@@ -309,16 +344,16 @@ It lives in Insumos › **Planificar producción** (plan production). The tab re
 <p class="perm"><span>Who can:</span> <span class="tag">Stock</span></p>
 
 <figure class="shot">
-  <img src="{{ '/assets/img/fornu/manual/insumos-planificar.jpg' | relative_url }}" alt="Planificar producción with five prepared items and their quantities, a production cost of 50,300 pesos, nothing to buy, five to make first and the table with what is needed, what is on hand, what to make and in how many batches." loading="lazy" width="1440" height="1165">
+  <img src="{{ '/assets/img/fornu/manual/insumos-planificar.jpg' | relative_url }}" alt="Planificar producción with 300 Doble cheddar, 120 large pizzas and 150 Tiras crocantes, a production cost of 1,913,166 pesos, 920,500 to buy, four prepared items to make first and what to buy from three suppliers, with a Cargar compra button for each" loading="lazy" width="1440" height="1640">
   <ol class="marks">
     <li><b>Qué producir</b> (what to make): each row is a menu product or a prepared item, with its quantity.</li>
     <li><b>+ Agregar</b> (add), <b>Vaciar la lista</b> (clear the list) and <b>Restar lo que hay en el stock</b> (subtract what is in stock).</li>
     <li>The figures: <b>Costo de la producción</b> (production cost), <b>Para comprar</b> (to buy) and <b>Para preparar antes</b> (to make first).</li>
     <li><b>Preparar antes</b>: each prepared item with what is needed, what is on hand, what to make, in how many batches and what it costs.</li>
     <li><b>Imprimir</b> (print) and <b>Registrar producción</b> (log production).</li>
-    <li><b>Comprar</b> (buy): what is missing, by supplier and in whole packs. Here, stock already covers it.</li>
+    <li><b>Comprar</b> (buy): what is missing, by supplier, with its total and <b>Cargar compra</b> (load purchase).</li>
   </ol>
-  <figcaption>A demo plan built from what was below its minimum.</figcaption>
+  <figcaption>A busy day: what to make first and what to buy from each supplier.</figcaption>
 </figure>
 
 1. Tap **+ Agregar** and pick what to make: a product from any business unit, or a prepared item.
@@ -334,6 +369,11 @@ It lives in Insumos › **Planificar producción** (plan production). The tab re
 ### Print the kitchen sheet {#imprimir}
 
 **Imprimir** opens the browser's print dialog with a clean sheet: the title Producción, the kitchen and the date, what to make, what to make first with its batches and what to buy with its packs. Each line has a box to tick by hand, and the footer shows the production cost and what needs buying.
+
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/insumos-hoja-produccion.jpg' | relative_url }}" alt="The printed Producción sheet: the kitchen and the date, Qué producir, Preparar antes with its batches and Comprar with its packs, each line with a box, and at the foot the cost and what to buy" loading="lazy" width="1440" height="790">
+  <figcaption>The kitchen sheet, to tick by hand.</figcaption>
+</figure>
 
 ### Log the production {#registrar-produccion}
 

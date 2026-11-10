@@ -317,6 +317,11 @@ Tap the person's row. Their days open one by one: the **Horario** (schedule), wh
 5. Tap **Guardar**. You see «Turno cargado» (shift added).
 {: .steps}
 
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/personal-cargar-turno.jpg' | relative_url }}" alt="The Cargar turno panel with Persona on Lucía, the Día, Entrada, Salida, which can stay empty if they are still working, and the Nota" loading="lazy" width="620" height="470">
+  <figcaption>Adding a shift someone forgot to clock.</figcaption>
+</figure>
+
 ### Fix or delete a shift
 
 1. In the person's details, tap the clocked times.
@@ -332,6 +337,11 @@ To delete it, tap **Borrar** (delete) in the same window and confirm. A shift ne
 3. Turn on **Se le paga ese día** (that day is paid) if it applies. For people paid by the hour or the day, it counts as worked with the hours of their schedule.
 4. Tap **Justificar**. You see «Falta justificada» (absence excused).
 {: .steps}
+
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/personal-justificar.jpg' | relative_url }}" alt="The panel for Sofía Pérez's absence on Tuesday 10/11 with Por qué no vino on Turno con el médico and Se le paga ese día ticked" loading="lazy" width="620" height="260">
+  <figcaption>An excused, paid absence.</figcaption>
+</figure>
 
 To undo it, open the excuse and tap **Quitar justificación** (remove excuse).
 
@@ -431,15 +441,15 @@ When two or more people have something to collect, **Pagar a todos** (pay everyo
 {: .steps}
 
 <figure class="shot">
-  <img src="{{ '/assets/img/fornu/manual/personal-pagar-a-todos.jpg' | relative_url }}" alt="Payroll with the Pagar a todos button and, on the right, the window listing each person and what they get, the date, the method set to Transferencia and the Pagar button" loading="lazy" width="1440" height="900">
+  <img src="{{ '/assets/img/fornu/manual/personal-pagar-a-todos.jpg' | relative_url }}" alt="Last fortnight's payroll with the Pagar a todos button and, on the right, the panel listing six people with what each earned and what each is paid, Diego's advance deducted, the date, the method on Transferencia and the Pagar $ 1.988.322,58 button" loading="lazy" width="1440" height="900">
   <ol class="marks">
-    <li><b>Pagar a todos</b>: shows when two or more people are owed.</li>
-    <li>Each person, what they earned and what they get.</li>
-    <li>A bonus or deduction for someone is entered by paying that person alone.</li>
-    <li><b>Medio</b>: starts as <b>Transferencia</b>.</li>
-    <li><b>Pagar</b>, with the total.</li>
+    <li><b>Pagar a todos</b> (pay everyone): shows when two or more people are due.</li>
+    <li>Each person, what they earned and what they get. Diego has an advance deducted.</li>
+    <li>A bonus or a deduction for someone is entered by paying that person alone.</li>
+    <li><b>Medio</b> (method): starts on <b>Transferencia</b> (transfer).</li>
+    <li><b>Pagar</b> (pay), with the total.</li>
   </ol>
-  <figcaption>Paying a fortnight to two people.</figcaption>
+  <figcaption>Paying a fortnight to six people.</figcaption>
 </figure>
 
 If one person's payment can't be made, Fornu says who was left unpaid, from whom on: «Se pagó a 2 personas; Martín y los que siguen quedaron sin pagar.» (2 people were paid, Martín and those after him were not).
@@ -450,6 +460,11 @@ If one person's payment can't be made, Fornu says who was left unpaid, from whom
 2. For paper, tap **Imprimir recibo** (print receipt): the «Recibo de pago» (payment receipt) prints with the total received and lines for the signature and printed name.
 3. To void it, tap **Anular pago** (void payment), type **Por qué se anula** (why it is voided) and confirm with **Anular pago**.
 {: .steps}
+
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/personal-recibo.jpg' | relative_url }}" alt="Carla Gómez's printed payment receipt: the period from 16 to 31 October, paid on 10/11/2026 in cash, the hours worked, the total received, Recibí de Cocina de prueba la suma de $ 299.250, and the lines for signature and printed name" loading="lazy" width="1440" height="320">
+  <figcaption>The printed receipt, with room to sign.</figcaption>
+</figure>
 
 Voiding cancels its expense, puts the advances back to be deducted and, if it was in cash, returns the money to the drawer. The voided payment stays on the list, tagged «anulado» (voided).
 
@@ -494,6 +509,11 @@ A monthly salary is prorated by the days of each month the period covers, or by 
 4. Optionally add a **Nota (opcional)**.
 5. Tap **Guardar**. You see «Adelanto anotado» (advance recorded).
 {: .steps}
+
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/personal-adelanto.jpg' | relative_url }}" alt="The Nuevo adelanto panel with Persona on Martín, Cuánto 15000, the Día, Medio on Efectivo with the note Sale de la caja, and the Nota" loading="lazy" width="620" height="470">
+  <figcaption>A cash advance, which leaves the drawer.</figcaption>
+</figure>
 
 With the drawer closed, Fornu asks before going on, and you can confirm with **Pagar igual**.
 

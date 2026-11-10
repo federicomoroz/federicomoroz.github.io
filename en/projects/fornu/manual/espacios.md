@@ -222,6 +222,11 @@ Each room closed by walls shows its area in m², and a selected wall shows its l
 
 With nothing selected, **Vaciar el plano** removes the floor, the walls, the doors and the fixed items, to start again on the bare grid. It asks first: «Se saca el piso, las paredes, las puertas y lo fijo: queda la grilla para armarlo de nuevo. Las mesas quedan. Se puede deshacer.» (the floor, walls, doors and fixed items go, the grid stays, the tables stay, and it can be undone).
 
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/espacios-vaciar.jpg' | relative_url }}" alt="The Vaciar el plano confirmation: the floor, walls, doors and fixed items go, the grid stays, the tables stay and it can be undone, with Volver and Vaciar" loading="lazy" width="500" height="240">
+  <figcaption>Before clearing, Fornu asks.</figcaption>
+</figure>
+
 ### What blocks saving
 
 **Guardar el plano** does nothing while there is an error, and the first one shows at the bottom:
@@ -276,6 +281,16 @@ The tracing stays on this screen only: it is not saved with the plan.
 
 The image comes out in the view you are using: an isometric view with textures to show the place off, Basic for a clean sheet with the table numbers.
 
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/espacios-imagen.jpg' | relative_url }}" alt="The image that Imagen downloads: the dining room in isometric view with six tables for four on the floor" loading="lazy" width="1200" height="800">
+  <figcaption>What <b>Imagen</b> downloads, in isometric view (scaled down).</figcaption>
+</figure>
+
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/espacios-imprimir.jpg' | relative_url }}" alt="The Imprimir sheet, landscape: the dining room seen from above with six tables and their numbers" loading="lazy" width="1047" height="718">
+  <figcaption>The sheet <b>Imprimir</b> prints.</figcaption>
+</figure>
+
 ## Espacios › Lugares {#lugares}
 
 A place keeps a space's floor, walls, openings and fixed items, so you can build other plans on top of it: a rented hall, a country house, a marquee. It is useful if you set up events in different venues, or to keep your empty premises and try out layouts.
@@ -290,6 +305,17 @@ A place keeps a space's floor, walls, openings and fixed items, so you can build
 With none saved, it reads «Todavía no hay lugares guardados.» (no saved places yet).
 
 **Under Espacios › Lugares** are all of them, one per tab with its size, and the full editor underneath. **Nuevo lugar** (new place) creates «Lugar 1», 10 × 8 m with a smooth cement floor («Lugar creado.», place created). **Borrar el lugar** (delete the place) removes it, and spaces built on it do not change. With no places, the screen reads «Todavía no hay lugares. Creá uno, o guardá el plano de un sector como lugar desde su editor.» (no places yet, create one or save a section's plan as a place from its editor).
+
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/espacios-lugares.jpg' | relative_url }}" alt="Espacios, Lugares with a new 10 by 8 metre place: its tab, Nuevo lugar, Borrar el lugar, and the editor below with its tools, Lugares, Calcar un plano, Imagen and Imprimir" loading="lazy" width="1440" height="838">
+  <ol class="marks">
+    <li>The place, with its size. There is one tab per place.</li>
+    <li><b>Nuevo lugar</b> (new place).</li>
+    <li><b>Borrar el lugar</b> (delete the place).</li>
+    <li><b>Lugares</b>, in the editor: use one as a base or save the plan as a place.</li>
+  </ol>
+  <figcaption>A freshly created place: 10 × 8 m of smooth concrete.</figcaption>
+</figure>
 
 ## Espacios › Objetos propios {#objetos}
 
@@ -322,6 +348,11 @@ If the catalog lacks something your place has, build it from simple pieces: a ba
 
 Each object becomes a card with its size and how many pieces it has, with **Editar** and **Borrar** (delete). Deleting it takes it out of the catalog, and a plan that already has it asks you to remove it the next time it is saved.
 
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/espacios-objetos.jpg' | relative_url }}" alt="Espacios, Objetos propios with two cards, Barril and Heladera de bebidas, each with its size, its pieces and the Editar and Borrar buttons" loading="lazy" width="1440" height="340">
+  <figcaption>Two custom objects, already in the catalog.</figcaption>
+</figure>
+
 ## Espacios › Texturas propias {#texturas}
 
 Photos of your place's floor, walls or tiles, and your logo for a sign: they are added to the builder's materials, so the plan looks like the real thing. The bar reads **Texturas** and the page title is **Texturas propias**.
@@ -347,6 +378,11 @@ Photos of your place's floor, walls or tiles, and your logo for a sign: they are
 </figure>
 
 When you delete a texture, wherever it was used keeps its color. With none of your own, the screen reads «Todavía no hay texturas propias.» (no textures of your own yet).
+
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/espacios-texturas.jpg' | relative_url }}" alt="Espacios, Texturas propias with one card, Baldosa del patio, for floors and 40 cm, with the Borrar button" loading="lazy" width="1440" height="340">
+  <figcaption>A custom texture, ready among the brushes.</figcaption>
+</figure>
 
 Besides your own, the builder comes with these materials:
 

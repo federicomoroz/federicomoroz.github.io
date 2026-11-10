@@ -59,7 +59,7 @@ Lo que cada persona ve y hace sale de sus roles. Los roles los arma cada cuenta 
 
 | Permiso | Qué deja hacer |
 |---|---|
-| Cocina | Confirmar pedidos, marcarlos listos, tomar pedidos propios y cargar mermas y producción. |
+| Cocina | Confirmar o cancelar los pedidos, marcarlos listos, tomar pedidos propios y cargar mermas y producción. |
 | Mensajería | Llevar los pedidos propios desde el celular y ver el efectivo que tiene encima. |
 | Pedidos | Ver el historial y el detalle de los pedidos y rendir el efectivo de los mensajeros. |
 | Carta | Crear y cambiar productos, precios, categorías y grupos modificadores, y publicar la carta. |
@@ -68,7 +68,7 @@ Lo que cada persona ve y hace sale de sus roles. Los roles los arma cada cuenta 
 | Caja | Abrir y cerrar la caja, cargar movimientos y ver las ventas. |
 | Ver lo esperado | Ver lo que el sistema espera en la caja antes de contarla. Sin este permiso, el arqueo es a ciegas. |
 | Recontar la caja | Contar de nuevo después de confirmar un conteo. |
-| Gastos | Cargar, pagar y anular gastos y compras. |
+| Gastos | Cargar, pagar y anular gastos y compras. Las categorías de gastos se arman con el permiso Ajustes. |
 | Equipo | Dar de alta al personal y sus PIN. |
 | Dispositivos | Vincular tablets y celulares y darlos de baja. |
 | Ajustes | Unidades de negocio, estaciones, medios de pago, clientes y la configuración de la cuenta. |

@@ -72,8 +72,8 @@ La columna **Estado** muestra lo más importante y cuántos avisos más hay («+
 | **Nombre** | Obligatorio. |
 | **Categoría** | Una de las categorías activas de esa pestaña. |
 | **Unidad** | **Gramos**, **Mililitros** o **Unidades**. En Inventario arranca en unidades. Queda fija al guardar, porque el stock y las recetas están en esa unidad. |
-| **Se compra por** | La presentación: caja, bolsa, kg, pack. Hace falta para guardar. |
-| **Cuánto trae** | Lo que trae cada presentación, en la unidad del insumo. Arranca en 1.000 g, o en 1 u. |
+| **Se compra por** | La presentación: caja, bolsa, kg, pack. Hace falta para guardar: sin ella, el pie dice «Falta cómo se compra (caja, bolsa, kg…).». |
+| **Cuánto trae** | Lo que trae cada presentación, en la unidad del insumo. Arranca en 1.000 g, o en 1 u. También hace falta para guardar: sin ella, el pie dice, por ejemplo, «Falta cuántos g trae cada bolsa.». |
 | **Precio de cada una** | El precio de una presentación. Debajo dice cuánto le cuesta a la cuenta. Las compras con precio lo actualizan solas. |
 | **El precio es** | **Con IVA, como en un ticket** o **Sin IVA, como en una factura A**. |
 | **IVA** | 21%, 10,5%, 27%, 5%, 2,5% o **Exento (0%)**. Carnes, frutas, verduras y harinas suelen ir al 10,5%. |
@@ -171,7 +171,7 @@ El rol **Encargado/a** de una cuenta nueva ya lo tiene.
 <figure class="shot">
   <img src="{{ '/assets/img/fornu/manual/insumos-stock.jpg' | relative_url }}" alt="La pantalla Stock con el valor del stock, cinco insumos en el mínimo, cinco que se acaban en siete días y lo que está sin uso, y dos elaboraciones que avisan que faltó registrar lo producido." loading="lazy" width="1440" height="900">
   <ol class="marks">
-    <li>Las cifras: <b>Valor del stock</b>, <b>En el mínimo</b>, <b>Se acaban en 7 días</b> y <b>Sin uso en 2 semanas</b>. Tocá una para filtrar la lista.</li>
+    <li>Las cifras: <b>Valor del stock</b>, <b>En el mínimo</b>, <b>Se acaban en 7 días</b> y <b>Sin uso en 2 semanas</b> (el plazo de la cuenta). Tocá una para filtrar la lista.</li>
     <li><b>Todo</b>, <b>Ingredientes</b>, <b>Producción</b> o <b>Inventario</b>. Abajo, el buscador.</li>
     <li>«Faltó registrar lo producido»: se vendió más de una elaboración de lo que se registró como producido. <b>Registrar lo usado</b> lo carga.</li>
     <li><b>Alcanza para</b>: cuántos días dura al ritmo de consumo.</li>
@@ -185,8 +185,8 @@ El rol **Encargado/a** de una cuenta nueva ya lo tiene.
 |---|---|
 | **Valor del stock** | Lo que vale todo lo que hay, al costo de hoy. |
 | **En el mínimo** | Cuántos insumos están en su stock mínimo o debajo. En rojo si hay alguno. |
-| **Se acaban en 7 días** | Los que no llegan a una semana al ritmo de consumo. Al tocarla, ordena por los que se acaban primero. |
-| **Sin uso en 2 semanas** | Lo que está parado: cuánto vale y cuántos insumos son. Al tocarla, ordena por valor. |
+| **Se acaban en 7 días** | Los que no llegan a una semana al ritmo de consumo: debajo dice, por ejemplo, «al ritmo de las últimas 2 semanas». Al tocarla, ordena por los que se acaban primero. |
+| **Sin uso en 2 semanas** (o en el plazo de la cuenta, como «Sin uso en 10 días») | Lo que está parado: cuánto vale y cuántos insumos son. Al tocarla, ordena por valor. |
 
 | Columna | Qué muestra |
 |---|---|
@@ -197,7 +197,7 @@ El rol **Encargado/a** de una cuenta nueva ya lo tiene.
 | **Alcanza para** | «N días», «Menos de 1 día», «Más de 60 días», «Sin stock» o «Sin uso reciente». En rojo menos de 3 días, en ámbar menos de 7. |
 | **Valor** | Lo que vale lo que hay. |
 
-La lista arranca con lo que falta primero. Tocá **Insumo**, **Alcanza para** o **Valor** para ordenarla por eso. El ritmo de consumo mira lo que se usó en los últimos días, por defecto dos semanas. Ese plazo se cambia en [Ajustes › Configuración]({{ '/es/projects/fornu/manual/ajustes/' | relative_url }}#configuracion).
+La lista arranca con lo que falta primero. Tocá **Insumo**, **Alcanza para** o **Valor** para ordenarla por eso. El ritmo de consumo mira lo que se usó en el plazo de la cuenta, que se fija en **El ritmo de consumo mira los últimos (días)** de [Ajustes › Configuración]({{ '/es/projects/fornu/manual/ajustes/' | relative_url }}#configuracion): 14 días si nadie lo cambió, que la pantalla muestra como «las últimas 2 semanas».
 
 En Inicio, los avisos «N insumos están en el mínimo» y «N insumos se acaban antes de una semana» abren esta pantalla ya filtrada.
 
@@ -214,6 +214,11 @@ Para sumar algo que llegó sin pasar por Compras: una reposición chica, algo qu
 5. Tocá **Registrar**. Fornu confirma «Entrada registrada».
 {: .steps}
 
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/insumos-entrada.jpg' | relative_url }}" alt="El panel Entrada de mercadería del pan de papa: Cantidad 2 bolsas, Cada bolsa trae 12 u: entran 24 u, el precio por bolsa, si es con IVA, el IVA y De dónde vino" loading="lazy" width="620" height="900">
+  <figcaption>Dos bolsas de pan de papa: entran 24 unidades.</figcaption>
+</figure>
+
 El precio que pongas actualiza el costo del insumo y los márgenes de todo lo que lo usa, y queda en el historial de precios como **Compra en Stock**.
 
 <div class="callout"><p class="callout-title">Importante</p><p>Una entrada no genera comprobante ni deuda con el proveedor. Para cargar el remito o la factura de un proveedor, usá <a href="{{ '/es/projects/fornu/manual/compras-y-gastos/' | relative_url }}#compras">Compras de insumos</a>.</p></div>
@@ -226,6 +231,11 @@ Para registrar una tanda de una elaboración: entra al stock lo que se hizo y sa
 2. Escribí la **Cantidad producida**, en la unidad de la elaboración.
 3. Si querés, agregá una nota. Tocá **Registrar producción**.
 {: .steps}
+
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/insumos-producir.jpg' | relative_url }}" alt="El panel Producir de la salsa de la casa con Cantidad producida en 3000 gramos, que abajo dice 3 kg, y la nota opcional" loading="lazy" width="620" height="560">
+  <figcaption>Una tanda de 3 kg de salsa.</figcaption>
+</figure>
 
 Si la elaboración no tiene receta o está desactivada, Fornu no la registra y dice por qué.
 
@@ -240,6 +250,11 @@ En la cocina, los cocineros cargan la producción y las mermas desde la tablet, 
 3. Si querés, agregá una nota. Tocá **Registrar**.
 {: .steps}
 
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/insumos-conteo-uno.jpg' | relative_url }}" alt="El panel Conteo de la carne picada con Cantidad contada en 23500 gramos y abajo El sistema espera 24,1 kg" loading="lazy" width="620" height="560">
+  <figcaption>Contar la carne picada: el sistema esperaba 24,1 kg.</figcaption>
+</figure>
+
 Si lo contado coincide, Fornu avisa que no hay nada que ajustar. Si alguien contó ese insumo después que vos, queda su conteo.
 
 ### Cargar una merma {#merma}
@@ -249,9 +264,19 @@ Si lo contado coincide, Fornu avisa que no hay nada que ajustar. Si alguien cont
 3. Tocá **Registrar**.
 {: .steps}
 
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/insumos-merma.jpg' | relative_url }}" alt="El panel Merma de la carne picada con 500 gramos perdidos y el motivo Se pasó de fecha" loading="lazy" width="620" height="560">
+  <figcaption>Medio kilo de carne picada que se pasó de fecha.</figcaption>
+</figure>
+
 ### Ver el historial de un insumo {#historial}
 
 **⋯** › **Historial** muestra cada movimiento del insumo: cuándo fue, qué fue (**Compra**, **Ajuste por conteo**, **Merma**, **Usado en producción**, **Producción** o **Pedido**, con el precio cuando lo hay), la cantidad que sumó o restó, quién lo hizo y la nota. El historial es de a un insumo por vez.
+
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/insumos-historial.jpg' | relative_url }}" alt="El historial de la carne picada: una compra de 10 kg a 9.900 pesos, y debajo lo que usó cada pedido y cada mesa, con quién lo hizo" loading="lazy" width="880" height="392">
+  <figcaption>El historial de la carne picada: la compra y lo que usó cada venta.</figcaption>
+</figure>
 
 ### En el celular y en el dispositivo del local {#stock-celular}
 
@@ -294,11 +319,21 @@ El conteo pone el stock igual a lo que hay de verdad. Conviene hacerlo al cerrar
 5. Tocá **Guardar conteo**. Si algo dio distinto, Fornu pregunta «¿Ajustar N insumos a lo contado?» y aclara que el stock pasa a ser lo que escribiste y la diferencia queda en el historial de cada uno. Tocá **Guardar conteo** otra vez.
 {: .steps}
 
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/insumos-ajustar.jpg' | relative_url }}" alt="La confirmación ¿Ajustar 4 insumos a lo contado?, que explica que el stock pasa a ser lo escrito y la diferencia queda en el historial, con Volver y Guardar conteo" loading="lazy" width="500" height="220">
+  <figcaption>Antes de guardar, Fornu pregunta.</figcaption>
+</figure>
+
 Fornu confirma, por ejemplo, «Conteo guardado: 3 ajustes, 9 sin cambios». La lista muestra solo los insumos activos, agrupados por categoría, y se puede filtrar por grupo o buscar. Mientras haya un número que no se entiende, el pie lo cuenta y no deja guardar.
 
 Lo que se movió después de que contaste un insumo, como un pedido o una entrega, se suma a tu conteo. Si otra persona contó el mismo insumo después que vos, queda su conteo, y Fornu lo avisa al guardar.
 
 <div class="callout tip"><p class="callout-title">Consejo</p><p>El conteo se guarda en el dispositivo a medida que escribís. Si el celular se bloquea o se cierra la pestaña, al tocar <b>Contar stock</b> de nuevo aparece «Hay un conteo sin guardar de las 18:40: 12 insumos contados.», con <b>Seguir ese conteo</b> o <b>Empezar de cero</b>. Un conteo de hace más de dos días ya no se guarda: hay que contar de nuevo.</p></div>
+
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/insumos-conteo-sin-guardar.jpg' | relative_url }}" alt="El conteo de stock abierto con el aviso Hay un conteo sin guardar de las 18:54: 4 insumos contados, y los botones Seguir ese conteo y Empezar de cero" loading="lazy" width="880" height="320">
+  <figcaption>Un conteo que quedó sin guardar.</figcaption>
+</figure>
 
 ## Planificar producción {#planificar}
 
@@ -309,16 +344,16 @@ Está en Insumos › **Planificar producción** (la pestaña dice **Planificar**
 <p class="perm"><span>Quién puede:</span> <span class="tag">Stock</span></p>
 
 <figure class="shot">
-  <img src="{{ '/assets/img/fornu/manual/insumos-planificar.jpg' | relative_url }}" alt="Planificar producción con cinco elaboraciones y sus cantidades, el costo de la producción de 50.300 pesos, nada para comprar, cinco para preparar antes y la tabla con lo que hace falta, lo que hay, lo que hay que preparar y en cuántas tandas." loading="lazy" width="1440" height="1165">
+  <img src="{{ '/assets/img/fornu/manual/insumos-planificar.jpg' | relative_url }}" alt="Planificar producción con 300 Doble cheddar, 120 pizzas grandes y 150 Tiras crocantes, un costo de la producción de 1.913.166 pesos, 920.500 para comprar, cuatro elaboraciones para preparar antes y lo que hay que comprar a tres proveedores, con un botón Cargar compra para cada uno" loading="lazy" width="1440" height="1640">
   <ol class="marks">
     <li><b>Qué producir</b>: cada fila es un producto de la carta o una elaboración, con su cantidad.</li>
     <li><b>+ Agregar</b>, <b>Vaciar la lista</b> y <b>Restar lo que hay en el stock</b>.</li>
     <li>Las cifras: <b>Costo de la producción</b>, <b>Para comprar</b> y <b>Para preparar antes</b>.</li>
     <li><b>Preparar antes</b>: cada elaboración con lo que hace falta, lo que hay, lo que hay que preparar, en cuántas tandas y cuánto cuesta.</li>
     <li><b>Imprimir</b> y <b>Registrar producción</b>.</li>
-    <li><b>Comprar</b>: lo que falta, por proveedor y en presentaciones enteras. Acá alcanza con lo que hay.</li>
+    <li><b>Comprar</b>: lo que falta, por proveedor, con su total y <b>Cargar compra</b>.</li>
   </ol>
-  <figcaption>Un plan de la demo armado con lo que estaba debajo del mínimo.</figcaption>
+  <figcaption>Un día fuerte: lo que hay que preparar y lo que hay que comprar a cada proveedor.</figcaption>
 </figure>
 
 1. Tocá **+ Agregar** y elegí qué hacer: un producto de cualquier unidad de negocio, o una elaboración.
@@ -334,6 +369,11 @@ Está en Insumos › **Planificar producción** (la pestaña dice **Planificar**
 ### Imprimir la hoja de cocina {#imprimir}
 
 **Imprimir** abre la impresión del navegador con una hoja limpia: el título Producción, la cocina y la fecha, qué producir, qué preparar antes con sus tandas y qué comprar con sus presentaciones. Cada línea tiene un casillero para tildar a mano, y al pie va el costo de la producción y lo que hay que comprar.
+
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/insumos-hoja-produccion.jpg' | relative_url }}" alt="La hoja Producción impresa: la cocina y la fecha, Qué producir, Preparar antes con sus tandas y Comprar con sus presentaciones, cada línea con un casillero, y al pie el costo y lo que hay que comprar" loading="lazy" width="1440" height="790">
+  <figcaption>La hoja de cocina, para tildar a mano.</figcaption>
+</figure>
 
 ### Registrar la producción {#registrar-produccion}
 

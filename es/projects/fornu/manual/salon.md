@@ -53,13 +53,13 @@ Cada mozo lleva su teléfono vinculado al local, entra con su PIN y carga en la 
     <figcaption>El teléfono de una moza, con su PIN.</figcaption>
   </figure>
   <figure class="shot">
-    <img src="{{ '/assets/img/fornu/manual/salon-adicionista.jpg' | relative_url }}" alt="La pantalla Venta en la computadora del salón: arriba a la derecha el nombre de quien la usa, a la izquierda la mesa 1 a nombre de Lucía, y a la derecha la cuenta de esa mesa con Lucía como moza." loading="lazy" width="1440" height="650">
+    <img src="{{ '/assets/img/fornu/manual/salon-adicionista.jpg' | relative_url }}" alt="La pantalla Venta en la computadora del salón: arriba a la derecha el nombre de quien la usa, a la izquierda la mesa 3 recién abierta a nombre de Valentina, y a la derecha la cuenta de esa mesa con Valentina Sosa como moza" loading="lazy" width="1440" height="650">
     <ol class="marks">
-      <li><b>Mara · Cambiar de persona</b>: quién está usando el equipo. Tocalo para que entre otro.</li>
-      <li>La mesa 1, abierta a nombre de Lucía.</li>
+      <li><b>Tomás Romero · Cambiar de persona</b>: quién está usando el equipo. Tocalo para que entre otro.</li>
+      <li>La mesa 3, abierta a nombre de Valentina.</li>
       <li>La cuenta dice quién atiende. Con <b>Asignar quién atiende</b>, el nombre se toca para pasarle la mesa a otro.</li>
     </ol>
-    <figcaption>La computadora del salón: Mara carga en la mesa de Lucía.</figcaption>
+    <figcaption>La computadora del salón: Tomás carga en la mesa de Valentina.</figcaption>
   </figure>
 </div>
 
@@ -179,10 +179,10 @@ Con ese toque la mesa queda abierta a tu nombre y su cuenta se abre al lado, lis
 **Más opciones…** abre el diálogo completo, con **Comensales** (de 1 a 99) y, para quien tiene Asignar quién atiende, **Atiende**: tocá el mozo que va a servir la mesa. Si no elegís a nadie, la mesa queda a tu nombre. Después tocá **Abrir la mesa**.
 
 <figure class="shot">
-  <img src="{{ '/assets/img/fornu/manual/salon-atiende.jpg' | relative_url }}" alt="El diálogo Mesa 1 con Comensales en 2, la nota La mesa tiene 4 sillas, y Atiende con dos botones, Lucía elegida y Mara." loading="lazy" width="620" height="250">
+  <img src="{{ '/assets/img/fornu/manual/salon-atiende.jpg' | relative_url }}" alt="El diálogo Mesa 3 con las unidades Doble Smash y Pizzería, Comensales en 2, la nota La mesa tiene 4 sillas, y Atiende con Tomás Romero y Valentina Sosa, elegida" loading="lazy" width="620" height="330">
   <ol class="marks">
     <li><b>Comensales</b>, con las sillas que tiene la mesa como referencia.</li>
-    <li><b>Atiende</b>: el adicionista abre la mesa a nombre de Lucía.</li>
+    <li><b>Atiende</b>: el adicionista abre la mesa a nombre de Valentina.</li>
   </ol>
   <figcaption>Abrir una mesa para otra moza.</figcaption>
 </figure>
@@ -247,6 +247,18 @@ Cada línea se guarda en el momento, así cualquier otro equipo la ve enseguida.
 </figure>
 
 Un producto con opciones (el punto de la carne, los adicionales) abre un diálogo antes de entrar. Cada grupo dice cuántas se eligen («elegí 1», «hasta 2», «de 1 a 3») y cada opción su precio extra («+$ 800») o «agotado». Abajo están **Cantidad** y **Aclaración (opcional)**, por ejemplo «Sin pepinos». Tocá **Agregar · $ …**. Si falta elegir en un grupo obligatorio, Fornu dice cuál.
+
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/salon-opciones.jpg' | relative_url }}" alt="El diálogo del Doble cheddar con Extras hasta 3, un Extra cheddar elegido, Sumale una bebida hasta 1 con la gaseosa elegida, Cantidad 1, la aclaración Sin pepinos y el botón Agregar · $ 12.800" loading="lazy" width="620" height="900">
+  <ol class="marks">
+    <li>Un grupo y cuántas se eligen: «hasta 3». Las que se pueden pedir más de una vez tienen − y +.</li>
+    <li>Otro grupo, «hasta 1»: un toque elige.</li>
+    <li><b>Cantidad</b>.</li>
+    <li><b>Aclaración (opcional)</b>.</li>
+    <li><b>Agregar · $ …</b>, con el precio de lo elegido.</li>
+  </ol>
+  <figcaption>Un Doble cheddar con extra cheddar y gaseosa.</figcaption>
+</figure>
 
 ### Los tiempos: Cargando para {#tiempos}
 
@@ -357,6 +369,11 @@ Abajo de las líneas, la cuenta muestra **Productos** (cuando hay cubierto o des
 
 La precuenta se imprime sola la primera vez. Para otra copia, **Más acciones** (⋯) › **Imprimir la precuenta**. Sin impresora de tickets se abre la impresión del navegador con una hoja que lleva el nombre del local, la mesa y su número, la fecha, quién atendió, los comensales, las líneas, el cubierto, el descuento, el total, el IVA contenido, lo pagado y el saldo, y al pie «No válido como factura.».
 
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/salon-precuenta.jpg' | relative_url }}" alt="La precuenta impresa de la mesa 4: la cocina, la mesa y su número, la fecha, quién atendió, dos comensales, cada línea con su importe, el cubierto y el total" loading="lazy" width="330" height="300">
+  <figcaption>La precuenta que sale por la impresora del navegador.</figcaption>
+</figure>
+
 Si después se carga algo más, la mesa deja de figurar como que pidió la cuenta. Si queda un tiempo en espera, Fornu no deja pedirla: «Hay postre en espera: marchalo o sacalo antes de cobrar.».
 
 <figure class="shot">
@@ -374,9 +391,23 @@ Si después se carga algo más, la mesa deja de figurar como que pidió la cuent
 
 En el teléfono la cuenta ocupa toda la pantalla, y la flecha de arriba vuelve al salón. **Carta** y **Cuenta** son dos pestañas. Mientras estás en la carta con algo cargado, abajo aparece una barra con «2 sin mandar · $ 25.700» (tocala para ver la cuenta) y el botón **Mandar**, para mandar sin cambiar de pestaña.
 
+<figure class="shot phone">
+  <img src="{{ '/assets/img/fornu/manual/salon-telefono-sin-mandar.jpg' | relative_url }}" alt="La mesa 9 en el teléfono de una moza, en la pestaña Carta, con la barra de abajo que dice 2 sin mandar · $ 6.500 y el botón Mandar" loading="lazy" width="390" height="844">
+  <ol class="marks">
+    <li>Lo que falta mandar: tocalo para ver la cuenta.</li>
+    <li><b>Mandar</b>, sin salir de la carta.</li>
+  </ol>
+  <figcaption>La barra de lo que falta mandar, en el teléfono.</figcaption>
+</figure>
+
 ## Sobre una línea o sobre la mesa {#acciones}
 
 Lo que ya fue a la cocina se anula, se descuenta o se mueve, y siempre queda registrado quién lo hizo. Cada línea mandada tiene su menú ⋯, y la mesa tiene el suyo, **Más acciones** (⋯), en la cabecera. El menú de una línea aparece mientras la mesa está abierta, la línea no está anulada y todavía no hay pagos.
+
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/salon-menu-mesa.jpg' | relative_url }}" alt="El menú Más acciones de la mesa 2 abierto: Mover la mesa entera, Mover ítems, Unir con otra mesa, Pasarla a otro mozo, Reimprimir la ronda 1, Imprimir la precuenta y Cancelar la mesa" loading="lazy" width="510" height="520">
+  <figcaption>El menú <b>Más acciones</b> (⋯) de una mesa.</figcaption>
+</figure>
 
 Si una opción tiene un candado, tu rol no tiene ese permiso: la podés usar igual y Fornu pide el PIN de alguien que lo tenga (ver [Pedir un permiso con el PIN de otro](#autorizar)).
 
@@ -497,6 +528,11 @@ Si la otra mesa está ocupada, lo movido se suma a su cuenta. Lo mandado conserv
 
 **Más acciones** (⋯) › **Mover la mesa entera** muestra las mesas libres por sector. Tocá una y la mesa se muda con todo. Fornu avisa «Mesa 1 → Mesa 2.» con un botón **Deshacer** que la vuelve a su lugar.
 
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/salon-mover-mesa.jpg' | relative_url }}" alt="El panel Mover Mesa 2 con las mesas libres del Salón y de la Vereda, cada una con sus sillas" loading="lazy" width="620" height="420">
+  <figcaption>Las mesas libres, por sector. Un toque muda la mesa.</figcaption>
+</figure>
+
 ### Unir con otra mesa
 
 <p class="perm"><span>Quién puede:</span> <span class="tag">Mover mesas</span></p>
@@ -531,6 +567,11 @@ Para la mesa que se levanta y se va, o la que se abrió por error. También sirv
 3. Elegí la causa, con las mismas opciones que al anular. Si no se mandó nada, la causa es opcional y queda como «Se levantó sin pedir».
 4. Tocá **Cancelar la mesa**.
 {: .steps}
+
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/salon-cancelar-mesa.jpg' | relative_url }}" alt="El panel Cancelar Mesa 2 con lo que va a pasar, las causas Error de carga, Se arrepintió, Salió mal, Demora, No había y Otro, y la nota opcional" loading="lazy" width="620" height="420">
+  <figcaption>Cancelar una mesa pide la causa.</figcaption>
+</figure>
 
 Las estaciones que ya habían impreso algo reciben su aviso **ANULADO**. Fornu avisa «Mesa cancelada.».
 
@@ -717,6 +758,11 @@ Los pagos se ven en la cuenta, por ejemplo «Débito · parte 1 de 2 · 12:38 ·
 3. Sin el permiso Deshacer cobros, Fornu pide el PIN de alguien que lo tenga.
 {: .steps}
 
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/salon-anular-pago.jpg' | relative_url }}" alt="La confirmación Anular el pago: Débito por $ 15.100 vuelve al saldo de la mesa, con Volver y Anular el pago" loading="lazy" width="500" height="200">
+  <figcaption>Un pago en débito que vuelve al saldo.</figcaption>
+</figure>
+
 Fornu avisa «Pago anulado.» y, si era efectivo, sale de la caja.
 
 ### La mesa cobrada
@@ -747,6 +793,11 @@ Para llevar o para comer en la barra. Cada venta se abre con un nombre para llam
 4. Tocá **Abrir**. La venta se abre al lado, lista para cargar.
 {: .steps}
 
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/salon-nueva-venta.jpg' | relative_url }}" alt="El diálogo Mostrador o para llevar con las unidades Doble Smash y Pizzería, el nombre Lucas y Atiende con Tomás Romero y Valentina Sosa, sin elegir" loading="lazy" width="620" height="330">
+  <figcaption>Una venta nueva para Lucas. Sin elegir quién atiende, queda a tu nombre.</figcaption>
+</figure>
+
 Se carga igual que una mesa. Las diferencias:
 
 - No hay comensales ni cubierto.
@@ -755,13 +806,13 @@ Se carga igual que una mesa. Las diferencias:
 - Quien cobra tiene además **Mandar y cobrar $ …**, que manda la ronda y abre el cobro de un toque. Un mozo sin Cobrar mesas ve solo **Mandar a la cocina** y **Pidió la cuenta**.
 
 <figure class="shot">
-  <img src="{{ '/assets/img/fornu/manual/salon-mostrador.jpg' | relative_url }}" alt="La pestaña Mostrador: 1 venta abierta en el mostrador, el botón Nueva venta, la baldosa de una venta abierta hace 0 minutos por 0 pesos, y al lado su cuenta con la carta." loading="lazy" width="1440" height="650">
+  <img src="{{ '/assets/img/fornu/manual/salon-mostrador.jpg' | relative_url }}" alt="La pestaña Mostrador con dos ventas abiertas, Camila y Lucas, el botón Nueva venta y al lado la cuenta de Lucas con la carta" loading="lazy" width="1440" height="650">
   <ol class="marks">
     <li><b>Nueva venta</b>: se abre con un nombre.</li>
-    <li>La venta abierta: nombre, minutos, total y quién la atiende.</li>
+    <li>La venta abierta: nombre, minutos, total y quién la atiende. La de Lucas tiene algo sin mandar.</li>
     <li>Su cuenta, al lado, como la de una mesa.</li>
   </ol>
-  <figcaption>Una venta abierta en el mostrador.</figcaption>
+  <figcaption>Dos ventas abiertas en el mostrador.</figcaption>
 </figure>
 
 <figure class="shot">
