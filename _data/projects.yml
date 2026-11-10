@@ -135,38 +135,6 @@
     - Docker
     - pytest
 
-- id: comanda
-  cover: comanda.webp
-  cover_alt: "La pantalla de cocina de Comanda con las comandas de cada mesa, en verde, amarillo y rojo según la demora"
-  name: Comanda
-  short:
-    es: "Gestión gastronómica para un restaurante. Los mozos toman pedidos en una tablet, cada estación de cocina recibe lo suyo en pantalla y en papel, la caja cobra en partes y factura con CAE y QR, el stock se descuenta por receta y el dueño recibe avisos por Telegram. Corre en una PC del local, así que sin internet el salón sigue funcionando. La facturación es un servicio aparte con su propia base y su cola: si ARCA o el propio servicio se caen, las facturas esperan en un outbox y salen solas. .NET 8, React y PostgreSQL, con 176 tests que levantan los dos servicios contra bases reales."
-    en: "Restaurant management. Waiters take orders on a tablet, every kitchen station gets its own items on screen and on paper, the register splits payments and invoices with CAE and QR, stock is deducted by recipe and the owner gets Telegram alerts. It runs on a computer at the restaurant, so the floor keeps working without internet. Invoicing is a separate service with its own database and queue: if ARCA or the service itself goes down, invoices wait in an outbox and go out on their own. .NET 8, React and PostgreSQL, with 176 tests that start both services against real databases."
-  card:
-    es: "Sistema de gestión gastronómica: pedidos desde tablets, comandas por estación de cocina, caja con factura electrónica, stock por receta y avisos al dueño. Funciona sin internet."
-    en: "Restaurant management system: tables and orders from tablets, kitchen tickets per station, a register with electronic invoicing, stock by recipe and owner alerts. It runs on site and works without internet."
-  reading:
-    num: { es: "14 s", en: "14 s" }
-    what:
-      es: "después de que vuelve el servicio de facturación, la factura que esperaba sale sola"
-      en: "after the billing service comes back, the waiting invoice goes out on its own"
-  live: { src: comanda-circuito.gif, kind: diagram }
-  status: active
-  listed: true
-  case_study: true
-  repo: https://github.com/federicomoroz/comanda
-  repo_visibility: private
-  docs: https://github.com/federicomoroz/comanda-docs
-  tech:
-    - "C#"
-    - .NET 8
-    - ASP.NET Core
-    - SignalR
-    - React
-    - PostgreSQL
-    - Docker
-    - Testcontainers
-
 - id: nexo
   group: service
   cover: nexo.webp
@@ -205,7 +173,7 @@
     - Docker
 
 - id: arcasim
-  used_by: [fornu, comanda]
+  used_by: [fornu]
   group: service
   cover: arcasim.webp
   cover_alt: "Panel de ArcaSim con los contribuyentes ficticios, los certificados, las fallas a pedido y los comprobantes emitidos"
@@ -400,7 +368,6 @@
     - httpx
 
 - id: notify-router
-  used_by: [comanda]
   group: service
   cover: notify-router.webp
   cover_alt: "Dashboard de Notify Router con eventos entrantes y despachos multi-canal exitosos"

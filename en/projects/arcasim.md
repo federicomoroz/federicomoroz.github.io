@@ -115,9 +115,9 @@ A saturated service slows down or stops answering. ArcaSim reproduces that on it
 
 <div class="cards">
   <article class="card">
-    <div class="card-header"><a class="card-title" href="{{ '/en/projects/comanda/' | relative_url }}">Comanda</a></div>
-    <div class="card-desc"><p>Comanda's billing service gets its CAEs with Arca.Client. In homologación mode it talks to ArcaSim, and its tests walk the real path: CAE granted, a rejection by ARCA with its reason at the register, and ARCA down with the invoice waiting in the queue.</p></div>
-    <p class="row-links"><a href="{{ '/en/projects/comanda/' | relative_url }}">Case study</a></p>
+    <div class="card-header"><a class="card-title" href="{{ '/en/projects/fornu/' | relative_url }}">Fornu</a></div>
+    <div class="card-desc"><p>Fornu's invoicing gets its CAEs with Arca.Client. While it is developed it talks to ArcaSim, and its tests walk the real path: a CAE granted and taken back with a credit note, ARCA down with the invoice waiting until it is back, a lost answer found on ARCA without asking for a second number, and A and B invoices with their VAT.</p></div>
+    <p class="row-links"><a href="{{ '/en/projects/fornu/' | relative_url }}">See Fornu</a></p>
   </article>
 </div>
 

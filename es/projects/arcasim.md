@@ -115,9 +115,9 @@ Un servicio saturado tarda o deja de atender. ArcaSim lo reproduce sobre sus mis
 
 <div class="cards">
   <article class="card">
-    <div class="card-header"><a class="card-title" href="{{ '/es/projects/comanda/' | relative_url }}">Comanda</a></div>
-    <div class="card-desc"><p>La facturación de Comanda pide los CAE con Arca.Client. En modo homologación habla con ArcaSim, y sus tests recorren el camino real: CAE otorgado, rechazo de ARCA con su motivo en la caja y ARCA caída con la factura esperando en la cola.</p></div>
-    <p class="row-links"><a href="{{ '/es/projects/comanda/' | relative_url }}">Case study</a></p>
+    <div class="card-header"><a class="card-title" href="{{ '/es/projects/fornu/' | relative_url }}">Fornu</a></div>
+    <div class="card-desc"><p>La facturación de Fornu pide los CAE con Arca.Client. Mientras se desarrolla habla con ArcaSim, y sus tests recorren el camino real: el CAE otorgado y su nota de crédito, ARCA caída con la factura esperando hasta que vuelve, la respuesta perdida que se encuentra en ARCA sin pedir un segundo número, y las facturas A y B con su IVA.</p></div>
+    <p class="row-links"><a href="{{ '/es/projects/fornu/' | relative_url }}">Ver Fornu</a></p>
   </article>
 </div>
 
