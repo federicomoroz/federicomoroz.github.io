@@ -157,7 +157,7 @@ On the kitchen tablet, the app stays open on the board all shift. So someone els
 1. Tap **Fichar a alguien**, at the top of the app.
 2. **Fichar entrada o salida** (clock in or out) opens, with each name and its state: «En turno desde las…» or «Sin fichar» (not clocked in).
 3. Tap the name and have that person type their PIN.
-4. Tap **Fichar entrada** or **Fichar salida**. The card says «Entrada de Rosa: 13:05» and «¡Buen turno!», or the clock-out with the time worked. Tap **Listo**.
+4. Tap **Fichar entrada** or **Fichar salida**. The card says «Entrada de Lucía: 13:05» and «¡Buen turno!», or the clock-out with the time worked. Tap **Listo**.
 {: .steps}
 
 <figure class="shot">

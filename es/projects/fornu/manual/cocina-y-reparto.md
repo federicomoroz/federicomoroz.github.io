@@ -157,7 +157,7 @@ En la tablet de la cocina, la app queda abierta en el tablero todo el turno. Par
 1. Tocá **Fichar a alguien**, arriba de la app.
 2. Se abre **Fichar entrada o salida**, con cada nombre y su estado: «En turno desde las…» o «Sin fichar».
 3. Tocá el nombre y que esa persona escriba su PIN.
-4. Tocá **Fichar entrada** o **Fichar salida**. La tarjeta dice «Entrada de Rosa: 13:05» y «¡Buen turno!», o la salida con lo trabajado. Tocá **Listo**.
+4. Tocá **Fichar entrada** o **Fichar salida**. La tarjeta dice «Entrada de Lucía: 13:05» y «¡Buen turno!», o la salida con lo trabajado. Tocá **Listo**.
 {: .steps}
 
 <figure class="shot">
