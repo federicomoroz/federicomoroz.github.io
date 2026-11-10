@@ -225,6 +225,6 @@ Fornu es un sistema para varias cuentas: cada cuenta es una cocina o un local y 
 | Despliegue | Una imagen de Docker con la web y la API, en Render, con su PostgreSQL |
 | Tests | xUnit contra PostgreSQL real con Testcontainers, tests de arquitectura y tests de la web con `node --test` |
 
-La última corrida completa fueron 543 tests de xUnit en verde. Las pruebas de la API levantan un PostgreSQL real, con la cuenta de prueba y una segunda cuenta al lado para comprobar que ninguna llega a los datos de la otra. Las de impresión corren el agente real contra el servidor, y las de facturación piden los CAE a ArcaSim en memoria.
+La última corrida completa (10 de noviembre de 2026) fueron 629 tests del servidor y 181 de la web, todos en verde, más 61 recorridos de punta a punta en un navegador real, cada uno sobre una base nueva, sin un error. Las pruebas de la API levantan un PostgreSQL real, con la cuenta de prueba y una segunda cuenta al lado para comprobar que ninguna llega a los datos de la otra. Las de impresión corren el agente real contra el servidor, y las de facturación piden los CAE a ArcaSim en memoria.
 
 El código es privado. La documentación pública, con el mapa de capas, está en [github.com/federicomoroz/fornu-docs](https://github.com/federicomoroz/fornu-docs).

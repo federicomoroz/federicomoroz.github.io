@@ -225,6 +225,6 @@ Fornu is multi-tenant: each account is a kitchen or a restaurant and sees only i
 | Deployment | One Docker image with the web and the API, on Render, with its PostgreSQL |
 | Tests | xUnit against real PostgreSQL with Testcontainers, architecture tests, and web tests with `node --test` |
 
-The last full run was 543 xUnit tests, all green. The API tests start a real PostgreSQL with the demo account and a second account next to it, to check that neither can reach the other's data. The printing tests run the real agent against the server, and the invoicing tests ask an in-memory ArcaSim for their CAEs.
+The last full run (November 10, 2026) was 629 server tests and 181 web tests, all green, plus 61 end-to-end walks in a real browser, each on a fresh database, without an error. The API tests start a real PostgreSQL with the demo account and a second account next to it, to check that neither can reach the other's data. The printing tests run the real agent against the server, and the invoicing tests ask an in-memory ArcaSim for their CAEs.
 
 The code is private. The public documentation, with the layer map, is at [github.com/federicomoroz/fornu-docs](https://github.com/federicomoroz/fornu-docs).
