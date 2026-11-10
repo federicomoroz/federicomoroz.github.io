@@ -721,7 +721,7 @@ With the Facturación (invoicing) module, the payment that closes the table has 
 - **Razón social** (company name) or **Nombre**, **Domicilio** (address), **Teléfono** and **Email**, to send them the receipt.
 
 <figure class="shot">
-  <img src="{{ '/assets/img/fornu/manual/salon-facturar.jpg' | relative_url }}" alt="The Comprobante section of the payment dialog: Facturar esta cuenta ticked, Condición frente al IVA set to Responsable inscripto and Documento locked to CUIT. Under the typed CUIT, a company already invoiced with that number, with its VAT status, its address and the last time. Further down Razón social, Domicilio, Teléfono and Email, and the notice La facturación está apagada en esta cuenta: prendela en Facturación para emitir el comprobante." loading="lazy" width="485" height="736">
+  <img src="{{ '/assets/img/fornu/manual/salon-facturar.jpg' | relative_url }}" alt="The Comprobante section of the payment dialog: Facturar esta cuenta ticked, Condición frente al IVA set to Responsable inscripto and Documento locked to CUIT. Under the typed CUIT, a company already invoiced with that number, with its VAT status, its address and the last time. Further down Razón social, Domicilio, Teléfono and Email, and the notice La facturación está apagada en esta cuenta: prendela en Facturación para emitir el comprobante." loading="lazy" width="485" height="750">
   <ol class="marks">
     <li><b>Facturar esta cuenta</b>.</li>
     <li><b>Condición frente al IVA</b> and <b>Documento</b>: a Responsable inscripto requires a CUIT.</li>

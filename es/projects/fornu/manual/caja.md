@@ -156,7 +156,7 @@ Las canceladas aparecen más claras. La lista dibuja 200 ventas por vez: para ve
 Las flechas no hacen nada mientras estás escribiendo en un campo o con un diálogo abierto.
 
 <figure class="shot">
-  <img src="{{ '/assets/img/fornu/manual/caja-ventas-factura.jpg' | relative_url }}" alt="El detalle de un pedido de Pizzería de Rappi con su producto, el cliente, la entrega y la línea Factura con Factura C 00003-00000044 Autorizada" loading="lazy" width="470" height="498">
+  <img src="{{ '/assets/img/fornu/manual/caja-ventas-factura.jpg' | relative_url }}" alt="El detalle de un pedido propio de Pizzería con su producto, el cliente, la entrega y la línea Factura con Factura C 00003-00000044 Autorizada" loading="lazy" width="470" height="484">
   <ol class="marks">
     <li><b>Factura</b>: el comprobante de la venta y su estado. Un toque lo abre.</li>
   </ol>

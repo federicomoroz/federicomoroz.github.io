@@ -130,7 +130,7 @@ Si la última factura fue rechazada o anulada, dice **Facturar de nuevo**. No ap
 {: .steps}
 
 <figure class="shot">
-  <img src="{{ '/assets/img/fornu/manual/facturacion-a-mano.jpg' | relative_url }}" alt="El panel Facturar el pedido #6 con Con CUIT elegido, los primeros siete números de un CUIT y debajo el cliente ya facturado Distribuidora Sur S.A., responsable inscripto, con su domicilio y la última vez" loading="lazy" width="620" height="900">
+  <img src="{{ '/assets/img/fornu/manual/facturacion-a-mano.jpg' | relative_url }}" alt="El panel Facturar el pedido #6 con Con CUIT elegido, los primeros siete números de un CUIT y debajo el cliente ya facturado Distribuidora Ejemplo S.A., responsable inscripto, con su domicilio y la última vez" loading="lazy" width="620" height="900">
   <ol class="marks">
     <li><b>Consumidor final</b>, <b>Con DNI</b> o <b>Con CUIT</b>.</li>
     <li>El número. Desde el séptimo dígito busca.</li>
@@ -169,7 +169,7 @@ En el Salón, la factura se pide en el mismo momento de cobrar. El cobro está e
 {: .steps}
 
 <figure class="shot">
-  <img src="{{ '/assets/img/fornu/manual/facturacion-mesa.jpg' | relative_url }}" alt="Bloque Comprobante del cobro de una mesa: Facturar esta cuenta prendido, condición Responsable inscripto, un CUIT escrito y debajo el cliente ya facturado Distribuidora Sur S.A." loading="lazy" width="700" height="440">
+  <img src="{{ '/assets/img/fornu/manual/facturacion-mesa.jpg' | relative_url }}" alt="Bloque Comprobante del cobro de una mesa: Facturar esta cuenta prendido, condición Responsable inscripto, un CUIT escrito y debajo el cliente ya facturado Distribuidora Ejemplo S.A." loading="lazy" width="700" height="440">
   <ol class="marks">
     <li><b>Facturar esta cuenta</b>.</li>
     <li><b>Condición frente al IVA</b> del cliente.</li>
@@ -229,7 +229,7 @@ Es el listado de las facturas y notas de crédito emitidas, con su CAE. Sirve pa
 - Si en el período hay facturas de prueba, lo avisa: «Las facturas de este período son de prueba: no tienen validez fiscal.»
 
 <figure class="shot">
-  <img src="{{ '/assets/img/fornu/manual/facturacion-facturas.jpg' | relative_url }}" alt="Balances, Facturas del mes: el período y el buscador, las cifras Comprobantes 45, Facturado 846.000 pesos, IVA 0 y Esperando o rechazadas 1, y la lista con una factura rechazada, una nota de crédito en negativo, una factura a una empresa y una anulada" loading="lazy" width="1440" height="720">
+  <img src="{{ '/assets/img/fornu/manual/facturacion-facturas.jpg' | relative_url }}" alt="Balances, Facturas del mes: el período y el buscador, las cifras Comprobantes 46, Facturado 850.000 pesos, IVA 0 y Esperando o rechazadas 1, y la lista con una factura a una empresa, una rechazada, una nota de crédito en negativo, otra factura a la misma empresa y una anulada" loading="lazy" width="1440" height="720">
   <ol class="marks">
     <li>El período y el buscador.</li>
     <li>Las cifras. <b>Esperando o rechazadas</b> deja solo las que tienen un problema.</li>
@@ -262,7 +262,7 @@ Tocá una fila (o la línea **Factura** del detalle de un pedido). Se abre el co
 | **Listo** | Cierra. |
 
 <figure class="shot">
-  <img src="{{ '/assets/img/fornu/manual/facturacion-factura.jpg' | relative_url }}" alt="Una Factura C abierta: los datos del negocio, la letra C con su código, el número y la fecha, el cliente Distribuidora Sur S.A. responsable inscripto con su CUIT y domicilio, una pizza, el total, el QR y el CAE con su vencimiento, y los botones Anular, Corregir, Imprimir y Listo" loading="lazy" width="880" height="760">
+  <img src="{{ '/assets/img/fornu/manual/facturacion-factura.jpg' | relative_url }}" alt="Una Factura C abierta: los datos del negocio, la letra C con su código, el número y la fecha, el cliente Distribuidora Ejemplo S.A. responsable inscripto con su CUIT y domicilio, una pizza, el total, el QR y el CAE con su vencimiento, y los botones Anular, Corregir, Imprimir y Listo" loading="lazy" width="880" height="760">
   <ol class="marks">
     <li>El <b>CAE</b> y su vencimiento.</li>
     <li>El QR de ARCA.</li>
@@ -281,7 +281,7 @@ Tocá una fila (o la línea **Factura** del detalle de un pedido). Se abre el co
 {: .steps}
 
 <figure class="shot">
-  <img src="{{ '/assets/img/fornu/manual/facturacion-nota-de-credito.jpg' | relative_url }}" alt="Una Nota de crédito C abierta: dice Anula la Factura C 00003-00000043, con sus dos productos, el total, el QR y su propio CAE" loading="lazy" width="880" height="640">
+  <img src="{{ '/assets/img/fornu/manual/facturacion-nota-de-credito.jpg' | relative_url }}" alt="Una Nota de crédito C abierta: dice Anula la Factura C 00003-00000043, con su producto, el total, el QR y su propio CAE" loading="lazy" width="880" height="640">
   <ol class="marks">
     <li>Qué factura anula.</li>
     <li>Su propio CAE.</li>

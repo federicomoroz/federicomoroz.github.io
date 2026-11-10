@@ -156,7 +156,7 @@ Cancelled rows are dimmed. The list draws 200 sales at a time: to see the rest, 
 The arrow keys do nothing while you are typing in a field or have a dialog open.
 
 <figure class="shot">
-  <img src="{{ '/assets/img/fornu/manual/caja-ventas-factura.jpg' | relative_url }}" alt="The detail of a Pizzería order from Rappi with its product, the customer, the delivery and the Factura line with Factura C 00003-00000044 Autorizada" loading="lazy" width="470" height="498">
+  <img src="{{ '/assets/img/fornu/manual/caja-ventas-factura.jpg' | relative_url }}" alt="The detail of an own Pizzería order with its product, the customer, the delivery and the Factura line with Factura C 00003-00000044 Autorizada" loading="lazy" width="470" height="484">
   <ol class="marks">
     <li><b>Factura</b> (invoice): the sale's voucher and its state. A tap opens it.</li>
   </ol>

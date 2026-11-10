@@ -721,7 +721,7 @@ Con el módulo Facturación, el pago que cierra la mesa tiene la sección **Comp
 - **Razón social** o **Nombre**, **Domicilio**, **Teléfono** y **Email**, para mandarle el comprobante.
 
 <figure class="shot">
-  <img src="{{ '/assets/img/fornu/manual/salon-facturar.jpg' | relative_url }}" alt="La sección Comprobante del cobro: Facturar esta cuenta tildado, Condición frente al IVA en Responsable inscripto y Documento fijo en CUIT. Debajo del CUIT escrito, una empresa a la que ya se le facturó con ese número, con su condición, su domicilio y la última vez. Más abajo Razón social, Domicilio, Teléfono y Email, y el aviso La facturación está apagada en esta cuenta: prendela en Facturación para emitir el comprobante." loading="lazy" width="485" height="736">
+  <img src="{{ '/assets/img/fornu/manual/salon-facturar.jpg' | relative_url }}" alt="La sección Comprobante del cobro: Facturar esta cuenta tildado, Condición frente al IVA en Responsable inscripto y Documento fijo en CUIT. Debajo del CUIT escrito, una empresa a la que ya se le facturó con ese número, con su condición, su domicilio y la última vez. Más abajo Razón social, Domicilio, Teléfono y Email, y el aviso La facturación está apagada en esta cuenta: prendela en Facturación para emitir el comprobante." loading="lazy" width="485" height="750">
   <ol class="marks">
     <li><b>Facturar esta cuenta</b>.</li>
     <li><b>Condición frente al IVA</b> y <b>Documento</b>: un Responsable inscripto pide CUIT.</li>

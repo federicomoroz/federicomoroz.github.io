@@ -130,7 +130,7 @@ If the last invoice was rejected or voided, it reads **Facturar de nuevo** (invo
 {: .steps}
 
 <figure class="shot">
-  <img src="{{ '/assets/img/fornu/manual/facturacion-a-mano.jpg' | relative_url }}" alt="The Facturar el pedido #6 panel with Con CUIT chosen, the first seven digits of a CUIT and below it the customer already invoiced, Distribuidora Sur S.A., registered for VAT, with its address and the last time" loading="lazy" width="620" height="900">
+  <img src="{{ '/assets/img/fornu/manual/facturacion-a-mano.jpg' | relative_url }}" alt="The Facturar el pedido #6 panel with Con CUIT chosen, the first seven digits of a CUIT and below it the customer already invoiced, Distribuidora Ejemplo S.A., registered for VAT, with its address and the last time" loading="lazy" width="620" height="900">
   <ol class="marks">
     <li><b>Consumidor final</b>, <b>Con DNI</b> or <b>Con CUIT</b>.</li>
     <li>The number. From the seventh digit it searches.</li>
@@ -169,7 +169,7 @@ In the Salón, the invoice is requested at the moment of paying. Taking the paym
 {: .steps}
 
 <figure class="shot">
-  <img src="{{ '/assets/img/fornu/manual/facturacion-mesa.jpg' | relative_url }}" alt="The Comprobante block when charging a table: Facturar esta cuenta switched on, status Responsable inscripto, a CUIT typed and, below it, the already-invoiced customer Distribuidora Sur S.A." loading="lazy" width="700" height="440">
+  <img src="{{ '/assets/img/fornu/manual/facturacion-mesa.jpg' | relative_url }}" alt="The Comprobante block when charging a table: Facturar esta cuenta switched on, status Responsable inscripto, a CUIT typed and, below it, the already-invoiced customer Distribuidora Ejemplo S.A." loading="lazy" width="700" height="440">
   <ol class="marks">
     <li><b>Facturar esta cuenta</b>.</li>
     <li>The customer's <b>Condición frente al IVA</b>.</li>
@@ -229,7 +229,7 @@ This is the list of invoices and credit notes issued, with their CAE. Use it to 
 - If the period holds test invoices, it says so: «Las facturas de este período son de prueba: no tienen validez fiscal.»
 
 <figure class="shot">
-  <img src="{{ '/assets/img/fornu/manual/facturacion-facturas.jpg' | relative_url }}" alt="Balances, Facturas for the month: the period and the search box, the figures Comprobantes 45, Facturado 846,000 pesos, IVA 0 and Esperando o rechazadas 1, and the list with a rejected invoice, a credit note in negative, an invoice to a company and a voided one" loading="lazy" width="1440" height="720">
+  <img src="{{ '/assets/img/fornu/manual/facturacion-facturas.jpg' | relative_url }}" alt="Balances, Facturas for the month: the period and the search box, the figures Comprobantes 46, Facturado 850,000 pesos, IVA 0 and Esperando o rechazadas 1, and the list with an invoice to a company, a rejected one, a credit note in negative, another invoice to the same company and a voided one" loading="lazy" width="1440" height="720">
   <ol class="marks">
     <li>The period and the search box.</li>
     <li>The figures. <b>Esperando o rechazadas</b> (waiting or rejected) leaves only the ones with a problem.</li>
@@ -262,7 +262,7 @@ Tap a row (or the **Factura** line of an order's detail). The voucher opens as i
 | **Listo** (done) | Closes it. |
 
 <figure class="shot">
-  <img src="{{ '/assets/img/fornu/manual/facturacion-factura.jpg' | relative_url }}" alt="An open Factura C: the business's details, the letter C with its code, the number and date, the customer Distribuidora Sur S.A. registered for VAT with its CUIT and address, a pizza, the total, the QR and the CAE with its due date, and the Anular, Corregir, Imprimir and Listo buttons" loading="lazy" width="880" height="760">
+  <img src="{{ '/assets/img/fornu/manual/facturacion-factura.jpg' | relative_url }}" alt="An open Factura C: the business's details, the letter C with its code, the number and date, the customer Distribuidora Ejemplo S.A. registered for VAT with its CUIT and address, a pizza, the total, the QR and the CAE with its due date, and the Anular, Corregir, Imprimir and Listo buttons" loading="lazy" width="880" height="760">
   <ol class="marks">
     <li>The <b>CAE</b> and its due date.</li>
     <li>ARCA's QR code.</li>
@@ -281,7 +281,7 @@ Tap a row (or the **Factura** line of an order's detail). The voucher opens as i
 {: .steps}
 
 <figure class="shot">
-  <img src="{{ '/assets/img/fornu/manual/facturacion-nota-de-credito.jpg' | relative_url }}" alt="An open Nota de crédito C: it says Anula la Factura C 00003-00000043, with its two products, the total, the QR and its own CAE" loading="lazy" width="880" height="640">
+  <img src="{{ '/assets/img/fornu/manual/facturacion-nota-de-credito.jpg' | relative_url }}" alt="An open Nota de crédito C: it says Anula la Factura C 00003-00000043, with its product, the total, the QR and its own CAE" loading="lazy" width="880" height="640">
   <ol class="marks">
     <li>Which invoice it voids («Anula la Factura…»).</li>
     <li>Its own CAE.</li>
