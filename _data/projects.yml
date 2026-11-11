@@ -26,6 +26,8 @@
 #                      (notificaciones, colas, gateways, un patron de mensajeria). Sale en
 #                      /tools/ ("Servicios y herramientas") y no en /projects/
 #                      ("Aplicaciones"), que es para apps completas para el usuario final.
+#   also_tools      -> OPCIONAL, true: un producto de /projects/ que ademas se usa como
+#                      pieza de otros sistemas, y por eso tambien sale en /tools/ (ArcaSim).
 #   used_by         -> OPCIONAL, lista de ids de proyectos que usan este servicio. La
 #                      tarjeta lo muestra como "Lo usa: ...".
 #   docs            -> OPCIONAL: repo publico con la documentacion de un proyecto de
@@ -174,7 +176,7 @@
 
 - id: arcasim
   used_by: [fornu]
-  group: service
+  also_tools: true
   cover: arcasim.webp
   cover_alt: "Panel de ArcaSim con los contribuyentes ficticios, los certificados, las fallas a pedido y los comprobantes emitidos"
   name: ArcaSim
@@ -204,6 +206,30 @@
     - Docker
     - xUnit
     - Testcontainers
+
+- id: rappisim
+  used_by: [fornu]
+  group: service
+  name: RappiSim
+  short:
+    es: "Rappi y PedidosYa para desarrollar y probar sin las plataformas: la misma API para integradores (token, pedidos, carta y webhooks firmados), con los mismos formatos y eventos. Desde su panel se arman pedidos de cualquier local, con opciones o con productos fuera de la carta, y se mueve al repartidor: llegó al local, en camino, llegó, entregado; también se lo cambia o se cancela el pedido con los motivos de la plataforma. Un núcleo común arma el pedido y cada plataforma es un módulo que lo escribe en su formato. Fornu se desarrolla contra RappiSim, y para pasar a Rappi de verdad se cambian las direcciones y las credenciales, no el código."
+    en: "Rappi and PedidosYa for developing and testing without the platforms: the same integrator API (token, orders, menu and signed webhooks), with the same formats and events. Its panel builds orders for any store, with options or with products off the menu, and moves the rider along: at the store, on the way, arrived, delivered; it also swaps the rider or cancels the order with the platform's reasons. A shared core builds the order and each platform is a module that writes it in its own format. Fornu is developed against RappiSim, and moving to the real Rappi means changing the addresses and the credentials, not the code."
+  card:
+    es: "Rappi y PedidosYa simulados para desarrollar sin las plataformas: su API, sus webhooks firmados y un panel para armar pedidos y mover al repartidor. Pasar a la real es cambiar direcciones y credenciales."
+    en: "Rappi and PedidosYa, simulated for developing without the platforms: their API, their signed webhooks and a panel to build orders and move the rider. Going live means changing addresses and credentials."
+  status: active
+  listed: true
+  case_study: false
+  repo_visibility: private
+  docs: https://github.com/federicomoroz/fornu-docs
+  demo: https://rappisim.onrender.com
+  tech:
+    - "C#"
+    - .NET 8
+    - ASP.NET Core
+    - React
+    - TypeScript
+    - PostgreSQL
 
 - id: order-outbox-service
   group: service

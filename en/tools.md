@@ -6,7 +6,9 @@ permalink: /en/tools/
 
 {% assign t = site.data.i18n[page.lang] %}
 {% assign lang = page.lang %}
-{% assign services = site.data.projects | where: "listed", true | where: "group", "service" %}
+{% comment %} The services, and the products that are also used as a piece of other systems (`also_tools`), in the file's order. {% endcomment %}
+{% assign services = "" | split: "" %}
+{% for p in site.data.projects %}{% if p.listed %}{% if p.group == "service" or p.also_tools %}{% assign services = services | push: p %}{% endif %}{% endif %}{% endfor %}
 {% assign visible_tools = site.data.tools | where: "visibility", "public" %}
 
 <section class="hero">
