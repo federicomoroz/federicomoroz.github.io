@@ -2170,7 +2170,7 @@ a { text-underline-offset: 3px; }
 .stackline { margin: 0 0 16px; color: var(--fg-faint); font-size: 0.88rem; font-variation-settings: "wdth" 90; }
 .used-by { margin: -8px 0 16px; color: var(--fg-muted); font-size: 0.88rem; }
 
-/* Domain tags on a card: small links to the page that gathers each tag. */
+/* Domain tags on a card: each one filters the card's page by it. */
 .pcard-tags
 {
     display: flex;
@@ -2190,10 +2190,19 @@ a.tag:hover
     border-color: var(--copper);
 }
 
-/* The small line over the title of a tag page. */
-.hero-kicker
+/* The tag filter over a page of cards (assets/js/tag-filter.js). */
+.tag-filter
 {
-    margin: 0 0 6px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 22px;
+}
+
+.tag-filter-label
+{
+    margin-right: 4px;
     font-family: var(--font-mono);
     font-size: 0.78rem;
     letter-spacing: 0.08em;
@@ -2201,9 +2210,32 @@ a.tag:hover
     color: var(--copper);
 }
 
-.tag-back
+.tag-filter button.tag
 {
-    margin-top: 2.4rem;
+    font-size: 0.8rem;
+    padding: 4px 12px;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s, color 0.15s;
+}
+
+.tag-filter button.tag:hover
+{
+    color: var(--fg);
+    border-color: var(--copper);
+}
+
+.tag-filter button.tag[aria-pressed="true"]
+{
+    color: var(--accent);
+    border-color: var(--accent);
+    background: var(--accent-soft);
+}
+
+.tag-filter[hidden],
+.pcard[hidden],
+[data-filter-group][hidden]
+{
+    display: none !important;
 }
 .used-by a { color: var(--accent); }
 

@@ -29,9 +29,10 @@
 #                      `single-purpose`: una app que hace una sola cosa. Sale en /projects/,
 #                      en su propia seccion "Apps de proposito unico", debajo de las demas,
 #                      y no en el inicio.
+#   home            -> OPCIONAL, false lo deja fuera del inicio; sigue en su seccion.
 #   tags            -> OPCIONAL, lista de ids de _data/tags.yml (el rubro: gastronomia...).
-#                      La tarjeta los muestra, y cada uno lleva a /<lang>/tags/<id>/, que
-#                      junta todo lo que lo lleva, sea app, servicio o app de proposito unico.
+#                      La tarjeta los muestra, y las paginas de aplicaciones y de servicios
+#                      y herramientas filtran por ellos.
 #   also_tools      -> OPCIONAL, true: un producto de /projects/ que ademas se usa como
 #                      pieza de otros sistemas, y por eso tambien sale en /tools/ (ArcaSim).
 #   used_by         -> OPCIONAL, lista de ids de proyectos que usan este servicio. La
@@ -83,6 +84,8 @@
     - Testcontainers
 
 - id: agente-contracargos
+  group: single-purpose
+  tags: [finanzas]
   cover: agente-contracargos.webp
   cover_alt: "Panel del agente de contracargos, con el caso y su resolución propuesta"
   name: "Agente de investigación de contracargos"
@@ -115,6 +118,7 @@
     - pytest
 
 - id: mega-training-system
+  tags: [fitness]
   cover: mega-training-system.webp
   cover_alt: "Plan de entrenamiento generado por Mega Training System"
   name: Mega Training System
@@ -146,6 +150,7 @@
 
 - id: nexo
   group: service
+  tags: [comercio]
   cover: nexo.webp
   cover_alt: "Panel de Nexo mostrando los motores de base y su estado"
   name: Nexo
@@ -184,6 +189,7 @@
 - id: arcasim
   used_by: [fornu]
   also_tools: true
+  tags: [impuestos]
   cover: arcasim.webp
   cover_alt: "Panel de ArcaSim con los contribuyentes ficticios, los certificados, las fallas a pedido y los comprobantes emitidos"
   name: ArcaSim
@@ -218,6 +224,9 @@
   used_by: [fornu]
   group: service
   tags: [gastronomia]
+  cover: rappisim.webp
+  cover_alt: "Panel de RappiSim: un pedido nuevo armado con la carta de un local, los pedidos en curso con lo que contestó Fornu, y al lado el celular del repartidor con los pedidos listos para retirar"
+  live: { src: rappisim-panel.jpg, kind: scroll }
   name: RappiSim
   short:
     es: "Rappi y PedidosYa para desarrollar y probar sin las plataformas: la misma API para integradores (token, pedidos, carta y webhooks firmados), con los mismos formatos y eventos. Desde su panel se arman pedidos de cualquier local, con opciones o con productos fuera de la carta, y se mueve al repartidor: llegó al local, en camino, llegó, entregado; también se lo cambia o se cancela el pedido con los motivos de la plataforma. Un núcleo común arma el pedido y cada plataforma es un módulo que lo escribe en su formato. Fornu se desarrolla contra RappiSim, y para pasar a Rappi de verdad se cambian las direcciones y las credenciales, no el código."
@@ -241,7 +250,7 @@
 
 - id: arqueo-de-caja
   group: single-purpose
-  tags: [gastronomia]
+  tags: [finanzas]
   cover: arqueo-de-caja.webp
   cover_alt: "Arqueo de caja en una computadora y en un celular: la caja elegida, los turnos del día y el cajón con el monto de cada casillero"
   name: Arqueo de caja
@@ -270,6 +279,7 @@
 
 - id: order-outbox-service
   group: service
+  tags: [comercio]
   cover: order-outbox-service.webp
   cover_alt: "Dashboard de Order Outbox Service con la cola de eventos"
   name: Order Outbox Service
@@ -302,6 +312,7 @@
 
 - id: handoff
   group: service
+  tags: [comercio]
   cover: handoff.webp
   cover_alt: "Diagrama del circuito de handoff: el modelo propone y once reglas deciden, con 19 intentos de mover plata frenados"
   name: handoff
@@ -354,6 +365,7 @@
 
 - id: shipping-quote
   group: service
+  tags: [logistica]
   cover: shipping-quote.webp
   cover_alt: "Cotizador de envíos mostrando la traza del circuito"
   name: Shipping Quote
@@ -385,6 +397,7 @@
 
 - id: shipping-quote-dotnet
   group: service
+  tags: [logistica]
   cover: shipping-quote-dotnet.webp
   cover_alt: "Swagger de la API .NET de Shipping Quote con los endpoints de cotización e historial"
   name: "Shipping Quote — .NET"
@@ -474,6 +487,7 @@
 
 - id: dollar-tracker
   group: service
+  tags: [finanzas]
   cover: dollar-tracker.webp
   cover_alt: "Panel de Dollar Tracker con las cotizaciones del dólar y las alertas de precio configuradas"
   name: Dollar Tracker
@@ -496,6 +510,8 @@
     - SendGrid
 
 - id: rpg-turn-based-battler
+  home: false
+  tags: [videojuegos]
   cover: rpg-turn-based-battler.webp
   cover_alt: "Combate por turnos del RPG: un caballero enfrenta a un grupo de tres personajes en un claro"
   name: RPG Turn-Based Battler

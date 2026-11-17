@@ -31,7 +31,7 @@
 
 {% assign variante = include.i | default: 0 | modulo: 5 %}
 
-<article class="pcard" id="{{ include.proj.id }}">
+<article class="pcard" id="{{ include.proj.id }}"{% if include.proj.tags %} data-tags="{{ include.proj.tags | join: ' ' }}"{% endif %}>
   {% if cover_url != "" %}<a class="pcard-cover" href="{{ cover_url }}"{% unless include.proj.case_study %} target="_blank" rel="noopener"{% endunless %}>{% else %}<div class="pcard-cover">{% endif %}
     {% if include.proj.cover %}
       {% comment %} width/height evitan el salto de layout mientras carga. {% endcomment %}
@@ -55,9 +55,12 @@
       {% if gh.archived %}<span class="tag">{{ include.t.projects.archived }}</span>{% endif %}
     </h3>
 
-    {% comment %} Domain tags (_data/tags.yml): each one leads to the page that gathers its projects. {% endcomment %}
+    {% comment %} Domain tags (_data/tags.yml): each one opens the card's own page filtered
+       by it. On that page, tag-filter.js filters in place instead. {% endcomment %}
     {% if include.proj.tags %}
-    <p class="pcard-tags">{% for tag_id in include.proj.tags %}{% assign card_tag = site.data.tags[tag_id] %}<a class="tag" href="{{ '/' | append: include.lang | append: '/tags/' | append: tag_id | append: '/' | relative_url }}">{{ card_tag.name[include.lang] }}</a>{% endfor %}</p>
+    {% if include.proj.group == "service" %}{% assign tag_page = 'tools' %}{% else %}{% assign tag_page = 'projects' %}{% endif %}
+    {% assign tag_base = '/' | append: include.lang | append: '/' | append: tag_page | append: '/' | relative_url %}
+    <p class="pcard-tags">{% for tag_id in include.proj.tags %}{% assign card_tag = site.data.tags[tag_id] %}<a class="tag" href="{{ tag_base }}?tag={{ tag_id }}" data-tag="{{ tag_id }}">{{ card_tag.name[include.lang] }}</a>{% endfor %}</p>
     {% endif %}
 
     {% comment %} `card` is the short text for the grid; `short` stays long because

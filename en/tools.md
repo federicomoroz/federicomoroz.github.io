@@ -21,7 +21,10 @@ permalink: /en/tools/
   same card as the projects (cover, live preview, links), because they are the
   same kind of work, only smaller and meant to be plugged into something else.
 {% endcomment %}
+{% include tag-filter.html projects=services lang=lang t=t %}
+
 {% if services.size > 0 %}
+<div data-filter-group>
 <div class="section-heading">
   <h2>{{ t.services.heading }}</h2>
 </div>
@@ -31,8 +34,10 @@ permalink: /en/tools/
     {% include project-card.html proj=proj lang=lang t=t i=forloop.index0 %}
   {% endfor %}
 </div>
+</div>
 {% endif %}
 
+<div data-filter-group>
 <div class="section-heading">
   <h2>{{ t.tools.tools_heading }}</h2>
 </div>
@@ -62,3 +67,4 @@ permalink: /en/tools/
 {% else %}
 <p class="muted">{{ t.tools.empty }}</p>
 {% endif %}
+</div>

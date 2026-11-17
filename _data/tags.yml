@@ -2,15 +2,34 @@
 #
 # Campos:
 #   <id>           -> slug estable, sin tildes. Es el que va en `tags` de projects.yml y en
-#                     la URL de su pagina: /es/tags/<id>/ y /en/tags/<id>/.
+#                     la direccion del filtro: /es/projects/?tag=<id>.
 #   name.{es,en}   -> el nombre que muestra la etiqueta.
-#   lead.{es,en}   -> una linea que encabeza su pagina.
 #
-# Una etiqueta nueva es una entrada aca y dos paginas: copiar es/tags/gastronomia.md y
-# en/tags/gastronomia.md, y cambiar `tag`, `permalink`, `title` y `description`.
+# Las etiquetas no tienen pagina propia: las paginas de aplicaciones y de servicios y
+# herramientas tienen un filtro con las etiquetas de sus tarjetas. Una etiqueta nueva es
+# solo una entrada aca, y su boton aparece en la pagina que tenga alguna tarjeta con ella.
+# El orden de este archivo es el orden de los botones.
+#
+# Las piezas genericas (colas, rate limit, notificaciones, webhooks) no llevan rubro:
+# sirven a cualquiera, y salen en "Todos".
 
 gastronomia:
   name: { es: Gastronomía, en: Food service }
-  lead:
-    es: "Apps y servicios para restaurantes, dark kitchens y locales de comida."
-    en: "Apps and services for restaurants, dark kitchens and food businesses."
+
+comercio:
+  name: { es: Comercio, en: Commerce }
+
+finanzas:
+  name: { es: Finanzas, en: Finance }
+
+impuestos:
+  name: { es: Impuestos, en: Tax }
+
+logistica:
+  name: { es: Logística, en: Logistics }
+
+fitness:
+  name: { es: Fitness, en: Fitness }
+
+videojuegos:
+  name: { es: Videojuegos, en: Video games }

@@ -1,0 +1,19 @@
+{% comment %}
+  The domain-tag filter over a page of cards: "all" plus one button for each
+  tag (_data/tags.yml) that some card on the page has, in that file's order.
+  Without JavaScript it stays hidden and every card shows. assets/js/tag-filter.js
+  shows it, and hides the cards without the chosen tag and the blocks
+  (`data-filter-group`) left with no card.
+
+  Parameters: projects (the projects the page shows), lang, t (i18n block).
+{% endcomment %}
+{% assign filter_tags = "" | split: "" %}
+{% for tag in site.data.tags %}{% assign tag_id = tag[0] %}{% for p in include.projects %}{% if p.tags contains tag_id %}{% assign filter_tags = filter_tags | push: tag_id %}{% break %}{% endif %}{% endfor %}{% endfor %}
+{% if filter_tags.size > 0 %}
+<div class="tag-filter" role="group" aria-label="{{ include.t.tags.filter_label }}" hidden>
+  <span class="tag-filter-label">{{ include.t.tags.filter_label }}</span>
+  <button type="button" class="tag" data-tag="" aria-pressed="true">{{ include.t.tags.all }}</button>
+  {% for tag_id in filter_tags %}<button type="button" class="tag" data-tag="{{ tag_id }}" aria-pressed="false">{{ site.data.tags[tag_id].name[include.lang] }}</button>
+  {% endfor %}
+</div>
+{% endif %}

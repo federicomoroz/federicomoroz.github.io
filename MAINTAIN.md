@@ -91,6 +91,11 @@ por última vez, las estrellas, si está archivado—, que es lo que se refresca
    renombralos con el `id` nuevo y ajustá el `permalink`.
 3. Commit y push. GitHub Pages buildea solo.
 
+## Sacar un proyecto del inicio
+
+`home: false` en `_data/projects.yml` deja un proyecto fuera del inicio. Sigue en su sección
+(Aplicaciones, Servicios y herramientas o Apps de propósito único) como siempre.
+
 ## Apps de propósito único
 
 Una app que hace una sola cosa, para una tarea puntual, lleva `group: single-purpose` en
@@ -101,13 +106,15 @@ cualquier proyecto.
 ## Etiquetas de rubro
 
 `tags` en un proyecto es una lista de ids de `_data/tags.yml`: el rubro para el que es, por
-ejemplo `gastronomia`. La tarjeta muestra cada etiqueta y la linkea a su página,
-`/<lang>/tags/<id>/`, que junta todos los proyectos que la llevan, sean aplicaciones,
-servicios o apps de propósito único.
+ejemplo `gastronomia`. La tarjeta muestra cada etiqueta. Las etiquetas no tienen página
+propia: las páginas de aplicaciones y de servicios y herramientas tienen arriba un filtro con
+las etiquetas de sus tarjetas. Elegir una deja solo las tarjetas que la llevan, y la dirección
+queda como `?tag=<id>` para poder compartirla. Tocar la etiqueta de una tarjeta aplica el
+mismo filtro.
 
-Una etiqueta nueva es una entrada en `_data/tags.yml` (nombre y una línea por idioma) y dos
-páginas: copiar `es/tags/gastronomia.md` y `en/tags/gastronomia.md` y cambiar `tag`,
-`permalink`, `title` y `description`.
+Una etiqueta nueva es solo una entrada en `_data/tags.yml`, con el nombre en cada idioma. Su
+botón aparece en la página que tenga alguna tarjeta con ella. El filtro está en
+`_includes/tag-filter.html` y `assets/js/tag-filter.js`.
 
 ## Agregar una herramienta
 

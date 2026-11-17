@@ -80,8 +80,8 @@ es:
     single_purpose_heading: "Apps de propósito único"
     single_purpose_lead: "Apps que hacen una sola cosa, para una tarea puntual de quien las usa."
   tags:
-    label: "Etiqueta"
-    back: "← Volver a aplicaciones"
+    filter_label: "Rubro"
+    all: "Todos"
   services:
     heading: Servicios
     lead: "Piezas que trabajan para otros sistemas y no para un usuario final: distribuir el catálogo de un mayorista a sus revendedores, hacer de ARCA para facturar en desarrollo, atender reclamos de soporte contra un ERP, cotizar envíos, publicar eventos sin perder ninguno, avisar por varios canales, encolar tareas, limitar el uso de una API. Cada una corre sola, con su API."
@@ -199,8 +199,8 @@ en:
     single_purpose_heading: "Single-purpose apps"
     single_purpose_lead: "Apps that do one thing, for one specific task of the people who use them."
   tags:
-    label: "Tag"
-    back: "← Back to applications"
+    filter_label: "Industry"
+    all: "All"
   services:
     heading: Services
     lead: "Pieces that work for other systems rather than for an end user: distributing a wholesaler's catalogue to its resellers, standing in for ARCA to invoice in development, handling support claims against an ERP, quoting shipments, publishing events without losing any, alerting across channels, queuing tasks, rate-limiting an API. Each one runs on its own, with its own API."
