@@ -6,7 +6,7 @@ permalink: /es/
 
 {% assign t = site.data.i18n[page.lang] %}
 {% assign lang = page.lang %}
-{% assign visible_projects = site.data.projects | where: "listed", true | where_exp: "p", "p.group != 'service'" %}
+{% assign visible_projects = site.data.projects | where: "listed", true | where_exp: "p", "p.group != 'service'" | where_exp: "p", "p.group != 'single-purpose'" %}
 {% assign services = site.data.projects | where: "listed", true | where: "group", "service" %}
 {% assign articles = site.data.articles | where: "listed", true | sort: "date" | reverse %}
 {% assign cv_file = site.data.cv.cv_pdf[lang] %}

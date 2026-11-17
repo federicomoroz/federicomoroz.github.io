@@ -6,8 +6,9 @@ permalink: /en/projects/
 
 {% assign t = site.data.i18n[page.lang] %}
 {% assign lang = page.lang %}
-{% comment %} Services (notify-router, task-queue...) live in /tools/, next to the tools. {% endcomment %}
-{% assign visible_projects = site.data.projects | where: "listed", true | where_exp: "p", "p.group != 'service'" %}
+{% comment %} Services (notify-router, task-queue...) live in /tools/, next to the tools; single-purpose apps get their own section below. {% endcomment %}
+{% assign visible_projects = site.data.projects | where: "listed", true | where_exp: "p", "p.group != 'service'" | where_exp: "p", "p.group != 'single-purpose'" %}
+{% assign single_purpose = site.data.projects | where: "listed", true | where: "group", "single-purpose" %}
 
 <section class="hero">
   <h1>{{ t.projects.heading }}</h1>
@@ -26,6 +27,18 @@ permalink: /en/projects/
 {% if visible_projects.size > 0 %}
 <div class="project-grid">
   {% for proj in visible_projects %}
+    {% include project-card.html proj=proj lang=lang t=t i=forloop.index0 %}
+  {% endfor %}
+</div>
+{% endif %}
+
+{% if single_purpose.size > 0 %}
+<div class="section-heading">
+  <h2>{{ t.projects.single_purpose_heading }}</h2>
+</div>
+<p class="muted">{{ t.projects.single_purpose_lead }}</p>
+<div class="project-grid">
+  {% for proj in single_purpose %}
     {% include project-card.html proj=proj lang=lang t=t i=forloop.index0 %}
   {% endfor %}
 </div>

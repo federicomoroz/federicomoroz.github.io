@@ -1,0 +1,24 @@
+{% comment %}
+  The page of one domain tag (_data/tags.yml): every listed project that has
+  it, whatever its group, so an app and the service it uses meet here.
+  The page passes the tag id in its front matter, as `tag`.
+{% endcomment %}
+{% assign t = site.data.i18n[page.lang] %}
+{% assign lang = page.lang %}
+{% assign page_tag = site.data.tags[page.tag] %}
+{% assign tagged = "" | split: "" %}
+{% for p in site.data.projects %}{% if p.listed and p.tags contains page.tag %}{% assign tagged = tagged | push: p %}{% endif %}{% endfor %}
+
+<section class="hero">
+  <p class="hero-kicker">{{ t.tags.label }}</p>
+  <h1>{{ page_tag.name[lang] }}</h1>
+  <p class="lead">{{ page_tag.lead[lang] }}</p>
+</section>
+
+<div class="project-grid">
+  {% for proj in tagged %}
+    {% include project-card.html proj=proj lang=lang t=t i=forloop.index0 %}
+  {% endfor %}
+</div>
+
+<p class="tag-back"><a href="{{ '/' | append: lang | append: '/projects/' | relative_url }}">{{ t.tags.back }}</a></p>

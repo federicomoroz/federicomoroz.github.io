@@ -26,6 +26,12 @@
 #                      (notificaciones, colas, gateways, un patron de mensajeria). Sale en
 #                      /tools/ ("Servicios y herramientas") y no en /projects/
 #                      ("Aplicaciones"), que es para apps completas para el usuario final.
+#                      `single-purpose`: una app que hace una sola cosa. Sale en /projects/,
+#                      en su propia seccion "Apps de proposito unico", debajo de las demas,
+#                      y no en el inicio.
+#   tags            -> OPCIONAL, lista de ids de _data/tags.yml (el rubro: gastronomia...).
+#                      La tarjeta los muestra, y cada uno lleva a /<lang>/tags/<id>/, que
+#                      junta todo lo que lo lleva, sea app, servicio o app de proposito unico.
 #   also_tools      -> OPCIONAL, true: un producto de /projects/ que ademas se usa como
 #                      pieza de otros sistemas, y por eso tambien sale en /tools/ (ArcaSim).
 #   used_by         -> OPCIONAL, lista de ids de proyectos que usan este servicio. La
@@ -58,6 +64,7 @@
       en: "with each dish's margin on every one, after commission and VAT"
   status: active
   listed: true
+  tags: [gastronomia]
   case_study: true
   repo: https://github.com/federicomoroz/fornu
   repo_visibility: private
@@ -210,6 +217,7 @@
 - id: rappisim
   used_by: [fornu]
   group: service
+  tags: [gastronomia]
   name: RappiSim
   short:
     es: "Rappi y PedidosYa para desarrollar y probar sin las plataformas: la misma API para integradores (token, pedidos, carta y webhooks firmados), con los mismos formatos y eventos. Desde su panel se arman pedidos de cualquier local, con opciones o con productos fuera de la carta, y se mueve al repartidor: llegó al local, en camino, llegó, entregado; también se lo cambia o se cancela el pedido con los motivos de la plataforma. Un núcleo común arma el pedido y cada plataforma es un módulo que lo escribe en su formato. Fornu se desarrolla contra RappiSim, y para pasar a Rappi de verdad se cambian las direcciones y las credenciales, no el código."
@@ -230,6 +238,35 @@
     - React
     - TypeScript
     - PostgreSQL
+
+- id: arqueo-de-caja
+  group: single-purpose
+  tags: [gastronomia]
+  cover: arqueo-de-caja.webp
+  cover_alt: "Arqueo de caja en una computadora y en un celular: la caja elegida, los turnos del día y el cajón con el monto de cada casillero"
+  name: Arqueo de caja
+  short:
+    es: "Una pantalla para contar la caja sin calculadora. Cada negocio arma su caja: los turnos del día, las secciones del cajón y los billetes que lleva cada casillero, y puede tener varias cajas. En cada casillero se escribe el monto, o la cantidad de billetes de cada valor y la app multiplica. Si el monto no coincide con los billetes, o no se puede formar con ellos, avisa antes de guardar. Cada turno tiene su apertura y su cierre, y el cierre muestra la diferencia. Al terminar de contar, el PDF del día queda en el Drive de quien la usa, y si después se corrige un arqueo, la app avisa que el PDF quedó viejo. Corre en Google Apps Script con la cuenta de Google de cada persona, desde cualquier computadora o celular."
+    en: "One screen to count the till without a calculator. Each business sets up its register: the shifts of the day, the sections of the drawer and the bills each compartment holds, and it can have several registers. Each compartment takes the amount, or the count of each bill and the app multiplies. When the amount and the bills disagree, or the bills cannot make the amount, it warns before saving. Each shift has its opening and its closing, and the closing shows the difference. Once the counting is done, the day's PDF goes to the user's own Drive, and when a count is corrected later the app says the PDF is out of date. It runs on Google Apps Script with each person's Google account, from any computer or phone."
+  card:
+    es: "Una pantalla para contar la caja sin calculadora: el monto o los billetes de cada casillero, la diferencia de cada turno y el PDF del día en el Drive de quien la usa. Cada negocio arma su caja."
+    en: "One screen to count the till without a calculator: the amount or the bills in each compartment, each shift's difference and the day's PDF in the user's own Drive. Each business sets up its register."
+  reading:
+    num: { es: "2 formas", en: "2 ways" }
+    what:
+      es: "de cargar cada casillero, el monto o los billetes, con un aviso si no coinciden"
+      en: "to fill each compartment, the amount or the bills, with a warning when they disagree"
+  live: { src: arqueo-de-caja.jpg, kind: scroll }
+  status: active
+  listed: true
+  case_study: false
+  repo_visibility: private
+  tech:
+    - Google Apps Script
+    - JavaScript
+    - Google Drive API
+    - HTML
+    - CSS
 
 - id: order-outbox-service
   group: service

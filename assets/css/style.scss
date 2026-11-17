@@ -2169,6 +2169,42 @@ a { text-underline-offset: 3px; }
 
 .stackline { margin: 0 0 16px; color: var(--fg-faint); font-size: 0.88rem; font-variation-settings: "wdth" 90; }
 .used-by { margin: -8px 0 16px; color: var(--fg-muted); font-size: 0.88rem; }
+
+/* Domain tags on a card: small links to the page that gathers each tag. */
+.pcard-tags
+{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: -2px 0 10px;
+}
+
+a.tag
+{
+    text-decoration: none;
+}
+
+a.tag:hover
+{
+    color: var(--accent);
+    border-color: var(--copper);
+}
+
+/* The small line over the title of a tag page. */
+.hero-kicker
+{
+    margin: 0 0 6px;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--copper);
+}
+
+.tag-back
+{
+    margin-top: 2.4rem;
+}
 .used-by a { color: var(--accent); }
 
 .pcard-links { font-size: 0.92rem; }

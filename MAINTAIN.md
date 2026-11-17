@@ -91,6 +91,24 @@ por última vez, las estrellas, si está archivado—, que es lo que se refresca
    renombralos con el `id` nuevo y ajustá el `permalink`.
 3. Commit y push. GitHub Pages buildea solo.
 
+## Apps de propósito único
+
+Una app que hace una sola cosa, para una tarea puntual, lleva `group: single-purpose` en
+`_data/projects.yml`. Sale en `/projects/`, en la sección "Apps de propósito único", debajo
+de las aplicaciones completas, y no en el inicio. El resto de los campos es igual que en
+cualquier proyecto.
+
+## Etiquetas de rubro
+
+`tags` en un proyecto es una lista de ids de `_data/tags.yml`: el rubro para el que es, por
+ejemplo `gastronomia`. La tarjeta muestra cada etiqueta y la linkea a su página,
+`/<lang>/tags/<id>/`, que junta todos los proyectos que la llevan, sean aplicaciones,
+servicios o apps de propósito único.
+
+Una etiqueta nueva es una entrada en `_data/tags.yml` (nombre y una línea por idioma) y dos
+páginas: copiar `es/tags/gastronomia.md` y `en/tags/gastronomia.md` y cambiar `tag`,
+`permalink`, `title` y `description`.
+
 ## Agregar una herramienta
 
 Entrada nueva en `_data/tools.yml`. Arranca en `visibility: private` (no aparece); cuando

@@ -1,0 +1,16 @@
+# Etiquetas de rubro: para que tipo de negocio es cada proyecto.
+#
+# Campos:
+#   <id>           -> slug estable, sin tildes. Es el que va en `tags` de projects.yml y en
+#                     la URL de su pagina: /es/tags/<id>/ y /en/tags/<id>/.
+#   name.{es,en}   -> el nombre que muestra la etiqueta.
+#   lead.{es,en}   -> una linea que encabeza su pagina.
+#
+# Una etiqueta nueva es una entrada aca y dos paginas: copiar es/tags/gastronomia.md y
+# en/tags/gastronomia.md, y cambiar `tag`, `permalink`, `title` y `description`.
+
+gastronomia:
+  name: { es: Gastronomía, en: Food service }
+  lead:
+    es: "Apps y servicios para restaurantes, dark kitchens y locales de comida."
+    en: "Apps and services for restaurants, dark kitchens and food businesses."

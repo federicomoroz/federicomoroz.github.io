@@ -77,6 +77,11 @@ es:
     archived: "archivado"
     capabilities_heading: "Sobre estas aplicaciones"
     capabilities_note: "Parte del trabajo es privado o está bajo NDA. En vez del repo, en esos casos queda un write-up técnico autocontenido: la decisión de diseño y el resultado, sin exponer código de clientes."
+    single_purpose_heading: "Apps de propósito único"
+    single_purpose_lead: "Apps que hacen una sola cosa, para una tarea puntual de quien las usa."
+  tags:
+    label: "Etiqueta"
+    back: "← Volver a aplicaciones"
   services:
     heading: Servicios
     lead: "Piezas que trabajan para otros sistemas y no para un usuario final: distribuir el catálogo de un mayorista a sus revendedores, hacer de ARCA para facturar en desarrollo, atender reclamos de soporte contra un ERP, cotizar envíos, publicar eventos sin perder ninguno, avisar por varios canales, encolar tareas, limitar el uso de una API. Cada una corre sola, con su API."
@@ -191,6 +196,11 @@ en:
     archived: "archived"
     capabilities_heading: "About these applications"
     capabilities_note: "Some of the work is private or under NDA. In those cases what's public is a self-contained technical write-up: the design decision and the outcome, without exposing client code."
+    single_purpose_heading: "Single-purpose apps"
+    single_purpose_lead: "Apps that do one thing, for one specific task of the people who use them."
+  tags:
+    label: "Tag"
+    back: "← Back to applications"
   services:
     heading: Services
     lead: "Pieces that work for other systems rather than for an end user: distributing a wholesaler's catalogue to its resellers, standing in for ARCA to invoice in development, handling support claims against an ERP, quoting shipments, publishing events without losing any, alerting across channels, queuing tasks, rate-limiting an API. Each one runs on its own, with its own API."
