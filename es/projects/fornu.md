@@ -164,11 +164,11 @@ Las pantallas se acomodan de un celular a una PC, en tema claro u oscuro según 
 
 <div class="split flip">
   <figure class="shot">
-    <img src="{{ '/assets/img/fornu/fornu-plano.jpg' | relative_url }}" alt="El salón dibujado en vista isométrica, con paredes de ladrillo, tres mesas con sus sillas y la barra" loading="lazy" width="1440" height="710">
+    <img src="{{ '/assets/img/fornu/fornu-plano.jpg' | relative_url }}" alt="El salón dibujado en 3D, con paredes de ladrillo, tres mesas con sus sillas y la barra" loading="lazy" width="1440" height="710">
   </figure>
   <div>
     <h3>El plano del local</h3>
-    <p>Con el constructor, el salón se dibuja como es: paredes, pisos, puertas, ventanas, la barra y las mesas con sus sillas, arrastrando del catálogo. Se ve desde arriba o en isométrica, y los mozos atienden sobre ese mismo plano.</p>
+    <p>Con el constructor, el salón se dibuja como es: paredes, pisos, puertas, ventanas, la barra y las mesas con sus sillas, arrastrando del catálogo. Se ve en 2D o en 3D, y los mozos atienden sobre ese mismo plano.</p>
   </div>
 </div>
 

@@ -131,17 +131,18 @@ In **Lista**, each section has its heading and its tables as tiles. A free table
 
 In **Plano**, each section is drawn the way it is laid out in the place, with every table painted in its state's color, with its number and its minutes. With more than one section there is a tab per section with its count of open tables. Tables not yet placed on the plan appear underneath, under «Sin ubicar en el plano:» (not placed on the plan), and work the same when tapped.
 
-The first time, the room opens in Plano if any table is already placed, and in Lista otherwise. With the Constructor de espacios (space builder) the plan can also show walls, textures and an isometric view (see [Spaces]({{ '/en/projects/fornu/manual/espacios/' | relative_url }}#en-el-salon)).
+The first time, the room opens in Plano if any table is already placed, and in Lista otherwise. Without the builder, the plan is the **Base** view: the shape of the room and its tables, each one rectangular or round as it is, with its number. With the Constructor de espacios (space builder) it can also be seen in **2D** and in **3D**, with walls, objects and textures (see [Spaces]({{ '/en/projects/fornu/manual/espacios/' | relative_url }}#en-el-salon)).
 
 <figure class="shot">
-  <img src="{{ '/assets/img/fornu/manual/salon-plano.jpg' | relative_url }}" alt="The room in Plano view: tabs Salón with 2 open tables and Vereda with 0, and the plan with nine tables. Table 2 is painted blue and table 3 amber, both at 0 min." loading="lazy" width="1440" height="630">
+  <img src="{{ '/assets/img/fornu/manual/salon-plano.jpg' | relative_url }}" alt="The room in the Plano and Base views: tabs Salón with 14 open tables and Salón de eventos with 7, and the sketch of the place with its walls and the tables as rectangles and circles, each with its number and the colour of its state." loading="lazy" width="1364" height="600">
   <ol class="marks">
-    <li><b>Plano</b>: the room as drawn.</li>
-    <li>One section per tab, with how many tables it has open.</li>
-    <li>Table 2, in blue: busy.</li>
-    <li>Table 3, in amber: something loaded has not been sent to the kitchen.</li>
+    <li><b>Plano</b> or <b>Lista</b> (plan or list).</li>
+    <li>One sector per tab, with how many tables it has open.</li>
+    <li><b>Base</b>: the sketch, with the shape of the room and its tables.</li>
+    <li>Table 9, in blue: busy.</li>
+    <li>Table 6, in amber: something loaded and not sent to the kitchen.</li>
   </ol>
-  <figcaption>The same room, as a plan.</figcaption>
+  <figcaption>The same room, on the plan.</figcaption>
 </figure>
 
 ### What each color means
@@ -165,7 +166,7 @@ A table shows one state only: when several apply, the one highest in this table,
 3. Under **¿Cuántos se sientan?** (how many are sitting down?), tap the number. The button matching the table's chairs is highlighted.
 {: .steps}
 
-That one tap opens the table in your name and opens its bill alongside, ready to load. The box closes if you tap outside it or press <kbd>Esc</kbd>.
+That one tap opens the table in your name and opens its menu next to the plan (on a phone, it rises from the bottom), ready to load: the order is taken without leaving the room. The box closes if you tap outside it or press <kbd>Esc</kbd>.
 
 <figure class="shot">
   <img src="{{ '/assets/img/fornu/manual/salon-sentar.jpg' | relative_url }}" alt="The box that opens on tapping free table 1: Mesa 1 · 4 sillas, the question ¿Cuántos se sientan?, buttons 1 to 8 with 4 highlighted, and the Más opciones link." loading="lazy" width="740" height="370">
@@ -188,6 +189,30 @@ That one tap opens the table in your name and opens its bill alongside, ready to
 </figure>
 
 If two people seat the same table at once, the second one gets «La mesa 4 ya está ocupada.» (table 4 is already taken) and the floor updates.
+
+### Taking the order on the plan {#en-el-plano}
+
+The table you just seated, or the one you tap, shows up next to the plan: on the right on a computer, floating over the plan on a tablet, and rising from the bottom on a phone. It has two faces, **Carta** (menu) and **Cuenta** (bill).
+
+1. In **Carta**, tap what the table orders. Each tap loads a line, and a product with options opens its dialog.
+2. What is loaded gathers below, under **Sin mandar** (not sent), with − and + to change how many. On the plan, the table turns amber: «sin mandar».
+3. Tap **Mandar** (send), or <kbd>Ctrl</kbd> <kbd>Enter</kbd>. The round goes to the kitchen, the table turns blue and its panel shows the **Cuenta**.
+{: .steps}
+
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/salon-carta.jpg' | relative_url }}" alt="Pedidos › Venta in 3D: the sample dining room with table 11 just seated, painted amber, and on the right table 11 on Carta, with the search, the Burgers and Para acompañar products, the Sin mandar block with Papas fritas and Gaseosa en lata, and the Mandar 2 button." loading="lazy" width="1364" height="740">
+  <ol class="marks">
+    <li>Table 11 on the plan: «sin mandar».</li>
+    <li><b>Carta</b> and <b>Cuenta</b>.</li>
+    <li>The menu: search, categories and products.</li>
+    <li><b>Sin mandar</b>: what is loaded, with − and +.</li>
+    <li><b>Mandar 2</b>: the round to the kitchen.</li>
+    <li>The arrow: the whole table.</li>
+  </ol>
+  <figcaption>Table 11's order, taken next to the plan.</figcaption>
+</figure>
+
+Another tap on the same table, or the arrow in its panel, opens it whole: the table's full screen, to move, join, discount or void.
 
 ### Going to a table by number
 
@@ -212,7 +237,7 @@ It opens the table whether it is free or busy. It first looks for a table named 
 
 ## The open table {#mesa}
 
-Tapping a busy table opens its bill. On a computer it appears next to the floor, so you never lose sight of the room. On a smaller screen it takes the whole space, with an arrow at the top to go back. This is where you load what the table orders, send it to the kitchen in rounds, and mark or take the bill.
+The whole table opens with a second tap on the table, or with the arrow in its panel. On a computer it appears next to the floor, so you never lose sight of the room. On a smaller screen it takes the whole space, with an arrow at the top to go back. This is where you load what the table orders, send it to the kitchen in rounds, and mark or take the bill.
 
 <p class="perm"><span>Who can:</span> <span class="tag">Atender mesas</span></p>
 
@@ -389,15 +414,17 @@ If anything else is loaded afterwards, the table no longer counts as having aske
 
 ### On a phone
 
-On a phone the bill takes the whole screen, and the arrow at the top goes back to the floor. **Carta** and **Cuenta** are two tabs. While you are on the menu with something loaded, a bar appears at the bottom with «2 sin mandar · $ 25.700» (tap it to see the bill) and a **Mandar** (send) button, so you can send without switching tabs.
+On a phone the table rises from the bottom, over the plan, which stays on top with the table in sight. **Carta** and **Cuenta** are two tabs. What is loaded shows below, under **Sin mandar**, with − and +, and **Mandar** (send) sends it without switching tabs. The table's arrow opens it whole, on the full screen.
 
 <figure class="shot phone">
-  <img src="{{ '/assets/img/fornu/manual/salon-telefono-sin-mandar.jpg' | relative_url }}" alt="Table 9 on a waitress's phone, on the Carta tab, with the bottom bar reading 2 sin mandar · $ 6.500 and the Mandar button" loading="lazy" width="390" height="844">
+  <img src="{{ '/assets/img/fornu/manual/salon-telefono-sin-mandar.jpg' | relative_url }}" alt="A waitress's phone on Venta: at the top the plan in 2D with table 12 marked, and rising from the bottom table 12 on the Carta tab, with Sin mandar · $ 6.500 (Papas fritas and Gaseosa en lata) and the Mandar 2 button." loading="lazy" width="390" height="844">
   <ol class="marks">
-    <li>What is left to send: tap it to see the bill.</li>
-    <li><b>Mandar</b> (send), without leaving the menu.</li>
+    <li>Table 12, on the plan above.</li>
+    <li><b>Carta</b> and <b>Cuenta</b>.</li>
+    <li><b>Sin mandar</b>, with − and +.</li>
+    <li><b>Mandar</b>.</li>
   </ol>
-  <figcaption>The bar for what is left to send, on a phone.</figcaption>
+  <figcaption>The table rises from the bottom and the plan stays on top.</figcaption>
 </figure>
 
 ## On a line or on the whole table {#acciones}

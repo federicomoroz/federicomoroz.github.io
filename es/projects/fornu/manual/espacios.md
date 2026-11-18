@@ -2,13 +2,13 @@
 layout: manual
 manual: espacios
 title: "Espacios: el plano del local · Manual de Fornu"
-description: "El Constructor de espacios: cómo se dibuja el salón con paredes, pisos, aberturas y objetos, cómo se ve en Basic, Cenital e Isométrica, los lugares, objetos y texturas propios, calcar, imprimir y exportar, y cómo lo usan los mozos."
+description: "El Constructor de espacios: cómo se dibuja el salón con paredes, pisos, aberturas y objetos, cómo se ve en Base, 2D y 3D, los lugares, objetos y texturas propios, calcar, imprimir y exportar, y cómo lo usan los mozos."
 permalink: /es/projects/fornu/manual/espacios/
 ---
 
 ## Para qué sirve {#para-que}
 
-Con el Salón, cada sector tiene un plano donde se acomodan las mesas. El Constructor de espacios convierte ese croquis en el local de verdad: paredes, pisos, puertas y ventanas, columnas, barras, plantas, sombrillas y lo que haga falta, con sus materiales, visto desde arriba o en isométrica. Se arma como un juego de construcción, y los mozos después atienden sobre ese mismo plano.
+Con el Salón, cada sector tiene un plano donde se acomodan las mesas. El Constructor de espacios convierte ese croquis en el local de verdad: paredes, pisos, puertas y ventanas, columnas, barras, plantas, sombrillas y lo que haga falta, con sus materiales, visto desde arriba o en 3D. Se arma como un juego de construcción, y los mozos después atienden sobre ese mismo plano.
 
 El Constructor de espacios es un módulo que se suma al Salón. Si tu cuenta no lo tiene, el plano de cada sector funciona como se explica en [Sectores y mesas]({{ '/es/projects/fornu/manual/salon/' | relative_url }}#armar), y la barra no muestra el grupo **Espacios**.
 
@@ -30,7 +30,7 @@ El mismo editor cambia según lo que tenga la cuenta:
 | Un sector nuevo empieza como | un piso de 10 × 8 m | una grilla vacía de 20 × 15 m: nada viene hecho |
 | Herramientas | **Elegir y mover**, deshacer, rehacer y **Grilla** | todas: habitaciones, paredes, piso, pintura, cuentagotas y mazo |
 | Catálogo | las mesas sin ubicar y los modelos de mesa | también puertas, ventanas, asientos, estructura, servicio, deco, exterior, eventos y objetos propios |
-| Vistas | **Basic**, un croquis desde arriba | **Basic**, **Cenital** e **Isométrica**, con texturas |
+| Vistas | **Base**, un croquis desde arriba | **Base**, **2D** y **3D**, con texturas |
 | Medidas | el ancho y el fondo del sector | además los m² de cada habitación y el largo de cada pared |
 | Extras | | **Lugares**, **Calcar un plano**, **Imagen**, **Imprimir** y **Vaciar el plano** |
 
@@ -47,7 +47,7 @@ Con el Salón solo, tocar algo que no es una mesa avisa «Acá solo se acomodan 
   <figcaption>Con el Salón solo, el plano es un croquis para acomodar mesas.</figcaption>
 </figure>
 
-Si un día la cuenta deja de tener el constructor, los planos conservan sus paredes y sus pisos, pero solo se pueden acomodar mesas y la vista vuelve a Basic.
+Si un día la cuenta deja de tener el constructor, los planos conservan sus paredes y sus pisos, pero solo se pueden acomodar mesas y la vista vuelve a Base.
 
 ## El editor {#editor}
 
@@ -56,16 +56,15 @@ Se abre en Salón › Sectores y mesas, debajo de las pestañas de los sectores,
 <p class="perm"><span>Quién puede:</span> <span class="tag">Armar el salón</span></p>
 
 <figure class="shot">
-  <img src="{{ '/assets/img/fornu/manual/espacios-editor.jpg' | relative_url }}" alt="El editor con el constructor: arriba las herramientas Elegir y mover, Habitación, Pared, Piso, Pintura, Cuentagotas y Mazo, deshacer, rehacer y Grilla. Debajo Lugares, Calcar un plano, Imagen e Imprimir. En el plano la vista Basic, una habitación en L de 18,1 m², otra cerrada de 74,4 m² con una puerta elegida en su pared y una mesa nueva. A la derecha el catálogo con Puertas y ventanas y Mesas." loading="lazy" width="1340" height="790">
+  <img src="{{ '/assets/img/fornu/manual/espacios-editor.jpg' | relative_url }}" alt="El editor con el constructor: arriba las herramientas Elegir y mover, Habitación, Pared, Piso, Pintura, Cuentagotas y Mazo, deshacer, rehacer y Grilla. Debajo Lugares, Plantillas, Calcar un plano, Imagen e Imprimir. En el plano, el salón de ejemplo en vista 2D con sus texturas, y a la derecha el catálogo con Puertas y ventanas y Mesas." loading="lazy" width="1350" height="800">
   <ol class="marks">
     <li>Las herramientas: <b>Elegir y mover</b>, <b>Habitación</b>, <b>Pared</b>, <b>Piso</b>, <b>Pintura</b>, <b>Cuentagotas</b> y <b>Mazo</b>.</li>
     <li>Deshacer, rehacer y <b>Grilla</b> (cada celda mide 25 cm).</li>
-    <li><b>Lugares</b>, <b>Calcar un plano</b>, <b>Imagen</b> e <b>Imprimir</b>.</li>
-    <li>La vista: <b>Basic</b>, <b>Cenital</b> o <b>Isométrica</b>.</li>
-    <li>Una puerta elegida, con su barra: dar vuelta hacia dónde abre, y sacarla.</li>
+    <li><b>Lugares</b>, <b>Plantillas</b>, <b>Calcar un plano</b>, <b>Imagen</b> e <b>Imprimir</b>.</li>
+    <li>La vista: <b>Base</b>, <b>2D</b> o <b>3D</b>.</li>
     <li><b>Agregar</b> (el catálogo) y <b>Editar</b> (lo elegido).</li>
   </ol>
-  <figcaption>El editor completo, con dos habitaciones y una puerta.</figcaption>
+  <figcaption>El editor completo, con el salón de ejemplo en 2D.</figcaption>
 </figure>
 
 En una esquina del plano están **Acercar**, **Alejar** y **Ver todo**. Debajo, una línea muestra el nombre de la herramienta o lo que pasa mientras dibujás: un largo («3,50 m»), una superficie («12,5 m²») o por qué algo no entra. A la derecha, **Agregar** muestra el catálogo y **Editar** lo que elegiste: al elegir algo a mano pasa a Editar, y al ubicar algo del catálogo se queda en Agregar para seguir. Abajo, el tamaño del plano («20,00 m × 15,00 m»), **Descartar** y **Guardar el plano**, que avisa «Plano guardado.».
@@ -74,22 +73,22 @@ En una esquina del plano están **Acercar**, **Alejar** y **Ver todo**. Debajo, 
 
 | Vista | Cómo se ve |
 |---|---|
-| **Basic** | Un croquis plano, desde arriba. Es la única vista con el Salón solo. |
-| **Cenital** | Desde arriba, con los materiales y las texturas. |
-| **Isométrica** | En tres dimensiones, en diagonal. |
+| **Base** | El croquis: la forma del salón y las mesas. En el salón en vivo no muestra nada más: cada mesa es un rectángulo o un círculo, como es, con su número. Es la única vista con el Salón solo. |
+| **2D** | Desde arriba, con los materiales y las texturas. |
+| **3D** | Desde una esquina, en tres dimensiones. |
 
-Fuera de Basic aparece **Texturas**, para ver los materiales con su dibujo o en colores lisos. La isométrica suma cómo se ven las paredes, **Paredes altas**, **Paredes recortadas** (la de entrada) o **Paredes bajas**, y los botones ↺ ↻ que giran la vista de a un cuarto de vuelta. La elección queda guardada en ese equipo y vale para todos los planos, también para el salón en vivo.
+Fuera de Base aparece **Texturas**, para ver los materiales con su dibujo o en colores lisos. La vista 3D suma cómo se ven las paredes, **Paredes altas**, **Paredes recortadas** (la de entrada) o **Paredes bajas**, y los botones ↺ ↻ que giran la vista de a un cuarto de vuelta. La elección queda guardada en ese equipo y vale para todos los planos, también para el salón en vivo.
 
 <figure class="shot">
-  <img src="{{ '/assets/img/fornu/manual/espacios-vistas.jpg' | relative_url }}" alt="Un salón en vista Isométrica, con Texturas tildado y Paredes recortadas: paredes de ladrillo, piso claro, tres mesas de cuatro con sus sillas, una barra oscura y el cartel 193,8 m² en el piso." loading="lazy" width="1040" height="680">
+  <img src="{{ '/assets/img/fornu/manual/espacios-vistas.jpg' | relative_url }}" alt="El salón de ejemplo en vista 3D, con Texturas tildado y Paredes recortadas: paredes de ladrillo, piso de madera, las mesas con sus sillas, la barra, la cocina y la terraza, y el cartel 148,6 m² en el piso." loading="lazy" width="1060" height="610">
   <ol class="marks">
-    <li><b>Basic</b>, <b>Cenital</b> o <b>Isométrica</b>.</li>
+    <li><b>Base</b>, <b>2D</b> o <b>3D</b>.</li>
     <li><b>Texturas</b>: los materiales con su dibujo.</li>
     <li>Cómo se ven las paredes: altas, recortadas o bajas.</li>
     <li>↺ ↻: girar la vista.</li>
     <li>La superficie de la habitación.</li>
   </ol>
-  <figcaption>El salón de la demo en isométrica.</figcaption>
+  <figcaption>El salón de ejemplo en 3D.</figcaption>
 </figure>
 
 ### Las herramientas {#herramientas}
@@ -178,7 +177,7 @@ Para ubicar algo:
 Una mesa traída del grupo Mesas es una mesa nueva del salón: dice «Nueva» hasta que guardás, y entonces toma el número que sigue y las sillas que le pusiste (4 si no cambiaste nada).
 
 <figure class="shot">
-  <img src="{{ '/assets/img/fornu/manual/espacios-catalogo.jpg' | relative_url }}" alt="El editor en isométrica con un objeto propio, un barril, elegido en el plano con su barra encima. A la derecha el catálogo en los grupos Exterior, Eventos (Escenario, Pista de baile, Cabina de DJ, Mesa de buffet, Mesa dulce, Living) y Propios, con el Barril." loading="lazy" width="1340" height="790">
+  <img src="{{ '/assets/img/fornu/manual/espacios-catalogo.jpg' | relative_url }}" alt="El editor en 3D con un objeto propio, un barril, elegido en el plano con su barra encima. A la derecha el catálogo en los grupos Exterior, Eventos (Escenario, Pista de baile, Cabina de DJ, Mesa de buffet, Mesa dulce, Living) y Propios, con el Barril." loading="lazy" width="1340" height="790">
   <ol class="marks">
     <li><b>Agregar</b> y <b>Editar</b>.</li>
     <li>Un grupo del catálogo: <b>Eventos</b>.</li>
@@ -290,11 +289,11 @@ El calco queda solo en esta pantalla: no se guarda con el plano.
 - **Imagen** descarga el plano como una imagen PNG de 2400 × 1600, tal como lo estás viendo: la misma vista, las texturas y los nombres. Fornu avisa «Imagen descargada.». Sirve para mandarlo por mensaje o pegarlo en una presentación.
 - **Imprimir** imprime el plano solo, en una hoja apaisada.
 
-La imagen sale con la vista que estás usando: una isométrica con texturas para mostrar el lugar, Basic para una hoja clara con los números de mesa.
+La imagen sale con la vista que estás usando: una vista 3D con texturas para mostrar el lugar, Base para una hoja clara con los números de mesa.
 
 <figure class="shot">
-  <img src="{{ '/assets/img/fornu/manual/espacios-imagen.jpg' | relative_url }}" alt="La imagen que descarga Imagen: el salón en isométrica con seis mesas de cuatro sobre el piso" loading="lazy" width="1200" height="800">
-  <figcaption>Lo que baja <b>Imagen</b>, en isométrica (achicada).</figcaption>
+  <img src="{{ '/assets/img/fornu/manual/espacios-imagen.jpg' | relative_url }}" alt="La imagen que descarga Imagen: el salón en 3D con seis mesas de cuatro sobre el piso" loading="lazy" width="1200" height="800">
+  <figcaption>Lo que baja <b>Imagen</b>, en 3D (achicada).</figcaption>
 </figure>
 
 <figure class="shot">
@@ -341,7 +340,7 @@ Si el catálogo no tiene algo que tu local sí, armalo con piezas simples: un ba
     <li><b>Empezar de</b>: una forma de base.</li>
     <li><b>Materiales</b>: hasta tres, con su color y su nombre.</li>
     <li><b>Piezas</b>: cada pieza con su forma, material, posición y medidas.</li>
-    <li><b>Cómo se ve</b>: la vista previa, en isométrica.</li>
+    <li><b>Cómo se ve</b>: la vista previa, en 3D.</li>
     <li><b>Guardar el objeto</b>.</li>
   </ol>
   <figcaption>Un barril armado con un cilindro.</figcaption>
@@ -408,17 +407,17 @@ Además de las propias, el constructor trae estos materiales:
 
 ## Cómo lo ven los mozos {#en-el-salon}
 
-El plano que armaste es el que ven los mozos en [Salón › Mesas]({{ '/es/projects/fornu/manual/salon/' | relative_url }}#mesas) con la vista **Plano**: las mismas paredes y objetos, con cada mesa pintada del color de su estado. Cada equipo elige su vista (Basic, Cenital o Isométrica) y la recuerda.
+El plano que armaste es el que ven los mozos en [Salón › Mesas]({{ '/es/projects/fornu/manual/salon/' | relative_url }}#mesas) con la vista **Plano**: las mismas paredes y objetos, con cada mesa pintada del color de su estado. Cada equipo elige su vista (Base, 2D o 3D) y la recuerda. En Base, el salón en vivo muestra solo la forma del local y las mesas.
 
 <figure class="shot">
-  <img src="{{ '/assets/img/fornu/manual/espacios-mesas.jpg' | relative_url }}" alt="Salón › Mesas en vista Plano e Isométrica con texturas: el salón de ladrillo con tres mesas y una barra, la mesa 1 marcada en azul con 0 min, y a la derecha la cuenta de la mesa 1 abierta." loading="lazy" width="1440" height="710">
+  <img src="{{ '/assets/img/fornu/manual/espacios-mesas.jpg' | relative_url }}" alt="Salón › Mesas en vista Plano y 3D con texturas: el salón de ejemplo con sus mesas en colores, la mesa 9 elegida, y a la derecha su cuenta con la ronda servida y el botón Cobrar." loading="lazy" width="1364" height="620">
   <ol class="marks">
     <li>La vista, elegida en este equipo.</li>
     <li><b>Texturas</b>, las paredes y el giro, como en el editor.</li>
-    <li>La mesa 1, ocupada, en azul. Un toque abre su cuenta.</li>
-    <li>La cuenta de la mesa, al lado.</li>
+    <li>La mesa 9, ocupada. Un toque la elige y otro la abre entera.</li>
+    <li>La mesa elegida, al lado: sus rondas, <b>Precuenta</b>, <b>Cargar más</b> y <b>Cobrar</b>.</li>
   </ol>
-  <figcaption>Atender sobre el plano en isométrica.</figcaption>
+  <figcaption>Atender sobre el plano en 3D.</figcaption>
 </figure>
 
-En el salón en vivo el plano solo se mira y se toca: un toque en una mesa la abre (o la sienta, si está libre), y arrastrar con un dedo mueve el plano. Con el teclado, <kbd>Tab</kbd> pasa de mesa en mesa y <kbd>Enter</kbd> o la barra espaciadora la abre. Para cambiar algo del plano, se vuelve al [editor](#editor).
+En el salón en vivo el plano solo se mira y se toca: un toque en una mesa la elige y la muestra al lado (o la sienta, si está libre), y otro la abre entera, y arrastrar con un dedo mueve el plano. Con el teclado, <kbd>Tab</kbd> pasa de mesa en mesa y <kbd>Enter</kbd> o la barra espaciadora la abre. Para cambiar algo del plano, se vuelve al [editor](#editor).

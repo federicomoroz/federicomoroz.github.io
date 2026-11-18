@@ -2,13 +2,13 @@
 layout: manual
 manual: espacios
 title: "Spaces: the floor plan · Fornu manual"
-description: "The space builder: drawing the dining room with walls, floors, openings and objects, the Basic, Cenital and Isométrica views, your own places, objects and textures, tracing, printing and exporting, and how waiters use the plan."
+description: "The space builder: drawing the dining room with walls, floors, openings and objects, the Base, 2D and 3D views, your own places, objects and textures, tracing, printing and exporting, and how waiters use the plan."
 permalink: /en/projects/fornu/manual/espacios/
 ---
 
 ## What it is for {#para-que}
 
-With Salón (the dining room module), each section has a plan where you arrange the tables. The Constructor de espacios (space builder) turns that sketch into the real place: walls, floors, doors and windows, columns, a bar, plants, umbrellas and whatever else is there, with their materials, seen from above or in an isometric view. You put it together like a building game, and the waiters then serve on that same plan.
+With Salón (the dining room module), each section has a plan where you arrange the tables. The Constructor de espacios (space builder) turns that sketch into the real place: walls, floors, doors and windows, columns, a bar, plants, umbrellas and whatever else is there, with their materials, seen in 2D from above or in 3D. You put it together like a building game, and the waiters then serve on that same plan.
 
 The Constructor de espacios is a module that adds to Salón. If your account does not have it, each section's plan works as described in [Sections and tables]({{ '/en/projects/fornu/manual/salon/' | relative_url }}#armar), and the bar does not show the **Espacios** (spaces) group.
 
@@ -30,7 +30,7 @@ The same editor changes with what the account has:
 | A new section starts as | a 10 × 8 m floor | an empty 20 × 15 m grid: nothing comes ready-made |
 | Tools | **Elegir y mover** (select and move), undo, redo and **Grilla** (grid) | all of them: rooms, walls, floor, paint, eyedropper and sledgehammer |
 | Catalog | unplaced tables and the table models | also doors, windows, seating, structure, service, decor, outdoor, events and your own objects |
-| Views | **Basic**, a top-down sketch | **Basic**, **Cenital** (overhead) and **Isométrica** (isometric), with textures |
+| Views | **Base**, a top-down sketch | **Base**, **2D** and **3D**, with textures |
 | Measurements | the section's width and depth | also each room's area in m² and each wall's length |
 | Extras | | **Lugares**, **Calcar un plano** (trace a plan), **Imagen** (image), **Imprimir** (print) and **Vaciar el plano** (clear the plan) |
 
@@ -47,7 +47,7 @@ With Salón alone, tapping anything that is not a table says «Acá solo se acom
   <figcaption>With Salón alone, the plan is a sketch for arranging tables.</figcaption>
 </figure>
 
-If the account ever stops having the builder, plans keep their walls and floors, but only tables can be arranged and the view goes back to Basic.
+If the account ever stops having the builder, plans keep their walls and floors, but only tables can be arranged and the view goes back to Base.
 
 ## The editor {#editor}
 
@@ -56,16 +56,15 @@ It opens in Salón › Sectores y mesas, below the section tabs, and also in Esp
 <p class="perm"><span>Who can:</span> <span class="tag">Armar el salón</span></p>
 
 <figure class="shot">
-  <img src="{{ '/assets/img/fornu/manual/espacios-editor.jpg' | relative_url }}" alt="The editor with the builder: at the top the tools Elegir y mover, Habitación, Pared, Piso, Pintura, Cuentagotas and Mazo, undo, redo and Grilla. Below, Lugares, Calcar un plano, Imagen and Imprimir. On the plan, the Basic view, an L-shaped room of 18.1 m², a closed room of 74.4 m² with a door selected on its wall, and a new table. On the right, the catalog with Puertas y ventanas and Mesas." loading="lazy" width="1340" height="790">
+  <img src="{{ '/assets/img/fornu/manual/espacios-editor.jpg' | relative_url }}" alt="The editor with the builder: at the top the tools Elegir y mover, Habitación, Pared, Piso, Pintura, Cuentagotas and Mazo, undo, redo and Grilla. Below them Lugares, Plantillas, Calcar un plano, Imagen and Imprimir. On the plan, the sample dining room in the 2D view with its textures, and on the right the catalogue with Puertas y ventanas and Mesas." loading="lazy" width="1350" height="800">
   <ol class="marks">
-    <li>The tools: <b>Elegir y mover</b>, <b>Habitación</b> (room), <b>Pared</b> (wall), <b>Piso</b> (floor), <b>Pintura</b> (paint), <b>Cuentagotas</b> (eyedropper) and <b>Mazo</b> (sledgehammer).</li>
-    <li>Undo, redo and <b>Grilla</b> (each cell is 25 cm).</li>
-    <li><b>Lugares</b>, <b>Calcar un plano</b>, <b>Imagen</b> and <b>Imprimir</b>.</li>
-    <li>The view: <b>Basic</b>, <b>Cenital</b> or <b>Isométrica</b>.</li>
-    <li>A selected door, with its bar: flip which way it opens, and remove it.</li>
-    <li><b>Agregar</b> (add, the catalog) and <b>Editar</b> (edit, the selection).</li>
+    <li>The tools: <b>Elegir y mover</b> (select and move), <b>Habitación</b> (room), <b>Pared</b> (wall), <b>Piso</b> (floor), <b>Pintura</b> (paint), <b>Cuentagotas</b> (eyedropper) and <b>Mazo</b> (sledgehammer).</li>
+    <li>Undo, redo and <b>Grilla</b> (grid; each cell is 25 cm).</li>
+    <li><b>Lugares</b> (places), <b>Plantillas</b> (templates), <b>Calcar un plano</b> (trace a plan), <b>Imagen</b> (image) and <b>Imprimir</b> (print).</li>
+    <li>The view: <b>Base</b>, <b>2D</b> or <b>3D</b>.</li>
+    <li><b>Agregar</b> (the catalogue) and <b>Editar</b> (what is selected).</li>
   </ol>
-  <figcaption>The full editor, with two rooms and a door.</figcaption>
+  <figcaption>The full editor, with the sample dining room in 2D.</figcaption>
 </figure>
 
 In one corner of the plan are **Acercar** (zoom in), **Alejar** (zoom out) and **Ver todo** (fit all). Below it, a line shows the tool's name or what is happening while you draw: a length («3,50 m»), an area («12,5 m²») or why something does not fit. On the right, **Agregar** shows the catalog and **Editar** what you selected: selecting something by hand switches to Editar, and placing something from the catalog stays on Agregar so you can keep going. At the bottom are the plan's size («20,00 m × 15,00 m»), **Descartar** and **Guardar el plano**, which says «Plano guardado.» (plan saved).
@@ -74,22 +73,22 @@ In one corner of the plan are **Acercar** (zoom in), **Alejar** (zoom out) and *
 
 | View | What it looks like |
 |---|---|
-| **Basic** | A flat sketch, from above. The only view with Salón alone. |
-| **Cenital** | From above, with materials and textures. |
-| **Isométrica** | In three dimensions, at an angle. |
+| **Base** | The sketch: the shape of the room and its tables. In the live room it shows nothing else: each table is a rectangle or a circle, as it is, with its number. The only view with Salón alone. |
+| **2D** | From above, with materials and textures. |
+| **3D** | From a corner, in three dimensions. |
 
-Outside Basic, a **Texturas** (textures) checkbox shows materials with their pattern or as plain colors. The isometric view adds how walls are drawn, **Paredes altas** (full walls), **Paredes recortadas** (cut-away walls, the default) or **Paredes bajas** (low walls), and the ↺ ↻ buttons that turn the view a quarter at a time. The choice is saved on that device and applies to every plan, the live dining room included.
+Outside Base, a **Texturas** (textures) checkbox shows materials with their pattern or as plain colors. The 3D view adds how walls are drawn, **Paredes altas** (full walls), **Paredes recortadas** (cut-away walls, the default) or **Paredes bajas** (low walls), and the ↺ ↻ buttons that turn the view a quarter at a time. The choice is saved on that device and applies to every plan, the live dining room included.
 
 <figure class="shot">
-  <img src="{{ '/assets/img/fornu/manual/espacios-vistas.jpg' | relative_url }}" alt="A dining room in the Isométrica view, with Texturas ticked and Paredes recortadas: brick walls, a light floor, three tables for four with their chairs, a dark bar and the label 193,8 m² on the floor." loading="lazy" width="1040" height="680">
+  <img src="{{ '/assets/img/fornu/manual/espacios-vistas.jpg' | relative_url }}" alt="The sample dining room in the 3D view, with Texturas ticked and Paredes recortadas: brick walls, a wooden floor, the tables with their chairs, the bar, the kitchen and the terrace, and the label 148,6 m² on the floor." loading="lazy" width="1060" height="610">
   <ol class="marks">
-    <li><b>Basic</b>, <b>Cenital</b> or <b>Isométrica</b>.</li>
-    <li><b>Texturas</b>: materials with their pattern.</li>
-    <li>How walls are drawn: full, cut away or low.</li>
+    <li><b>Base</b>, <b>2D</b> or <b>3D</b>.</li>
+    <li><b>Texturas</b> (textures): materials with their pattern.</li>
+    <li>How walls are drawn: high, cut away or low.</li>
     <li>↺ ↻: turn the view.</li>
-    <li>The room's area.</li>
+    <li>The area of the room.</li>
   </ol>
-  <figcaption>The demo's dining room in isometric view.</figcaption>
+  <figcaption>The sample dining room in 3D.</figcaption>
 </figure>
 
 ### The tools {#herramientas}
@@ -178,7 +177,7 @@ To place something:
 A table brought from the Mesas group is a new dining room table: it reads «Nueva» (new) until you save, and then takes the next number and the chairs you gave it (4 if you changed nothing).
 
 <figure class="shot">
-  <img src="{{ '/assets/img/fornu/manual/espacios-catalogo.jpg' | relative_url }}" alt="The editor in isometric view with an own object, a barrel, selected on the plan with its bar above it. On the right, the catalog at the Exterior, Eventos (Escenario, Pista de baile, Cabina de DJ, Mesa de buffet, Mesa dulce, Living) and Propios groups, with the Barril." loading="lazy" width="1340" height="790">
+  <img src="{{ '/assets/img/fornu/manual/espacios-catalogo.jpg' | relative_url }}" alt="The editor in 3D with an own object, a barrel, selected on the plan with its bar above it. On the right, the catalog at the Exterior, Eventos (Escenario, Pista de baile, Cabina de DJ, Mesa de buffet, Mesa dulce, Living) and Propios groups, with the Barril." loading="lazy" width="1340" height="790">
   <ol class="marks">
     <li><b>Agregar</b> and <b>Editar</b>.</li>
     <li>A catalog group: <b>Eventos</b>.</li>
@@ -290,11 +289,11 @@ The tracing stays on this screen only: it is not saved with the plan.
 - **Imagen** downloads the plan as a 2400 × 1600 PNG image, exactly as you are seeing it: the same view, textures and names. Fornu says «Imagen descargada.» (image downloaded). Use it to send by message or drop into a presentation.
 - **Imprimir** prints the plan on its own, on a landscape page.
 
-The image comes out in the view you are using: an isometric view with textures to show the place off, Basic for a clean sheet with the table numbers.
+The image comes out in the view you are using: a 3D view with textures to show the place off, Base for a clean sheet with the table numbers.
 
 <figure class="shot">
-  <img src="{{ '/assets/img/fornu/manual/espacios-imagen.jpg' | relative_url }}" alt="The image that Imagen downloads: the dining room in isometric view with six tables for four on the floor" loading="lazy" width="1200" height="800">
-  <figcaption>What <b>Imagen</b> downloads, in isometric view (scaled down).</figcaption>
+  <img src="{{ '/assets/img/fornu/manual/espacios-imagen.jpg' | relative_url }}" alt="The image that Imagen downloads: the dining room in 3D with six tables for four on the floor" loading="lazy" width="1200" height="800">
+  <figcaption>What <b>Imagen</b> downloads, in 3D (scaled down).</figcaption>
 </figure>
 
 <figure class="shot">
@@ -341,7 +340,7 @@ If the catalog lacks something your place has, build it from simple pieces: a ba
     <li><b>Empezar de</b> (start from): a base shape.</li>
     <li><b>Materiales</b> (materials): up to three, each with its color and name.</li>
     <li><b>Piezas</b> (pieces): each piece with its shape, material, position and size.</li>
-    <li><b>Cómo se ve</b> (how it looks): the preview, in isometric view.</li>
+    <li><b>Cómo se ve</b> (how it looks): the preview, in 3D.</li>
     <li><b>Guardar el objeto</b> (save the object).</li>
   </ol>
   <figcaption>A barrel made from one cylinder.</figcaption>
@@ -408,17 +407,17 @@ Besides your own, the builder comes with these materials:
 
 ## How the waiters see it {#en-el-salon}
 
-The plan you built is what the waiters see under [Salón › Mesas]({{ '/en/projects/fornu/manual/salon/' | relative_url }}#mesas) in the **Plano** view: the same walls and objects, with each table painted in its state's color. Each device picks its view (Basic, Cenital or Isométrica) and remembers it.
+The plan you built is what the waiters see under [Salón › Mesas]({{ '/en/projects/fornu/manual/salon/' | relative_url }}#mesas) in the **Plano** view: the same walls and objects, with each table painted in its state's color. Each device picks its view (Base, 2D or 3D) and remembers it. In Base, the live room shows only the shape of the place and its tables.
 
 <figure class="shot">
-  <img src="{{ '/assets/img/fornu/manual/espacios-mesas.jpg' | relative_url }}" alt="Salón › Mesas in the Plano view, isometric with textures: the brick dining room with three tables and a bar, table 1 marked in blue with 0 min, and table 1's open bill on the right." loading="lazy" width="1440" height="710">
+  <img src="{{ '/assets/img/fornu/manual/espacios-mesas.jpg' | relative_url }}" alt="Salón › Mesas in the Plano view and 3D with textures: the sample dining room with its tables in colour, table 9 picked, and on the right its bill with the served round and the Cobrar button." loading="lazy" width="1364" height="620">
   <ol class="marks">
     <li>The view, chosen on this device.</li>
-    <li><b>Texturas</b>, the walls and the rotation, as in the editor.</li>
-    <li>Table 1, busy, in blue. One tap opens its bill.</li>
-    <li>The table's bill, alongside.</li>
+    <li><b>Texturas</b>, the walls and the turn, as in the editor.</li>
+    <li>Table 9, busy. One tap picks it and another opens it whole.</li>
+    <li>The table picked, alongside: its rounds, <b>Precuenta</b>, <b>Cargar más</b> and <b>Cobrar</b>.</li>
   </ol>
-  <figcaption>Serving on the plan in isometric view.</figcaption>
+  <figcaption>Serving on the plan in 3D.</figcaption>
 </figure>
 
-On the live floor the plan is only looked at and tapped: a tap on a table opens it (or seats it, if it is free), and dragging with one finger pans the plan. With the keyboard, <kbd>Tab</kbd> moves from table to table and <kbd>Enter</kbd> or the space bar opens it. To change anything on the plan, go back to the [editor](#editor).
+On the live floor the plan is only looked at and tapped: a tap on a table picks it and shows it alongside (or seats it, if it is free), and another opens it whole, and dragging with one finger pans the plan. With the keyboard, <kbd>Tab</kbd> moves from table to table and <kbd>Enter</kbd> or the space bar opens it. To change anything on the plan, go back to the [editor](#editor).

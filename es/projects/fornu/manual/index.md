@@ -43,7 +43,7 @@ Toda cuenta tiene lo básico: el tablero de pedidos y el delivery propio, la car
 | Módulo | Qué suma |
 |---|---|
 | **Salón** | Mesas y sectores, mozos con PIN, rondas a la cocina por tiempos, cobro en partes con propina, mostrador y mostrador express. |
-| **Constructor de espacios** | El plano del local con paredes, pisos, puertas, ventanas y objetos, en vista cenital o isométrica. |
+| **Constructor de espacios** | El plano del local con paredes, pisos, puertas, ventanas y objetos, en 2D o en 3D. |
 | **Delivery por plataformas** | Rappi y PedidosYa en el mismo tablero, la carta publicada en cada tienda y lo agotado que se apaga solo. |
 | **Facturación electrónica** | Facturas A, B y C con CAE de ARCA, solas o a mano, sus notas de crédito y el listado para el contador. |
 | **Personal** | Presentismo, fichaje con PIN, horarios, liquidación de sueldos y adelantos. |

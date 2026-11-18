@@ -164,11 +164,11 @@ The screens fit anything from a phone to a desktop, in a light or dark theme to 
 
 <div class="split flip">
   <figure class="shot">
-    <img src="{{ '/assets/img/fornu/fornu-plano.jpg' | relative_url }}" alt="The dining room drawn in isometric view, with brick walls, three tables with their chairs and the bar" loading="lazy" width="1440" height="710">
+    <img src="{{ '/assets/img/fornu/fornu-plano.jpg' | relative_url }}" alt="The dining room drawn in 3D, with brick walls, three tables with their chairs and the bar" loading="lazy" width="1440" height="710">
   </figure>
   <div>
     <h3>The floor plan</h3>
-    <p>With the builder, the dining room is drawn as it is: walls, floors, doors, windows, the bar and the tables with their chairs, dragged from a catalogue. It is seen from above or in isometric view, and the waiters serve on that same plan.</p>
+    <p>With the builder, the dining room is drawn as it is: walls, floors, doors, windows, the bar and the tables with their chairs, dragged from a catalogue. It is seen in 2D or in 3D, and the waiters serve on that same plan.</p>
   </div>
 </div>
 

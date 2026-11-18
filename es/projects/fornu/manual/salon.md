@@ -131,15 +131,16 @@ En **Lista**, cada sector tiene su título y sus mesas en baldosas. Una mesa lib
 
 En **Plano**, cada sector se ve como está armado en el local, con las mesas pintadas del color de su estado, su número y sus minutos. Si hay más de un sector, arriba hay una pestaña por sector con la cantidad de mesas abiertas. Las mesas que todavía no se ubicaron en el plano aparecen abajo, en «Sin ubicar en el plano:», y se tocan igual.
 
-La primera vez, el salón abre en Plano si alguna mesa ya está ubicada, y si no en Lista. Con el Constructor de espacios el plano además se puede ver con paredes, texturas y en isométrica (ver [Espacios]({{ '/es/projects/fornu/manual/espacios/' | relative_url }}#en-el-salon)).
+La primera vez, el salón abre en Plano si alguna mesa ya está ubicada, y si no en Lista. Sin el constructor, el plano es la vista **Base**: la forma del salón y las mesas, cada una rectangular o redonda como es, con su número. Con el Constructor de espacios se ve además en **2D** y en **3D**, con paredes, objetos y texturas (ver [Espacios]({{ '/es/projects/fornu/manual/espacios/' | relative_url }}#en-el-salon)).
 
 <figure class="shot">
-  <img src="{{ '/assets/img/fornu/manual/salon-plano.jpg' | relative_url }}" alt="El salón en vista Plano: pestañas Salón con 2 mesas abiertas y Vereda con 0, y el plano con nueve mesas. La 2 pintada de azul y la 3 de ámbar, las dos con 0 min." loading="lazy" width="1440" height="630">
+  <img src="{{ '/assets/img/fornu/manual/salon-plano.jpg' | relative_url }}" alt="El salón en vista Plano y Base: pestañas Salón con 14 mesas abiertas y Salón de eventos con 7, y el croquis del local con sus paredes y las mesas como rectángulos y círculos, cada una con su número y el color de su estado." loading="lazy" width="1364" height="600">
   <ol class="marks">
-    <li><b>Plano</b>: el salón dibujado.</li>
+    <li><b>Plano</b> o <b>Lista</b>.</li>
     <li>Un sector por pestaña, con cuántas mesas tiene abiertas.</li>
-    <li>La mesa 2, en azul: ocupada.</li>
-    <li>La mesa 3, en ámbar: tiene algo cargado sin mandar a la cocina.</li>
+    <li><b>Base</b>: el croquis, con la forma del salón y las mesas.</li>
+    <li>La mesa 9, en azul: ocupada.</li>
+    <li>La mesa 6, en ámbar: tiene algo cargado sin mandar a la cocina.</li>
   </ol>
   <figcaption>El mismo salón, en plano.</figcaption>
 </figure>
@@ -165,7 +166,7 @@ Cada mesa muestra un solo estado: si le corresponde más de uno, el de más arri
 3. En **¿Cuántos se sientan?**, tocá la cantidad. Aparece marcado el número igual a las sillas de la mesa.
 {: .steps}
 
-Con ese toque la mesa queda abierta a tu nombre y su cuenta se abre al lado, lista para cargar. El cuadro se cierra si tocás afuera o apretás <kbd>Esc</kbd>.
+Con ese toque la mesa queda abierta a tu nombre y su carta se abre al lado del plano (en el teléfono, sube desde abajo), lista para cargar: el pedido se toma sin salir del salón. El cuadro se cierra si tocás afuera o apretás <kbd>Esc</kbd>.
 
 <figure class="shot">
   <img src="{{ '/assets/img/fornu/manual/salon-sentar.jpg' | relative_url }}" alt="El cuadro que se abre al tocar la mesa 1 libre: Mesa 1 · 4 sillas, la pregunta ¿Cuántos se sientan?, botones del 1 al 8 con el 4 marcado, y el link Más opciones." loading="lazy" width="740" height="370">
@@ -188,6 +189,30 @@ Con ese toque la mesa queda abierta a tu nombre y su cuenta se abre al lado, lis
 </figure>
 
 Si dos personas sientan la misma mesa a la vez, la segunda ve «La mesa 4 ya está ocupada.» y el salón se actualiza.
+
+### Tomar el pedido sobre el plano {#en-el-plano}
+
+La mesa que acabás de sentar, o la que tocás, aparece al lado del plano: en la computadora a la derecha, en una tablet flotando sobre el plano y en el teléfono subiendo desde abajo. Tiene dos caras, **Carta** y **Cuenta**.
+
+1. En **Carta**, tocá lo que pide la mesa. Cada toque carga una línea, y un producto con opciones abre su diálogo.
+2. Lo cargado se junta abajo, en **Sin mandar**, con − y + para cambiar cuántos. En el plano, la mesa se pinta de ámbar: «sin mandar».
+3. Tocá **Mandar** (o <kbd>Ctrl</kbd> <kbd>Enter</kbd>). La ronda va a la cocina, la mesa pasa a azul y su panel muestra la **Cuenta**.
+{: .steps}
+
+<figure class="shot">
+  <img src="{{ '/assets/img/fornu/manual/salon-carta.jpg' | relative_url }}" alt="Pedidos › Venta en vista 3D: el salón de ejemplo con la mesa 11 recién sentada, pintada de ámbar, y a la derecha la mesa 11 en Carta, con la búsqueda, los productos de Burgers y Para acompañar, el bloque Sin mandar con Papas fritas y Gaseosa en lata, y el botón Mandar 2." loading="lazy" width="1364" height="740">
+  <ol class="marks">
+    <li>La mesa 11 en el plano: «sin mandar».</li>
+    <li><b>Carta</b> y <b>Cuenta</b>.</li>
+    <li>La carta: la búsqueda, las categorías y los productos.</li>
+    <li><b>Sin mandar</b>: lo cargado, con − y +.</li>
+    <li><b>Mandar 2</b>: la ronda a la cocina.</li>
+    <li>La flecha: la mesa entera.</li>
+  </ol>
+  <figcaption>El pedido de la mesa 11, tomado al lado del plano.</figcaption>
+</figure>
+
+Otro toque sobre la misma mesa, o la flecha de su panel, la abre entera: la pantalla completa de la mesa, para mover, unir, descontar o anular.
 
 ### Ir a una mesa por número
 
@@ -212,7 +237,7 @@ Abre la mesa esté libre u ocupada. Busca primero una mesa que se llame exactame
 
 ## La mesa abierta {#mesa}
 
-Al tocar una mesa ocupada se abre su cuenta. En la computadora aparece al lado del salón, para no perderlo de vista. En una pantalla más chica ocupa todo el lugar, con una flecha arriba para volver. Ahí se carga lo que piden, se manda a la cocina por rondas y se pide o se cobra la cuenta.
+La mesa entera se abre con un segundo toque sobre la mesa, o con la flecha de su panel. En la computadora aparece al lado del salón, para no perderlo de vista. En una pantalla más chica ocupa todo el lugar, con una flecha arriba para volver. Ahí se carga lo que piden, se manda a la cocina por rondas y se pide o se cobra la cuenta.
 
 <p class="perm"><span>Quién puede:</span> <span class="tag">Atender mesas</span></p>
 
@@ -389,15 +414,17 @@ Si después se carga algo más, la mesa deja de figurar como que pidió la cuent
 
 ### En el teléfono
 
-En el teléfono la cuenta ocupa toda la pantalla, y la flecha de arriba vuelve al salón. **Carta** y **Cuenta** son dos pestañas. Mientras estás en la carta con algo cargado, abajo aparece una barra con «2 sin mandar · $ 25.700» (tocala para ver la cuenta) y el botón **Mandar**, para mandar sin cambiar de pestaña.
+En el teléfono la mesa sube desde abajo, sobre el plano, que queda arriba con la mesa a la vista. **Carta** y **Cuenta** son dos pestañas. Lo cargado aparece abajo, en **Sin mandar**, con − y +, y **Mandar** lo manda sin cambiar de pestaña. La flecha de la mesa la abre entera, en toda la pantalla.
 
 <figure class="shot phone">
-  <img src="{{ '/assets/img/fornu/manual/salon-telefono-sin-mandar.jpg' | relative_url }}" alt="La mesa 9 en el teléfono de una moza, en la pestaña Carta, con la barra de abajo que dice 2 sin mandar · $ 6.500 y el botón Mandar" loading="lazy" width="390" height="844">
+  <img src="{{ '/assets/img/fornu/manual/salon-telefono-sin-mandar.jpg' | relative_url }}" alt="El teléfono de una moza en Venta: arriba el plano en 2D con la mesa 12 marcada, y desde abajo la mesa 12 en la pestaña Carta, con Sin mandar · $ 6.500 (Papas fritas y Gaseosa en lata) y el botón Mandar 2." loading="lazy" width="390" height="844">
   <ol class="marks">
-    <li>Lo que falta mandar: tocalo para ver la cuenta.</li>
-    <li><b>Mandar</b>, sin salir de la carta.</li>
+    <li>La mesa 12, arriba en el plano.</li>
+    <li><b>Carta</b> y <b>Cuenta</b>.</li>
+    <li><b>Sin mandar</b>, con − y +.</li>
+    <li><b>Mandar</b>.</li>
   </ol>
-  <figcaption>La barra de lo que falta mandar, en el teléfono.</figcaption>
+  <figcaption>La mesa sube desde abajo y el plano queda arriba.</figcaption>
 </figure>
 
 ## Sobre una línea o sobre la mesa {#acciones}

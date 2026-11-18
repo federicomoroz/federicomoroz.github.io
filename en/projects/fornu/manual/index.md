@@ -43,7 +43,7 @@ Every account has the base: the orders board and its own delivery, the menu, sto
 | Module | What it adds |
 |---|---|
 | **Salón** (dining room) | Tables and sections, waiters with a PIN, rounds to the kitchen by course, split payments with tips, the counter and the express counter. |
-| **Constructor de espacios** (space builder) | The floor plan with walls, floors, doors, windows and objects, seen from above or in isometric view. |
+| **Constructor de espacios** (space builder) | The floor plan with walls, floors, doors, windows and objects, seen in 2D or in 3D. |
 | **Delivery por plataformas** (platform delivery) | Rappi and PedidosYa on the same board, the menu published to each store, and sold-out items switched off by themselves. |
 | **Facturación electrónica** (electronic invoicing) | Type A, B and C invoices with an ARCA CAE, automatic or by hand, their credit notes and the list for the accountant. |
 | **Personal** (staff) | Attendance, PIN clock-in, schedules, payroll and advances. |
